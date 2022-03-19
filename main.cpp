@@ -1,9 +1,9 @@
 #include <QApplication>
 
-#include "Controller/controller.h"
+#include "Controller/сontroller.h"
 
 int main(int argc, char* argv[]) {
   QApplication a(argc, argv);
-  Controller controller;
+  сontroller controller;
   return QApplication::exec();
 }

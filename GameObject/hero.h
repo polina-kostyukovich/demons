@@ -1,9 +1,9 @@
 #ifndef HERO_H_
 #define HERO_H_
 
-#include "Creature.h"
+#include "сreature.h"
 
-class Hero : public Creature {
+class hero : public Creature {
 
 };
 

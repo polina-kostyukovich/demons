@@ -3,7 +3,7 @@
 
 #include "abstract_controller.h"
 
-class Controller : public AbstractController {
+class сontroller : public AbstractController {
 
 };
 

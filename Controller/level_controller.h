@@ -1,9 +1,9 @@
 #ifndef LEVEL_CONTROLLER_H_
 #define LEVEL_CONTROLLER_H_
 
-#include "controller.h"
+#include "сontroller.h"
 
-class LevelController : public Controller {
+class LevelController : public сontroller {
 
 };
 

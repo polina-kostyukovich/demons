@@ -3,7 +3,7 @@
 
 #include "static_object.h"
 
-class Wall : public StaticObject {
+class wall : public StaticObject {
 
 };
 

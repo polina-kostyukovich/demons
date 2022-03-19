@@ -19,16 +19,16 @@ add_executable(demons
         Model/constants.h
         Controller/abstract_controller.cpp
         Controller/abstract_controller.h
-        Controller/controller.cpp
-        Controller/controller.h
+        Controller/сontroller.cpp
+        Controller/сontroller.h
         Controller/level_controller.cpp
         Controller/level_controller.h
         GameObject/boiler.cpp
         GameObject/boiler.h
         GameObject/boss.cpp
         GameObject/boss.h
-        GameObject/creature.cpp
-        GameObject/creature.h
+        GameObject/сreature.cpp
+        GameObject/сreature.h
         GameObject/dynamic_object.cpp
         GameObject/dynamic_object.h
         GameObject/game_object.cpp
@@ -51,8 +51,8 @@ add_executable(demons
         Util/util.h
         Util/points.cpp
         Util/points.h
-        Util/colisions.cpp
-        Util/colisions.h
+        Util/collisions.cpp
+        Util/collisions.h
         View/view.cpp
         View/view.h)
 target_link_libraries(demons

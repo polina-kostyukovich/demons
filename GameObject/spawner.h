@@ -3,7 +3,7 @@
 
 #include "dynamic_object.h"
 
-class Spawner : public DynamicObject {
+class spawner : public DynamicObject {
 
 };
 
