@@ -1,8 +1,8 @@
-#ifndef UTIL_H_
-#define UTIL_H_
+#ifndef UTIL_UTIL_H_
+#define UTIL_UTIL_H_
 
-class util {
+class Util {
 
 };
 
-#endif  // UTIL_H_
+#endif  // UTIL_UTIL_H_

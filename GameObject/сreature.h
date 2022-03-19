@@ -1,5 +1,5 @@
-#ifndef CREATURE_H_
-#define CREATURE_H_
+#ifndef GAMEOBJECT_CREATURE_H_
+#define GAMEOBJECT_CREATURE_H_
 
 #include "dynamic_object.h"
 
@@ -7,4 +7,4 @@ class Creature : public DynamicObject {
 
 };
 
-#endif  // CREATURE_H_
+#endif  // GAMEOBJECT_CREATURE_H_

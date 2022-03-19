@@ -1,8 +1,8 @@
-#ifndef MAP_H_
-#define MAP_H_
+#ifndef MAP_MAP_H_
+#define MAP_MAP_H_
 
-class map{
+class Map {
 
 };
 
-#endif  // MAP_H_
+#endif  // MAP_MAP_H_

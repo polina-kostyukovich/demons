@@ -1,10 +1,10 @@
-#ifndef BOSS_H_
-#define BOSS_H_
+#ifndef GAMEOBJECT_BOSS_H_
+#define GAMEOBJECT_BOSS_H_
 
 #include "npc.h"
 
-class boss : public npc {
+class Boss : public Npc {
 
 };
 
-#endif  // BOSS_H_
+#endif  // GAMEOBJECT_BOSS_H_

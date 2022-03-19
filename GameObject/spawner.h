@@ -1,10 +1,10 @@
-#ifndef SPAWNER_H_
-#define SPAWNER_H_
+#ifndef GAMEOBJECT_SPAWNER_H_
+#define GAMEOBJECT_SPAWNER_H_
 
 #include "dynamic_object.h"
 
-class spawner : public DynamicObject {
+class Spawner : public DynamicObject {
 
 };
 
-#endif  // SPAWNER_H_
+#endif  // GAMEOBJECT_SPAWNER_H_

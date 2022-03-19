@@ -1,10 +1,10 @@
-#ifndef WALL_H_
-#define WALL_H_
+#ifndef GAMEOBJECT_WALL_H_
+#define GAMEOBJECT_WALL_H_
 
 #include "static_object.h"
 
-class wall : public StaticObject {
+class Wall : public StaticObject {
 
 };
 
-#endif  // WALL_H_
+#endif  // GAMEOBJECT_WALL_H_

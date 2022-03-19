@@ -1,8 +1,8 @@
-#ifndef CONSTANTS_H_
-#define CONSTANTS_H_
+#ifndef MODEL_CONSTANTS_H_
+#define MODEL_CONSTANTS_H_
 
 namespace constants {
 
-}  // end namespace constants
+}  // namespace constants
 
-#endif  // CONSTANTS_H_
+#endif  // MODEL_CONSTANTS_H_

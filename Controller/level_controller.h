@@ -1,10 +1,10 @@
-#ifndef LEVEL_CONTROLLER_H_
-#define LEVEL_CONTROLLER_H_
+#ifndef CONTROLLER_LEVEL_CONTROLLER_H_
+#define CONTROLLER_LEVEL_CONTROLLER_H_
 
 #include "сontroller.h"
 
-class LevelController : public сontroller {
+class LevelController : public Controller {
 
 };
 
-#endif  // LEVEL_CONTROLLER_H_
+#endif  // CONTROLLER_LEVEL_CONTROLLER_H_

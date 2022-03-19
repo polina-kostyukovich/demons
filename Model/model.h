@@ -1,8 +1,8 @@
-#ifndef MODEL_H_
-#define MODEL_H_
+#ifndef MODEL_MODEL_H_
+#define MODEL_MODEL_H_
 
-class model {
+class Model {
 
 };
 
-#endif  // MODEL_H_
+#endif  // MODEL_MODEL_H_

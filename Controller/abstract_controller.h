@@ -1,8 +1,8 @@
-#ifndef ABSTRACT_CONTROLLER_H_
-#define ABSTRACT_CONTROLLER_H_
+#ifndef CONTROLLER_ABSTRACT_CONTROLLER_H_
+#define CONTROLLER_ABSTRACT_CONTROLLER_H_
 
-class AbstractController{
+class AbstractController {
 
 };
 
-#endif  // ABSTRACT_CONTROLLER_H_
+#endif  // CONTROLLER_ABSTRACT_CONTROLLER_H_

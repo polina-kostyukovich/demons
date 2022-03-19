@@ -1,10 +1,10 @@
-#ifndef HERO_H_
-#define HERO_H_
+#ifndef GAMEOBJECT_HERO_H_
+#define GAMEOBJECT_HERO_H_
 
 #include "сreature.h"
 
-class hero : public Creature {
+class Hero : public Creature {
 
 };
 
-#endif  // HERO_H_
+#endif  // GAMEOBJECT_HERO_H_

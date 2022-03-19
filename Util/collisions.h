@@ -1,10 +1,10 @@
-#ifndef COLISIONS_H_
-#define COLISIONS_H_
+#ifndef UTIL_COLISIONS_H_
+#define UTIL_COLISIONS_H_
 
 #include "util.h"
 
-class Colisions : public util {
+class Colisions : public Util {
 
 };
 
-#endif  // COLISIONS_H_
+#endif  // UTIL_COLISIONS_H_

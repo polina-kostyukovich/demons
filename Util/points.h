@@ -1,10 +1,10 @@
-#ifndef POINTS_H
-#define POINTS_H
+#ifndef UTIL_POINTS_H
+#define UTIL_POINTS_H
 
 #include "util.h"
 
-class points : public util {
+class Points : public Util {
 
 };
 
-#endif //POINTS_H
+#endif // UTIL_POINTS_H

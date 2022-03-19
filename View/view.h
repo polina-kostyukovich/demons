@@ -1,8 +1,8 @@
-#ifndef VIEW_H_
-#define VIEW_H_
+#ifndef VIEW_VIEW_H_
+#define VIEW_VIEW_H_
 
-class view {
+class View {
 
 };
 
-#endif  // VIEW_H_
+#endif  // VIEW_VIEW_H_
