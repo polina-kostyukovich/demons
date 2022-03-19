@@ -1,7 +1,7 @@
 #ifndef GAMEOBJECT_NPC_H_
 #define GAMEOBJECT_NPC_H_
 
-#include "сreature.h"
+#include "creature.h"
 
 class Npc : public Creature {
 };

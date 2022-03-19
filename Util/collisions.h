@@ -1,9 +1,9 @@
-#ifndef UTIL_COLISIONS_H_
-#define UTIL_COLISIONS_H_
+#ifndef UTIL_COLLISIONS_H_
+#define UTIL_COLLISIONS_H_
 
 #include "util.h"
 
 class Collisions : public Util {
 };
 
-#endif  // UTIL_COLISIONS_H_
+#endif  // UTIL_COLLISIONS_H_

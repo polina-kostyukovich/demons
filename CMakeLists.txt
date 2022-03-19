@@ -25,8 +25,8 @@ add_executable(demons
         Controller/level_controller.h
         GameObject/boss.cpp
         GameObject/boss.h
-        GameObject/сreature.cpp
-        GameObject/сreature.h
+        GameObject/creature.cpp
+        GameObject/creature.h
         GameObject/dynamic_object.cpp
         GameObject/dynamic_object.h
         GameObject/game_object.cpp

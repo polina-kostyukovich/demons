@@ -1,9 +1,9 @@
-#ifndef UTIL_POINTS_H
-#define UTIL_POINTS_H
+#ifndef UTIL_POINTS_H_
+#define UTIL_POINTS_H_
 
 #include "util.h"
 
 class Points : public Util {
 };
 
-#endif // UTIL_POINTS_H
+#endif  // UTIL_POINTS_H_
