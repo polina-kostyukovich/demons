@@ -4,7 +4,6 @@
 #include "сreature.h"
 
 class Hero : public Creature {
-
 };
 
 #endif  // GAMEOBJECT_HERO_H_

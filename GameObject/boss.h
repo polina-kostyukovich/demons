@@ -4,7 +4,6 @@
 #include "npc.h"
 
 class Boss : public Npc {
-
 };
 
 #endif  // GAMEOBJECT_BOSS_H_

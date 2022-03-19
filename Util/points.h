@@ -4,7 +4,6 @@
 #include "util.h"
 
 class Points : public Util {
-
 };
 
 #endif // UTIL_POINTS_H

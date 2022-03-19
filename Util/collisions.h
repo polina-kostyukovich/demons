@@ -3,8 +3,7 @@
 
 #include "util.h"
 
-class Colisions : public Util {
-
+class Collisions : public Util {
 };
 
 #endif  // UTIL_COLISIONS_H_

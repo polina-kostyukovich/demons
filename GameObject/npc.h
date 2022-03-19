@@ -3,8 +3,7 @@
 
 #include "сreature.h"
 
-class npc : public Creature {
-
+class Npc : public Creature {
 };
 
 #endif  // GAMEOBJECT_NPC_H_

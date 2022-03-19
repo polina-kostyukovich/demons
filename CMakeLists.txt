@@ -19,12 +19,10 @@ add_executable(demons
         Model/constants.h
         Controller/abstract_controller.cpp
         Controller/abstract_controller.h
-        Controller/сontroller.cpp
-        Controller/сontroller.h
+        Controller/controller.h
+        Controller/controller.cpp
         Controller/level_controller.cpp
         Controller/level_controller.h
-        GameObject/boiler.cpp
-        GameObject/boiler.h
         GameObject/boss.cpp
         GameObject/boss.h
         GameObject/сreature.cpp

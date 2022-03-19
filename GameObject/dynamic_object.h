@@ -4,7 +4,6 @@
 #include "game_object.h"
 
 class DynamicObject : public GameObject {
-
 };
 
 #endif  // GAMEOBJECT_DYNAMIC_OBJECT_H_

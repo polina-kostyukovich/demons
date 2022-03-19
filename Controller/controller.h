@@ -4,7 +4,6 @@
 #include "abstract_controller.h"
 
 class Controller : public AbstractController {
-
 };
 
 #endif  // CONTROLLER_CONTROLLER_H_
