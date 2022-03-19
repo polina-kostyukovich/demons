@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
-project(game)
+project(demons)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
@@ -13,7 +13,7 @@ find_package(Qt6 COMPONENTS
         Widgets
         REQUIRED)
 
-add_executable(game
+add_executable(demons
         main.cpp
         Model/constants.cpp
         Model/constants.h
@@ -55,7 +55,7 @@ add_executable(game
         Util/colisions.h
         View/view.cpp
         View/view.h)
-target_link_libraries(game
+target_link_libraries(demons
         Qt::Core
         Qt::Gui
         Qt::Widgets
