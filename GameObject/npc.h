@@ -3,7 +3,7 @@
 
 #include "сreature.h"
 
-class NPC : public Creature {
+class npc : public Creature {
 
 };
 
