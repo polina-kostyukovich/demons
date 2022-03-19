@@ -1,9 +1,7 @@
 #ifndef UTIL_COLLISIONS_H_
 #define UTIL_COLLISIONS_H_
 
-#include "util.h"
-
-class Collisions : public Util {
+class Collisions {
 };
 
 #endif  // UTIL_COLLISIONS_H_
