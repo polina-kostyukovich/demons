@@ -1,7 +1,7 @@
 #ifndef CREATURE_H_
 #define CREATURE_H_
 
-#include "DynamicObject.h"
+#include "dynamic_object.h"
 
 class Creature : public DynamicObject {
 

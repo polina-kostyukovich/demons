@@ -1,7 +1,7 @@
 #ifndef CONTROLLER_H_
 #define CONTROLLER_H_
 
-#include "AbstractController.h"
+#include "abstract_controller.h"
 
 class Controller : public AbstractController {
 

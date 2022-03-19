@@ -1,7 +1,7 @@
 #ifndef SPAWNER_H_
 #define SPAWNER_H_
 
-#include "DynamicObject.h"
+#include "dynamic_object.h"
 
 class Spawner : public DynamicObject {
 

@@ -1,7 +1,7 @@
 #ifndef BOILER_H_
 #define BOILER_H_
 
-#include "StaticObject.h"
+#include "static_object.h"
 
 class Boiler : public StaticObject {
 

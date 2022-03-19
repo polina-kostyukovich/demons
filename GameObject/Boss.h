@@ -1,7 +1,7 @@
 #ifndef BOSS_H_
 #define BOSS_H_
 
-#include "NPC.h"
+#include "npc.h"
 
 class Boss : public NPC {
 
