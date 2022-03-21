@@ -4,10 +4,13 @@
 #include <complex>
 #include <ostream>
 
+#include "../Model/constants.h"
+
 class Point {
  public:
     Point();
     Point(long double x, long double y);
+    Point(const std::pair<long double, long double>& coords);
     Point(const Point& point);
     Point(Point&& point);
 
@@ -23,12 +26,8 @@ class Point {
 
     friend Point operator+(const Point& first, const Point& second);
     friend Point operator-(const Point& first, const Point& second);
-    friend Point operator*(const Point& first, const Point& second);
-    friend Point operator/(const Point& first, const Point& second);
     Point& operator+=(const Point& another_point);
     Point& operator-=(const Point& another_point);
-    Point& operator*=(const Point& another_point);
-    Point& operator/=(const Point& another_point);
 
     friend Point operator+(const Point& point, long double num);
     friend Point operator-(const Point& point, long double num);
@@ -44,8 +43,6 @@ class Point {
     Point& operator/=(long double num);
 
     friend std::ostream& operator<<(std::ostream& out, const Point& point);
-
-    constexpr static const long double epsilon = 10;
 
  private:
     long double x_;

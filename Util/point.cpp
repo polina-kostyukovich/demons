@@ -8,6 +8,10 @@ Point::Point(long double x, long double y) {
     x_ = x;
     y_ = y;
 }
+Point::Point(const std::pair<long double, long double>& coords) {
+    x_ = coords.first;
+    y_ = coords.second;
+}
 Point::Point(const Point& point) {
     x_ = point.x_;
     y_ = point.y_;
@@ -18,13 +22,16 @@ Point::Point(Point&& point) {
 }
 
 bool Point::operator==(const Point& another_point) {
-    if (x_ != another_point.x_) {
-        return false;
+    if (x_ == another_point.x_ && y_ == another_point.y_) {
+        return true;
     }
-    return (y_ == another_point.y_);
+    return false;
 }
 bool Point::operator!=(const Point &another_point) {
-    return !(*this == another_point);
+    if (x_ == another_point.x_ && y_ == another_point.y_) {
+        return false;
+    }
+    return true;
 }
 
 Point& Point::operator=(const Point& another_point) {
@@ -48,7 +55,7 @@ long double Point::Distance(const Point& first, const Point& second) {
     return std::sqrt(squared_distance);
 }
 bool Point::IsClose(const Point& another_point) {
-    return (Point::Distance(*this, another_point) <= epsilon);
+    return (Point::Distance(*this, another_point) <= constants::epsilon);
 }
 void Point::Normalize() {
     long double sum = x_ + y_;
@@ -65,16 +72,6 @@ Point operator-(const Point& first, const Point& second) {
     result -= second;
     return result;
 }
-Point operator*(const Point& first, const Point& second) {
-    Point result(first);
-    result *= second;
-    return result;
-}
-Point operator/(const Point& first, const Point& second) {
-    Point result(first);
-    result /= second;
-    return result;
-}
 Point& Point::operator+=(const Point& another_point) {
     x_ += another_point.x_;
     y_ += another_point.y_;
@@ -83,20 +80,6 @@ Point& Point::operator+=(const Point& another_point) {
 Point& Point::operator-=(const Point& another_point) {
     x_ -= another_point.x_;
     y_ -= another_point.y_;
-    return *this;
-}
-Point& Point::operator*=(const Point& another_point) {
-    x_ *= another_point.x_;
-    y_ *= another_point.y_;
-    return *this;
-}
-Point& Point::operator/=(const Point& another_point) {
-    if (another_point.x_ == 0 || another_point.y_ == 0) {
-        throw "Bad division";
-        return *this;
-    }
-    x_ /= another_point.x_;
-    y_ /= another_point.y_;
     return *this;
 }
 
@@ -158,7 +141,6 @@ Point& Point::operator/=(long double num) {
 }
 
 std::ostream& operator<<(std::ostream& out, const Point &point) {
-    out << point.x_ << " " << point.y_ << "\n";
+    out << "Point: " << point.x_ << " " << point.y_ << "\n";
     return out;
 }
-
