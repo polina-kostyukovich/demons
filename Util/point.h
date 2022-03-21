@@ -3,6 +3,7 @@
 
 #include <complex>
 #include <ostream>
+#include <utility>
 
 #include "../Model/constants.h"
 
@@ -10,7 +11,7 @@ class Point {
  public:
     Point();
     Point(long double x, long double y);
-    Point(const std::pair<long double, long double>& coords);
+    explicit Point(const std::pair<long double, long double>& coords);
     Point(const Point& point);
     Point(Point&& point);
 
