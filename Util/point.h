@@ -1,5 +1,5 @@
-#ifndef UTIL_POINT_H
-#define UTIL_POINT_H
+#ifndef UTIL_POINT_H_
+#define UTIL_POINT_H_
 
 #include <complex>
 #include <ostream>
@@ -53,4 +53,4 @@ class Point {
 };
 
 
-#endif  // UTIL_POINT_H
+#endif  // UTIL_POINT_H_
