@@ -1,11 +1,11 @@
-#ifndef POINT_H
-#define POINT_H
+#ifndef UTIL_POINT_H
+#define UTIL_POINT_H
 
 #include <complex>
 #include <ostream>
 
 class Point {
-public:
+ public:
     Point();
     Point(long double x, long double y);
     Point(const Point& point);
@@ -46,10 +46,11 @@ public:
     friend std::ostream& operator<<(std::ostream& out, const Point& point);
 
     constexpr static const long double epsilon = 10;
-private:
+
+ private:
     long double x_;
     long double y_;
 };
 
 
-#endif  // POINT_H
+#endif  // UTIL_POINT_H
