@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <complex>
+#include <iostream>
 
 Point::Point() {
     x_ = 0;
@@ -105,7 +106,10 @@ Point& Point::operator*=(long double num) {
     return *this;
 }
 Point& Point::operator/=(long double num) {
-    assert(num != 0);
+    if (num == 0) {
+        std::cerr << "Zero division";
+        assert(false);
+    }
     x_ /= num;
     y_ /= num;
     return *this;
