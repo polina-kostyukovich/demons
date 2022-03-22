@@ -1,7 +1,6 @@
 #ifndef UTIL_POINT_H_
 #define UTIL_POINT_H_
 
-#include <complex>
 #include <ostream>
 #include <utility>
 
@@ -11,13 +10,17 @@ class Point {
  public:
     Point();
     Point(long double x, long double y);
-    explicit Point(const std::pair<long double, long double>& coords);
     Point(const Point& point);
     Point(Point&& point);
 
-    void Normalize();
     bool IsClose(const Point& another_point);
     static long double Distance(const Point& first, const Point& second);
+
+    void SetX(long double new_x);
+    void SetY(long double new_y);
+
+    long double GetX() const;
+    long double GetY() const;
 
     bool operator==(const Point& another_point);
     bool operator!=(const Point& another_point);
@@ -49,6 +52,5 @@ class Point {
     long double x_;
     long double y_;
 };
-
 
 #endif  // UTIL_POINT_H_
