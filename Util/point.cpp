@@ -27,7 +27,7 @@ long double Point::Distance(const Point& first, const Point& second) {
     long double squared_distance = (delta_x * delta_x) + (delta_y * delta_y);
     return std::sqrt(squared_distance);
 }
-bool Point::IsClose(const Point& another_point) {
+bool Point::IsClose(const Point& another_point) const {
     return (Distance(*this, another_point) <= constants::kClose);
 }
 
@@ -45,10 +45,10 @@ long double Point::GetY() const {
     return y_;
 }
 
-bool Point::operator==(const Point& another_point) {
+bool Point::operator==(const Point& another_point) const {
     return (Distance(*this, another_point) <= constants::kEpsilon);
 }
-bool Point::operator!=(const Point &another_point) {
+bool Point::operator!=(const Point &another_point) const {
     return !(*this == another_point);
 }
 

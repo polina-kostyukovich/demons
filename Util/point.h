@@ -8,12 +8,12 @@
 
 class Point {
  public:
-    Point();
+    Point() = default;
     Point(long double x, long double y);
     Point(const Point& point);
     Point(Point&& point);
 
-    bool IsClose(const Point& another_point);
+    bool IsClose(const Point& another_point) const;
     static long double Distance(const Point& first, const Point& second);
 
     void SetX(long double new_x);
@@ -22,8 +22,8 @@ class Point {
     long double GetX() const;
     long double GetY() const;
 
-    bool operator==(const Point& another_point);
-    bool operator!=(const Point& another_point);
+    bool operator==(const Point& another_point) const;
+    bool operator!=(const Point& another_point) const;
 
     Point& operator=(const Point& another_point);
     Point& operator=(Point&& another_point);
@@ -43,8 +43,8 @@ class Point {
     friend std::ostream& operator<<(std::ostream& out, const Point& point);
 
  private:
-    long double x_;
-    long double y_;
+    long double x_{0};
+    long double y_{0};
 };
 
 #endif  // UTIL_POINT_H_
