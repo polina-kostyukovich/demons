@@ -1,5 +1,6 @@
 #include <cassert>
 #include "app.h"
+#include <utility>
 
 App::App(std::unique_ptr<Model>&& model,
          std::unique_ptr<View>&& view,
