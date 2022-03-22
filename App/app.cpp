@@ -14,3 +14,4 @@ App::App(std::unique_ptr<Model>&& model,
 
 void App::Run() {
 }
+
