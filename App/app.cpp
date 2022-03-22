@@ -1,7 +1,7 @@
+#include "app.h"
+
 #include <cassert>
 #include <utility>
-
-#include "app.h"
 
 App::App(std::unique_ptr<Model>&& model,
          std::unique_ptr<View>&& view,
