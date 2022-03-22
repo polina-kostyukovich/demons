@@ -5,7 +5,9 @@
 
 class App {
  public:
-  App(const Model* model, const View* view, const Controller* controller);
+  App(std::unique_ptr<Model>&& model,
+      std::unique_ptr<View>&& view,
+      std::unique_ptr<Controller>&& controller);
 
   void Run();
 
@@ -13,7 +15,6 @@ class App {
   std::unique_ptr<Model> model_ = nullptr;
   std::unique_ptr<View> view_ = nullptr;
   std::unique_ptr<Controller> controller_ = nullptr;
-  inline static bool is_running_ = false;
 };
 
 #endif  // APP_APP_H_

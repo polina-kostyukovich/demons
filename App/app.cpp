@@ -1,15 +1,14 @@
 #include <cassert>
 #include "app.h"
 
-App::App(const Model* model, const View* view, const Controller* controller) {
-  if (is_running_) {
-    assert(false);
-  }
+App::App(std::unique_ptr<Model>&& model,
+         std::unique_ptr<View>&& view,
+         std::unique_ptr<Controller>&& controller) {
+  assert(model_ == nullptr && view_ == nullptr && controller_ == nullptr);
 
-  model_ = std::make_unique<Model>(*model);
-  view_ = std::make_unique<View>(*view);
-  controller_ = std::make_unique<Controller>(*controller);
-  is_running_ = true;
+  model_ = std::move(model);
+  view_ = std::move(view);
+  controller_ = std::move(controller_);
 }
 
 void App::Run() {
