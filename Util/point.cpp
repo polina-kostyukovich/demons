@@ -4,10 +4,6 @@
 #include <complex>
 #include <iostream>
 
-Point::Point() {
-    x_ = 0;
-    y_ = 0;
-}
 Point::Point(long double x, long double y) {
     x_ = x;
     y_ = y;
