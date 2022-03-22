@@ -105,9 +105,7 @@ Point& Point::operator*=(long double num) {
     return *this;
 }
 Point& Point::operator/=(long double num) {
-    if (num == 0) {
-        assert("Zero division!");
-    }
+    assert(num != 0);
     x_ /= num;
     y_ /= num;
     return *this;
