@@ -9,7 +9,7 @@ App::App(std::unique_ptr<Model>&& model,
 
   model_ = std::move(model);
   view_ = std::move(view);
-  controller_ = std::move(controller_);
+  controller_ = std::move(controller);
 }
 
 void App::Run() {
