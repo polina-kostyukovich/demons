@@ -58,9 +58,6 @@ Point& Point::operator=(const Point& another_point) {
     return *this;
 }
 Point& Point::operator=(Point&& another_point) {
-    if (another_point == *this) {
-        return *this;
-    }
     x_ = another_point.x_;
     y_ = another_point.y_;
     return *this;
@@ -107,7 +104,7 @@ Point& Point::operator*=(long double num) {
 }
 Point& Point::operator/=(long double num) {
     if (num == 0) {
-        std::cerr << "Zero division";
+        std::cerr << "Zero division\n";
         assert(false);
     }
     x_ /= num;
