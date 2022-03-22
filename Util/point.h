@@ -36,7 +36,6 @@ class Point {
     friend Point operator*(const Point& point, long double num);
     friend Point operator/(const Point& point, long double num);
     friend Point operator*(long double num, const Point& point);
-    friend Point operator/(long double num, const Point& point);
 
     Point& operator*=(long double num);
     Point& operator/=(long double num);

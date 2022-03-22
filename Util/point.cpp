@@ -99,9 +99,6 @@ Point operator/(const Point& point, long double num) {
 Point operator*(long double num, const Point& point) {
     return (point * num);
 }
-Point operator/(long double num, const Point& point) {
-    return (point / num);
-}
 Point& Point::operator*=(long double num) {
     x_ *= num;
     y_ *= num;
