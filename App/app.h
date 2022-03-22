@@ -1,5 +1,5 @@
-#ifndef APP_APP_H
-#define APP_APP_H
+#ifndef APP_APP_H_
+#define APP_APP_H_
 
 #include <memory>
 
@@ -16,4 +16,4 @@ class App {
   inline static bool is_running_ = false;
 };
 
-#endif  // APP_APP_H
+#endif  // APP_APP_H_

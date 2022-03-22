@@ -13,5 +13,4 @@ App::App(const Model* model, const View* view, const Controller* controller) {
 }
 
 void App::Run() {
-
 }
