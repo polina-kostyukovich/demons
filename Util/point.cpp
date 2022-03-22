@@ -86,16 +86,6 @@ Point& Point::operator-=(const Point& another_point) {
     return *this;
 }
 
-Point operator+(const Point& point, long double num) {
-    Point result(point);
-    result += num;
-    return result;
-}
-Point operator-(const Point& point, long double num) {
-    Point result(point);
-    result -= num;
-    return result;
-}
 Point operator*(const Point& point, long double num) {
     Point result(point);
     result *= num;
@@ -106,27 +96,11 @@ Point operator/(const Point& point, long double num) {
     result /= num;
     return result;
 }
-Point operator+(long double num, const Point& point) {
-    return (point + num);
-}
-Point operator-(long double num, const Point& point) {
-    return (point - num);
-}
 Point operator*(long double num, const Point& point) {
     return (point * num);
 }
 Point operator/(long double num, const Point& point) {
     return (point / num);
-}
-Point& Point::operator+=(long double num) {
-    x_ += num;
-    y_ += num;
-    return *this;
-}
-Point& Point::operator-=(long double num) {
-    x_ -= num;
-    y_ -= num;
-    return *this;
 }
 Point& Point::operator*=(long double num) {
     x_ *= num;

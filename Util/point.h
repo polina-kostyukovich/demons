@@ -28,21 +28,20 @@ class Point {
     Point& operator=(const Point& another_point);
     Point& operator=(Point&& another_point);
 
+    friend Point operator+(const Point& first, std::pair<long double, long double> c){
+        return Point(0, 0);
+    };
+
     friend Point operator+(const Point& first, const Point& second);
     friend Point operator-(const Point& first, const Point& second);
     Point& operator+=(const Point& another_point);
     Point& operator-=(const Point& another_point);
 
-    friend Point operator+(const Point& point, long double num);
-    friend Point operator-(const Point& point, long double num);
     friend Point operator*(const Point& point, long double num);
     friend Point operator/(const Point& point, long double num);
-    friend Point operator+(long double num, const Point& point);
-    friend Point operator-(long double num, const Point& point);
     friend Point operator*(long double num, const Point& point);
     friend Point operator/(long double num, const Point& point);
-    Point& operator+=(long double num);
-    Point& operator-=(long double num);
+
     Point& operator*=(long double num);
     Point& operator/=(long double num);
 
