@@ -44,7 +44,7 @@ long double Point::GetY() const {
 bool Point::operator==(const Point& another_point) const {
     return (Distance(*this, another_point) <= constants::kEpsilon);
 }
-bool Point::operator!=(const Point &another_point) const {
+bool Point::operator!=(const Point& another_point) const {
     return !(*this == another_point);
 }
 
@@ -108,7 +108,7 @@ Point& Point::operator/=(long double num) {
     return *this;
 }
 
-std::ostream& operator<<(std::ostream& out, const Point &point) {
-    out << "Point: " << point.x_ << " " << point.y_ << "\n";
+std::ostream& operator<<(std::ostream& out, const Point& point) {
+    out << "Point(" << point.x_ << ", " << point.y_ << ");\n";
     return out;
 }
