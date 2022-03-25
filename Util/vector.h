@@ -19,18 +19,18 @@ class Vector {
   long double GetY() const;
 
   void Normalize();
-  long double Length();
+  long double Length() const;
 
-  void operator=(const Vector& vector);
-  void operator=(Vector&& vector);
+  Vector& operator=(const Vector& vector);
+  Vector& operator=(Vector&& vector);
 
   bool operator==(const Vector& vector) const;
   bool operator!=(const Vector& vector) const;
 
-  void operator+=(const Vector& vector);
-  void operator-=(const Vector& vector);
-  void operator*=(long double num);
-  void operator/=(long double num);
+  Vector& operator+=(const Vector& vector);
+  Vector& operator-=(const Vector& vector);
+  Vector& operator*=(long double num);
+  Vector& operator/=(long double num);
 
   friend Vector operator+(const Vector& first_vector,
                           const Vector& second_vector);

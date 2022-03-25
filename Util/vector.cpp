@@ -5,8 +5,7 @@
 #include <iostream>
 
 Vector::Vector(long double x, long double y) : x_(x),
-                                               y_(y) {
-}
+                                               y_(y) {}
 Vector::Vector(const Vector& vector) {
   x_ = vector.x_;
   y_ = vector.y_;
@@ -31,22 +30,24 @@ long double Vector::GetY() const {
 }
 
 void Vector::Normalize() {
-  long double sqrt_length = Length();
-  x_ /= sqrt_length;
-  y_ /= sqrt_length;
+  long double old_length = Length();
+  x_ /= old_length;
+  y_ /= old_length;
 }
-long double Vector::Length() {
+long double Vector::Length() const {
   long double squared_length = (x_ * x_) + (y_ * y_);
   return std::sqrt(squared_length);
 }
 
-void Vector::operator=(const Vector& vector) {
+Vector& Vector::operator=(const Vector& vector) {
   x_ = vector.x_;
   y_ = vector.y_;
+  return *this;
 }
-void Vector::operator=(Vector&& vector) {
+Vector& Vector::operator=(Vector&& vector) {
   x_ = vector.x_;
   y_ = vector.y_;
+  return *this;
 }
 
 bool Vector::operator==(const Vector& vector) const {
@@ -57,25 +58,29 @@ bool Vector::operator!=(const Vector& vector) const {
   return !(*this == vector);
 }
 
-void Vector::operator+=(const Vector& vector) {
+Vector& Vector::operator+=(const Vector& vector) {
   x_ += vector.x_;
   y_ += vector.y_;
+  return *this;
 }
-void Vector::operator-=(const Vector& vector) {
+Vector& Vector::operator-=(const Vector& vector) {
   x_ -= vector.x_;
   y_ -= vector.y_;
+  return *this;
 }
-void Vector::operator*=(long double num) {
+Vector& Vector::operator*=(long double num) {
   x_ *= num;
   y_ *= num;
+  return *this;
 }
-void Vector::operator/=(long double num) {
+Vector& Vector::operator/=(long double num) {
   if (num == 0) {
     std::cerr << "Zero division\n";
     assert(false);
   }
   x_ /= num;
   y_ /= num;
+  return *this;
 }
 
 Vector operator+(const Vector& first_vector, const Vector& second_vector) {
