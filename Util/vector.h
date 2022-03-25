@@ -1,5 +1,5 @@
-#ifndef DEMONS_UTIL_VECTOR_H_
-#define DEMONS_UTIL_VECTOR_H_
+#ifndef UTIL_VECTOR_H_
+#define UTIL_VECTOR_H_
 
 #include <ostream>
 
@@ -50,4 +50,4 @@ class Vector {
   long double y_{0};
 };
 
-#endif  // DEMONS_UTIL_VECTOR_H_
+#endif  // UTIL_VECTOR_H_
