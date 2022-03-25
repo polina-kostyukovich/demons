@@ -32,6 +32,9 @@ long double Vector::GetY() const {
 }
 
 void Vector::Normalize() {
+  if (x_ == 0 && y_ == 0) {
+    return;
+  }
   long double old_length = Length();
   x_ /= old_length;
   y_ /= old_length;
