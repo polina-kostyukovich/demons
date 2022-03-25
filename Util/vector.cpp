@@ -51,8 +51,8 @@ Vector& Vector::operator=(Vector&& vector) {
 }
 
 bool Vector::operator==(const Vector& vector) const {
-  Vector subtract(*this - vector);
-  return subtract.Length() <= constants::kEpsilon;
+  return std::abs(x_ - vector.x_) <= constants::kEpsilon &&
+         std::abs(y_ - vector.y_) <= constants::kEpsilon;
 }
 bool Vector::operator!=(const Vector& vector) const {
   return !(*this == vector);
