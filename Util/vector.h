@@ -3,8 +3,6 @@
 
 #include <ostream>
 
-#include "../Model/constants.h"
-
 class Vector {
  public:
   Vector() = default;

@@ -4,6 +4,8 @@
 #include <complex>
 #include <iostream>
 
+#include "../Model/constants.h"
+
 Vector::Vector(long double x, long double y) : x_(x),
                                                y_(y) {}
 Vector::Vector(const Vector& vector) {
