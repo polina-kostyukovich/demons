@@ -104,7 +104,8 @@ Vector2D operator+(const Vector2D& first_vector,
   return result;
 }
 
-Vector2D operator-(const Vector2D& first_vector, const Vector2D& second_vector) {
+Vector2D operator-(const Vector2D& first_vector,
+                   const Vector2D& second_vector) {
   Vector2D result(first_vector);
   result -= second_vector;
   return result;
