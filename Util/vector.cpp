@@ -6,35 +6,35 @@
 
 #include "../Model/constants.h"
 
-Vector::Vector(long double x, long double y) : x_(x),
+Vector2D::Vector2D(long double x, long double y) : x_(x),
                                                y_(y) {}
-Vector::Vector(const Vector& vector) {
+Vector2D::Vector2D(const Vector2D& vector) {
   x_ = vector.x_;
   y_ = vector.y_;
 }
 
-Vector::Vector(Vector&& vector) {
+Vector2D::Vector2D(Vector2D&& vector) {
   x_ = vector.x_;
   y_ = vector.y_;
 }
 
-void Vector::SetX(long double new_x) {
+void Vector2D::SetX(long double new_x) {
   x_ = new_x;
 }
 
-void Vector::SetY(long double new_y) {
+void Vector2D::SetY(long double new_y) {
   y_ = new_y;
 }
 
-long double Vector::GetX() const {
+long double Vector2D::GetX() const {
   return x_;
 }
 
-long double Vector::GetY() const {
+long double Vector2D::GetY() const {
   return y_;
 }
 
-void Vector::Normalize() {
+void Vector2D::Normalize() {
   if (x_ == 0 && y_ == 0) {
     return;
   }
@@ -43,51 +43,51 @@ void Vector::Normalize() {
   y_ /= old_length;
 }
 
-long double Vector::Length() const {
+long double Vector2D::Length() const {
   long double squared_length = (x_ * x_) + (y_ * y_);
   return std::sqrt(squared_length);
 }
 
-Vector& Vector::operator=(const Vector& vector) {
+Vector2D& Vector2D::operator=(const Vector2D& vector) {
   x_ = vector.x_;
   y_ = vector.y_;
   return *this;
 }
 
-Vector& Vector::operator=(Vector&& vector) {
+Vector2D& Vector2D::operator=(Vector2D&& vector) {
   x_ = vector.x_;
   y_ = vector.y_;
   return *this;
 }
 
-bool Vector::operator==(const Vector& vector) const {
+bool Vector2D::operator==(const Vector2D& vector) const {
   return std::abs(x_ - vector.x_) <= constants::kEpsilon &&
          std::abs(y_ - vector.y_) <= constants::kEpsilon;
 }
 
-bool Vector::operator!=(const Vector& vector) const {
+bool Vector2D::operator!=(const Vector2D& vector) const {
   return !(*this == vector);
 }
 
-Vector& Vector::operator+=(const Vector& vector) {
+Vector2D& Vector2D::operator+=(const Vector2D& vector) {
   x_ += vector.x_;
   y_ += vector.y_;
   return *this;
 }
 
-Vector& Vector::operator-=(const Vector& vector) {
+Vector2D& Vector2D::operator-=(const Vector2D& vector) {
   x_ -= vector.x_;
   y_ -= vector.y_;
   return *this;
 }
 
-Vector& Vector::operator*=(long double num) {
+Vector2D& Vector2D::operator*=(long double num) {
   x_ *= num;
   y_ *= num;
   return *this;
 }
 
-Vector& Vector::operator/=(long double num) {
+Vector2D& Vector2D::operator/=(long double num) {
   if (num == 0) {
     std::cerr << "Zero division\n";
     assert(false);
@@ -97,35 +97,36 @@ Vector& Vector::operator/=(long double num) {
   return *this;
 }
 
-Vector operator+(const Vector& first_vector, const Vector& second_vector) {
-  Vector result(first_vector);
+Vector2D operator+(const Vector2D& first_vector,
+                   const Vector2D& second_vector) {
+  Vector2D result(first_vector);
   result += second_vector;
   return result;
 }
 
-Vector operator-(const Vector& first_vector, const Vector& second_vector) {
-  Vector result(first_vector);
+Vector2D operator-(const Vector2D& first_vector, const Vector2D& second_vector) {
+  Vector2D result(first_vector);
   result -= second_vector;
   return result;
 }
 
-Vector operator*(const Vector& vector, long double num) {
-  Vector result(vector);
+Vector2D operator*(const Vector2D& vector, long double num) {
+  Vector2D result(vector);
   result *= num;
   return result;
 }
 
-Vector operator/(const Vector& vector, long double num) {
-  Vector result(vector);
+Vector2D operator/(const Vector2D& vector, long double num) {
+  Vector2D result(vector);
   result /= num;
   return result;
 }
 
-Vector operator*(long double num, const Vector& vector) {
+Vector2D operator*(long double num, const Vector2D& vector) {
   return vector * num;
 }
 
-std::ostream& operator<<(std::ostream& out, const Vector& vector) {
+std::ostream& operator<<(std::ostream& out, const Vector2D& vector) {
   out << "Vector: (" << vector.x_ << ", " << vector.y_ << ")\n";
   return out;
 }

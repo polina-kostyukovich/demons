@@ -3,12 +3,12 @@
 
 #include <ostream>
 
-class Vector {
+class Vector2D {
  public:
-  Vector() = default;
-  Vector(long double x, long double y);
-  Vector(const Vector& vector);
-  Vector(Vector&&  vector);
+  Vector2D() = default;
+  Vector2D(long double x, long double y);
+  Vector2D(const Vector2D& vector);
+  Vector2D(Vector2D&&  vector);
 
   void SetX(long double new_x);
   void SetY(long double new_y);
@@ -19,29 +19,29 @@ class Vector {
   void Normalize();
   long double Length() const;
 
-  Vector& operator=(const Vector& vector);
-  Vector& operator=(Vector&& vector);
+  Vector2D& operator=(const Vector2D& vector);
+  Vector2D& operator=(Vector2D&& vector);
 
-  bool operator==(const Vector& vector) const;
-  bool operator!=(const Vector& vector) const;
+  bool operator==(const Vector2D& vector) const;
+  bool operator!=(const Vector2D& vector) const;
 
-  Vector& operator+=(const Vector& vector);
-  Vector& operator-=(const Vector& vector);
-  Vector& operator*=(long double num);
-  Vector& operator/=(long double num);
+  Vector2D& operator+=(const Vector2D& vector);
+  Vector2D& operator-=(const Vector2D& vector);
+  Vector2D& operator*=(long double num);
+  Vector2D& operator/=(long double num);
 
-  friend Vector operator+(const Vector& first_vector,
-                          const Vector& second_vector);
-  friend Vector operator-(const Vector& first_vector,
-                          const Vector& second_vector);
-  friend Vector operator*(const Vector& first_vector,
+  friend Vector2D operator+(const Vector2D& first_vector,
+                          const Vector2D& second_vector);
+  friend Vector2D operator-(const Vector2D& first_vector,
+                          const Vector2D& second_vector);
+  friend Vector2D operator*(const Vector2D& first_vector,
                           long double num);
-  friend Vector operator/(const Vector& first_vector,
+  friend Vector2D operator/(const Vector2D& first_vector,
                           long double num);
-  friend Vector operator*(long double num,
-                          const Vector& first_vector);
+  friend Vector2D operator*(long double num,
+                          const Vector2D& first_vector);
 
-  friend std::ostream& operator<<(std::ostream& out, const Vector& vector);
+  friend std::ostream& operator<<(std::ostream& out, const Vector2D& vector);
 
  private:
   long double x_{0.};
