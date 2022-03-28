@@ -4,8 +4,6 @@
 namespace constants {
     const long double kEpsilon = 1e-9;
     const long double kClose = 3;
-
-    const int kObjectSize = 10;
 }  // namespace constants
 
 #endif  // MODEL_CONSTANTS_H_
