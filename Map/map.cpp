@@ -1,11 +1,12 @@
 #include "map.h"
+
 #include <cassert>
 #include <utility>
 
 Map::Map(int window_width, int window_height) {
-  // todo (anyone)
+  // todo write json
   objects_.resize(columns_);
-  for (auto &column : objects_) {
+  for (auto& column : objects_) {
     column.resize(rows_);
   }
 }
@@ -21,5 +22,6 @@ const std::unique_ptr<GameObject>& Map::GetObject(int x, int y) const {
 }
 
 void Map::RemoveObject(int x, int y) {
+  assert(x >= 0 && x < columns_ && y >= 0 && y < rows_);
   objects_[x][y] = nullptr;
 }
