@@ -3,7 +3,6 @@
 
 #include <QTimer>
 #include <QKeyEvent>
-// #include <QTimerEvent>
 #include <QWidget>
 
 #include "abstract_controller.h"
