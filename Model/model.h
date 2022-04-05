@@ -2,6 +2,8 @@
 #define MODEL_MODEL_H_
 
 #include <map>
+#include <memory>
+#include <utility>
 #include <QWidget>
 
 #include "../View/view.h"

@@ -1,8 +1,9 @@
 #ifndef CONTROLLER_CONTROLLER_H_
 #define CONTROLLER_CONTROLLER_H_
 
-#include <QTimer>
+#include <memory>
 #include <QKeyEvent>
+#include <QTimer>
 #include <QWidget>
 
 #include "abstract_controller.h"
@@ -11,7 +12,7 @@
 class Controller : public QWidget, public AbstractController {
   Q_OBJECT
  public:
-  Controller(std::unique_ptr<Model>&& model);
+  explicit Controller(std::unique_ptr<Model>&& model);
 
   void TimerTick();
   void keyPressEvent(QKeyEvent* event) override;

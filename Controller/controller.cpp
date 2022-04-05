@@ -1,5 +1,7 @@
 #include "controller.h"
 
+#include <utility>
+
 Controller::Controller(std::unique_ptr<Model>&& model) :
     model_(std::move(model)),
     timer_(new QTimer(this)) {
