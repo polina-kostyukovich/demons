@@ -31,6 +31,7 @@ add_executable(demons
         Map/map.cpp
         Model/model.cpp
         Util/point.cpp
+        Util/vector.cpp
         Util/collisions.cpp
         View/view.cpp)
 
