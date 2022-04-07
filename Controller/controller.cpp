@@ -23,20 +23,20 @@ void Controller::keyReleaseEvent(QKeyEvent* event) {
 
 Vector2D Controller::GetDirection() const {
   Vector2D direction;
-  if (keys_.contains(Qt::Key_Left) && keys_.at(Qt::Key_Left)
-      || keys_.contains(Qt::Key_A) && keys_.at(Qt::Key_A)) {
+  if ((keys_.contains(Qt::Key_Left) && keys_.at(Qt::Key_Left))
+      || (keys_.contains(Qt::Key_A) && keys_.at(Qt::Key_A))) {
     direction += {-1, 0};
   }
-  if (keys_.contains(Qt::Key_Up) && keys_.at(Qt::Key_Up)
-      || keys_.contains(Qt::Key_W) && keys_.at(Qt::Key_W)) {
+  if ((keys_.contains(Qt::Key_Up) && keys_.at(Qt::Key_Up))
+      || (keys_.contains(Qt::Key_W) && keys_.at(Qt::Key_W))) {
     direction += {0, -1};
   }
-  if (keys_.contains(Qt::Key_Right) && keys_.at(Qt::Key_Right)
-      || keys_.contains(Qt::Key_D) && keys_.at(Qt::Key_D)) {
+  if ((keys_.contains(Qt::Key_Right) && keys_.at(Qt::Key_Right))
+      || (keys_.contains(Qt::Key_D) && keys_.at(Qt::Key_D))) {
     direction += {1, 0};
   }
-  if (keys_.contains(Qt::Key_Down) && keys_.at(Qt::Key_Down)
-      || keys_.contains(Qt::Key_S) && keys_.at(Qt::Key_S)) {
+  if ((keys_.contains(Qt::Key_Down) && keys_.at(Qt::Key_Down))
+      || (keys_.contains(Qt::Key_S) && keys_.at(Qt::Key_S))) {
     direction += {0, 1};
   }
   direction.Normalize();
