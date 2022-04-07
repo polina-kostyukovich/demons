@@ -1,6 +1,7 @@
 #ifndef CONTROLLER_CONTROLLER_H_
 #define CONTROLLER_CONTROLLER_H_
 
+#include <map>
 #include <memory>
 #include <QKeyEvent>
 #include <QTimer>
@@ -19,8 +20,12 @@ class Controller : public QWidget, public AbstractController {
   void keyReleaseEvent(QKeyEvent* event) override;
 
  private:
+  Vector2D GetDirection() const;
+
+ private:
   std::unique_ptr<Model> model_;
-  QTimer* timer_;
+  std::unique_ptr<QTimer> timer_;
+  std::map<int, bool> keys_;
 };
 
 #endif  // CONTROLLER_CONTROLLER_H_

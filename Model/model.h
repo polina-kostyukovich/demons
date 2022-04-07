@@ -1,7 +1,6 @@
 #ifndef MODEL_MODEL_H_
 #define MODEL_MODEL_H_
 
-#include <map>
 #include <memory>
 #include <utility>
 #include <QWidget>
@@ -16,21 +15,16 @@ class Model {
  public:
   explicit Model(std::unique_ptr<View>&& view);
 
-  void SetPressedKey(int key);
-  void UnsetPressedKey(int key);
-  void ProcessPressedKeys();
+  void MoveHero(Vector2D direction);
 
  private:
-  Vector2D GetDirection() const;
   std::pair<int, int> GetCellSize() const;
   std::pair<int, int> GetCellCoordinatesOnMap(const Point& point) const;
-  void MoveHero();
 
  private:
   std::unique_ptr<View> view_;
   Map map_;
   Hero hero_;
-  std::map<int, bool> keys_;
 };
 
 #endif  // MODEL_MODEL_H_

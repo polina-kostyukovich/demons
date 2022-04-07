@@ -10,7 +10,7 @@ class GameObject {
   Point GetPoint() const;
 
  private:
-  Point point_;
+  Point position_;
 };
 
 #endif  // GAMEOBJECT_GAME_OBJECT_H_
