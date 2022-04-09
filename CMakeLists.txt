@@ -7,7 +7,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 
-find_package(Qt6 COMPONENTS
+find_package(Qt5 COMPONENTS
         Core
         Gui
         Widgets
@@ -16,6 +16,7 @@ find_package(Qt6 COMPONENTS
 add_executable(demons
         main.cpp
         Model/constants.cpp
+        App/app.cpp
         Controller/abstract_controller.cpp
         Controller/controller.cpp
         Controller/level_controller.cpp
@@ -35,7 +36,7 @@ add_executable(demons
         View/view.cpp)
 
 target_link_libraries(demons
-        Qt::Core
-        Qt::Gui
-        Qt::Widgets
+        Qt5::Core
+        Qt5::Gui
+        Qt5::Widgets
         )
