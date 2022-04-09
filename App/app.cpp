@@ -11,6 +11,8 @@ App::App(std::unique_ptr<Model>&& model,
   model_ = std::move(model);
   view_ = std::move(view);
   controller_ = std::move(controller);
+
+  view_->show();
 }
 
 void App::Run() {

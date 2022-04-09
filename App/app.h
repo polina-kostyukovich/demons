@@ -3,6 +3,10 @@
 
 #include <memory>
 
+#include "../Model/model.h"
+#include "../View/view.h"
+#include "../Controller/controller.h"
+
 class App {
  public:
   App(std::unique_ptr<Model>&& model,
