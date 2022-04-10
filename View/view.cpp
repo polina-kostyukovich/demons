@@ -1,5 +1,7 @@
 #include "view.h"
 
+#include <utility>
+
 View::View(std::unique_ptr<AbstractController>&& controller) :
     controller_(std::move(controller)) {}
 
