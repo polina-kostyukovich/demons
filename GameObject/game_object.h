@@ -5,11 +5,12 @@
 
 class GameObject {
  public:
-  explicit GameObject(const Point& point);
-  void SetPosition(const Point& new_point);
+  explicit GameObject(const Point& position = {0, 0});
+
+  void SetPosition(const Point& new_position);
   Point GetPosition() const;
 
- private:
+ protected:
   Point position_;
 };
 

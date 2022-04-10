@@ -1,3 +1,3 @@
 #include "dynamic_object.h"
 
-DynamicObject::DynamicObject(const Point& point) : GameObject(point) {}
+DynamicObject::DynamicObject(const Point& position) : GameObject(position) {}

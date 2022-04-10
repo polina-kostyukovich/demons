@@ -1,3 +1,3 @@
 #include "creature.h"
 
-Creature::Creature(const Point& point) : DynamicObject(point) {}
+Creature::Creature(const Point& position) : DynamicObject(position) {}

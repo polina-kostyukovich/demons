@@ -5,7 +5,7 @@
 
 class Hero : public Creature {
  public:
-  explicit Hero(const Point& point);
+  explicit Hero(const Point& position = {0, 0});
 };
 
 #endif  // GAMEOBJECT_HERO_H_
