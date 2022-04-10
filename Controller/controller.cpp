@@ -13,11 +13,11 @@ void Controller::TimerTick() {
   model_->MoveHero(GetDirection());
 }
 
-void Controller::keyPressEvent(QKeyEvent* event) {
+void Controller::HandleKeyPressEvent(QKeyEvent* event) {
   keys_[event->key()] = true;
 }
 
-void Controller::keyReleaseEvent(QKeyEvent* event) {
+void Controller::HandleKeyReleaseEvent(QKeyEvent* event) {
   keys_[event->key()] = false;
 }
 

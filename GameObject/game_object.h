@@ -6,8 +6,8 @@
 class GameObject {
  public:
   explicit GameObject(const Point& point);
-  void SetPoint(const Point& new_point);
-  Point GetPoint() const;
+  void SetPosition(const Point& new_point);
+  Point GetPosition() const;
 
  private:
   Point position_;

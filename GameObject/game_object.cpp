@@ -2,10 +2,10 @@
 
 GameObject::GameObject(const Point& point) : position_(point) {}
 
-void GameObject::SetPoint(const Point& new_point) {
+void GameObject::SetPosition(const Point& new_point) {
   position_ = new_point;
 }
 
-Point GameObject::GetPoint() const {
+Point GameObject::GetPosition() const {
   return position_;
 }

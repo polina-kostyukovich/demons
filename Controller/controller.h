@@ -10,14 +10,14 @@
 #include "abstract_controller.h"
 #include "../Model/model.h"
 
-class Controller : public QWidget, public AbstractController {
+class Controller : public AbstractController {
   Q_OBJECT
  public:
   explicit Controller(std::unique_ptr<Model>&& model);
 
   void TimerTick();
-  void keyPressEvent(QKeyEvent* event) override;
-  void keyReleaseEvent(QKeyEvent* event) override;
+  void HandleKeyPressEvent(QKeyEvent* event) override;
+  void HandleKeyReleaseEvent(QKeyEvent* event) override;
 
  private:
   Vector2D GetDirection() const;

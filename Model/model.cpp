@@ -8,7 +8,7 @@ Model::Model(std::unique_ptr<View>&& view) :
 }
 
 void Model::MoveHero(Vector2D direction) {
-  auto cell = GetCellCoordinatesOnMap(hero_.GetPoint());
+  auto cell = GetCellCoordinatesOnMap(hero_.GetPosition());
 
   if (direction.GetX() < -constants::kEpsilon && (cell.first == 0
       || map_.GetObject(cell.first - 1, cell.second) != nullptr)) {
@@ -29,7 +29,7 @@ void Model::MoveHero(Vector2D direction) {
     direction.SetY(0);
   }
 
-  hero_.SetPoint(hero_.GetPoint() + constants::kHeroStep * direction);
+  hero_.SetPosition(hero_.GetPosition() + constants::kHeroStep * direction);
 }
 
 std::pair<int, int> Model::GetCellSize() const {
