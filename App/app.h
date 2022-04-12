@@ -3,9 +3,9 @@
 
 #include <memory>
 
+#include "../Controller/controller.h"
 #include "../Model/model.h"
 #include "../View/view.h"
-#include "../Controller/controller.h"
 
 class App {
  public:
