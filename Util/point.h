@@ -11,7 +11,7 @@ class Point {
     Point() = default;
     Point(long double x, long double y);
     Point(const Point& point);
-    Point(const Point* point);
+    explicit Point(const Point* point);
     Point(Point&& point);
 
     bool IsClose(const Point& another_point) const;
