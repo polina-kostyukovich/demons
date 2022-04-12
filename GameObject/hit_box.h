@@ -1,6 +1,8 @@
 #ifndef GAMEOBJECT_HIT_BOX_H_
 #define GAMEOBJECT_HIT_BOX_H_
 
+#include <memory>
+
 #include "../Util/point.h"
 
 struct Rect {
@@ -16,8 +18,7 @@ struct Rect {
 class HitBox {
  public:
   HitBox() = default;
-  HitBox(const Point* pos, double width, double height) :
-  pos_(pos), width_(width), height_(height) {}
+  HitBox(const Point* pos, double width, double height);
 
   Rect GetRect() const;
 
@@ -25,7 +26,7 @@ class HitBox {
   bool IsCollided(const Rect& other_rect) const;
 
  private:
-  const Point* pos_;  // object_position
+  std::unique_ptr<Point> pos_;  // object_position
   double width_{0};
   double height_{0};
 };
