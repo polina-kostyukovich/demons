@@ -18,7 +18,7 @@ struct Rect {
 class HitBox {
  public:
   HitBox() = default;
-  HitBox(const Point* pos, double width, double height);
+  HitBox(const Point& pos, double width, double height);
 
   Rect GetRect() const;
 
@@ -26,7 +26,7 @@ class HitBox {
   bool IsCollided(const Rect& other_rect) const;
 
  private:
-  std::unique_ptr<Point> pos_;  // object_position
+  Point pos_;  // object position
   double width_{0};
   double height_{0};
 };

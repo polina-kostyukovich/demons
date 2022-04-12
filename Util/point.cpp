@@ -12,10 +12,6 @@ Point::Point(const Point& point) {
     x_ = point.x_;
     y_ = point.y_;
 }
-Point::Point(const Point *point) {
-  x_ = point->x_;
-  y_ = point->y_;
-}
 
 Point::Point(Point&& point) {
     x_ = point.x_;
