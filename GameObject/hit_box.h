@@ -25,7 +25,7 @@ class HitBox {
   bool IsCollided(const Rect& other_rect) const;
 
  private:
-  const Point* pos_; // object_position
+  const Point* pos_;  // object_position
   double width_{0};
   double height_{0};
 };
