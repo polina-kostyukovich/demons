@@ -5,7 +5,7 @@
 
 class AbstractController {
  public:
-  virtual const Hero& GetHero();
+  virtual const Hero& GetHero() = 0;
 };
 
 #endif  // CONTROLLER_ABSTRACT_CONTROLLER_H_

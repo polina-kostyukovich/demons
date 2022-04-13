@@ -6,6 +6,7 @@
 class Model {
  public:
   const Hero& GetHero();
+
  private:
   Hero hero_;
 };
