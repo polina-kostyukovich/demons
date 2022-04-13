@@ -13,6 +13,7 @@ Rect HitBox::GetRect() const {
   Point left_upper_coords(pos_.GetX() - half_width, pos_.GetY() - half_height);
   Point right_lower_coords(pos_.GetX() + half_width,
                            pos_.GetY() + half_height);
+
   return Rect(left_upper_coords, right_lower_coords);
 }
 
