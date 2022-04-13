@@ -1,6 +1,5 @@
 #include "app.h"
 
-#include <cassert>
 #include <utility>
 
 void App::Run() {
