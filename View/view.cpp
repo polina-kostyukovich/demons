@@ -1,7 +1,7 @@
 #include "view.h"
 
 View::View(std::unique_ptr<AbstractController>&& controller) {
-  assert(controller == nullptr);
+  assert(controller != nullptr);
   controller_ = std::move(controller);
 
   setFixedSize(900, 600);
