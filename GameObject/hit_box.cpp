@@ -18,16 +18,16 @@ Rect HitBox::GetRect() const {
 
 bool HitBox::IsCollided(const Rect& other_rect) const {
   Rect our_rectangle = GetRect();
-  return ((our_rectangle.right_lower_coords.GetX() -
-      other_rect.left_upper_coords.GetX() >= constants::kEpsilon ||
-      other_rect.right_lower_coords.GetX() -
-      our_rectangle.left_upper_coords.GetX() <= constants::kEpsilon) &&
-      (our_rectangle.right_lower_coords.GetY() -
-      other_rect.left_upper_coords.GetY() >= constants::kEpsilon ||
-      other_rect.right_lower_coords.GetY() -
-      our_rectangle.left_upper_coords.GetY() <= constants::kEpsilon));
-      // (our.x2 >= other.x1 || other.x2 <= our.x1) &&
-      // (our.y2 >= other.y1 || other.y2 <= our.y1)
+  return ((other_rect.left_upper_coords.GetX() -
+      our_rectangle.right_lower_coords.GetX() <= constants::kEpsilon ||
+      our_rectangle.left_upper_coords.GetX() -
+      other_rect.right_lower_coords.GetX() <= constants::kEpsilon) &&
+      (other_rect.left_upper_coords.GetY() -
+      our_rectangle.right_lower_coords.GetY() <= constants::kEpsilon ||
+      our_rectangle.left_upper_coords.GetY() -
+      other_rect.right_lower_coords.GetY() <= constants::kEpsilon));
+      // (other.x1 <= our.x2 || our.x1 <= other.x2) &&
+      // (other.y1 <= our.y2 || our.y1 <= other.y2)
 }
 
 bool HitBox::IsCollided(const HitBox& other_hit_box) const {
