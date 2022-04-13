@@ -21,7 +21,7 @@ bool HitBox::IsCollided(const Rect& other_rect) const {
   return ((our_rectangle.right_lower_coords.GetX() -
       other_rect.left_upper_coords.GetX() >= constants::kEpsilon ||
       other_rect.right_lower_coords.GetX() -
-      our_rectangle.left_upper_coords.GetX()) >= constants::kEpsilon &&
+      our_rectangle.left_upper_coords.GetX() >= constants::kEpsilon) &&
       (our_rectangle.right_lower_coords.GetY() -
       other_rect.left_upper_coords.GetY() >= constants::kEpsilon ||
       other_rect.right_lower_coords.GetY() -
