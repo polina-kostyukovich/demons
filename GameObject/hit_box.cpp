@@ -12,18 +12,18 @@ HitBox::Rect HitBox::GetRect() const {
 }
 
 bool HitBox::IsCollided(const HitBox& other_hit_box) const {
-  Rect our_rectangle = GetRect();
+  Rect our_rect = GetRect();
   Rect other_rect = other_hit_box.GetRect();
   bool is_intersected_along_x_axis =
       !(other_rect.left_upper_coords.GetX() -
-          our_rectangle.right_lower_coords.GetX() > constants::kEpsilon ||
-          our_rectangle.left_upper_coords.GetX() -
+          our_rect.right_lower_coords.GetX() > constants::kEpsilon ||
+          our_rect.left_upper_coords.GetX() -
               other_rect.right_lower_coords.GetX() > constants::kEpsilon);
 
   bool is_intersected_along_y_axis =
       !(other_rect.left_upper_coords.GetY() -
-          our_rectangle.right_lower_coords.GetY() > constants::kEpsilon ||
-          our_rectangle.left_upper_coords.GetY() -
+          our_rect.right_lower_coords.GetY() > constants::kEpsilon ||
+          our_rect.left_upper_coords.GetY() -
               other_rect.right_lower_coords.GetY() > constants::kEpsilon);
 
   return (is_intersected_along_x_axis && is_intersected_along_y_axis);

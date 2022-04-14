@@ -19,16 +19,17 @@ class HitBox {
 
  public:
   HitBox() = default;
-  HitBox(const Point& pos, double width, double height) :
-      pos_(pos), hit_box_width_(width), hit_box_height_(height) {}
-
-  Rect GetRect() const;
+  HitBox(const Point& pos, double object_height, double width, double height) :
+      pos_(pos), object_height_(object_height), hit_box_width_(width),
+      hit_box_height_(height) {}
 
   bool IsCollided(const HitBox& other_hit_box) const;
 
  private:
-  const Point& pos_;  // object position
-  double object_height_{0};  // the height of the object
+  Rect GetRect() const;
+
+  const Point& pos_;
+  double object_height_{0};
   double hit_box_width_{0};
   double hit_box_height_{0};
 };
