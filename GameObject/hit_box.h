@@ -5,17 +5,17 @@
 
 #include "../Util/point.h"
 
-struct Rect {
-  Rect(const Point& left_upper_coordinates,
-       const Point& right_lower_coordinates) :
-  left_upper_coords(left_upper_coordinates),
-  right_lower_coords(right_lower_coordinates) {}
-
-  Point left_upper_coords;
-  Point right_lower_coords;
-};
-
 class HitBox {
+ private:
+  struct Rect {
+    Rect(const Point& left_upper_coordinates,
+         const Point& right_lower_coordinates) :
+        left_upper_coords(left_upper_coordinates),
+        right_lower_coords(right_lower_coordinates) {}
+
+    Point left_upper_coords;
+    Point right_lower_coords;
+  };
  public:
   HitBox() = default;
   HitBox(const Point& pos, double width, double height) :
@@ -24,11 +24,10 @@ class HitBox {
   Rect GetRect() const;
 
   bool IsCollided(const HitBox& other_hit_box) const;
-  bool IsCollided(const Rect& other_rect) const;
 
  private:
   const Point& pos_;  // object position
-  double object_height_{0};  // the size of the object
+  double object_height_{0};  // the height of the object
   double hit_box_width_{0};
   double hit_box_height_{0};
 };
