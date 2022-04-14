@@ -15,7 +15,7 @@ class View : public QWidget {
 
   void paintEvent(QPaintEvent* event) override;
 
-  void PaintHero(QPaintEvent* event);
+  void PaintHero();
 
  private:
   std::unique_ptr<AbstractController> controller_;

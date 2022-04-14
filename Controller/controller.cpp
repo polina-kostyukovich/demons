@@ -8,6 +8,6 @@ Controller::Controller(std::unique_ptr<Model>&& model) {
   model_ = std::move(model);
 }
 
-const Hero& Controller::GetHero() {
+const Hero& Controller::GetHero() const {
   return model_->GetHero();
 }

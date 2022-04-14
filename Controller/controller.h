@@ -10,7 +10,7 @@ class Controller : public AbstractController {
  public:
   explicit Controller(std::unique_ptr<Model>&& model);
 
-  const Hero& GetHero() override;
+  const Hero& GetHero() const override;
  private:
   std::unique_ptr<Model> model_;
 };

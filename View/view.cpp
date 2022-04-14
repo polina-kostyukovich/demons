@@ -10,10 +10,10 @@ View::View(std::unique_ptr<AbstractController>&& controller) {
 }
 
 void View::paintEvent(QPaintEvent* event) {
-  PaintHero(event);
+  PaintHero();
 }
 
-void View::PaintHero(QPaintEvent* event) {
+void View::PaintHero() {
   QPainter painter(this);
   Point hero_pos = controller_->GetHero().GetPosition();
   painter.drawEllipse(hero_pos.GetX() - 5,
