@@ -8,11 +8,13 @@
 
 class Controller : public AbstractController {
  public:
-  explicit Controller(std::unique_ptr<Model>&& model);
+  Controller() = default;
+
+  void SetModel(std::unique_ptr<Model>&& model);
 
   const Hero& GetHero() const override;
  private:
-  std::unique_ptr<Model> model_;
+  std::unique_ptr<Model> model_ = nullptr;
 };
 
 #endif  // CONTROLLER_CONTROLLER_H_

@@ -2,10 +2,14 @@
 
 #include <utility>
 
-App::App() {
-  std::unique_ptr<Model> model(new Model);
-  std::unique_ptr<Controller> controller(new Controller(std::move(model)));
-  view_ = std::make_unique<View>(std::move(controller));
+App::App(std::unique_ptr<Model>&& model,
+    std::unique_ptr<Controller>&& controller,
+    std::unique_ptr<View>&& view) {
+  assert(view != nullptr);
+  view_ = std::move(view);
+
+  controller->SetModel(std::move(model));
+  view_->SetController(std::move(controller));
 }
 
 void App::Run() {
