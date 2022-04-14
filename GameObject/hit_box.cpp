@@ -1,14 +1,14 @@
 #include "hit_box.h"
 
 Rect HitBox::GetRect() const {
-  double half_width = width_ / 2;
-  double half_height = height_ / 2;
-  double half_size = size_ / 2;
+  double half_width = hit_box_width_ / 2;
+  double half_height = hit_box_height_ / 2;
+  double half_size = object_height_ / 2;
 
   Point left_upper_coords(pos_.GetX() - half_width,
-                          pos_.GetY() - half_height - half_size);
+                          pos_.GetY() - half_height + half_size);
   Point right_lower_coords(pos_.GetX() + half_width,
-                           pos_.GetY() + half_height - half_size);
+                           pos_.GetY() + half_height + half_size);
 
   return Rect(left_upper_coords, right_lower_coords);
 }

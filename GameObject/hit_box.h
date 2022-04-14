@@ -19,7 +19,7 @@ class HitBox {
  public:
   HitBox() = default;
   HitBox(const Point& pos, double width, double height) :
-  pos_(pos), width_(width), height_(height) {}
+      pos_(pos), hit_box_width_(width), hit_box_height_(height) {}
 
   Rect GetRect() const;
 
@@ -28,9 +28,9 @@ class HitBox {
 
  private:
   const Point& pos_;  // object position
-  double size_{0};  // the size of the object
-  double width_{0};
-  double height_{0};
+  double object_height_{0};  // the size of the object
+  double hit_box_width_{0};
+  double hit_box_height_{0};
 };
 
 #endif  // GAMEOBJECT_HIT_BOX_H_

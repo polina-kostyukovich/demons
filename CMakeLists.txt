@@ -24,6 +24,7 @@ add_executable(demons
         GameObject/dynamic_object.cpp
         GameObject/game_object.cpp
         GameObject/hero.cpp
+        GameObject/hit_box.cpp
         GameObject/npc.cpp
         GameObject/spawner.cpp
         GameObject/static_object.cpp
@@ -32,8 +33,7 @@ add_executable(demons
         Model/model.cpp
         Util/point.cpp
         Util/collisions.cpp
-        View/view.cpp
-        GameObject/hit_box.cpp)
+        View/view.cpp)
 
 target_link_libraries(demons
         Qt::Core
