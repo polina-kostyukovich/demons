@@ -32,7 +32,9 @@ add_executable(demons
         Model/model.cpp
         Util/point.cpp
         Util/collisions.cpp
-        View/view.cpp)
+        View/view.cpp
+        App/app.cpp
+        GameObject/hit_box.cpp)
 
 target_link_libraries(demons
         Qt::Core
