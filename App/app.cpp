@@ -5,7 +5,7 @@
 App::App(std::unique_ptr<Model>&& model,
     std::unique_ptr<Controller>&& controller,
     std::unique_ptr<View>&& view) {
-  assert(view != nullptr);
+  assert(model != nullptr && controller != nullptr && view != nullptr);
   view_ = std::move(view);
 
   controller->SetModel(std::move(model));

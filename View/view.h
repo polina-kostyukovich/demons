@@ -6,7 +6,6 @@
 #include <QPainter>
 #include <QWidget>
 
-#include "../Controller/controller.h"
 #include "../Controller/abstract_controller.h"
 
 class View : public QWidget {
