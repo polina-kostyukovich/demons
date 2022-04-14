@@ -27,6 +27,7 @@ class HitBox {
 
  private:
   Point pos_;  // object position
+  double size_{0}; // the size of the object
   double width_{0};
   double height_{0};
 };
