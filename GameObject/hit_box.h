@@ -16,6 +16,7 @@ class HitBox {
     Point left_upper_coords;
     Point right_lower_coords;
   };
+
  public:
   HitBox() = default;
   HitBox(const Point& pos, double width, double height) :
