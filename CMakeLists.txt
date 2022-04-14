@@ -33,7 +33,6 @@ add_executable(demons
         Util/point.cpp
         Util/collisions.cpp
         View/view.cpp
-        App/app.cpp
         GameObject/hit_box.cpp)
 
 target_link_libraries(demons
