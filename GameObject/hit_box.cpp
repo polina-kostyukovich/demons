@@ -1,11 +1,5 @@
 #include "hit_box.h"
 
-HitBox::HitBox(const Point& pos, double width, double height) {
-  pos_ = pos;
-  width_ = width;
-  height_ = height;
-}
-
 Rect HitBox::GetRect() const {
   double half_width = width_ / 2;
   double half_height = height_ / 2;

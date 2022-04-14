@@ -18,7 +18,8 @@ struct Rect {
 class HitBox {
  public:
   HitBox() = default;
-  HitBox(const Point& pos, double width, double height);
+  HitBox(const Point& pos, double width, double height) :
+  pos_(pos), width_(width), height_(height) {}
 
   Rect GetRect() const;
 
@@ -26,7 +27,7 @@ class HitBox {
   bool IsCollided(const Rect& other_rect) const;
 
  private:
-  Point pos_;  // object position
+  const Point& pos_;  // object position
   double size_{0};  // the size of the object
   double width_{0};
   double height_{0};
