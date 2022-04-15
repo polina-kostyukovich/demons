@@ -15,7 +15,7 @@ find_package(Qt6 COMPONENTS
 
 add_executable(demons
         main.cpp
-        Model/constants.cpp
+        App/app.cpp
         Controller/abstract_controller.cpp
         Controller/controller.cpp
         Controller/level_controller.cpp
@@ -29,6 +29,7 @@ add_executable(demons
         GameObject/static_object.cpp
         GameObject/wall.cpp
         Map/map.cpp
+        Model/constants.cpp
         Model/model.cpp
         Util/point.cpp
         Util/collisions.cpp
