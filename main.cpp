@@ -7,7 +7,7 @@ int main(int argc, char* argv[]) {
 
   std::unique_ptr<Model> model(new Model);
   std::unique_ptr<Controller> controller(new Controller);
-  std::unique_ptr<View> view(new View);
+  std::shared_ptr<View> view(new View);
 
   App m_app(std::move(model),
             std::move(controller),

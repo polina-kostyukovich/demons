@@ -14,16 +14,16 @@
 class Model {
  public:
   Model() = default;
-  
-  const Hero& GetHero();
-  void MoveHero(Vector2D direction);
+
+  Hero& GetHero();
 
  private:
-  std::pair<int, int> GetCellSize() const;
-  std::pair<int, int> GetCellCoordinatesOnMap(const Point& point) const;
+  std::pair<int, int> GetCellSize(int window_width, int window_height) const;
+  std::pair<int, int> GetCellCoordinatesOnMap(const Point& point,
+                                              int window_width,
+                                              int window_height) const;
 
  private:
-  std::unique_ptr<View> view_ = nullptr;
   Hero hero_;
   Map map_{0, 0};
 };

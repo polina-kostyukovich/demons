@@ -13,6 +13,7 @@ class View : public QWidget {
   View();
 
   void SetController(std::unique_ptr<AbstractController>&& controller);
+  void Start();
 
   void paintEvent(QPaintEvent* event) override;
 
@@ -25,7 +26,7 @@ class View : public QWidget {
   void keyReleaseEvent(QKeyEvent* event) override;
 
  private:
-  std::unique_ptr<AbstractController> controller_ = nullptr;
+  std::unique_ptr<AbstractController> controller_{nullptr};
 };
 
 #endif  // VIEW_VIEW_H_

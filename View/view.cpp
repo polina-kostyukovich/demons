@@ -13,6 +13,10 @@ void View::SetController(std::unique_ptr<AbstractController>&& controller) {
   controller_ = std::move(controller);
 }
 
+void View::Start() {
+  controller_->StartTimer();
+}
+
 void View::paintEvent(QPaintEvent* event) {
   PaintHero();
 }
@@ -35,10 +39,10 @@ void View::keyReleaseEvent(QKeyEvent* event) {
 
 int View::GetWindowWidth() const {
   // todo
-  return 0;
+  return 900;
 }
 
 int View::GetWindowHeight() const {
   // todo
-  return 0;
+  return 600;
 }

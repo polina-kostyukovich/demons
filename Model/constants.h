@@ -5,8 +5,8 @@ namespace constants {
     const long double kEpsilon = 1e-9;
     const long double kClose = 3;
 
-    const int kTickTime = 50;
-    const long double kHeroStep = 0.01;
+    const int kTickTime = 20;
+    const long double kHeroStep = 4;
 }  // namespace constants
 
 #endif  // MODEL_CONSTANTS_H_
