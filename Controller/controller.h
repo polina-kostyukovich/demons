@@ -11,9 +11,12 @@
 #include "../Model/model.h"
 
 class Controller : public AbstractController {
-  Q_OBJECT
  public:
-  explicit Controller(std::unique_ptr<Model>&& model);
+  Controller() = default;
+
+  void SetModel(std::unique_ptr<Model>&& model);
+
+  const Hero& GetHero() const override;
 
   void TimerTick();
   void HandleKeyPressEvent(QKeyEvent* event) override;
@@ -23,7 +26,7 @@ class Controller : public AbstractController {
   Vector2D GetDirection() const;
 
  private:
-  std::unique_ptr<Model> model_;
+  std::unique_ptr<Model> model_ = nullptr;
   std::unique_ptr<QTimer> timer_;
   std::map<int, bool> keys_;
 };

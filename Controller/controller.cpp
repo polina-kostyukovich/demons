@@ -1,12 +1,15 @@
 #include "controller.h"
 
+#include <cassert>
 #include <utility>
 
-Controller::Controller(std::unique_ptr<Model>&& model) :
-    model_(std::move(model)),
-    timer_(new QTimer(this)) {
-  timer_->setInterval(constants::kTickTime);
-  connect(timer_.get(), &QTimer::timeout, this, &Controller::TimerTick);
+void Controller::SetModel(std::unique_ptr<Model>&& model) {
+  assert(model != nullptr);
+  model_ = std::move(model);
+}
+
+const Hero& Controller::GetHero() const {
+  return model_->GetHero();
 }
 
 void Controller::TimerTick() {

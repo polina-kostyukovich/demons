@@ -14,7 +14,8 @@
 class Model {
  public:
   explicit Model(std::unique_ptr<View>&& view);
-
+  
+  const Hero& GetHero();
   void MoveHero(Vector2D direction);
 
  private:
@@ -23,8 +24,8 @@ class Model {
 
  private:
   std::unique_ptr<View> view_;
-  Map map_;
   Hero hero_;
+  Map map_;
 };
 
 #endif  // MODEL_MODEL_H_

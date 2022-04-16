@@ -7,6 +7,10 @@ Model::Model(std::unique_ptr<View>&& view) :
   // todo
 }
 
+const Hero& Model::GetHero() {
+  return hero_;
+}
+
 void Model::MoveHero(Vector2D direction) {
   auto cell = GetCellCoordinatesOnMap(hero_.GetPosition());
 
@@ -43,4 +47,3 @@ std::pair<int, int> Model::GetCellCoordinatesOnMap(const Point& point) const {
   int x = static_cast<int>(point.GetX() / cell.first);
   int y = static_cast<int>(point.GetY() / cell.second);
   return {x, y};
-}

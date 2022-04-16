@@ -15,6 +15,7 @@ find_package(Qt6 COMPONENTS
 
 add_executable(demons
         main.cpp
+        App/app.cpp
         Controller/abstract_controller.cpp
         Controller/controller.cpp
         Controller/level_controller.cpp
