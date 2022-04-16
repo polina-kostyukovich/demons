@@ -26,7 +26,9 @@ void Controller::StartTimer() {
 }
 
 void Controller::TimerTick() {
-  model_->GetHero().Move(GetDirection(), view_->GetWindowWidth(), view_->GetWindowHeight());
+  model_->GetHero().Move(GetDirection(),
+                         view_->GetWindowWidth(),
+                         view_->GetWindowHeight());
   view_->repaint();
 }
 
