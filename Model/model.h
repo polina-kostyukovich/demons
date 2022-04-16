@@ -13,7 +13,7 @@
 
 class Model {
  public:
-  explicit Model(std::unique_ptr<View>&& view);
+  Model() = default;
   
   const Hero& GetHero();
   void MoveHero(Vector2D direction);
@@ -23,9 +23,9 @@ class Model {
   std::pair<int, int> GetCellCoordinatesOnMap(const Point& point) const;
 
  private:
-  std::unique_ptr<View> view_;
+  std::unique_ptr<View> view_ = nullptr;
   Hero hero_;
-  Map map_;
+  Map map_{0, 0};
 };
 
 #endif  // MODEL_MODEL_H_

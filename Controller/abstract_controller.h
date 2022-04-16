@@ -3,6 +3,8 @@
 
 #include <QKeyEvent>
 
+#include "../GameObject/hero.h"
+
 class AbstractController {
  public:
   virtual const Hero& GetHero() const = 0;

@@ -2,6 +2,8 @@
 
 #include <utility>
 
+#include "../Util/point.h"
+
 View::View() {
   setFixedSize(900, 600);
 }

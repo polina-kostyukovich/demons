@@ -1,12 +1,5 @@
 #include "model.h"
 
-Model::Model(std::unique_ptr<View>&& view) :
-    view_(std::move(view)),
-    map_(0, 0),
-    hero_({0, 0}) {
-  // todo
-}
-
 const Hero& Model::GetHero() {
   return hero_;
 }
@@ -47,3 +40,4 @@ std::pair<int, int> Model::GetCellCoordinatesOnMap(const Point& point) const {
   int x = static_cast<int>(point.GetX() / cell.first);
   int y = static_cast<int>(point.GetY() / cell.second);
   return {x, y};
+}
