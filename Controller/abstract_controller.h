@@ -8,7 +8,7 @@
 class AbstractController {
  public:
   virtual const Hero& GetHero() const = 0;
- 
+
   virtual void HandleKeyPressEvent(QKeyEvent* event) = 0;
   virtual void HandleKeyReleaseEvent(QKeyEvent* event) = 0;
 };
