@@ -8,13 +8,9 @@ View::View() {
   setFixedSize(900, 600);
 }
 
-void View::SetController(std::unique_ptr<AbstractController>&& controller) {
+void View::SetController(const std::shared_ptr<AbstractController>& controller) {
   assert(controller != nullptr);
-  controller_ = std::move(controller);
-}
-
-void View::Start() {
-  controller_->StartTimer();
+  controller_ = controller;
 }
 
 void View::paintEvent(QPaintEvent* event) {

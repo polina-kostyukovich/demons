@@ -8,20 +8,22 @@ void Controller::SetModel(std::unique_ptr<Model>&& model) {
   model_ = std::move(model);
 }
 
-void Controller::SetView(const std::shared_ptr<View>& view) {
+void Controller::SetView(std::unique_ptr<View>&& view) {
   assert(view != nullptr);
-  view_ = view;
+  view_ = std::move(view);
 }
 
-void Controller::Connect() {
-  ConnectTimer();
+void Controller::ConnectTimer() {
+  timer_->setInterval(constants::kTickTime);
+  connect(timer_, &QTimer::timeout, this, &Controller::TimerTick);
 }
 
 const Hero& Controller::GetHero() const {
   return model_->GetHero();
 }
 
-void Controller::StartTimer() {
+void Controller::Start() {
+  view_->show();
   timer_->start();
 }
 
@@ -38,11 +40,6 @@ void Controller::HandleKeyPressEvent(QKeyEvent* event) {
 
 void Controller::HandleKeyReleaseEvent(QKeyEvent* event) {
   keys_[event->key()] = false;
-}
-
-void Controller::ConnectTimer() {
-  timer_->setInterval(constants::kTickTime);
-  connect(timer_, &QTimer::timeout, this, &Controller::TimerTick);
 }
 
 Vector2D Controller::GetDirection() const {

@@ -15,13 +15,13 @@ class Controller : public AbstractController {
   Controller() = default;
 
   void SetModel(std::unique_ptr<Model>&& model);
-  void SetView(const std::shared_ptr<View>& view);
+  void SetView(std::unique_ptr<View>&& view);
 
-  void Connect();
+  void ConnectTimer();
 
   const Hero& GetHero() const override;
 
-  void StartTimer() override;
+  void Start();
 
   void HandleKeyPressEvent(QKeyEvent* event) override;
   void HandleKeyReleaseEvent(QKeyEvent* event) override;
@@ -30,12 +30,11 @@ class Controller : public AbstractController {
   void TimerTick();
 
  private:
-  void ConnectTimer();
   Vector2D GetDirection() const;
 
  private:
   std::unique_ptr<Model> model_;
-  std::shared_ptr<View> view_;
+  std::unique_ptr<View> view_;
   QTimer* timer_{new QTimer(this)};
   std::map<int, bool> keys_;
 };
