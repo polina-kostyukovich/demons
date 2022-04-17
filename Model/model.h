@@ -5,11 +5,11 @@
 #include <utility>
 #include <QWidget>
 
-#include "../View/view.h"
 #include "constants.h"
-#include "../Map/map.h"
 #include "../GameObject/hero.h"
+#include "../Map/map.h"
 #include "../Util/vector.h"
+#include "../View/view.h"
 
 class Model {
  public:

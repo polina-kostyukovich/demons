@@ -34,8 +34,8 @@ class Controller : public AbstractController {
   Vector2D GetDirection() const;
 
  private:
-  std::unique_ptr<Model> model_{nullptr};
-  std::shared_ptr<View> view_{nullptr};
+  std::unique_ptr<Model> model_;
+  std::shared_ptr<View> view_;
   QTimer* timer_{new QTimer(this)};
   std::map<int, bool> keys_;
 };

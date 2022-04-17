@@ -5,7 +5,7 @@
 
 class GameObject {
  public:
-  explicit GameObject(const Point& position = {0, 0});
+  explicit GameObject(const Point& position = Point());
 
   void SetPosition(const Point& new_position);
   void SetPositionX(long double new_x);

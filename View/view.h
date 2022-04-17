@@ -26,7 +26,7 @@ class View : public QWidget {
   void keyReleaseEvent(QKeyEvent* event) override;
 
  private:
-  std::unique_ptr<AbstractController> controller_{nullptr};
+  std::unique_ptr<AbstractController> controller_;
 };
 
 #endif  // VIEW_VIEW_H_
