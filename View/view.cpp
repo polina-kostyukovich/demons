@@ -5,7 +5,10 @@
 #include "../Util/point.h"
 
 View::View() {
-  setFixedSize(900, 600);
+  window_width = 900;
+  window_height = 600;
+  setFixedSize(window_width,
+               window_height);
 }
 
 void View::SetController(
@@ -35,11 +38,9 @@ void View::keyReleaseEvent(QKeyEvent* event) {
 }
 
 int View::GetWindowWidth() const {
-  // todo
-  return 900;
+  return window_width;
 }
 
 int View::GetWindowHeight() const {
-  // todo
-  return 600;
+  return window_height;
 }

@@ -26,6 +26,9 @@ class View : public QWidget {
 
  private:
   std::shared_ptr<AbstractController> controller_;
+
+  int window_width;
+  int window_height;
 };
 
 #endif  // VIEW_VIEW_H_
