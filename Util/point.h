@@ -5,46 +5,54 @@
 #include <utility>
 
 #include "../Model/constants.h"
+#include "vector.h"
 
 class Point {
  public:
-    Point() = default;
-    Point(long double x, long double y);
-    Point(const Point& point);
-    Point(Point&& point);
+  Point() = default;
+  Point(long double x, long double y);
+  Point(const Point& point);
+  Point(Point&& point);
 
-    bool IsClose(const Point& another_point) const;
-    static long double Distance(const Point& first, const Point& second);
+  bool IsClose(const Point& another_point) const;
+  static long double Distance(const Point& first, const Point& second);
 
-    void SetX(long double new_x);
-    void SetY(long double new_y);
+  void SetX(long double new_x);
+  void SetY(long double new_y);
 
-    long double GetX() const;
-    long double GetY() const;
+  long double GetX() const;
+  long double GetY() const;
 
-    bool operator==(const Point& another_point) const;
-    bool operator!=(const Point& another_point) const;
+  bool operator==(const Point& another_point) const;
+  bool operator!=(const Point& another_point) const;
 
-    Point& operator=(const Point& another_point);
-    Point& operator=(Point&& another_point);
+  Point& operator=(const Point& another_point);
+  Point& operator=(Point&& another_point);
 
-    Point& operator+=(const Point& another_point);
-    Point& operator-=(const Point& another_point);
-    Point& operator*=(long double num);
-    Point& operator/=(long double num);
+  Point& operator+=(const Point& another_point);
+  Point& operator-=(const Point& another_point);
+  Point& operator+=(const Vector2D& vector);
+  Point& operator-=(const Vector2D& vector);
 
-    friend Point operator+(const Point& first, const Point& second);
-    friend Point operator-(const Point& first, const Point& second);
+  Point& operator*=(long double num);
+  Point& operator/=(long double num);
 
-    friend Point operator*(const Point& point, long double num);
-    friend Point operator/(const Point& point, long double num);
-    friend Point operator*(long double num, const Point& point);
+  friend Point operator+(const Point& first, const Point& second);
+  friend Point operator-(const Point& first, const Point& second);
 
-    friend std::ostream& operator<<(std::ostream& out, const Point& point);
+  friend Point operator+(const Point& point, const Vector2D& vector);
+  friend Point operator+(const Vector2D& vector, const Point& point);
+  friend Point operator-(const Point& point, const Vector2D& vector);
+
+  friend Point operator*(const Point& point, long double num);
+  friend Point operator/(const Point& point, long double num);
+  friend Point operator*(long double num, const Point& point);
+
+  friend std::ostream& operator<<(std::ostream& out, const Point& point);
 
  private:
-    long double x_{0};
-    long double y_{0};
+  long double x_{0};
+  long double y_{0};
 };
 
 #endif  // UTIL_POINT_H_

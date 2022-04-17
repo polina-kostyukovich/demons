@@ -31,8 +31,9 @@ add_executable(demons
         Map/map.cpp
         Model/constants.cpp
         Model/model.cpp
-        Util/point.cpp
         Util/collisions.cpp
+        Util/point.cpp
+        Util/vector.cpp
         View/view.cpp)
 
 target_link_libraries(demons

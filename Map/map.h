@@ -10,6 +10,10 @@
 class Map {
  public:
   Map(int window_width, int window_height);
+
+  int GetColumnsNumber() const;
+  int GetRowsNumber() const;
+
   void SetObject(std::unique_ptr<GameObject>&& object, int x, int y);
   const std::unique_ptr<GameObject>& GetObject(int x, int y) const;
   void RemoveObject(int x, int y);

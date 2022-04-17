@@ -11,6 +11,14 @@ Map::Map(int window_width, int window_height) {
   }
 }
 
+int Map::GetColumnsNumber() const {
+  return columns_;
+}
+
+int Map::GetRowsNumber() const {
+  return rows_;
+}
+
 void Map::SetObject(std::unique_ptr<GameObject>&& object, int x, int y) {
   assert(x >= 0 && x < columns_ && y >= 0 && y < rows_);
   objects_[x][y] = std::move(object);

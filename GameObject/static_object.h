@@ -5,7 +5,7 @@
 
 class StaticObject : public GameObject {
  public:
-  explicit StaticObject(const Point& position = {0, 0});
+  explicit StaticObject(const Point& position = Point());
 };
 
 #endif  // GAMEOBJECT_STATIC_OBJECT_H_
