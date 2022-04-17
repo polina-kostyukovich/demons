@@ -2,11 +2,12 @@
 
 #include <utility>
 
+#include "../Model/constants.h"
 #include "../Util/point.h"
 
 View::View() {
-  window_width = 900;
-  window_height = 600;
+  window_width = constants::kDefaultWindowWidth;
+  window_height = constants::kDefaultWindowHeight;
   setFixedSize(window_width,
                window_height);
 }
