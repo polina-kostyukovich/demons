@@ -6,10 +6,10 @@
 #include "../Util/point.h"
 
 View::View() {
-  window_width = constants::kDefaultWindowWidth;
-  window_height = constants::kDefaultWindowHeight;
-  setFixedSize(window_width,
-               window_height);
+  window_width_ = constants::kDefaultWindowWidth;
+  window_height_ = constants::kDefaultWindowHeight;
+  setBaseSize(window_width_,
+               window_height_);
 }
 
 void View::SetController(
@@ -39,9 +39,9 @@ void View::keyReleaseEvent(QKeyEvent* event) {
 }
 
 int View::GetWindowWidth() const {
-  return window_width;
+  return window_width_;
 }
 
 int View::GetWindowHeight() const {
-  return window_height;
+  return window_height_;
 }
