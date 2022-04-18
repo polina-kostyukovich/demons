@@ -30,6 +30,14 @@ void View::PaintHero() {
                       10, 10);
 }
 
+int View::GetWindowWidth() const {
+  return window_width_;
+}
+
+int View::GetWindowHeight() const {
+  return window_height_;
+}
+
 void View::keyPressEvent(QKeyEvent* event) {
   controller_->HandleKeyPressEvent(event);
 }
@@ -38,10 +46,7 @@ void View::keyReleaseEvent(QKeyEvent* event) {
   controller_->HandleKeyReleaseEvent(event);
 }
 
-int View::GetWindowWidth() const {
-  return window_width_;
-}
-
-int View::GetWindowHeight() const {
-  return window_height_;
+void View::resizeEvent(QResizeEvent* event) {
+  window_width_ = event->size().width();
+  window_height_ = event->size().height();
 }
