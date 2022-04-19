@@ -26,6 +26,8 @@ class View : public QWidget {
 
  private:
   std::shared_ptr<AbstractController> controller_;
+  std::vector<QPixmap> hero_pixmaps_;
+  std::vector<QPixmap> wings_pixmaps_;
 };
 
 #endif  // VIEW_VIEW_H_

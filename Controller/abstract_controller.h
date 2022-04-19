@@ -13,6 +13,7 @@ class AbstractController : public QObject {
 
   virtual void HandleKeyPressEvent(QKeyEvent* event) = 0;
   virtual void HandleKeyReleaseEvent(QKeyEvent* event) = 0;
+  virtual int GetTime()=0;
 };
 
 #endif  // CONTROLLER_ABSTRACT_CONTROLLER_H_

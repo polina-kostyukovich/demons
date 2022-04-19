@@ -34,7 +34,9 @@ add_executable(demons
         Util/collisions.cpp
         Util/point.cpp
         Util/vector.cpp
-        View/view.cpp)
+        View/view.cpp
+        resources.qrc
+        )
 
 target_link_libraries(demons
         Qt::Core

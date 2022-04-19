@@ -7,6 +7,9 @@ namespace constants {
 
     const int kTickTime = 20;
     const long double kHeroStep = 4;
+
+    const int kSlowAnimation = 4;
+    const int kNumberAnimation = 11;
 }  // namespace constants
 
 #endif  // MODEL_CONSTANTS_H_
