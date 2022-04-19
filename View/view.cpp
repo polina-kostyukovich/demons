@@ -2,10 +2,13 @@
 
 #include <utility>
 
+#include "../Model/constants.h"
 #include "../Util/point.h"
 
 View::View() {
-  setFixedSize(900, 600);
+  window_width_ = constants::kDefaultWindowWidth;
+  window_height_ = constants::kDefaultWindowHeight;
+  setBaseSize(window_width_, window_height_);
 }
 
 void View::SetController(
@@ -26,6 +29,14 @@ void View::PaintHero() {
                       10, 10);
 }
 
+int View::GetWindowWidth() const {
+  return window_width_;
+}
+
+int View::GetWindowHeight() const {
+  return window_height_;
+}
+
 void View::keyPressEvent(QKeyEvent* event) {
   controller_->HandleKeyPressEvent(event);
 }
@@ -34,12 +45,7 @@ void View::keyReleaseEvent(QKeyEvent* event) {
   controller_->HandleKeyReleaseEvent(event);
 }
 
-int View::GetWindowWidth() const {
-  // todo
-  return 900;
-}
-
-int View::GetWindowHeight() const {
-  // todo
-  return 600;
+void View::resizeEvent(QResizeEvent* event) {
+  window_width_ = event->size().width();
+  window_height_ = event->size().height();
 }
