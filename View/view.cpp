@@ -8,8 +8,7 @@
 View::View() {
   window_width_ = constants::kDefaultWindowWidth;
   window_height_ = constants::kDefaultWindowHeight;
-  setBaseSize(window_width_,
-               window_height_);
+  setBaseSize(window_width_, window_height_);
 }
 
 void View::SetController(
