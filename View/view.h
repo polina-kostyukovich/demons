@@ -6,6 +6,7 @@
 #include <QPainter>
 #include <QWidget>
 
+#include "../Animation/animation.h"
 #include "../Controller/abstract_controller.h"
 
 class View : public QWidget {
@@ -26,8 +27,7 @@ class View : public QWidget {
 
  private:
   std::shared_ptr<AbstractController> controller_;
-  std::vector<QPixmap> hero_pixmaps_;
-  std::vector<QPixmap> wings_pixmaps_;
+  Animation animation_;
 };
 
 #endif  // VIEW_VIEW_H_
