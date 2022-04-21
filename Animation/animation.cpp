@@ -1,4 +1,5 @@
 #include "animation.h"
+#include <string>
 
 Animation::Animation() {
   Q_INIT_RESOURCE(resources);
@@ -12,29 +13,29 @@ Animation::Animation() {
 }
 
 void Animation::MakeHero() {
-  hero_pixmaps.emplace_back(QPixmap(":Picture/Hero/demonessa1.png"));
-  hero_pixmaps.emplace_back(QPixmap(":Picture/Hero/demonessa2.png"));
-  hero_pixmaps.emplace_back(QPixmap(":Picture/Hero/demonessa3.png"));
-  hero_pixmaps.emplace_back(QPixmap(":Picture/Hero/demonessa4.png"));
-  hero_pixmaps.emplace_back(QPixmap(":Picture/Hero/demonessa5.png"));
-  hero_pixmaps.emplace_back(QPixmap(":Picture/Hero/demonessa6.png"));
-  hero_pixmaps.emplace_back(QPixmap(":Picture/Hero/demonessa5.png"));
-  hero_pixmaps.emplace_back(QPixmap(":Picture/Hero/demonessa4.png"));
-  hero_pixmaps.emplace_back(QPixmap(":Picture/Hero/demonessa3.png"));
-  hero_pixmaps.emplace_back(QPixmap(":Picture/Hero/demonessa2.png"));
-  hero_pixmaps.emplace_back(QPixmap(":Picture/Hero/demonessa1.png"));
+  std::string str = ":Picture/Hero/demonessa";
+  for (int i=0; i<=6; i++) {
+    str+=std::to_string(i);
+    str+=".png";
+    hero_pixmaps.emplace_back(QPixmap(str.c_str()));
+  }
+  for (int i=5; i>=0; i--) {
+    str+=std::to_string(i);
+    str+=".png";
+    hero_pixmaps.emplace_back(QPixmap(str.c_str()));
+  }
 }
 
 void Animation::MakeWings() {
-  wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings1.png"));
-  wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings2.png"));
-  wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings3.png"));
-  wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings4.png"));
-  wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings5.png"));
-  wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings6.png"));
-  wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings5.png"));
-  wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings4.png"));
-  wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings3.png"));
-  wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings2.png"));
-  wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings1.png"));
+  std::string str = ":Picture/Wings/wings";
+  for (int i=0; i<=6; i++) {
+    str+=std::to_string(i);
+    str+=".png";
+    hero_pixmaps.emplace_back(QPixmap(str.c_str()));
+  }
+  for (int i=5; i>=0; i--) {
+    str+=std::to_string(i);
+    str+=".png";
+    hero_pixmaps.emplace_back(QPixmap(str.c_str()));
+  }
 }
