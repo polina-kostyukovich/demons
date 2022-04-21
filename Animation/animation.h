@@ -14,6 +14,9 @@ class Animation {
   QPixmap vertical_wall;
 
   int counter_{0};
+ private:
+  void MakeHero();
+  void MakeWings();
 };
 
 #endif  // ANIMATION_ANIMATION_H_

@@ -2,9 +2,16 @@
 
 Animation::Animation() {
   Q_INIT_RESOURCE(resources);
+  // static objects
   lava = QPixmap(":Picture/StaticObject/lava.png");
   horizontal_wall = QPixmap(":Picture/StaticObject/horizontal_wall.png");
   vertical_wall = QPixmap(":Picture/StaticObject/vertical_wall.png");
+  // animation objects
+  MakeHero();
+  MakeWings();
+}
+
+void Animation::MakeHero() {
   hero_pixmaps.emplace_back(QPixmap(":Picture/Hero/demonessa1.png"));
   hero_pixmaps.emplace_back(QPixmap(":Picture/Hero/demonessa2.png"));
   hero_pixmaps.emplace_back(QPixmap(":Picture/Hero/demonessa3.png"));
@@ -16,6 +23,9 @@ Animation::Animation() {
   hero_pixmaps.emplace_back(QPixmap(":Picture/Hero/demonessa3.png"));
   hero_pixmaps.emplace_back(QPixmap(":Picture/Hero/demonessa2.png"));
   hero_pixmaps.emplace_back(QPixmap(":Picture/Hero/demonessa1.png"));
+}
+
+void Animation::MakeWings() {
   wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings1.png"));
   wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings2.png"));
   wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings3.png"));
