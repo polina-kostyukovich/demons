@@ -2,6 +2,7 @@
 #define ANIMATION_ANIMATION_H_
 
 #include <QPainter>
+#include <vector>
 
 class Animation {
  public:
