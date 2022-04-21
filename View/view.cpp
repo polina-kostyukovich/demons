@@ -62,9 +62,8 @@ void View::PaintHero() {
                        constants::kWallSize,
                        constants::kWallSize,
                        animation_.horizontal_wall);
-
   }
-    for (int j = 0; j <= window()->height() / constants::kWallSize; j++) {
+  for (int j = 0; j <= window()->height() / constants::kWallSize; j++) {
     painter.drawPixmap(0, j * constants::kWallSize, constants::kWallSize,
                        constants::kWallSize, animation_.horizontal_wall);
     painter.drawPixmap(window()->width() - constants::kWallSize,

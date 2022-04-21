@@ -2,9 +2,9 @@
 
 Animation::Animation() {
   Q_INIT_RESOURCE(resources);
-  lava=QPixmap(":Picture/StaticObject/lava.png");
-  horizontal_wall=QPixmap(":Picture/StaticObject/horizontal_wall.png");
-  vertical_wall=QPixmap(":Picture/StaticObject/vertical_wall.png");
+  lava = QPixmap(":Picture/StaticObject/lava.png");
+  horizontal_wall = QPixmap(":Picture/StaticObject/horizontal_wall.png");
+  vertical_wall = QPixmap(":Picture/StaticObject/vertical_wall.png");
   hero_pixmaps.emplace_back(QPixmap(":Picture/Hero/demonessa1.png"));
   hero_pixmaps.emplace_back(QPixmap(":Picture/Hero/demonessa2.png"));
   hero_pixmaps.emplace_back(QPixmap(":Picture/Hero/demonessa3.png"));

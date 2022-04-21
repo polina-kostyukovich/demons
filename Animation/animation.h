@@ -1,5 +1,5 @@
-#ifndef ANIMATION_H_
-#define ANIMATION_H_
+#ifndef ANIMATION_ANIMATION_H_
+#define ANIMATION_ANIMATION_H_
 
 #include <QPainter>
 
@@ -15,4 +15,4 @@ class Animation {
   int counter_{0};
 };
 
-#endif  // ANIMATION_H_
+#endif  // ANIMATION_ANIMATION_H_
