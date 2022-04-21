@@ -21,6 +21,8 @@ Animation::Animation() {
   wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings3.png"));
   wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings4.png"));
   wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings5.png"));
+  wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings6.png"));
+  wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings5.png"));
   wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings4.png"));
   wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings3.png"));
   wings_pixmaps.emplace_back(QPixmap(":Picture/Wings/wings2.png"));

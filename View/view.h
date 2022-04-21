@@ -27,6 +27,8 @@ class View : public QWidget {
 
  private:
   std::shared_ptr<AbstractController> controller_;
+
+ public:
   Animation animation_;
 };
 

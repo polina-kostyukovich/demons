@@ -8,7 +8,7 @@ namespace constants {
     const int kTickTime = 20;
     const long double kHeroStep = 4;
 
-    const int kSlowAnimation = 4;
+    const int kSlowAnimation = 3;
     const int kNumberAnimation = 11;
     const int kHeroSize = 60;
     const int kLavaSize = 60;

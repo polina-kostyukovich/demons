@@ -32,6 +32,10 @@ void Controller::TimerTick() {
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());
   view_->repaint();
+  view_->animation_.counter_++;
+  if (view_->animation_.counter_==constants::kSlowAnimation*constants::kNumberAnimation) {
+    view_->animation_.counter_-=constants::kSlowAnimation*constants::kNumberAnimation;
+  }
 }
 
 void Controller::HandleKeyPressEvent(QKeyEvent* event) {

@@ -33,7 +33,7 @@ View::View() {
 }
 
 void View::SetController(
-    const std::shared_ptr <AbstractController>& controller) {
+    const std::shared_ptr<AbstractController>& controller) {
   assert(controller != nullptr);
   controller_ = controller;
 }
@@ -45,19 +45,17 @@ void View::paintEvent(QPaintEvent* event) {
 void View::PaintHero() {
   QPainter painter(this);
   Point hero_pos = controller_->GetHero().GetPosition();
-  int number_animation = ((controller_->GetTime() / constants::kTickTime)
-      % (constants::kSlowAnimation * constants::kNumberAnimation))
-      / constants::kSlowAnimation;
   painter.drawPixmap(static_cast<int> (hero_pos.GetX()) - 5,
                      static_cast<int>(hero_pos.GetY()) - 5,
                      constants::kHeroSize * window()->height()
                          / constants::kStandartHeight,
                      constants::kHeroSize * window()->height()
                          / constants::kStandartHeight,
-                     animation_.wings_pixmaps[number_animation]);
+                     animation_.wings_pixmaps[animation_.counter_
+                         / constants::kSlowAnimation]);
   painter.drawPixmap(static_cast<int> (hero_pos.GetX()) - 5,
                      static_cast<int>(hero_pos.GetY()) - 5, 60, 60,
-                     animation_.hero_pixmaps[number_animation]);
+                     animation_.hero_pixmaps[0]);
 }
 
 void View::keyPressEvent(QKeyEvent* event) {

@@ -11,6 +11,8 @@ class Animation {
   QPixmap lava;
   QPixmap horizontal_wall;
   QPixmap vertical_wall;
+
+  int counter_{0};
 };
 
 #endif  // ANIMATION_H_
