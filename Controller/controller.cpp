@@ -67,7 +67,3 @@ Vector2D Controller::GetDirection() const {
   direction.Normalize();
   return direction;
 }
-
-int Controller::GetTime() {
-  return timer_->timerId();
-}

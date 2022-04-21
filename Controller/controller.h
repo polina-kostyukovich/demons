@@ -20,7 +20,6 @@ class Controller : public AbstractController {
   void ConnectTimer();
 
   const Hero& GetHero() const override;
-  int GetTime() override;
 
   void Start();
 

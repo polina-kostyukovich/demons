@@ -10,10 +10,10 @@ namespace constants {
 
     const int kSlowAnimation = 3;
     const int kNumberAnimation = 11;
-    const int kHeroSize = 60;
+    const int kHeroSize = 90;
     const int kLavaSize = 60;
     const int kStandartHeight = 600;
-    const int kWallSize = 50;
+    const int kWallSize = 30;
 }  // namespace constants
 
 #endif  // MODEL_CONSTANTS_H_

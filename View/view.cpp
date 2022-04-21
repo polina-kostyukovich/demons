@@ -6,30 +6,33 @@
 
 View::View() {
   setFixedSize(900, 600);
-  QPainter painter(this);
-  for (int i = 0; i <= window()->width() / constants::kLavaSize; i++) {
-    for (int j = 0; j <= window()->height() / constants::kLavaSize; j++) {
-      painter.drawPixmap(i * constants::kLavaSize, j * constants::kLavaSize,
-                         constants::kLavaSize, constants::kLavaSize,
-                         animation_.lava);
-    }
-    painter.drawPixmap(i * constants::kWallSize, 0, constants::kWallSize,
-                       constants::kWallSize, animation_.horizontal_wall);
-    painter.drawPixmap(i * constants::kWallSize,
-                       window()->height() - constants::kWallSize,
-                       constants::kWallSize,
-                       constants::kWallSize,
-                       animation_.horizontal_wall);
-  }
-  for (int j = 0; j <= window()->height() / constants::kWallSize; j++) {
-    painter.drawPixmap(0, j * constants::kWallSize, constants::kWallSize,
-                       constants::kWallSize, animation_.horizontal_wall);
-    painter.drawPixmap(window()->width() - constants::kWallSize,
-                       j * constants::kWallSize,
-                       constants::kWallSize,
-                       constants::kWallSize,
-                       animation_.horizontal_wall);
-  }
+  // QPainter painter(this);
+  // for (int i = 0; i <= window()->width() / constants::kLavaSize; i++) {
+  //   for (int j = 0; j <= window()->height() / constants::kLavaSize; j++) {
+  //     painter.drawPixmap(i * constants::kLavaSize, j * constants::kLavaSize,
+  //                        constants::kLavaSize, constants::kLavaSize,
+  //                        animation_.lava);
+  //   }
+  // }
+  // for (int i = 0; i <= window()->width() / constants::kWallSize; i++) {
+  //   painter.drawPixmap(i * constants::kWallSize, 0, constants::kWallSize,
+  //                      constants::kWallSize, animation_.horizontal_wall);
+  //   painter.drawPixmap(i * constants::kWallSize,
+  //                      window()->height() - constants::kWallSize,
+  //                      constants::kWallSize,
+  //                      constants::kWallSize,
+  //                      animation_.horizontal_wall);
+  //
+  // }
+  // for (int j = 0; j <= window()->height() / constants::kWallSize; j++) {
+  //   painter.drawPixmap(0, j * constants::kWallSize, constants::kWallSize,
+  //                      constants::kWallSize, animation_.horizontal_wall);
+  //   painter.drawPixmap(window()->width() - constants::kWallSize,
+  //                      j * constants::kWallSize,
+  //                      constants::kWallSize,
+  //                      constants::kWallSize,
+  //                      animation_.horizontal_wall);
+  // }
 }
 
 void View::SetController(
@@ -44,6 +47,32 @@ void View::paintEvent(QPaintEvent* event) {
 
 void View::PaintHero() {
   QPainter painter(this);
+  for (int i = 0; i <= window()->width() / constants::kLavaSize; i++) {
+    for (int j = 0; j <= window()->height() / constants::kLavaSize; j++) {
+      painter.drawPixmap(i * constants::kLavaSize, j * constants::kLavaSize,
+                         constants::kLavaSize, constants::kLavaSize,
+                         animation_.lava);
+    }
+  }
+  for (int i = 0; i <= window()->width() / constants::kWallSize; i++) {
+    painter.drawPixmap(i * constants::kWallSize, 0, constants::kWallSize,
+                       constants::kWallSize, animation_.horizontal_wall);
+    painter.drawPixmap(i * constants::kWallSize,
+                       window()->height() - constants::kWallSize,
+                       constants::kWallSize,
+                       constants::kWallSize,
+                       animation_.horizontal_wall);
+
+  }
+    for (int j = 0; j <= window()->height() / constants::kWallSize; j++) {
+    painter.drawPixmap(0, j * constants::kWallSize, constants::kWallSize,
+                       constants::kWallSize, animation_.horizontal_wall);
+    painter.drawPixmap(window()->width() - constants::kWallSize,
+                       j * constants::kWallSize,
+                       constants::kWallSize,
+                       constants::kWallSize,
+                       animation_.horizontal_wall);
+  }
   Point hero_pos = controller_->GetHero().GetPosition();
   painter.drawPixmap(static_cast<int> (hero_pos.GetX()) - 5,
                      static_cast<int>(hero_pos.GetY()) - 5,
@@ -54,7 +83,11 @@ void View::PaintHero() {
                      animation_.wings_pixmaps[animation_.counter_
                          / constants::kSlowAnimation]);
   painter.drawPixmap(static_cast<int> (hero_pos.GetX()) - 5,
-                     static_cast<int>(hero_pos.GetY()) - 5, 60, 60,
+                     static_cast<int>(hero_pos.GetY()) - 5,
+                     constants::kHeroSize * window()->height()
+                         / constants::kStandartHeight,
+                     constants::kHeroSize * window()->height()
+                         / constants::kStandartHeight,
                      animation_.hero_pixmaps[0]);
 }
 
