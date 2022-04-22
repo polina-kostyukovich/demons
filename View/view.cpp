@@ -45,20 +45,32 @@ int View::GetWindowHeight() const {
 }
 
 void View::PaintMap(QPainter& painter) {
-  painter.drawTiledPixmap(0, 0, GetWindowWidth(), GetWindowHeight(),
-                          animation_.lava);
+  for (int i = 0; i <= GetWindowWidth() / constants::kLavaSize; i++) {
+    for (int j = 0; j <= GetWindowHeight() / constants::kLavaSize; j++) {
+      painter.drawPixmap(i * constants::kLavaSize, j * constants::kLavaSize,
+                         constants::kLavaSize, constants::kLavaSize,
+                         animation_.lava);
+    }
+  }
+  for (int i = 0; i <= GetWindowWidth() / constants::kWallSize; i++) {
+    painter.drawPixmap(i * constants::kWallSize, 0, constants::kWallSize,
+                       constants::kWallSize, animation_.horizontal_wall);
+    painter.drawPixmap(i * constants::kWallSize,
+                       GetWindowHeight() - constants::kWallSize,
+                       constants::kWallSize,
+                       constants::kWallSize,
+                       animation_.horizontal_wall);
 
-  painter.drawTiledPixmap(0, 0, GetWindowWidth(), constants::kWallSize,
-                          animation_.horizontal_wall);
-  painter.drawTiledPixmap(0, GetWindowHeight() - constants::kWallSize,
-                          GetWindowWidth(), constants::kWallSize,
-                          animation_.horizontal_wall);
-
-  painter.drawTiledPixmap(0, 0, constants::kWallSize, GetWindowHeight(),
-                          animation_.vertical_wall);
-  painter.drawTiledPixmap(GetWindowWidth() - constants::kWallSize, 0,
-                          GetWindowWidth(), GetWindowHeight(),
-                          animation_.vertical_wall);
+  }
+  for (int j = 0; j <= GetWindowHeight() / constants::kWallSize; j++) {
+    painter.drawPixmap(0, j * constants::kWallSize, constants::kWallSize,
+                       constants::kWallSize, animation_.horizontal_wall);
+    painter.drawPixmap(GetWindowWidth() - constants::kWallSize,
+                       j * constants::kWallSize,
+                       constants::kWallSize,
+                       constants::kWallSize,
+                       animation_.horizontal_wall);
+  }
 }
 
 int View::GetCounter() {
