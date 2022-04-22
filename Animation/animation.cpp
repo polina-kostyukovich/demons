@@ -1,4 +1,5 @@
 #include "animation.h"
+#include <string>
 
 Animation::Animation() {
   Q_INIT_RESOURCE(resources);
