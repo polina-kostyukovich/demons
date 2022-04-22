@@ -17,8 +17,8 @@ class View : public QWidget {
 
   void paintEvent(QPaintEvent* event) override;
 
-  void PaintHero();
-  void PaintMap();
+  void PaintHero(QPainter& painter);
+  void PaintMap(QPainter& painter);
 
   int GetWindowWidth() const;
   int GetWindowHeight() const;
@@ -26,10 +26,11 @@ class View : public QWidget {
   void keyPressEvent(QKeyEvent* event) override;
   void keyReleaseEvent(QKeyEvent* event) override;
 
+  int GetCounter();
+  void SetCounter(int i);
+
  private:
   std::shared_ptr<AbstractController> controller_;
-
- public:
   Animation animation_;
 };
 

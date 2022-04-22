@@ -14,6 +14,7 @@ const int kHeroSize = 90;
 const int kLavaSize = 60;
 const int kStandartHeight = 600;
 const int kWallSize = 30;
+const int kMiddleAnimation = 6;
 }  // namespace constants
 
 #endif  // MODEL_CONSTANTS_H_

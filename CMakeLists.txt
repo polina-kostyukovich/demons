@@ -16,6 +16,8 @@ find_package(Qt6 COMPONENTS
 add_executable(demons
         main.cpp
         Animation/animation.cpp
+        Animation/hero_animation.cpp
+        Animation/wings.cpp
         App/app.cpp
         Controller/abstract_controller.cpp
         Controller/controller.cpp

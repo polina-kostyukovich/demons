@@ -15,28 +15,17 @@ void View::SetController(
 }
 
 void View::paintEvent(QPaintEvent* event) {
-  PaintMap();
-  PaintHero();
+  QPainter painter(this);
+  PaintMap(painter);
+  PaintHero(painter);
 }
 
-void View::PaintHero() {
-  QPainter painter(this);
+void View::PaintHero(QPainter& painter) {
   Point hero_pos = controller_->GetHero().GetPosition();
-  painter.drawPixmap(static_cast<int> (hero_pos.GetX()) - 5,
-                     static_cast<int>(hero_pos.GetY()) - 5,
-                     constants::kHeroSize * window()->height()
-                         / constants::kStandartHeight,
-                     constants::kHeroSize * window()->height()
-                         / constants::kStandartHeight,
-                     animation_.wings_pixmaps[animation_.counter_
-                         / constants::kSlowAnimation]);
-  painter.drawPixmap(static_cast<int> (hero_pos.GetX()) - 5,
-                     static_cast<int>(hero_pos.GetY()) - 5,
-                     constants::kHeroSize * window()->height()
-                         / constants::kStandartHeight,
-                     constants::kHeroSize * window()->height()
-                         / constants::kStandartHeight,
-                     animation_.hero_pixmaps[0]);
+  int size = constants::kHeroSize * GetWindowHeight()
+      / constants::kStandartHeight; // чтобы герой увеличивался при ресайзе
+  animation_.wings_.DrawWings(&painter, hero_pos, size, animation_.counter_);
+  animation_.hero_animation_.DrawHero(&painter, hero_pos, size);
 }
 
 void View::keyPressEvent(QKeyEvent* event) {
@@ -48,40 +37,34 @@ void View::keyReleaseEvent(QKeyEvent* event) {
 }
 
 int View::GetWindowWidth() const {
-  // todo
-  return 900;
+  return window()->width();
 }
 
 int View::GetWindowHeight() const {
-  // todo
-  return 600;
+  return window()->height();
 }
 
-void View::PaintMap() {
-  QPainter painter(this);
-  for (int i = 0; i <= window()->width() / constants::kLavaSize; i++) {
-    for (int j = 0; j <= window()->height() / constants::kLavaSize; j++) {
-      painter.drawPixmap(i * constants::kLavaSize, j * constants::kLavaSize,
-                         constants::kLavaSize, constants::kLavaSize,
-                         animation_.lava);
-    }
-  }
-  for (int i = 0; i <= window()->width() / constants::kWallSize; i++) {
-    painter.drawPixmap(i * constants::kWallSize, 0, constants::kWallSize,
-                       constants::kWallSize, animation_.horizontal_wall);
-    painter.drawPixmap(i * constants::kWallSize,
-                       window()->height() - constants::kWallSize,
-                       constants::kWallSize,
-                       constants::kWallSize,
-                       animation_.horizontal_wall);
-  }
-  for (int j = 0; j <= window()->height() / constants::kWallSize; j++) {
-    painter.drawPixmap(0, j * constants::kWallSize, constants::kWallSize,
-                       constants::kWallSize, animation_.horizontal_wall);
-    painter.drawPixmap(window()->width() - constants::kWallSize,
-                       j * constants::kWallSize,
-                       constants::kWallSize,
-                       constants::kWallSize,
-                       animation_.horizontal_wall);
-  }
+void View::PaintMap(QPainter& painter) {
+  painter.drawTiledPixmap(0, 0, GetWindowWidth(), GetWindowHeight(),
+                          animation_.lava);
+
+  painter.drawTiledPixmap(0, 0, GetWindowWidth(), constants::kWallSize,
+                          animation_.horizontal_wall);
+  painter.drawTiledPixmap(0, GetWindowHeight() - constants::kWallSize,
+                          GetWindowWidth(), constants::kWallSize,
+                          animation_.horizontal_wall);
+
+  painter.drawTiledPixmap(0, 0, constants::kWallSize, GetWindowHeight(),
+                          animation_.vertical_wall);
+  painter.drawTiledPixmap(GetWindowWidth() - constants::kWallSize, 0,
+                          GetWindowWidth(), GetWindowHeight(),
+                          animation_.vertical_wall);
+}
+
+int View::GetCounter() {
+  return animation_.GetCounter();
+}
+
+void View::SetCounter(int i) {
+  animation_.SetCounter(i);
 }
