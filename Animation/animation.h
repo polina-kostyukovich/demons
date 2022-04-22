@@ -3,9 +3,7 @@
 
 #include <QPainter>
 #include <vector>
-
-#include "wings.h"
-#include "hero_animation.h"
+#include "../Model/constants.h"
 
 class Animation {
  public:
@@ -17,9 +15,11 @@ class Animation {
   QPixmap lava;
   QPixmap horizontal_wall;
   QPixmap vertical_wall;
+  std::vector<QPixmap> wings_pixmaps;
+  std::vector<QPixmap> hero_pixmaps;
+
+ private:
   int counter_{0};
-  Wings wings_;
-  HeroAnimation hero_animation_;
 };
 
 #endif  // ANIMATION_ANIMATION_H_

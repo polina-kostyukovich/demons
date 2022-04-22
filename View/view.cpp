@@ -5,7 +5,7 @@
 #include "../Util/point.h"
 
 View::View() {
-  setFixedSize(900, 600);
+  setWindowState(Qt::WindowFullScreen);
 }
 
 void View::SetController(
@@ -22,10 +22,10 @@ void View::paintEvent(QPaintEvent* event) {
 
 void View::PaintHero(QPainter& painter) {
   Point hero_pos = controller_->GetHero().GetPosition();
-  int size = constants::kHeroSize * GetWindowHeight()
-      / constants::kStandartHeight; // чтобы герой увеличивался при ресайзе
-  animation_.wings_.DrawWings(&painter, hero_pos, size, animation_.counter_);
-  animation_.hero_animation_.DrawHero(&painter, hero_pos, size);
+  int size = constants::kHeroSize;
+  controller_->GetHero().DrawWings(&painter, hero_pos, size,
+                                   animation_.GetCounter(), animation_);
+  controller_->GetHero().DrawHero(&painter, hero_pos, size, animation_);
 }
 
 void View::keyPressEvent(QKeyEvent* event) {
@@ -60,7 +60,6 @@ void View::PaintMap(QPainter& painter) {
                        constants::kWallSize,
                        constants::kWallSize,
                        animation_.horizontal_wall);
-
   }
   for (int j = 0; j <= GetWindowHeight() / constants::kWallSize; j++) {
     painter.drawPixmap(0, j * constants::kWallSize, constants::kWallSize,

@@ -27,3 +27,22 @@ void Hero::Move(const Vector2D& direction,
 
   // std::clog << "after: " << position_ << '\n';
 }
+
+void Hero::DrawHero(QPainter* painter,
+                    const Point& hero_pos,
+                    int size,
+                    Animation& animation) const {
+  painter->drawPixmap(static_cast<int> (hero_pos.GetX()),
+                      static_cast<int>(hero_pos.GetY()), size, size,
+                      animation.hero_pixmaps[0]);
+}
+
+void Hero::DrawWings(QPainter* painter,
+                     const Point& hero_pos,
+                     int size,
+                     int counter, Animation& animation) const {
+  painter->drawPixmap(static_cast<int> (hero_pos.GetX()),
+                      static_cast<int>(hero_pos.GetY()), size, size,
+                      animation.wings_pixmaps[counter
+                          / constants::kSlowAnimation]);
+}

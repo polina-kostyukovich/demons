@@ -10,9 +10,8 @@ const long double kHeroStep = 4;
 
 const int kSlowAnimation = 3;
 const int kNumberAnimation = 11;
-const int kHeroSize = 90;
+const int kHeroSize = 100;
 const int kLavaSize = 60;
-const int kStandartHeight = 600;
 const int kWallSize = 30;
 const int kMiddleAnimation = 6;
 }  // namespace constants
