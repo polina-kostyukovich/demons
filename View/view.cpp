@@ -25,7 +25,7 @@ void View::PaintHero(QPainter* painter) {
   int size = constants::kHeroSize;
   controller_->GetHero().DrawWings(painter, hero_pos, size,
                                    animation_.GetCounter(), &animation_);
-  controller_->GetHero().DrawHero(painter, hero_pos, size, animation_);
+  controller_->GetHero().DrawHero(painter, hero_pos, size, &animation_);
 }
 
 void View::keyPressEvent(QKeyEvent* event) {

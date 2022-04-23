@@ -31,10 +31,10 @@ void Hero::Move(const Vector2D& direction,
 void Hero::DrawHero(QPainter* painter,
                     const Point& hero_pos,
                     int size,
-                    Animation& animation) const {
+                    Animation *animation) const {
   painter->drawPixmap(static_cast<int> (hero_pos.GetX()),
                       static_cast<int>(hero_pos.GetY()), size, size,
-                      animation.hero_pixmaps[0]);
+                      animation->hero_pixmaps[0]);
 }
 
 void Hero::DrawWings(QPainter* painter,
