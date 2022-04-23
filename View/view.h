@@ -17,8 +17,8 @@ class View : public QWidget {
 
   void paintEvent(QPaintEvent* event) override;
 
-  void PaintHero(QPainter& painter);
-  void PaintMap(QPainter& painter);
+  void PaintHero(QPainter* painter);
+  void PaintMap(QPainter* painter);
 
   int GetWindowWidth() const;
   int GetWindowHeight() const;

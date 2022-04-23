@@ -15,7 +15,7 @@ class Hero : public Creature {
   void DrawHero(QPainter* painter, const Point& hero_pos, int size,
                 Animation& animation) const;
   void DrawWings(QPainter* painter, const Point& hero_pos, int size,
-                 int counter, Animation& animation) const;
+                 int counter, Animation* animation) const;
 };
 
 #endif  // GAMEOBJECT_HERO_H_

@@ -40,9 +40,9 @@ void Hero::DrawHero(QPainter* painter,
 void Hero::DrawWings(QPainter* painter,
                      const Point& hero_pos,
                      int size,
-                     int counter, Animation& animation) const {
+                     int counter, Animation* animation) const {
   painter->drawPixmap(static_cast<int> (hero_pos.GetX()),
                       static_cast<int>(hero_pos.GetY()), size, size,
-                      animation.wings_pixmaps[counter
+                      animation->wings_pixmaps[counter
                           / constants::kSlowAnimation]);
 }
