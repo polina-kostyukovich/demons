@@ -13,9 +13,9 @@ class Hero : public Creature {
   void Move(const Vector2D& direction, int window_width, int window_height);
 
   void DrawHero(QPainter* painter, const Point& hero_pos, int size,
-                Animation *animation) const;
+                std::unique_ptr<Animation> animation) const;
   void DrawWings(QPainter* painter, const Point& hero_pos, int size,
-                 int counter, Animation* animation) const;
+                 int counter, std::unique_ptr<Animation> animation) const;
 };
 
 #endif  // GAMEOBJECT_HERO_H_

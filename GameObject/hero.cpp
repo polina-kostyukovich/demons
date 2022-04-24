@@ -7,8 +7,12 @@ Hero::Hero(const Point& position) : Creature(position) {}
 void Hero::Move(const Vector2D& direction,
                 int window_width,
                 int window_height) {
-  SetPosition(GetPosition() + direction * constants::kHeroStep);
-
+  int width = window_width - constants::kHeroSize;
+  int height = window_height - constants::kHeroSize;
+  if ((GetPosition() + direction * constants::kHeroStep).GetY() < height &&
+      (GetPosition() + direction * constants::kHeroStep).GetX() < width) {
+    SetPosition(GetPosition() + direction * constants::kHeroStep);
+  }
   // std::clog << "Coords depending on checking collisions: before: "
   //           << position_ << "; ";
 
@@ -31,7 +35,7 @@ void Hero::Move(const Vector2D& direction,
 void Hero::DrawHero(QPainter* painter,
                     const Point& hero_pos,
                     int size,
-                    Animation *animation) const {
+                    std::unique_ptr<Animation> animation) const {
   painter->drawPixmap(static_cast<int> (hero_pos.GetX()),
                       static_cast<int>(hero_pos.GetY()), size, size,
                       animation->hero_pixmaps[0]);
@@ -40,7 +44,8 @@ void Hero::DrawHero(QPainter* painter,
 void Hero::DrawWings(QPainter* painter,
                      const Point& hero_pos,
                      int size,
-                     int counter, Animation* animation) const {
+                     int counter,
+                     std::unique_ptr<Animation> animation) const {
   painter->drawPixmap(static_cast<int> (hero_pos.GetX()),
                       static_cast<int>(hero_pos.GetY()), size, size,
                       animation->wings_pixmaps[counter
