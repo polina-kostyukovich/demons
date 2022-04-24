@@ -5,6 +5,7 @@
 #include "../Util/vector.h"
 #include "../Animation/animation.h"
 #include <QPainter>
+#include <memory>
 
 class Hero : public Creature {
  public:
