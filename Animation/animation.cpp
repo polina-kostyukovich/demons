@@ -4,7 +4,8 @@
 Animation::Animation() {
   Q_INIT_RESOURCE(resources);
   lava = QPixmap(":Resources/Picture/StaticObject/lava.png");
-  horizontal_wall = QPixmap(":Resources/Picture/StaticObject/horizontal_wall.png");
+  horizontal_wall =
+      QPixmap(":Resources/Picture/StaticObject/horizontal_wall.png");
   vertical_wall = QPixmap(":Resources/Picture/StaticObject/vertical_wall.png");
 
   int reverse;
