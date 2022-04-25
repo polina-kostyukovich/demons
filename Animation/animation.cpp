@@ -3,14 +3,14 @@
 
 Animation::Animation() {
   Q_INIT_RESOURCE(resources);
-  lava = QPixmap(":Picture/StaticObject/lava.png");
-  horizontal_wall = QPixmap(":Picture/StaticObject/horizontal_wall.png");
-  vertical_wall = QPixmap(":Picture/StaticObject/vertical_wall.png");
+  lava = QPixmap(":Resources/Picture/StaticObject/lava.png");
+  horizontal_wall = QPixmap(":Resources/Picture/StaticObject/horizontal_wall.png");
+  vertical_wall = QPixmap(":Resources/Picture/StaticObject/vertical_wall.png");
 
   int reverse;
   for (int i = 1; i <= constants::kNumberAnimation; i++) {
-    std::string file_demonessa = ":Picture/Hero/demonessa";
-    std::string file_wings = ":Picture/Wings/wings";
+    std::string file_demonessa = ":Resources/Picture/Hero/demonessa";
+    std::string file_wings = ":Resources/Picture/Wings/wings";
     if (i <= constants::kMiddleAnimation) {
       file_demonessa += std::to_string(i);
       file_wings += std::to_string(i);
