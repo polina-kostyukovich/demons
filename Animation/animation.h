@@ -1,8 +1,8 @@
 #ifndef ANIMATION_ANIMATION_H_
 #define ANIMATION_ANIMATION_H_
 
-#include <QPainter>
 #include <vector>
+#include <QPainter>
 #include "../Model/constants.h"
 
 class Animation {

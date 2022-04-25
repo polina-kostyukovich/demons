@@ -26,10 +26,10 @@ Animation::Animation() {
   }
 }
 
-int Animation::GetCounter() {
-  return counter_;
-}
-
 void Animation::SetCounter(int i) {
   counter_ = i;
+}
+
+int Animation::GetCounter() {
+  return counter_;
 }

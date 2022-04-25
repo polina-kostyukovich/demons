@@ -21,40 +21,18 @@ void View::paintEvent(QPaintEvent* event) {
 }
 
 void View::PaintHero(QPainter* painter) {
-  Point hero_pos = controller_->GetHero().GetPosition();
-  int size = constants::kHeroSize;
-  controller_->GetHero().DrawWings(painter,
-                                   hero_pos,
-                                   size,
-                                   animation_.GetCounter(),
-                                   std::make_unique<Animation>(animation_));
-  controller_->GetHero().DrawHero(painter,
-                                  hero_pos,
-                                  size,
-                                  std::make_unique<Animation>(animation_));
-}
-
-void View::keyPressEvent(QKeyEvent* event) {
-  controller_->HandleKeyPressEvent(event);
-}
-
-void View::keyReleaseEvent(QKeyEvent* event) {
-  controller_->HandleKeyReleaseEvent(event);
-}
-
-int View::GetWindowWidth() const {
-  return window()->width();
-}
-
-int View::GetWindowHeight() const {
-  return window()->height();
+  controller_->GetHero().DrawWings(painter, constants::kHeroSize,
+                                   animation_.GetCounter(), animation_);
+  controller_->GetHero().DrawHero(painter, constants::kHeroSize, animation_);
 }
 
 void View::PaintMap(QPainter* painter) {
   for (int i = 0; i <= GetWindowWidth() / constants::kLavaSize; i++) {
     for (int j = 0; j <= GetWindowHeight() / constants::kLavaSize; j++) {
-      painter->drawPixmap(i * constants::kLavaSize, j * constants::kLavaSize,
-                          constants::kLavaSize, constants::kLavaSize,
+      painter->drawPixmap(i * constants::kLavaSize,
+                          j * constants::kLavaSize,
+                          constants::kLavaSize,
+                          constants::kLavaSize,
                           animation_.lava);
     }
   }
@@ -69,13 +47,29 @@ void View::PaintMap(QPainter* painter) {
   }
   for (int j = 0; j <= GetWindowHeight() / constants::kWallSize; j++) {
     painter->drawPixmap(0, j * constants::kWallSize, constants::kWallSize,
-                        constants::kWallSize, animation_.horizontal_wall);
+                        constants::kWallSize, animation_.vertical_wall);
     painter->drawPixmap(GetWindowWidth() - constants::kWallSize,
                         j * constants::kWallSize,
                         constants::kWallSize,
                         constants::kWallSize,
-                        animation_.horizontal_wall);
+                        animation_.vertical_wall);
   }
+}
+
+int View::GetWindowWidth() const {
+  return window()->width();
+}
+
+int View::GetWindowHeight() const {
+  return window()->height();
+}
+
+void View::keyPressEvent(QKeyEvent* event) {
+  controller_->HandleKeyPressEvent(event);
+}
+
+void View::keyReleaseEvent(QKeyEvent* event) {
+  controller_->HandleKeyReleaseEvent(event);
 }
 
 int View::GetCounter() {

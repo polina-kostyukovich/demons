@@ -9,45 +9,37 @@ void Hero::Move(const Vector2D& direction,
                 int window_height) {
   int width = window_width - constants::kHeroSize;
   int height = window_height - constants::kHeroSize;
-  if ((GetPosition() + direction * constants::kHeroStep).GetY() < height &&
-      (GetPosition() + direction * constants::kHeroStep).GetX() < width) {
-    SetPosition(GetPosition() + direction * constants::kHeroStep);
-  }
+  SetPosition(GetPosition() + direction * constants::kHeroStep);
   // std::clog << "Coords depending on checking collisions: before: "
   //           << position_ << "; ";
 
   if (GetPosition().GetX() < -constants::kEpsilon) {
     SetPositionX(0.);
   }
-  if (GetPosition().GetX() > constants::kEpsilon + window_width) {
-    SetPositionX(static_cast<long double>(window_width));
+  if (GetPosition().GetX() > constants::kEpsilon + width) {
+    SetPositionX(static_cast<long double>(width));
   }
   if (GetPosition().GetY() < -constants::kEpsilon) {
     SetPositionY(0.);
   }
-  if (GetPosition().GetY() > constants::kEpsilon + window_height) {
-    SetPositionY(static_cast<long double>(window_height));
+  if (GetPosition().GetY() > constants::kEpsilon + height) {
+    SetPositionY(static_cast<long double>(height));
   }
 
   // std::clog << "after: " << position_ << '\n';
 }
 
-void Hero::DrawHero(QPainter* painter,
-                    const Point& hero_pos,
-                    int size,
-                    std::unique_ptr<Animation> animation) const {
-  painter->drawPixmap(static_cast<int> (hero_pos.GetX()),
-                      static_cast<int>(hero_pos.GetY()), size, size,
-                      animation->hero_pixmaps[0]);
+void Hero::DrawHero(QPainter* painter, int size,
+                    const Animation& animation) const {
+  painter->drawPixmap(static_cast<int> (GetPosition().GetX()),
+                      static_cast<int>(GetPosition().GetY()), size, size,
+                      animation.hero_pixmaps[0]);
 }
 
-void Hero::DrawWings(QPainter* painter,
-                     const Point& hero_pos,
-                     int size,
-                     int counter,
-                     std::unique_ptr<Animation> animation) const {
-  painter->drawPixmap(static_cast<int> (hero_pos.GetX()),
-                      static_cast<int>(hero_pos.GetY()), size, size,
-                      animation->wings_pixmaps[counter
+void Hero::DrawWings(QPainter* painter, int size, int counter,
+                     const Animation& animation) const {
+  painter->drawPixmap(static_cast<int> (GetPosition().GetX()),
+                      static_cast<int>(GetPosition().GetY()), size, size,
+                      animation.wings_pixmaps[counter
                           / constants::kSlowAnimation]);
 }
