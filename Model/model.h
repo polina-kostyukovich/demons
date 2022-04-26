@@ -8,6 +8,7 @@
 #include "constants.h"
 #include "../GameObject/hero.h"
 #include "../Map/map.h"
+#include "../Util/structs.h"
 #include "../Util/vector.h"
 #include "../View/view.h"
 
@@ -16,6 +17,9 @@ class Model {
   Model() = default;
 
   Hero& GetHero();
+  Map& GetMap();
+
+  void LoadPictures();
 
  private:
   std::pair<int, int> GetCellSize(int window_width, int window_height) const;

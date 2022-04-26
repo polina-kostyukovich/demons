@@ -3,9 +3,12 @@
 
 #include <memory>
 #include <vector>
+#include <QPainter>
+#include <QPixmap>
 
 #include "../GameObject/game_object.h"
 #include "../Model/constants.h"
+#include "../Util/structs.h"
 
 class Map {
  public:
@@ -18,10 +21,20 @@ class Map {
   const std::unique_ptr<GameObject>& GetObject(int x, int y) const;
   void RemoveObject(int x, int y);
 
+  void LoadPictures();
+  Animation GetAnimation(int counter) const;
+
+  void SetMap(QPixmap pixmap);
+
+  void MakeMap(int width, int height);
+
  private:
   int columns_;
   int rows_;
   std::vector<std::vector<std::unique_ptr<GameObject>>> objects_;
+  QPixmap map;
+  int width_;
+  int height_;
 };
 
 #endif  // MAP_MAP_H_

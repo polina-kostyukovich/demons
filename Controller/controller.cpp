@@ -22,7 +22,12 @@ const Hero& Controller::GetHero() const {
   return model_->GetHero();
 }
 
+const Map& Controller::GetMap() const {
+  return model_->GetMap();
+}
+
 void Controller::Start() {
+  model_->LoadPictures();
   view_->show();
   timer_->start();
 }
@@ -32,12 +37,12 @@ void Controller::TimerTick() {
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());
   view_->repaint();
-  int i = view_->GetCounter();
+  int i = counter_;
   i++;
   if (i == constants::kSlowAnimation * constants::kNumberAnimation) {
     i -= constants::kSlowAnimation * constants::kNumberAnimation;
   }
-  view_->SetCounter(i);
+  counter_ = i;
 }
 
 void Controller::HandleKeyPressEvent(QKeyEvent* event) {
@@ -68,4 +73,8 @@ Vector2D Controller::GetDirection() const {
   }
   direction.Normalize();
   return direction;
+}
+
+int Controller::GetCounter() const {
+  return counter_;
 }

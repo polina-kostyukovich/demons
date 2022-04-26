@@ -16,16 +16,16 @@
         <file>Resources/Picture/StaticObject/horizontal_wall.png</file>
         <file>Resources/Picture/StaticObject/vertical_wall.png</file>
         <file>Resources/Picture/StaticObject/lava.png</file>
-        <file>Resources/Picture/Fireball/born_fireboll1.png</file>
-        <file>Resources/Picture/Fireball/born_fireboll2.png</file>
-        <file>Resources/Picture/Fireball/born_fireboll3.png</file>
-        <file>Resources/Picture/Fireball/born_fireboll4.png</file>
-        <file>Resources/Picture/Fireball/fireboll1.png</file>
-        <file>Resources/Picture/Fireball/fireboll2.png</file>
-        <file>Resources/Picture/Fireball/fireboll3.png</file>
-        <file>Resources/Picture/Fireball/fireboll4.png</file>
-        <file>Resources/Picture/Fireball/fireboll5.png</file>
-        <file>Resources/Picture/Fireball/fireboll6.png</file>
-        <file>Resources/Picture/Fireball/fireboll7.png</file>
+        <file>Resources/Picture/Fireball/born_fireball1.png</file>
+        <file>Resources/Picture/Fireball/born_fireball2.png</file>
+        <file>Resources/Picture/Fireball/born_fireball3.png</file>
+        <file>Resources/Picture/Fireball/born_fireball4.png</file>
+        <file>Resources/Picture/Fireball/fireball1.png</file>
+        <file>Resources/Picture/Fireball/fireball2.png</file>
+        <file>Resources/Picture/Fireball/fireball3.png</file>
+        <file>Resources/Picture/Fireball/fireball4.png</file>
+        <file>Resources/Picture/Fireball/fireball5.png</file>
+        <file>Resources/Picture/Fireball/fireball6.png</file>
+        <file>Resources/Picture/Fireball/fireball7.png</file>
     </qresource>
 </RCC>

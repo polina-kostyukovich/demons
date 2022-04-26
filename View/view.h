@@ -6,8 +6,8 @@
 #include <QPainter>
 #include <QWidget>
 
-#include "../Animation/animation.h"
 #include "../Controller/abstract_controller.h"
+#include "../Util/structs.h"
 
 class View : public QWidget {
  public:
@@ -17,8 +17,7 @@ class View : public QWidget {
 
   void paintEvent(QPaintEvent* event) override;
 
-  void PaintHero(QPainter* painter);
-  void PaintMap(QPainter* painter);
+  void Draw(Animation animation, QPainter* painter);
 
   int GetWindowWidth() const;
   int GetWindowHeight() const;
@@ -26,12 +25,8 @@ class View : public QWidget {
   void keyPressEvent(QKeyEvent* event) override;
   void keyReleaseEvent(QKeyEvent* event) override;
 
-  int GetCounter();
-  void SetCounter(int i);
-
  private:
   std::shared_ptr<AbstractController> controller_;
-  Animation animation_;
 };
 
 #endif  // VIEW_VIEW_H_

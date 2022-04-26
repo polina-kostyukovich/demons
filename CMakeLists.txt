@@ -15,7 +15,6 @@ find_package(Qt6 COMPONENTS
 
 add_executable(demons
         main.cpp
-        Animation/animation.cpp
         App/app.cpp
         Controller/abstract_controller.cpp
         Controller/controller.cpp
@@ -34,6 +33,7 @@ add_executable(demons
         Model/model.cpp
         Util/collisions.cpp
         Util/point.cpp
+        Util/structs.h
         Util/vector.cpp
         View/view.cpp
         resources.qrc)

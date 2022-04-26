@@ -16,44 +16,17 @@ void View::SetController(
 
 void View::paintEvent(QPaintEvent* event) {
   QPainter painter(this);
-  PaintMap(&painter);
-  PaintHero(&painter);
+  Draw(controller_->GetHero().GetAnimation(controller_->GetCounter()),
+       &painter);
+  Draw(controller_->GetMap().GetAnimation(0), &painter);
 }
 
-void View::PaintHero(QPainter* painter) {
-  controller_->GetHero().DrawWings(painter, constants::kHeroSize,
-                                   animation_.GetCounter(), animation_);
-  controller_->GetHero().DrawHero(painter, constants::kHeroSize, animation_);
-}
-
-void View::PaintMap(QPainter* painter) {
-  for (int i = 0; i <= GetWindowWidth() / constants::kLavaSize; i++) {
-    for (int j = 0; j <= GetWindowHeight() / constants::kLavaSize; j++) {
-      painter->drawPixmap(i * constants::kLavaSize,
-                          j * constants::kLavaSize,
-                          constants::kLavaSize,
-                          constants::kLavaSize,
-                          animation_.lava);
-    }
-  }
-  for (int i = 0; i <= GetWindowWidth() / constants::kWallSize; i++) {
-    painter->drawPixmap(i * constants::kWallSize, 0, constants::kWallSize,
-                        constants::kWallSize, animation_.horizontal_wall);
-    painter->drawPixmap(i * constants::kWallSize,
-                        GetWindowHeight() - constants::kWallSize,
-                        constants::kWallSize,
-                        constants::kWallSize,
-                        animation_.horizontal_wall);
-  }
-  for (int j = 0; j <= GetWindowHeight() / constants::kWallSize; j++) {
-    painter->drawPixmap(0, j * constants::kWallSize, constants::kWallSize,
-                        constants::kWallSize, animation_.vertical_wall);
-    painter->drawPixmap(GetWindowWidth() - constants::kWallSize,
-                        j * constants::kWallSize,
-                        constants::kWallSize,
-                        constants::kWallSize,
-                        animation_.vertical_wall);
-  }
+void View::Draw(Animation animation, QPainter* painter) {
+  painter->drawPixmap(animation.left_top.GetX(),
+                      animation.left_top.GetY(),
+                      animation.width,
+                      animation.height,
+                      animation.picture);
 }
 
 int View::GetWindowWidth() const {
@@ -67,15 +40,6 @@ int View::GetWindowHeight() const {
 void View::keyPressEvent(QKeyEvent* event) {
   controller_->HandleKeyPressEvent(event);
 }
-
 void View::keyReleaseEvent(QKeyEvent* event) {
   controller_->HandleKeyReleaseEvent(event);
-}
-
-int View::GetCounter() {
-  return animation_.GetCounter();
-}
-
-void View::SetCounter(int i) {
-  animation_.SetCounter(i);
 }
