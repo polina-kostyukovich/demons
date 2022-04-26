@@ -2,9 +2,9 @@
 #define GAMEOBJECT_HERO_H_
 
 #include <memory>
+#include <vector>
 #include <QPainter>
 #include "creature.h"
-// #include "../Animation/animation.h"
 #include "../Util/structs.h"
 #include "../Util/vector.h"
 

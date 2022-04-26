@@ -8,7 +8,7 @@
 #include "../Map/map.h"
 
 class AbstractController : public QObject {
- Q_OBJECT
+  Q_OBJECT
  public:
   virtual const Hero& GetHero() const = 0;
   virtual const Map& GetMap() const = 0;

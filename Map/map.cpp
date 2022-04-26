@@ -6,7 +6,7 @@
 Map::Map(int window_width, int window_height) {
   // todo write json
   objects_.resize(columns_);
-  for (auto& column: objects_) {
+  for (auto& column : objects_) {
     column.resize(rows_);
   }
   MakeMap(window_width, window_height);

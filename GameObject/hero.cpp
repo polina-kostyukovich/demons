@@ -1,6 +1,7 @@
 #include "hero.h"
 
 #include <iostream>
+#include <string>
 
 Hero::Hero(const Point& position) : Creature(position) {}
 
