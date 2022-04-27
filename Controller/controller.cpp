@@ -18,30 +18,50 @@ void Controller::ConnectTimer() {
   connect(timer_, &QTimer::timeout, this, &Controller::TimerTick);
 }
 
+void Controller::StartNewGame() {
+  // load default pictures
+  StartGame();
+}
+
+void Controller::ContinueGame() {
+  // load from settings
+  StartGame();
+}
+
+void Controller::StartGame() {
+  // maybe load common files
+  view_->ShowGame();
+  timer_->start();
+}
+
+void Controller::ChangeLanguage(int language_number) {
+  // todo
+}
+
+void Controller::ChangeSoundOn() {
+  // todo
+}
+
 const Hero& Controller::GetHero() const {
   return model_->GetHero();
 }
 
 void Controller::Start() {
+  view_->CreateMenu();
   view_->show();
-  timer_->start();
 }
-
 void Controller::TimerTick() {
   model_->GetHero().Move(GetDirection(),
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());
   view_->repaint();
 }
-
 void Controller::HandleKeyPressEvent(QKeyEvent* event) {
   keys_[event->key()] = true;
 }
-
 void Controller::HandleKeyReleaseEvent(QKeyEvent* event) {
   keys_[event->key()] = false;
 }
-
 Vector2D Controller::GetDirection() const {
   Vector2D direction;
   if ((keys_.contains(Qt::Key_Left) && keys_.at(Qt::Key_Left))

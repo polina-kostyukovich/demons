@@ -5,10 +5,10 @@
 
 Map::Map(int window_width, int window_height) {
   // todo write json
-  objects_.resize(columns_);
-  for (auto& column : objects_) {
-    column.resize(rows_);
-  }
+  // objects_.resize(columns_);
+  // for (auto& column : objects_) {
+  //   column.resize(rows_);
+  // }
 }
 
 int Map::GetColumnsNumber() const {

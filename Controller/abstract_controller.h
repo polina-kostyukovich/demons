@@ -9,6 +9,12 @@
 class AbstractController : public QObject {
   Q_OBJECT
  public:
+  virtual void StartNewGame() = 0;
+  virtual void ContinueGame() = 0;
+
+  virtual void ChangeLanguage(int language_number) = 0;
+  virtual void ChangeSoundOn() = 0;
+
   virtual const Hero& GetHero() const = 0;
 
   virtual void HandleKeyPressEvent(QKeyEvent* event) = 0;

@@ -34,6 +34,7 @@ add_executable(demons
         Util/collisions.cpp
         Util/point.cpp
         Util/vector.cpp
+        View/menu.cpp
         View/view.cpp)
 
 target_link_libraries(demons

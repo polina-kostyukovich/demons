@@ -19,6 +19,13 @@ class Controller : public AbstractController {
 
   void ConnectTimer();
 
+  void StartNewGame() override;
+  void ContinueGame() override;
+  void StartGame();
+
+  void ChangeLanguage(int language_number) override;
+  void ChangeSoundOn() override;
+
   const Hero& GetHero() const override;
 
   void Start();

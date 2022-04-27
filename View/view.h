@@ -3,16 +3,21 @@
 
 #include <memory>
 #include <QKeyEvent>
+#include <QMainWindow>
 #include <QPainter>
 #include <QWidget>
 
 #include "../Controller/abstract_controller.h"
+#include "menu.h"
 
-class View : public QWidget {
+class View : public QMainWindow {
  public:
   View();
 
   void SetController(const std::shared_ptr<AbstractController>& controller);
+  void CreateMenu();
+
+  void ShowGame();
 
   void paintEvent(QPaintEvent* event) override;
 
@@ -26,8 +31,12 @@ class View : public QWidget {
 
   void resizeEvent(QResizeEvent* event) override;
 
+  void closeEvent(QCloseEvent* event) override;
+
  private:
   std::shared_ptr<AbstractController> controller_;
+
+  Menu menu_{this};
 
   int window_width_;
   int window_height_;
