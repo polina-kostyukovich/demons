@@ -12,7 +12,7 @@
 
 class Map {
  public:
-  Map(int window_width, int window_height);
+  Map();
 
   int GetColumnsNumber() const;
   int GetRowsNumber() const;

@@ -3,15 +3,12 @@
 #include <cassert>
 #include <utility>
 
-Map::Map(int window_width, int window_height) {
+Map::Map() {
   // todo write json
-  // objects_.resize(columns_);
-  // for (auto& column : objects_) {
-  //   column.resize(rows_);
-  // }
-  // MakeMap(window_width, window_height);
-  // width_ = window_width;
-  // height_ = window_height;
+  objects_.resize(columns_);
+  for (auto& column: objects_) {
+    column.resize(rows_);
+  }
 }
 
 int Map::GetColumnsNumber() const {
@@ -78,7 +75,7 @@ void Map::LoadPictures() {
 
 Animation Map::GetAnimation(int counter) const {
   Animation output;
-  output.left_top = Point(0, 0);
+  output.left_top = Point(0., 0.);
   output.picture = picture_;
   output.width = width_;
   output.height = height_;
