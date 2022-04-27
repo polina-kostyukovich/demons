@@ -6,7 +6,7 @@
 Map::Map() {
   // todo write json
   objects_.resize(columns_);
-  for (auto& column: objects_) {
+  for (auto& column : objects_) {
     column.resize(rows_);
   }
 }
