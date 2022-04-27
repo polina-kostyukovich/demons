@@ -6,11 +6,11 @@ const long double kEpsilon = 1e-9;
 const long double kClose = 3;
 
 const int kTickTime = 20;
-const long double kHeroStep = 4;
+const long double kHeroStep = 8;
 
 const int kSlowAnimation = 3;
 const int kNumberAnimation = 11;
-const int kHeroSize = 100;
+const int kHeroSize = 120;
 const int kLavaSize = 60;
 const int kWallSize = 30;
 const int kMiddleAnimation = 6;

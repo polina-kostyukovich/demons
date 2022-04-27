@@ -28,7 +28,7 @@ class Model {
 
  private:
   Hero hero_;
-  Map map_{0, 0};
+  Map map_;
 };
 
 #endif  // MODEL_MODEL_H_
