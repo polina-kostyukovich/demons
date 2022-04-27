@@ -20,8 +20,8 @@ void Hero::LoadPictures() {
     }
     file_demonessa += ".png";
     file_wings += ".png";
-    hero_pixmaps.emplace_back(QPixmap(file_demonessa.c_str()));
-    wings_pixmaps.emplace_back(QPixmap(file_wings.c_str()));
+    hero_pixmaps_.emplace_back(QPixmap(file_demonessa.c_str()));
+    wings_pixmaps_.emplace_back(QPixmap(file_wings.c_str()));
   }
 }
 
@@ -55,11 +55,12 @@ Animation Hero::GetAnimation(int counter) const {
   output.left_top = position_;
   output.width = constants::kHeroSize;
   output.height = constants::kHeroSize;
-  QPixmap pixmap(wings_pixmaps[counter / constants::kSlowAnimation]);
+  QPixmap pixmap(wings_pixmaps_[counter / constants::kSlowAnimation]);
   QPainter painter(&pixmap);
 
-  QPixmap hero_image(hero_pixmaps[0].scaled(pixmap.width(), pixmap.height()));
+  QPixmap hero_image(hero_pixmaps_[0].scaled(pixmap.width(), pixmap.height()));
 
   painter.drawPixmap(0, 0, hero_image);
+  output.picture = pixmap;
   return output;
 }

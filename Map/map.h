@@ -24,15 +24,13 @@ class Map {
   void LoadPictures();
   Animation GetAnimation(int counter) const;
 
-  void SetMap(QPixmap pixmap);
-
-  void MakeMap(int width, int height);
+  void SetSize(int width, int height);
 
  private:
   int columns_;
   int rows_;
   std::vector<std::vector<std::unique_ptr<GameObject>>> objects_;
-  QPixmap map;
+  QPixmap picture_;
   int width_;
   int height_;
 };

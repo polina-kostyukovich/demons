@@ -16,14 +16,14 @@ void View::SetController(
 
 void View::paintEvent(QPaintEvent* event) {
   QPainter painter(this);
+  Draw(controller_->GetMap().GetAnimation(0), &painter);
   Draw(controller_->GetHero().GetAnimation(controller_->GetCounter()),
        &painter);
-  Draw(controller_->GetMap().GetAnimation(0), &painter);
 }
 
 void View::Draw(Animation animation, QPainter* painter) {
-  painter->drawPixmap(animation.left_top.GetX(),
-                      animation.left_top.GetY(),
+  painter->drawPixmap(static_cast<int>(animation.left_top.GetX()),
+                      static_cast<int>(animation.left_top.GetY()),
                       animation.width,
                       animation.height,
                       animation.picture);

@@ -27,6 +27,7 @@ const Map& Controller::GetMap() const {
 }
 
 void Controller::Start() {
+  model_->GetMap().SetSize(view_->GetWindowWidth(), view_->GetWindowHeight());
   model_->LoadPictures();
   view_->show();
   timer_->start();
@@ -37,12 +38,8 @@ void Controller::TimerTick() {
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());
   view_->repaint();
-  int i = counter_;
-  i++;
-  if (i == constants::kSlowAnimation * constants::kNumberAnimation) {
-    i -= constants::kSlowAnimation * constants::kNumberAnimation;
-  }
-  counter_ = i;
+  ++counter_;
+  counter_ %= constants::kSlowAnimation * constants::kNumberAnimation;
 }
 
 void Controller::HandleKeyPressEvent(QKeyEvent* event) {

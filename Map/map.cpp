@@ -5,13 +5,13 @@
 
 Map::Map(int window_width, int window_height) {
   // todo write json
-  objects_.resize(columns_);
-  for (auto& column : objects_) {
-    column.resize(rows_);
-  }
-  MakeMap(window_width, window_height);
-  width_ = window_width;
-  height_ = window_height;
+  // objects_.resize(columns_);
+  // for (auto& column : objects_) {
+  //   column.resize(rows_);
+  // }
+  // MakeMap(window_width, window_height);
+  // width_ = window_width;
+  // height_ = window_height;
 }
 
 int Map::GetColumnsNumber() const {
@@ -38,23 +38,8 @@ void Map::RemoveObject(int x, int y) {
 }
 
 void Map::LoadPictures() {
-}
 
-Animation Map::GetAnimation(int counter) const {
-  Animation output;
-  output.left_top = Point(0, 0);
-  output.picture = map;
-  output.width = width_;
-  output.height = height_;
-  return output;
-}
-
-void Map::SetMap(QPixmap pixmap) {
-  map = pixmap;
-}
-
-void Map::MakeMap(int width, int height) {
-  QPixmap pixmap(width, height);
+  QPixmap pixmap(width_, height_);
   QPainter painter_pixmap(&pixmap);
 
   QPixmap lava = QPixmap(":Resources/Picture/StaticObject/lava.png");
@@ -62,9 +47,8 @@ void Map::MakeMap(int width, int height) {
       QPixmap(":Resources/Picture/StaticObject/horizontal_wall.png");
   QPixmap vertical_wall =
       QPixmap(":Resources/Picture/StaticObject/vertical_wall.png");
-
-  for (int i = 0; i <= width / constants::kLavaSize; i++) {
-    for (int j = 0; j <= height / constants::kLavaSize; j++) {
+  for (int i = 0; i <= width_ / constants::kLavaSize; i++) {
+    for (int j = 0; j <= height_ / constants::kLavaSize; j++) {
       painter_pixmap.drawPixmap(i * constants::kLavaSize,
                                 j * constants::kLavaSize,
                                 constants::kLavaSize,
@@ -72,23 +56,37 @@ void Map::MakeMap(int width, int height) {
                                 lava);
     }
   }
-  for (int i = 0; i <= width / constants::kWallSize; i++) {
+  for (int i = 0; i <= width_ / constants::kWallSize; i++) {
     painter_pixmap.drawPixmap(i * constants::kWallSize, 0, constants::kWallSize,
                               constants::kWallSize, horizontal_wall);
     painter_pixmap.drawPixmap(i * constants::kWallSize,
-                              height - constants::kWallSize,
+                              height_ - constants::kWallSize,
                               constants::kWallSize,
                               constants::kWallSize,
                               horizontal_wall);
   }
-  for (int j = 0; j <= height / constants::kWallSize; j++) {
+  for (int j = 0; j <= height_ / constants::kWallSize; j++) {
     painter_pixmap.drawPixmap(0, j * constants::kWallSize, constants::kWallSize,
                               constants::kWallSize, vertical_wall);
-    painter_pixmap.drawPixmap(width - constants::kWallSize,
+    painter_pixmap.drawPixmap(width_ - constants::kWallSize,
                               j * constants::kWallSize,
                               constants::kWallSize,
                               constants::kWallSize,
                               vertical_wall);
   }
-  map = pixmap;
+  picture_ = pixmap;
+}
+
+Animation Map::GetAnimation(int counter) const {
+  Animation output;
+  output.left_top = Point(0, 0);
+  output.picture = picture_;
+  output.width = width_;
+  output.height = height_;
+  return output;
+}
+
+void Map::SetSize(int width, int height) {
+  width_ = width;
+  height_ = height;
 }
