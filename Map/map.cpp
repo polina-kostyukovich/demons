@@ -43,29 +43,25 @@ void Map::LoadPictures() {
       QPixmap(":Resources/Picture/StaticObject/horizontal_wall.png");
   QPixmap vertical_wall =
       QPixmap(":Resources/Picture/StaticObject/vertical_wall.png");
-  for (int i = 0; i <= width_ / constants::kLavaSize; i++) {
-    for (int j = 0; j <= height_ / constants::kLavaSize; j++) {
-      painter_pixmap.drawPixmap(i * constants::kLavaSize,
-                                j * constants::kLavaSize,
-                                constants::kLavaSize,
-                                constants::kLavaSize,
-                                lava);
+  for (int x = 0; x < width_; x += constants::kLavaSize) {
+    for (int y = 0; y < height_; y += constants::kLavaSize) {
+      painter_pixmap.drawPixmap(x, y, constants::kLavaSize,
+                                constants::kLavaSize, lava);
     }
   }
-  for (int i = 0; i <= width_ / constants::kWallSize; i++) {
-    painter_pixmap.drawPixmap(i * constants::kWallSize, 0, constants::kWallSize,
+  for (int x = 0; x < width_; x += constants::kWallSize) {
+    painter_pixmap.drawPixmap(x, 0, constants::kWallSize,
                               constants::kWallSize, horizontal_wall);
-    painter_pixmap.drawPixmap(i * constants::kWallSize,
+    painter_pixmap.drawPixmap(x,
                               height_ - constants::kWallSize,
                               constants::kWallSize,
                               constants::kWallSize,
                               horizontal_wall);
   }
-  for (int j = 0; j <= height_ / constants::kWallSize; j++) {
-    painter_pixmap.drawPixmap(0, j * constants::kWallSize, constants::kWallSize,
+  for (int y = 0; y < height_; y += constants::kWallSize) {
+    painter_pixmap.drawPixmap(0, y, constants::kWallSize,
                               constants::kWallSize, vertical_wall);
-    painter_pixmap.drawPixmap(width_ - constants::kWallSize,
-                              j * constants::kWallSize,
+    painter_pixmap.drawPixmap(width_ - constants::kWallSize, y,
                               constants::kWallSize,
                               constants::kWallSize,
                               vertical_wall);
