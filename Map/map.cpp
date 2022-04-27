@@ -38,7 +38,6 @@ void Map::RemoveObject(int x, int y) {
 }
 
 void Map::LoadPictures() {
-
   QPixmap pixmap(width_, height_);
   QPainter painter_pixmap(&pixmap);
 
