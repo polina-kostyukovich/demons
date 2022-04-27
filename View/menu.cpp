@@ -13,7 +13,8 @@ Menu::Menu(QWidget* parent) :
   SetLanguageWidget();
 }
 
-void Menu::SetController(const std::shared_ptr<AbstractController>& controller) {
+void Menu::SetController(
+    const std::shared_ptr<AbstractController>& controller) {
   controller_ = controller;
 }
 

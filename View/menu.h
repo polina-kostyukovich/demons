@@ -1,6 +1,7 @@
 #ifndef VIEW_MENU_H_
 #define VIEW_MENU_H_
 
+#include <memory>
 #include <QComboBox>
 #include <QGridLayout>
 #include <QPushButton>
@@ -11,7 +12,7 @@
 
 class Menu : public QWidget {
  public:
-  Menu(QWidget* parent = nullptr);
+  explicit Menu(QWidget* parent = nullptr);
   void SetController(const std::shared_ptr<AbstractController>& controller_);
 
   void ConnectWidgets();
