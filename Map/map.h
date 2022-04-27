@@ -23,7 +23,7 @@ class Map {
   void RemoveObject(int x, int y);
 
   void LoadPictures();
-  Animation GetAnimation(int counter) const;
+  Animation GetAnimation() const;
 
   void SetSize(int width, int height);
 

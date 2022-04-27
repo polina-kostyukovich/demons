@@ -5,10 +5,6 @@
 
 Map::Map() {
   // todo write json
-  // objects_.resize(columns_);
-  // for (auto& column : objects_) {
-  //   column.resize(rows_);
-  // }
 }
 
 int Map::GetColumnsNumber() const {
@@ -69,7 +65,7 @@ void Map::LoadPictures() {
   picture_ = pixmap;
 }
 
-Animation Map::GetAnimation(int counter) const {
+Animation Map::GetAnimation() const {
   Animation output;
   output.left_top = Point(0., 0.);
   output.picture = picture_;

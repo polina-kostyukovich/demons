@@ -2,10 +2,8 @@
 
 #include <utility>
 
-#include "../Util/point.h"
-
 View::View() {
-  setWindowState(Qt::WindowFullScreen);
+  QWidget::showFullScreen();
 }
 
 void View::SetController(
@@ -16,7 +14,7 @@ void View::SetController(
 
 void View::paintEvent(QPaintEvent* event) {
   QPainter painter(this);
-  Draw(controller_->GetMap().GetAnimation(0), &painter);
+  Draw(controller_->GetMap().GetAnimation(), &painter);
   Draw(controller_->GetHero().GetAnimation(controller_->GetCounter()),
        &painter);
 }
