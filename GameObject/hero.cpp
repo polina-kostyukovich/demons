@@ -50,8 +50,8 @@ void Hero::Move(const Vector2D& direction,
   // std::clog << "after: " << position_ << '\n';
 }
 
-Animation Hero::GetAnimation(int counter) const {
-  Animation output;
+Picture Hero::GetPicture(int counter) const {
+  Picture output;
   output.left_top = position_;
   output.width = constants::kHeroSize;
   output.height = constants::kHeroSize;

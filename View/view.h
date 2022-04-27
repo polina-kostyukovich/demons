@@ -17,7 +17,7 @@ class View : public QWidget {
 
   void paintEvent(QPaintEvent* event) override;
 
-  void Draw(Animation animation, QPainter* painter);
+  void Draw(Picture animation, QPainter* painter);
 
   int GetWindowWidth() const;
   int GetWindowHeight() const;

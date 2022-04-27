@@ -16,7 +16,7 @@ class Hero : public Creature {
 
   void Move(const Vector2D& direction, int window_width, int window_height);
 
-  Animation GetAnimation(int counter) const;
+  Picture GetPicture(int counter) const;
 
  private:
   std::vector<QPixmap> wings_pixmaps_;

@@ -65,8 +65,8 @@ void Map::LoadPictures() {
   picture_ = pixmap;
 }
 
-Animation Map::GetAnimation() const {
-  Animation output;
+Picture Map::GetPicture() const {
+  Picture output;
   output.left_top = Point(0., 0.);
   output.picture = picture_;
   output.width = width_;

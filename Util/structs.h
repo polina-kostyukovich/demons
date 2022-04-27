@@ -4,7 +4,7 @@
 #include <QPixmap>
 #include "point.h"
 
-struct Animation {
+struct Picture {
   QPixmap picture;
   Point left_top;
   int width;
