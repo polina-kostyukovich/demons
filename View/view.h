@@ -9,6 +9,7 @@
 
 #include "../Controller/abstract_controller.h"
 #include "menu.h"
+#include "../Util/structs.h"
 
 class View : public QMainWindow {
  public:
@@ -21,7 +22,7 @@ class View : public QMainWindow {
 
   void paintEvent(QPaintEvent* event) override;
 
-  void PaintHero();
+  void Draw(Picture animation, QPainter* painter);
 
   int GetWindowWidth() const;
   int GetWindowHeight() const;
@@ -29,10 +30,8 @@ class View : public QMainWindow {
   void keyPressEvent(QKeyEvent* event) override;
   void keyReleaseEvent(QKeyEvent* event) override;
 
-  void resizeEvent(QResizeEvent* event) override;
-
   void closeEvent(QCloseEvent* event) override;
-
+  
  private:
   std::shared_ptr<AbstractController> controller_;
 

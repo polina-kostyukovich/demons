@@ -4,6 +4,15 @@ Hero& Model::GetHero() {
   return hero_;
 }
 
+Map& Model::GetMap() {
+  return map_;
+}
+
+void Model::LoadPictures() {
+  hero_.LoadPictures();
+  map_.LoadPictures();
+}
+
 std::pair<int, int> Model::GetCellSize(int window_width,
                                        int window_height) const {
   int width = window_width / map_.GetColumnsNumber();

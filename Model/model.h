@@ -16,6 +16,9 @@ class Model {
   Model() = default;
 
   Hero& GetHero();
+  Map& GetMap();
+
+  void LoadPictures();
 
  private:
   std::pair<int, int> GetCellSize(int window_width, int window_height) const;
@@ -25,7 +28,7 @@ class Model {
 
  private:
   Hero hero_;
-  Map map_{0, 0};
+  Map map_;
 };
 
 #endif  // MODEL_MODEL_H_

@@ -1,15 +1,11 @@
 #include "view.h"
 
 #include <utility>
-
-#include "../Model/constants.h"
-#include "../Util/point.h"
+#include <QGuiApplication>
 
 View::View() {
-  window_width_ = constants::kDefaultWindowWidth;
-  window_height_ = constants::kDefaultWindowHeight;
-  setMinimumSize(window_width_, window_height_);
-
+  setWindowState(Qt::WindowFullScreen);
+  resize(QGuiApplication::primaryScreen()->availableGeometry().size());
   setCentralWidget(&menu_);
 }
 
@@ -31,23 +27,26 @@ void View::ShowGame() {
 }
 
 void View::paintEvent(QPaintEvent* event) {
-  PaintHero();
+  QPainter painter(this);
+  Draw(controller_->GetMap().GetPicture(), &painter);
+  Draw(controller_->GetHero().GetPicture(controller_->GetCounter()),
+       &painter);
 }
 
-void View::PaintHero() {
-  QPainter painter(this);
-  Point hero_pos = controller_->GetHero().GetPosition();
-  painter.drawEllipse(hero_pos.GetX() - 5,
-                      hero_pos.GetY() - 5,
-                      10, 10);
+void View::Draw(Picture animation, QPainter* painter) {
+  painter->drawPixmap(static_cast<int>(animation.left_top.GetX()),
+                      static_cast<int>(animation.left_top.GetY()),
+                      animation.width,
+                      animation.height,
+                      animation.picture);
 }
 
 int View::GetWindowWidth() const {
-  return window_width_;
+  return window()->width();
 }
 
 int View::GetWindowHeight() const {
-  return window_height_;
+  return window()->height();
 }
 
 void View::keyPressEvent(QKeyEvent* event) {
@@ -56,10 +55,6 @@ void View::keyPressEvent(QKeyEvent* event) {
 
 void View::keyReleaseEvent(QKeyEvent* event) {
   controller_->HandleKeyReleaseEvent(event);
-}
-void View::resizeEvent(QResizeEvent* event) {
-  window_width_ = event->size().width();
-  window_height_ = event->size().height();
 }
 
 void View::closeEvent(QCloseEvent* event) {
