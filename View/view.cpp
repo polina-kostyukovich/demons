@@ -1,9 +1,11 @@
 #include "view.h"
 
 #include <utility>
+#include <QGuiApplication>
 
 View::View() {
-  QWidget::showFullScreen();
+  setWindowState(Qt::WindowFullScreen);
+  resize(QGuiApplication::primaryScreen()->availableGeometry().size());
 }
 
 void View::SetController(
