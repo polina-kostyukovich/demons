@@ -20,11 +20,14 @@ class Controller : public AbstractController {
   void ConnectTimer();
 
   const Hero& GetHero() const override;
+  const Map& GetMap() const override;
 
   void Start();
 
   void HandleKeyPressEvent(QKeyEvent* event) override;
   void HandleKeyReleaseEvent(QKeyEvent* event) override;
+
+  int GetCounter() const override;
 
  public slots:
   void TimerTick();
@@ -37,6 +40,7 @@ class Controller : public AbstractController {
   std::unique_ptr<View> view_;
   QTimer* timer_{new QTimer(this)};
   std::map<int, bool> keys_;
+  int counter_{0};
 };
 
 #endif  // CONTROLLER_CONTROLLER_H_
