@@ -40,6 +40,7 @@ int View::GetWindowHeight() const {
 void View::keyPressEvent(QKeyEvent* event) {
   controller_->HandleKeyPressEvent(event);
 }
+
 void View::keyReleaseEvent(QKeyEvent* event) {
   controller_->HandleKeyReleaseEvent(event);
 }
