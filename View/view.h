@@ -32,7 +32,7 @@ class View : public QMainWindow {
   void keyReleaseEvent(QKeyEvent* event) override;
 
   void closeEvent(QCloseEvent* event) override;
-  
+
  private:
   std::shared_ptr<AbstractController> controller_;
 
