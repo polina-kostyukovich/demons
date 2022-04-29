@@ -10,13 +10,14 @@
 
 #include "../Controller/abstract_controller.h"
 #include "../Model/constants.h"
+#include "../Util/structs.h"
 
 class Menu : public QWidget {
  public:
   explicit Menu(QWidget* parent = nullptr);
   void SetController(const std::shared_ptr<AbstractController>& controller_);
 
-  void ConnectWidgets();
+  void ConnectButtons();
   void SetStyle();
 
   void paintEvent(QPaintEvent*) override;

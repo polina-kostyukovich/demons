@@ -1,7 +1,6 @@
 #include "menu.h"
 
 #include <QPainter>
-#include <iostream>
 
 Menu::Menu(QWidget* parent) :
     QWidget(parent),
@@ -24,7 +23,7 @@ void Menu::SetController(
   controller_ = controller;
 }
 
-void Menu::ConnectWidgets() {
+void Menu::ConnectButtons() {
   connect(continue_game_button_,
           &QPushButton::pressed,
           controller_.get(),
@@ -36,7 +35,8 @@ void Menu::ConnectWidgets() {
           &AbstractController::NewGame);
 
   connect(language_combobox_, &QComboBox::currentIndexChanged, this, [&] {
-    controller_->ChangeLanguage(language_combobox_->currentIndex());
+    controller_->ChangeLanguage(
+        static_cast<Language>(language_combobox_->currentIndex()));
   });
 
   connect(sound_button_, &QPushButton::pressed, this, [&] {

@@ -17,7 +17,7 @@ void View::SetController(
 
 void View::CreateMenu() {
   menu_.SetController(controller_);
-  menu_.ConnectWidgets();
+  menu_.ConnectButtons();
   menu_.SetStyle();
 }
 

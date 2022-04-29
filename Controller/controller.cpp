@@ -42,7 +42,7 @@ void Controller::Pause() {
   timer_->stop();
 }
 
-void Controller::ChangeLanguage(int language_number) {
+void Controller::ChangeLanguage(Language language) {
   // todo
 }
 

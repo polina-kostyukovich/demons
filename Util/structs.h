@@ -11,4 +11,9 @@ struct Picture {
   int height;
 };
 
+enum class Language {
+  english,
+  russian,
+};
+
 #endif  // UTIL_STRUCTS_H_

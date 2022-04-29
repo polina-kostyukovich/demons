@@ -26,7 +26,7 @@ class Controller : public AbstractController {
   void NewGame() override;
   void Pause();
 
-  void ChangeLanguage(int language_number) override;
+  void ChangeLanguage(Language language) override;
   void ChangeSoundOn() override;
 
   const Hero& GetHero() const override;
