@@ -18,20 +18,28 @@ void Controller::ConnectTimer() {
   connect(timer_, &QTimer::timeout, this, &Controller::TimerTick);
 }
 
-void Controller::StartNewGame() {
-  // load default pictures
-  StartGame();
-}
-
-void Controller::ContinueGame() {
-  // load from settings
-  StartGame();
+void Controller::Start() {
+  view_->CreateMenu();
+  model_->GetMap().SetSize(view_->GetWindowWidth(), view_->GetWindowHeight());
+  model_->LoadPictures();
+  view_->show();
 }
 
 void Controller::StartGame() {
-  // maybe load common files
   view_->ShowGame();
   timer_->start();
+}
+
+void Controller::NewGame() {
+  model_->GetHero().SetPosition(Point());
+  // set default parameters to all objects
+
+  StartGame();
+}
+
+void Controller::Pause() {
+  view_->ShowMenu();
+  timer_->stop();
 }
 
 void Controller::ChangeLanguage(int language_number) {
@@ -50,15 +58,8 @@ const Map& Controller::GetMap() const {
   return model_->GetMap();
 }
 
-void Controller::Start() {
-  view_->CreateMenu();
-  model_->GetMap().SetSize(view_->GetWindowWidth(), view_->GetWindowHeight());
-  model_->LoadPictures();
-  view_->show();
-}
-
 void Controller::TimerTick() {
-  model_->GetHero().Move(GetDirection(),
+  model_->GetHero().Move(GetHeroDirection(),
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());
   view_->repaint();
@@ -67,14 +68,16 @@ void Controller::TimerTick() {
 }
 
 void Controller::HandleKeyPressEvent(QKeyEvent* event) {
+  if (event->key() == Qt::Key_Space) {
+    Pause();
+  }
   keys_[event->key()] = true;
 }
 
 void Controller::HandleKeyReleaseEvent(QKeyEvent* event) {
   keys_[event->key()] = false;
 }
-
-Vector2D Controller::GetDirection() const {
+Vector2D Controller::GetHeroDirection() const {
   Vector2D direction;
   if ((keys_.contains(Qt::Key_Left) && keys_.at(Qt::Key_Left))
       || (keys_.contains(Qt::Key_A) && keys_.at(Qt::Key_A))) {
@@ -95,7 +98,6 @@ Vector2D Controller::GetDirection() const {
   direction.Normalize();
   return direction;
 }
-
 int Controller::GetCounter() const {
   return counter_;
 }

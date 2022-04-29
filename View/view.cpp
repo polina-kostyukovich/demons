@@ -23,7 +23,11 @@ void View::CreateMenu() {
 
 void View::ShowGame() {
   takeCentralWidget();
-  menu_.setVisible(false);
+}
+
+void View::ShowMenu() {
+  setCentralWidget(&menu_);
+  menu_.ShowContinueButton();
 }
 
 void View::paintEvent(QPaintEvent* event) {
@@ -56,7 +60,6 @@ void View::keyPressEvent(QKeyEvent* event) {
 void View::keyReleaseEvent(QKeyEvent* event) {
   controller_->HandleKeyReleaseEvent(event);
 }
-
 void View::closeEvent(QCloseEvent* event) {
   // save settings
 }

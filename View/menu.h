@@ -2,6 +2,7 @@
 #define VIEW_MENU_H_
 
 #include <memory>
+#include <vector>
 #include <QComboBox>
 #include <QGridLayout>
 #include <QPushButton>
@@ -20,21 +21,35 @@ class Menu : public QWidget {
 
   void paintEvent(QPaintEvent*) override;
 
+  void ShowContinueButton();
+
  private:
-  void SetBackground();
+  void LoadPictures();
+
   void SetLanguageWidget();
   void SetLayout();
   void SetButtonsStyle();
 
  private:
+  enum class Sound {
+    on,
+    off,
+  };
+
+ private:
   std::shared_ptr<AbstractController> controller_;
 
   QGridLayout* layout_;
-  QPushButton* continue_game_;
-  QPushButton* new_game_;
-  QComboBox* language_;
-  QPushButton* sound_;
-  QPushButton* exit_;
+  QPushButton* continue_game_button_;
+  QPushButton* new_game_button_;
+  QComboBox* language_combobox_;
+  QPushButton* sound_button_;
+  QPushButton* exit_button_;
+
+  QPixmap background_picture_;
+  QPixmap sound_on_picture_;
+  QPixmap sound_off_picture_;
+  Sound sound_state_;
 };
 
 #endif  // VIEW_MENU_H_

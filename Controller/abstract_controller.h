@@ -10,8 +10,8 @@
 class AbstractController : public QObject {
   Q_OBJECT
  public:
-  virtual void StartNewGame() = 0;
-  virtual void ContinueGame() = 0;
+  virtual void StartGame() = 0;
+  virtual void NewGame() = 0;
 
   virtual void ChangeLanguage(int language_number) = 0;
   virtual void ChangeSoundOn() = 0;

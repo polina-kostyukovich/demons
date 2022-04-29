@@ -19,6 +19,7 @@ class View : public QMainWindow {
   void CreateMenu();
 
   void ShowGame();
+  void ShowMenu();
 
   void paintEvent(QPaintEvent* event) override;
 
@@ -36,9 +37,6 @@ class View : public QMainWindow {
   std::shared_ptr<AbstractController> controller_;
 
   Menu menu_{this};
-
-  int window_width_;
-  int window_height_;
 };
 
 #endif  // VIEW_VIEW_H_
