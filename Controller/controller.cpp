@@ -13,17 +13,13 @@ void Controller::SetView(std::unique_ptr<View>&& view) {
   view_ = std::move(view);
 }
 
+const std::unique_ptr<Model>& Controller::GetModel() const {
+  return model_;
+}
+
 void Controller::ConnectTimer() {
   timer_->setInterval(constants::kTickTime);
   connect(timer_, &QTimer::timeout, this, &Controller::TimerTick);
-}
-
-const Hero& Controller::GetHero() const {
-  return model_->GetHero();
-}
-
-const Map& Controller::GetMap() const {
-  return model_->GetMap();
 }
 
 void Controller::Start() {

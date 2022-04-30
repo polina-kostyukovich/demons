@@ -9,6 +9,7 @@
 
 #include "abstract_controller.h"
 #include "../Model/model.h"
+#include "../View/view.h"
 
 class Controller : public AbstractController {
  public:
@@ -17,10 +18,9 @@ class Controller : public AbstractController {
   void SetModel(std::unique_ptr<Model>&& model);
   void SetView(std::unique_ptr<View>&& view);
 
-  void ConnectTimer();
+  const std::unique_ptr<Model>& GetModel() const override;
 
-  const Hero& GetHero() const override;
-  const Map& GetMap() const override;
+  void ConnectTimer();
 
   void Start();
 

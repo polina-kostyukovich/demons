@@ -9,7 +9,6 @@
 #include "../GameObject/hero.h"
 #include "../Map/map.h"
 #include "../Util/vector.h"
-#include "../View/view.h"
 
 class Model {
  public:
