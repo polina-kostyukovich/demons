@@ -1,6 +1,7 @@
 #ifndef CONTROLLER_ABSTRACT_CONTROLLER_H_
 #define CONTROLLER_ABSTRACT_CONTROLLER_H_
 
+#include <memory>
 #include <QKeyEvent>
 #include <QObject>
 
