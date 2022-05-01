@@ -6,6 +6,7 @@
 
 #include "../GameObject/hero.h"
 #include "../Map/map.h"
+#include "../Model/model.h"
 
 class AbstractController : public QObject {
   Q_OBJECT
@@ -16,6 +17,11 @@ class AbstractController : public QObject {
 
   virtual void HandleKeyPressEvent(QKeyEvent* event) = 0;
   virtual void HandleKeyReleaseEvent(QKeyEvent* event) = 0;
+
+  virtual const std::unique_ptr<Model>& GetModel() const = 0;
+
+  virtual void HandleMousePressEvent(QMouseEvent* event, const Point& mouse_pos) = 0;
+  virtual void HandleMouseReleaseEvent(QMouseEvent* event) = 0;
 };
 
 #endif  // CONTROLLER_ABSTRACT_CONTROLLER_H_

@@ -28,3 +28,11 @@ std::pair<int, int> Model::GetCellCoordinatesOnMap(const Point& point,
   int y = static_cast<int>(point.GetY() / cell.second);
   return {x, y};
 }
+
+std::vector<Fireball>& Model::GetFireballs() {
+  return fireballs_;
+}
+
+void Model::AddFireball(const Fireball& fireball) {
+  fireballs_.emplace_back(fireball);
+}

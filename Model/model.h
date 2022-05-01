@@ -6,10 +6,10 @@
 #include <QWidget>
 
 #include "constants.h"
+#include "../GameObject/fireball.h"
 #include "../GameObject/hero.h"
 #include "../Map/map.h"
 #include "../Util/vector.h"
-#include "../View/view.h"
 
 class Model {
  public:
@@ -19,6 +19,9 @@ class Model {
   Map& GetMap();
 
   void LoadPictures();
+  std::vector<Fireball>& GetFireballs();
+
+  void AddFireball(const Fireball& fireball);
 
  private:
   std::pair<int, int> GetCellSize(int window_width, int window_height) const;
@@ -29,6 +32,7 @@ class Model {
  private:
   Hero hero_;
   Map map_;
+  std::vector<Fireball> fireballs_;
 };
 
 #endif  // MODEL_MODEL_H_

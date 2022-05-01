@@ -37,6 +37,10 @@ void Controller::TimerTick() {
   model_->GetHero().Move(GetDirection(),
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());
+  for (auto& fireball : model_->GetFireballs()) {
+    fireball.Move();
+  }
+
   view_->repaint();
   ++counter_;
   counter_ %= constants::kSlowAnimation * constants::kNumberAnimation;
@@ -74,4 +78,23 @@ Vector2D Controller::GetDirection() const {
 
 int Controller::GetCounter() const {
   return counter_;
+}
+
+const std::unique_ptr<Model>& Controller::GetModel() const {
+  return model_;
+}
+
+void Controller::HandleMousePressEvent(QMouseEvent* event, const Point& mouse_pos) {
+  is_clicked = true;
+  Point hero_pos = model_->GetHero().GetPosition();
+  Point dir = mouse_pos - hero_pos;
+  Vector2D direction{dir.GetX(), dir.GetY()};
+  direction.Normalize();
+
+  Fireball fireball{hero_pos, direction};
+  model_->AddFireball(fireball);
+}
+
+void Controller::HandleMouseReleaseEvent(QMouseEvent* event) {
+  is_clicked = false;
 }
