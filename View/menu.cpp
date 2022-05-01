@@ -129,9 +129,9 @@ void Menu::CreateDropdownMenu() {
   auto russian_action = language_menu_->addAction(tr("Russian"));
 
   connect(english_action, &QAction::triggered, this, [&] {
-    controller_->ChangeLanguage(Language::english);
+    controller_->ChangeLanguage(Language::kEnglish);
   });
   connect(russian_action, &QAction::triggered, this, [&] {
-    controller_->ChangeLanguage(Language::russian);
+    controller_->ChangeLanguage(Language::kRussian);
   });
 }

@@ -12,8 +12,8 @@ struct Picture {
 };
 
 enum class Language {
-  english,
-  russian,
+  kEnglish,
+  kRussian,
 };
 
 #endif  // UTIL_STRUCTS_H_
