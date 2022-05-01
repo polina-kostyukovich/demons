@@ -1,6 +1,7 @@
 #include "view.h"
 
 #include <utility>
+#include <vector>
 #include <QGuiApplication>
 #include <QScreen>
 
@@ -22,8 +23,10 @@ void View::paintEvent(QPaintEvent* event) {
        &painter);
   std::vector<Fireball> fireballs = controller_->GetModel()->GetFireballs();
   for (auto fireball : fireballs) {
-    painter.drawEllipse(fireball.GetPosition().GetX() - 15, fireball.GetPosition().GetY() - 15,
-                        30, 30);
+    painter.drawEllipse(fireball.GetPosition().GetX() - 15,
+                        fireball.GetPosition().GetY() - 15,
+                        30,
+                        30);
   }
 }
 

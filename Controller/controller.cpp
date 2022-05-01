@@ -84,7 +84,8 @@ const std::unique_ptr<Model>& Controller::GetModel() const {
   return model_;
 }
 
-void Controller::HandleMousePressEvent(QMouseEvent* event, const Point& mouse_pos) {
+void Controller::HandleMousePressEvent(QMouseEvent* event,
+                                       const Point& mouse_pos) {
   is_clicked = true;
   Point hero_pos = model_->GetHero().GetPosition();
   Point dir = mouse_pos - hero_pos;

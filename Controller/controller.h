@@ -32,7 +32,8 @@ class Controller : public AbstractController {
 
   const std::unique_ptr<Model>& GetModel() const override;
 
-  void HandleMousePressEvent(QMouseEvent* event, const Point& mouse_pos) override;
+  void HandleMousePressEvent(QMouseEvent* event,
+                             const Point& mouse_pos) override;
   void HandleMouseReleaseEvent(QMouseEvent* event) override;
 
  public slots:

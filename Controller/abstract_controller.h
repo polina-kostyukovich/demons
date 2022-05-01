@@ -1,6 +1,7 @@
 #ifndef CONTROLLER_ABSTRACT_CONTROLLER_H_
 #define CONTROLLER_ABSTRACT_CONTROLLER_H_
 
+#include <memory>
 #include <QKeyEvent>
 #include <QObject>
 
@@ -20,7 +21,8 @@ class AbstractController : public QObject {
 
   virtual const std::unique_ptr<Model>& GetModel() const = 0;
 
-  virtual void HandleMousePressEvent(QMouseEvent* event, const Point& mouse_pos) = 0;
+  virtual void HandleMousePressEvent(QMouseEvent* event,
+                                     const Point& mouse_pos) = 0;
   virtual void HandleMouseReleaseEvent(QMouseEvent* event) = 0;
 };
 
