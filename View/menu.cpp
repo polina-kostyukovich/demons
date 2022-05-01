@@ -66,7 +66,7 @@ void Menu::LoadPictures() {
 void Menu::SetLayout() {
   layout_->addWidget(continue_game_button_, 1, 2, 1, 2, Qt::AlignBottom);
   layout_->addWidget(new_game_button_, 2, 2, 1, 2, Qt::AlignTop);
-  layout_->addWidget(settings_button_,3,4,1, 1,
+  layout_->addWidget(settings_button_, 3, 4, 1, 1,
                      Qt::AlignVCenter | Qt::AlignRight);
   layout_->addWidget(exit_button_, 3, 5, 1, 1, Qt::AlignCenter);
 
