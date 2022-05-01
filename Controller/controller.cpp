@@ -102,6 +102,9 @@ void Controller::HandleMousePressEvent(QMouseEvent* event,
                                        const Point& mouse_pos) {
   is_clicked = true;
   Point hero_pos = model_->GetHero().GetPosition();
+  hero_pos.SetX(hero_pos.GetX() + (constants::kHeroSize / 2));
+  hero_pos.SetY(hero_pos.GetY() + (constants::kHeroSize / 2));
+
   Point dir = mouse_pos - hero_pos;
   Vector2D direction{dir.GetX(), dir.GetY()};
   direction.Normalize();
