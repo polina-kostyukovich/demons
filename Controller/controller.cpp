@@ -13,8 +13,8 @@ void Controller::SetView(std::unique_ptr<View>&& view) {
   view_ = std::move(view);
 }
 
-const std::unique_ptr<Model>& Controller::GetModel() const {
-  return model_;
+const Model& Controller::GetModel() const {
+  return *model_;
 }
 
 void Controller::ConnectTimer() {

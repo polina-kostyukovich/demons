@@ -12,7 +12,7 @@
 class AbstractController : public QObject {
   Q_OBJECT
  public:
-  virtual const std::unique_ptr<Model>& GetModel() const = 0;
+  virtual const Model& GetModel() const = 0;
   virtual int GetCounter() const = 0;
 
   virtual void HandleKeyPressEvent(QKeyEvent* event) = 0;
