@@ -2,9 +2,8 @@
 #define VIEW_MENU_H_
 
 #include <memory>
-#include <vector>
-#include <QComboBox>
 #include <QGridLayout>
+#include <QMenu>
 #include <QPushButton>
 #include <QWidget>
 
@@ -27,9 +26,10 @@ class Menu : public QWidget {
  private:
   void LoadPictures();
 
-  void SetLanguageWidget();
   void SetLayout();
   void SetButtonsStyle();
+
+  void CreateDropdownMenu();
 
  private:
   enum class Sound {
@@ -43,13 +43,16 @@ class Menu : public QWidget {
   QGridLayout* layout_;
   QPushButton* continue_game_button_;
   QPushButton* new_game_button_;
-  QComboBox* language_combobox_;
-  QPushButton* sound_button_;
+  QPushButton* settings_button_;
   QPushButton* exit_button_;
+  QMenu* dropdown_menu_;
+  QMenu* language_menu_;
 
   QPixmap background_picture_;
+  QPixmap settings_picture_;
   QPixmap sound_on_picture_;
   QPixmap sound_off_picture_;
+  QPixmap language_picture_;
   Sound sound_state_;
 };
 

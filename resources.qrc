@@ -35,5 +35,7 @@
         <file>Resources/Picture/Menu/hell.jpg</file>
         <file>Resources/Picture/Menu/sound_on.png</file>
         <file>Resources/Picture/Menu/sound_off.png</file>
+        <file>Resources/Picture/Menu/language.png</file>
+        <file>Resources/Picture/Menu/settings.png</file>
     </qresource>
 </RCC>

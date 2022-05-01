@@ -77,6 +77,7 @@ void Controller::HandleKeyPressEvent(QKeyEvent* event) {
 void Controller::HandleKeyReleaseEvent(QKeyEvent* event) {
   keys_[event->key()] = false;
 }
+
 Vector2D Controller::GetHeroDirection() const {
   Vector2D direction;
   if ((keys_.contains(Qt::Key_Left) && keys_.at(Qt::Key_Left))
@@ -98,6 +99,7 @@ Vector2D Controller::GetHeroDirection() const {
   direction.Normalize();
   return direction;
 }
+
 int Controller::GetCounter() const {
   return counter_;
 }
