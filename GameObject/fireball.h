@@ -13,7 +13,7 @@ class Fireball : public DynamicObject {
   DynamicObject(position), direction_(direction) {}
 
   void LoadPicture();
-  Picture GetPicture();
+  Picture GetPicture() const;
 
   void Move();
 

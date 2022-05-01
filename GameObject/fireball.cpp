@@ -8,22 +8,21 @@ void Fireball::LoadPicture() {
   pixmaps_.emplace_back(picture.c_str());
 }
 
-Picture Fireball::GetPicture() {
+Picture Fireball::GetPicture() const {
   Picture output;
-  output.left_top = position_;
+  Point pos = position_;
+
   output.width = constants::kFireballSize;
   output.height = constants::kFireballSize;
 
-  QPixmap pixmap(pixmaps_[0]);
-  QPainter painter(&pixmap);
+  pos.SetX(pos.GetX() - output.width / 2);
+  pos.SetY(pos.GetY() - output.height / 2);
 
-  QPixmap image(pixmaps_[0].scaled(pixmap.width(), pixmap.height()));
-
-  painter.drawPixmap(0, 0, image);
-  output.picture = image;
-
+  output.left_top = pos;
+  output.picture = pixmaps_[0];
   return output;
 }
+
 void Fireball::Move() {
   SetPosition(position_ + direction_ * constants::kFireballSpeed);
 }

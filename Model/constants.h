@@ -12,7 +12,7 @@ namespace constants {
   const int kSlowAnimation = 3;
   const int kNumberAnimation = 11;
   const int kHeroSize = 120;
-  const int kFireballSize = 100;
+  const int kFireballSize = 200;
   const int kLavaSize = 60;
   const int kWallSize = 30;
   const int kMiddleAnimation = 6;
