@@ -1,6 +1,8 @@
 #ifndef GAMEOBJECT_FIREBALL_H_
 #define GAMEOBJECT_FIREBALL_H_
 
+#include <vector>
+
 #include "dynamic_object.h"
 #include "../Util/vector.h"
 #include "../Util/structs.h"
