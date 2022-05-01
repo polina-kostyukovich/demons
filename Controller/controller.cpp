@@ -42,6 +42,8 @@ void Controller::TimerTick() {
     fireball.Move();
   }
 
+  // todo collisions with other objects
+
   std::vector<Fireball>& fireballs = model_->GetFireballs();
   for (int i = 0; i < fireballs.size(); ++i) {
     int height = view_->GetWindowHeight();
@@ -94,8 +96,8 @@ int Controller::GetCounter() const {
   return counter_;
 }
 
-const std::unique_ptr<Model>& Controller::GetModel() const {
-  return model_;
+const Model& Controller::GetModel() const {
+  return *model_;
 }
 
 void Controller::HandleMousePressEvent(QMouseEvent* event,
@@ -111,6 +113,7 @@ void Controller::HandleMousePressEvent(QMouseEvent* event,
 
   Fireball fireball{hero_pos, direction};
   model_->AddFireball(fireball);
+  model_->GetFireballs().back().LoadPicture();
 }
 
 void Controller::HandleMouseReleaseEvent(QMouseEvent* event) {

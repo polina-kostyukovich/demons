@@ -20,7 +20,9 @@ class Model {
   Map& GetMap();
 
   void LoadPictures();
+
   std::vector<Fireball>& GetFireballs();
+  std::vector<Fireball> GetFireballs() const;
 
   void AddFireball(const Fireball& fireball);
 

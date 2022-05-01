@@ -19,7 +19,7 @@ class AbstractController : public QObject {
   virtual void HandleKeyPressEvent(QKeyEvent* event) = 0;
   virtual void HandleKeyReleaseEvent(QKeyEvent* event) = 0;
 
-  virtual const std::unique_ptr<Model>& GetModel() const = 0;
+  virtual const Model& GetModel() const = 0;
 
   virtual void HandleMousePressEvent(QMouseEvent* event,
                                      const Point& mouse_pos) = 0;

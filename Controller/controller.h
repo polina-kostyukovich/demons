@@ -30,7 +30,7 @@ class Controller : public AbstractController {
 
   int GetCounter() const override;
 
-  const std::unique_ptr<Model>& GetModel() const override;
+  const Model& GetModel() const override;
 
   void HandleMousePressEvent(QMouseEvent* event,
                              const Point& mouse_pos) override;
