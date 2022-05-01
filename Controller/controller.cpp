@@ -41,6 +41,19 @@ void Controller::TimerTick() {
     fireball.Move();
   }
 
+  std::vector<Fireball>& fireballs = model_->GetFireballs();
+  for (int i = 0; i < fireballs.size(); ++i) {
+    int height = view_->GetWindowHeight();
+    int width = view_->GetWindowWidth();
+    if (fireballs[i].GetPosition().GetX() <= 0 ||
+        fireballs[i].GetPosition().GetX() >= width ||
+        fireballs[i].GetPosition().GetY() <= 0 ||
+        fireballs[i].GetPosition().GetY() >= height) {
+      fireballs.erase(fireballs.begin() + i);
+      --i;
+    }
+  }
+
   view_->repaint();
   ++counter_;
   counter_ %= constants::kSlowAnimation * constants::kNumberAnimation;

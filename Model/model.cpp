@@ -13,6 +13,14 @@ void Model::LoadPictures() {
   map_.LoadPictures();
 }
 
+std::vector<Fireball>& Model::GetFireballs() {
+  return fireballs_;
+}
+
+void Model::AddFireball(const Fireball& fireball) {
+  fireballs_.emplace_back(fireball);
+}
+
 std::pair<int, int> Model::GetCellSize(int window_width,
                                        int window_height) const {
   int width = window_width / map_.GetColumnsNumber();
@@ -27,12 +35,4 @@ std::pair<int, int> Model::GetCellCoordinatesOnMap(const Point& point,
   int x = static_cast<int>(point.GetX() / cell.first);
   int y = static_cast<int>(point.GetY() / cell.second);
   return {x, y};
-}
-
-std::vector<Fireball>& Model::GetFireballs() {
-  return fireballs_;
-}
-
-void Model::AddFireball(const Fireball& fireball) {
-  fireballs_.emplace_back(fireball);
 }
