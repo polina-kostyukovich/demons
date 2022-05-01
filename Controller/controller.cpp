@@ -46,13 +46,13 @@ void Controller::TimerTick() {
   // todo collisions with other objects
 
   std::vector<Fireball>& fireballs = model_->GetFireballs();
+  int height = view_->GetWindowHeight();
+  int width = view_->GetWindowWidth();
   for (int i = 0; i < fireballs.size(); ++i) {
-    int height = view_->GetWindowHeight();
-    int width = view_->GetWindowWidth();
-    if (fireballs[i].GetPosition().GetX() <= 0 ||
-        fireballs[i].GetPosition().GetX() >= width ||
-        fireballs[i].GetPosition().GetY() <= 0 ||
-        fireballs[i].GetPosition().GetY() >= height) {
+    if (fireballs[i].GetPosition().GetX() <= constants::kEpsilon ||
+        fireballs[i].GetPosition().GetX() - width >= constants::kEpsilon ||
+        fireballs[i].GetPosition().GetY() <= constants::kEpsilon ||
+        fireballs[i].GetPosition().GetY() - height >= constants::kEpsilon) {
       fireballs.erase(fireballs.begin() + i);
       --i;
     }
@@ -103,7 +103,7 @@ const Model& Controller::GetModel() const {
 
 void Controller::HandleMousePressEvent(QMouseEvent* event,
                                        const Point& mouse_pos) {
-  is_clicked = true;
+  is_clicked_ = true;
   Point spawn_pos = model_->GetHero().GetPosition();
   spawn_pos.SetX(spawn_pos.GetX() + constants::kHeroSize / 2);
   spawn_pos.SetY(spawn_pos.GetY() + constants::kHeroSize / 2);
@@ -117,5 +117,5 @@ void Controller::HandleMousePressEvent(QMouseEvent* event,
 }
 
 void Controller::HandleMouseReleaseEvent(QMouseEvent* event) {
-  is_clicked = false;
+  is_clicked_ = false;
 }

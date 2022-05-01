@@ -18,7 +18,7 @@ std::vector<Fireball>& Model::GetFireballs() {
   return fireballs_;
 }
 
-std::vector<Fireball> Model::GetFireballs() const {
+const std::vector<Fireball>& Model::GetFireballs() const {
   return fireballs_;
 }
 

@@ -22,7 +22,7 @@ class Model {
   void LoadPictures();
 
   std::vector<Fireball>& GetFireballs();
-  std::vector<Fireball> GetFireballs() const;
+  const std::vector<Fireball>& GetFireballs() const;
 
   void AddFireball(const Fireball& fireball);
 

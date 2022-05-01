@@ -48,7 +48,7 @@ class Controller : public AbstractController {
   QTimer* timer_{new QTimer(this)};
   std::map<int, bool> keys_;
   int counter_{0};
-  bool is_clicked{false};
+  bool is_clicked_{false};
 };
 
 #endif  // CONTROLLER_CONTROLLER_H_

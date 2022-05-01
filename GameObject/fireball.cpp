@@ -10,15 +10,15 @@ void Fireball::LoadPictures() {
 
 Picture Fireball::GetPicture() const {
   Picture output;
-  Point pos = position_;
+  output.left_top = position_;
 
   output.width = constants::kFireballSize;
   output.height = constants::kFireballSize;
 
-  pos.SetX(pos.GetX() - constants::kFireballSize / 1.5); // I don't know why (?)
-  pos.SetY(pos.GetY() - constants::kFireballSize / 2);
+  output.left_top.SetX(position_.GetX() -
+                       constants::kFireballSize / 1.5); // I don't know why (?)
+  output.left_top.SetY(position_.GetY() - constants::kFireballSize / 2);
 
-  output.left_top = pos;
   output.picture = pictures_[0];
   return output;
 }
