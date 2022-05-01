@@ -11,6 +11,7 @@ Map& Model::GetMap() {
 void Model::LoadPictures() {
   hero_.LoadPictures();
   map_.LoadPictures();
+  Fireball::LoadPictures();
 }
 
 std::vector<Fireball>& Model::GetFireballs() {

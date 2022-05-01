@@ -3,9 +3,9 @@
 #include <QPainter>
 #include <string>
 
-void Fireball::LoadPicture() {
+void Fireball::LoadPictures() {
   std::string picture = ":Resources/Picture/Fireball/fireball1.png";
-  pixmaps_.emplace_back(picture.c_str());
+  pictures_.emplace_back(picture.c_str());
 }
 
 Picture Fireball::GetPicture() const {
@@ -15,11 +15,11 @@ Picture Fireball::GetPicture() const {
   output.width = constants::kFireballSize;
   output.height = constants::kFireballSize;
 
-  pos.SetX(pos.GetX() - output.width / 2);
-  pos.SetY(pos.GetY() - output.height / 2);
+  pos.SetX(pos.GetX() - constants::kFireballSize / 1.5); // I don't know why (?)
+  pos.SetY(pos.GetY() - constants::kFireballSize / 2);
 
   output.left_top = pos;
-  output.picture = pixmaps_[0];
+  output.picture = pictures_[0];
   return output;
 }
 

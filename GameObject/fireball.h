@@ -12,14 +12,14 @@ class Fireball : public DynamicObject {
   Fireball(const Point& position, const Vector2D& direction) :
   DynamicObject(position), direction_(direction) {}
 
-  void LoadPicture();
+  static void LoadPictures();
   Picture GetPicture() const;
 
   void Move();
 
  private:
   Vector2D direction_;
-  std::vector<QPixmap> pixmaps_;
+  static inline std::vector<QPixmap> pictures_;
 };
 
 #endif  // GAMEOBJECT_FIREBALL_H_

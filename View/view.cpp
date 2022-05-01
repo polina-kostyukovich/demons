@@ -25,6 +25,7 @@ void View::paintEvent(QPaintEvent* event) {
   for (auto fireball : fireballs) {
     Draw(fireball.GetPicture(), &painter);
   }
+
 }
 
 void View::Draw(Picture animation, QPainter* painter) {

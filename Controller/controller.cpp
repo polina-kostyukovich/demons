@@ -38,6 +38,7 @@ void Controller::TimerTick() {
   model_->GetHero().Move(GetDirection(),
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());
+
   for (auto& fireball : model_->GetFireballs()) {
     fireball.Move();
   }
@@ -104,12 +105,8 @@ void Controller::HandleMousePressEvent(QMouseEvent* event,
                                        const Point& mouse_pos) {
   is_clicked = true;
   Point spawn_pos = model_->GetHero().GetPosition();
-  spawn_pos.SetX(spawn_pos.GetX() + 20);
-  spawn_pos.SetY(spawn_pos.GetY() + 60);
-
-  Point mouse = mouse_pos;
-  mouse.SetX(mouse.GetX() - constants::kFireballSize / 2);
-  mouse.SetY(mouse.GetY() - constants::kFireballSize / 2);
+  spawn_pos.SetX(spawn_pos.GetX() + constants::kHeroSize / 2);
+  spawn_pos.SetY(spawn_pos.GetY() + constants::kHeroSize / 2);
 
   Point dir = mouse_pos - spawn_pos;
   Vector2D direction{dir.GetX(), dir.GetY()};
@@ -117,7 +114,6 @@ void Controller::HandleMousePressEvent(QMouseEvent* event,
 
   Fireball fireball{spawn_pos, direction};
   model_->AddFireball(fireball);
-  model_->GetFireballs().back().LoadPicture();
 }
 
 void Controller::HandleMouseReleaseEvent(QMouseEvent* event) {
