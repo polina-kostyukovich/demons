@@ -5,7 +5,6 @@
 #include <utility>
 
 #include "../Model/constants.h"
-#include "vector.h"
 
 class Point {
  public:
@@ -31,18 +30,12 @@ class Point {
 
   Point& operator+=(const Point& another_point);
   Point& operator-=(const Point& another_point);
-  Point& operator+=(const Vector2D& vector);
-  Point& operator-=(const Vector2D& vector);
 
   Point& operator*=(long double num);
   Point& operator/=(long double num);
 
   friend Point operator+(const Point& first, const Point& second);
   friend Point operator-(const Point& first, const Point& second);
-
-  friend Point operator+(const Point& point, const Vector2D& vector);
-  friend Point operator+(const Vector2D& vector, const Point& point);
-  friend Point operator-(const Point& point, const Vector2D& vector);
 
   friend Point operator*(const Point& point, long double num);
   friend Point operator/(const Point& point, long double num);

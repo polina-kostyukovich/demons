@@ -108,11 +108,10 @@ void Controller::HandleMousePressEvent(QMouseEvent* event,
   spawn_pos.SetX(spawn_pos.GetX() + constants::kHeroSize / 2);
   spawn_pos.SetY(spawn_pos.GetY() + constants::kHeroSize / 2);
 
-  Point dir = mouse_pos - spawn_pos;
-  Vector2D direction{dir.GetX(), dir.GetY()};
+  Vector2D direction(spawn_pos, mouse_pos);
   direction.Normalize();
 
-  Fireball fireball{spawn_pos, direction};
+  Fireball fireball(spawn_pos, direction);
   model_->AddFireball(fireball);
 }
 

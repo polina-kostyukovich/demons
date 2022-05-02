@@ -18,6 +18,11 @@ Vector2D::Vector2D(Vector2D&& vector) {
   y_ = vector.y_;
 }
 
+Vector2D::Vector2D(const Point& a, const Point& b) {
+  x_ = b.GetX() - a.GetX();
+  y_ = b.GetY() - a.GetY();
+}
+
 void Vector2D::SetX(long double new_x) {
   x_ = new_x;
 }
@@ -125,6 +130,22 @@ Vector2D operator/(const Vector2D& vector, long double num) {
 
 Vector2D operator*(long double num, const Vector2D& vector) {
   return vector * num;
+}
+
+Point operator+(const Point& point, const Vector2D& vector) {
+  Point result(point);
+  result.SetX(result.GetX() + vector.x_);
+  result.SetY(result.GetY() + vector.y_);
+  return result;
+}
+
+Point operator+(const Vector2D& vector, const Point& point) {
+  return point + vector;
+}
+
+Point operator-(const Point& point, const Vector2D& vector) {
+  Vector2D new_vector = vector * -1;
+  return point + new_vector;
 }
 
 std::ostream& operator<<(std::ostream& out, const Vector2D& vector) {
