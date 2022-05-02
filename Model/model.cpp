@@ -3,6 +3,7 @@
 const Hero& Model::GetHero() const {
   return hero_;
 }
+
 Hero& Model::GetHero() {
   return hero_;
 }
@@ -10,6 +11,7 @@ Hero& Model::GetHero() {
 const Map& Model::GetMap() const {
   return map_;
 }
+
 Map& Model::GetMap() {
   return map_;
 }
