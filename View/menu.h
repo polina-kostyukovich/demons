@@ -33,8 +33,8 @@ class Menu : public QWidget {
 
  private:
   enum class Sound {
-    on,
-    off,
+    kOn,
+    kOff,
   };
 
  private:
