@@ -16,7 +16,8 @@ Picture Fireball::GetPicture() const {
   output.height = constants::kFireballSize;
 
   output.left_top.SetX(position_.GetX() -
-                       constants::kFireballSize / 1.5); // I don't know why (?)
+                       constants::kFireballSize / 1.5);  // I don't know why
+
   output.left_top.SetY(position_.GetY() - constants::kFireballSize / 2);
 
   output.picture = pictures_[0];
