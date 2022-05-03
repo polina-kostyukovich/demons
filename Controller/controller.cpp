@@ -49,10 +49,14 @@ void Controller::TimerTick() {
   int height = view_->GetWindowHeight();
   int width = view_->GetWindowWidth();
   for (int i = 0; i < fireballs.size(); ++i) {
-    if (fireballs[i].GetPosition().GetX() <= constants::kEpsilon ||
-        fireballs[i].GetPosition().GetX() - width >= constants::kEpsilon ||
-        fireballs[i].GetPosition().GetY() <= constants::kEpsilon ||
-        fireballs[i].GetPosition().GetY() - height >= constants::kEpsilon) {
+    if (fireballs[i].GetPosition().GetX() - constants::kFireballSize / 2
+        <= -constants::kEpsilon ||
+        fireballs[i].GetPosition().GetX() + constants::kFireballSize / 2
+        - width >= constants::kEpsilon ||
+        fireballs[i].GetPosition().GetY() - constants::kFireballSize / 2
+        <= -constants::kEpsilon ||
+        fireballs[i].GetPosition().GetY() + constants::kFireballSize / 2
+        - height >= constants::kEpsilon) {
       fireballs.erase(fireballs.begin() + i);
       --i;
     }
@@ -106,7 +110,7 @@ void Controller::HandleMousePressEvent(QMouseEvent* event,
   is_clicked_ = true;
   Point spawn_pos = model_->GetHero().GetPosition();
   spawn_pos.SetX(spawn_pos.GetX() + constants::kHeroSize / 2);
-  spawn_pos.SetY(spawn_pos.GetY() + constants::kHeroSize / 2);
+  spawn_pos.SetY(spawn_pos.GetY() + constants::kHeroSize / 1.5);
 
   Vector2D direction(spawn_pos, mouse_pos);
   direction.Normalize();
