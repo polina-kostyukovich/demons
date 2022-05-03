@@ -21,7 +21,7 @@ void View::paintEvent(QPaintEvent* event) {
   Draw(controller_->GetMap().GetPicture(), &painter);
   Draw(controller_->GetHero().GetPicture(controller_->GetCounter()),
        &painter);
-  std::vector<Fireball> fireballs = controller_->GetModel().GetFireballs();
+  auto fireballs = controller_->GetModel().GetFireballs();
   for (auto fireball : fireballs) {
     Draw(fireball.GetPicture(), &painter);
   }

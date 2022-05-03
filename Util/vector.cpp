@@ -133,10 +133,7 @@ Vector2D operator*(long double num, const Vector2D& vector) {
 }
 
 Point operator+(const Point& point, const Vector2D& vector) {
-  Point result(point);
-  result.SetX(result.GetX() + vector.x_);
-  result.SetY(result.GetY() + vector.y_);
-  return result;
+  return Point{point.GetX() + vector.x_, point.GetY() + vector.y_};
 }
 
 Point operator+(const Vector2D& vector, const Point& point) {
