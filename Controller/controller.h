@@ -18,7 +18,7 @@ class Controller : public AbstractController {
   void SetModel(std::unique_ptr<Model>&& model);
   void SetView(std::unique_ptr<View>&& view);
 
-  void ConnectTimer();
+  const Model& GetModel() const override;
 
   void Start();
 
@@ -28,9 +28,6 @@ class Controller : public AbstractController {
 
   void ChangeLanguage(Language language) override;
   void ChangeSoundOn() override;
-
-  const Hero& GetHero() const override;
-  const Map& GetMap() const override;
 
   void HandleKeyPressEvent(QKeyEvent* event) override;
   void HandleKeyReleaseEvent(QKeyEvent* event) override;
