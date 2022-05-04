@@ -1,13 +1,12 @@
 #include "view.h"
 
 #include <utility>
-#include <vector>
 #include <QGuiApplication>
-#include <QScreen>
 
 View::View() {
   setWindowState(Qt::WindowFullScreen);
   resize(QGuiApplication::primaryScreen()->availableGeometry().size());
+  setCentralWidget(&menu_);
 }
 
 void View::SetController(
@@ -16,15 +15,26 @@ void View::SetController(
   controller_ = controller;
 }
 
+void View::CreateMenu() {
+  menu_.SetController(controller_);
+  menu_.ConnectButtons();
+  menu_.SetStyle();
+}
+
+void View::ShowGame() {
+  takeCentralWidget();
+}
+
+void View::ShowMenu() {
+  setCentralWidget(&menu_);
+  menu_.ShowContinueButton();
+}
+
 void View::paintEvent(QPaintEvent* event) {
   QPainter painter(this);
-  Draw(controller_->GetMap().GetPicture(), &painter);
-  Draw(controller_->GetHero().GetPicture(controller_->GetCounter()),
+  Draw(controller_->GetModel().GetMap().GetPicture(), &painter);
+  Draw(controller_->GetModel().GetHero().GetPicture(controller_->GetCounter()),
        &painter);
-  auto fireballs = controller_->GetModel().GetFireballs();
-  for (const auto& fireball : fireballs) {
-    Draw(fireball.GetPicture(), &painter);
-  }
 }
 
 void View::Draw(Picture animation, QPainter* painter) {
@@ -50,7 +60,6 @@ void View::keyPressEvent(QKeyEvent* event) {
 void View::keyReleaseEvent(QKeyEvent* event) {
   controller_->HandleKeyReleaseEvent(event);
 }
-
-void View::mousePressEvent(QMouseEvent *event) {
-  controller_->HandleMousePressEvent(event);
+void View::closeEvent(QCloseEvent* event) {
+  // save settings
 }

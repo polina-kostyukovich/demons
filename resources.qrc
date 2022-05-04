@@ -6,20 +6,24 @@
         <file>Resources/Picture/Hero/demonessa4.png</file>
         <file>Resources/Picture/Hero/demonessa5.png</file>
         <file>Resources/Picture/Hero/demonessa6.png</file>
+
         <file>Resources/Picture/Wings/wings1.png</file>
         <file>Resources/Picture/Wings/wings2.png</file>
         <file>Resources/Picture/Wings/wings3.png</file>
         <file>Resources/Picture/Wings/wings4.png</file>
         <file>Resources/Picture/Wings/wings5.png</file>
         <file>Resources/Picture/Wings/wings6.png</file>
+
         <file>Resources/Picture/StaticObject/boiler.png</file>
         <file>Resources/Picture/StaticObject/horizontal_wall.png</file>
         <file>Resources/Picture/StaticObject/vertical_wall.png</file>
         <file>Resources/Picture/StaticObject/lava.png</file>
+
         <file>Resources/Picture/Fireball/born_fireball1.png</file>
         <file>Resources/Picture/Fireball/born_fireball2.png</file>
         <file>Resources/Picture/Fireball/born_fireball3.png</file>
         <file>Resources/Picture/Fireball/born_fireball4.png</file>
+
         <file>Resources/Picture/Fireball/fireball1.png</file>
         <file>Resources/Picture/Fireball/fireball2.png</file>
         <file>Resources/Picture/Fireball/fireball3.png</file>
@@ -27,5 +31,11 @@
         <file>Resources/Picture/Fireball/fireball5.png</file>
         <file>Resources/Picture/Fireball/fireball6.png</file>
         <file>Resources/Picture/Fireball/fireball7.png</file>
+
+        <file>Resources/Picture/Menu/hell.jpg</file>
+        <file>Resources/Picture/Menu/sound_on.png</file>
+        <file>Resources/Picture/Menu/sound_off.png</file>
+        <file>Resources/Picture/Menu/language.png</file>
+        <file>Resources/Picture/Menu/settings.png</file>
     </qresource>
 </RCC>
