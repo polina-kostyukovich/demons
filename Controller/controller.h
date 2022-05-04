@@ -20,6 +20,8 @@ class Controller : public AbstractController {
 
   void ConnectTimer();
 
+  const Model& GetModel() const override;
+
   void Start();
 
   void StartGame() override;
@@ -28,9 +30,6 @@ class Controller : public AbstractController {
 
   void ChangeLanguage(Language language) override;
   void ChangeSoundOn() override;
-
-  const Hero& GetHero() const override;
-  const Map& GetMap() const override;
 
   void HandleKeyPressEvent(QKeyEvent* event) override;
   void HandleKeyReleaseEvent(QKeyEvent* event) override;

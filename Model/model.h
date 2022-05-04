@@ -14,7 +14,10 @@ class Model {
  public:
   Model() = default;
 
+  const Hero& GetHero() const;
   Hero& GetHero();
+
+  const Map& GetMap() const;
   Map& GetMap();
 
   void LoadPictures();

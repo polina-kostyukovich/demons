@@ -18,6 +18,10 @@ void Controller::ConnectTimer() {
   connect(timer_, &QTimer::timeout, this, &Controller::TimerTick);
 }
 
+const Model& Controller::GetModel() const {
+  return *model_;
+}
+
 void Controller::Start() {
   view_->CreateMenu();
   model_->GetMap().SetSize(view_->GetWindowWidth(), view_->GetWindowHeight());
@@ -48,14 +52,6 @@ void Controller::ChangeLanguage(Language language) {
 
 void Controller::ChangeSoundOn() {
   // todo
-}
-
-const Hero& Controller::GetHero() const {
-  return model_->GetHero();
-}
-
-const Map& Controller::GetMap() const {
-  return model_->GetMap();
 }
 
 void Controller::TimerTick() {
