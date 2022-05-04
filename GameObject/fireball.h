@@ -10,7 +10,7 @@
 class Fireball : public DynamicObject {
  public:
   Fireball(const Point& position, const Vector2D& direction) :
-   DynamicObject(position), direction_(direction) {}
+  DynamicObject(position), direction_(direction) {}
 
   static void LoadPictures();
   Picture GetPicture() const;
