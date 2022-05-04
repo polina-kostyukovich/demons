@@ -83,8 +83,8 @@ void Controller::TimerTick() {
         (fireballs[i].GetPosition().GetY() + constants::kFireballSize / 2
             - height >= constants::kEpsilon);
 
-    if ( is_collided_with_left_wall || is_collided_with_right_wall ||
-         is_collided_with_top_wall || is_collided_with_bottom_wall) {
+    if (is_collided_with_left_wall || is_collided_with_right_wall ||
+        is_collided_with_top_wall || is_collided_with_bottom_wall) {
       fireballs.erase(fireballs.begin() + i);
       --i;
     }
@@ -130,10 +130,6 @@ Vector2D Controller::GetHeroDirection() const {
 
 int Controller::GetCounter() const {
   return counter_;
-}
-
-const Model& Controller::GetModel() const {
-  return *model_;
 }
 
 void Controller::HandleMousePressEvent(QMouseEvent* event) {

@@ -36,8 +36,6 @@ class Controller : public AbstractController {
 
   int GetCounter() const override;
 
-  const Model& GetModel() const override;
-
   void HandleMousePressEvent(QMouseEvent* event) override;
 
  public slots:
