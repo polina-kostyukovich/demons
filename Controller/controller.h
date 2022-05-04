@@ -18,6 +18,8 @@ class Controller : public AbstractController {
   void SetModel(std::unique_ptr<Model>&& model);
   void SetView(std::unique_ptr<View>&& view);
 
+  void ConnectTimer();
+
   const Model& GetModel() const override;
 
   void Start();
