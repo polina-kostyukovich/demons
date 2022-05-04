@@ -21,7 +21,6 @@ class AbstractController : public QObject {
   virtual const Model& GetModel() const = 0;
 
   virtual void HandleMousePressEvent(QMouseEvent* event) = 0;
-  virtual void HandleMouseReleaseEvent(QMouseEvent* event) = 0;
 };
 
 #endif  // CONTROLLER_ABSTRACT_CONTROLLER_H_

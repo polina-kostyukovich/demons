@@ -4,8 +4,8 @@
 #include <vector>
 
 #include "dynamic_object.h"
-#include "../Util/vector.h"
 #include "../Util/structs.h"
+#include "../Util/vector.h"
 
 class Fireball : public DynamicObject {
  public:

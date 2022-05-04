@@ -113,19 +113,12 @@ const Model& Controller::GetModel() const {
 }
 
 void Controller::HandleMousePressEvent(QMouseEvent* event) {
-  is_clicked_ = true;
   Point spawn_pos = model_->GetHero().GetPosition();
   spawn_pos.SetX(spawn_pos.GetX() + constants::kHeroSize / 2);
   spawn_pos.SetY(spawn_pos.GetY() + constants::kHeroSize / 1.5);
 
-  Point mouse_pos(static_cast<long double>(view_->cursor().pos().x()),
-                  static_cast<long double>(view_->cursor().pos().y()));
-  Vector2D direction(spawn_pos, mouse_pos);
+  Vector2D direction(spawn_pos, Point(event->pos().x(), event->pos().y()));
   direction.Normalize();
 
   model_->AddFireball(Fireball(spawn_pos, direction));
-}
-
-void Controller::HandleMouseReleaseEvent(QMouseEvent* event) {
-  is_clicked_ = false;
 }

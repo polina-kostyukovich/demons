@@ -54,7 +54,3 @@ void View::keyReleaseEvent(QKeyEvent* event) {
 void View::mousePressEvent(QMouseEvent *event) {
   controller_->HandleMousePressEvent(event);
 }
-
-void View::mouseReleaseEvent(QMouseEvent *event) {
-  controller_->HandleMouseReleaseEvent(event);
-}

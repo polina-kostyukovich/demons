@@ -26,7 +26,6 @@ class View : public QWidget {
   void keyReleaseEvent(QKeyEvent* event) override;
 
   void mousePressEvent(QMouseEvent* event) override;
-  void mouseReleaseEvent(QMouseEvent* event) override;
 
  private:
   std::shared_ptr<AbstractController> controller_;

@@ -33,7 +33,6 @@ class Controller : public AbstractController {
   const Model& GetModel() const override;
 
   void HandleMousePressEvent(QMouseEvent* event) override;
-  void HandleMouseReleaseEvent(QMouseEvent* event) override;
 
  public slots:
   void TimerTick();
@@ -47,7 +46,6 @@ class Controller : public AbstractController {
   QTimer* timer_{new QTimer(this)};
   std::map<int, bool> keys_;
   int counter_{0};
-  bool is_clicked_{false};
 };
 
 #endif  // CONTROLLER_CONTROLLER_H_
