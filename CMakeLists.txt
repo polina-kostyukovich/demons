@@ -35,6 +35,7 @@ add_executable(demons
         Util/point.cpp
         Util/structs.h
         Util/vector.cpp
+        View/menu.cpp
         View/view.cpp
         resources.qrc)
 
