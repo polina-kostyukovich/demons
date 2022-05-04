@@ -1,7 +1,7 @@
 #include "fireball.h"
 
-#include <QPainter>
 #include <string>
+#include <QPainter>
 
 void Fireball::LoadPictures() {
   std::string picture = ":Resources/Picture/Fireball/fireball1.png";
