@@ -49,14 +49,21 @@ void Controller::TimerTick() {
   int height = view_->GetWindowHeight();
   int width = view_->GetWindowWidth();
   for (int i = 0; i < fireballs.size(); ++i) {
-    if (fireballs[i].GetPosition().GetX() - constants::kFireballSize / 2
-        <= -constants::kEpsilon ||
-        fireballs[i].GetPosition().GetX() + constants::kFireballSize / 2
-        - width >= constants::kEpsilon ||
-        fireballs[i].GetPosition().GetY() - constants::kFireballSize / 2
-        <= -constants::kEpsilon ||
-        fireballs[i].GetPosition().GetY() + constants::kFireballSize / 2
-        - height >= constants::kEpsilon) {
+    bool is_collided_with_left_wall =
+        (fireballs[i].GetPosition().GetX() - constants::kFireballSize / 2
+        <= -constants::kEpsilon);
+    bool is_collided_with_right_wall =
+        (fireballs[i].GetPosition().GetX() + constants::kFireballSize / 2
+            - width >= constants::kEpsilon);
+    bool is_collided_with_top_wall =
+        (fireballs[i].GetPosition().GetY() - constants::kFireballSize / 2
+            <= -constants::kEpsilon);
+    bool is_collided_with_bottom_wall =
+        (fireballs[i].GetPosition().GetY() + constants::kFireballSize / 2
+            - height >= constants::kEpsilon);
+
+    if ( is_collided_with_left_wall || is_collided_with_right_wall ||
+         is_collided_with_top_wall || is_collided_with_bottom_wall) {
       fireballs.erase(fireballs.begin() + i);
       --i;
     }
@@ -105,18 +112,18 @@ const Model& Controller::GetModel() const {
   return *model_;
 }
 
-void Controller::HandleMousePressEvent(QMouseEvent* event,
-                                       const Point& mouse_pos) {
+void Controller::HandleMousePressEvent(QMouseEvent* event) {
   is_clicked_ = true;
   Point spawn_pos = model_->GetHero().GetPosition();
   spawn_pos.SetX(spawn_pos.GetX() + constants::kHeroSize / 2);
   spawn_pos.SetY(spawn_pos.GetY() + constants::kHeroSize / 1.5);
 
+  Point mouse_pos(static_cast<long double>(view_->cursor().pos().x()),
+                  static_cast<long double>(view_->cursor().pos().y()));
   Vector2D direction(spawn_pos, mouse_pos);
   direction.Normalize();
 
-  Fireball fireball(spawn_pos, direction);
-  model_->AddFireball(fireball);
+  model_->AddFireball(Fireball(spawn_pos, direction));
 }
 
 void Controller::HandleMouseReleaseEvent(QMouseEvent* event) {
