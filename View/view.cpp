@@ -52,8 +52,6 @@ void View::keyReleaseEvent(QKeyEvent* event) {
 }
 
 void View::mousePressEvent(QMouseEvent *event) {
-  Point mouse_pos = {static_cast<long double>(cursor().pos().x()),
-                     static_cast<long double>(cursor().pos().y())};
   controller_->HandleMousePressEvent(event);
 }
 
