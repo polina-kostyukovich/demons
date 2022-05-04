@@ -20,9 +20,14 @@ class Controller : public AbstractController {
 
   const Model& GetModel() const override;
 
-  void ConnectTimer();
-
   void Start();
+
+  void StartGame() override;
+  void NewGame() override;
+  void Pause();
+
+  void ChangeLanguage(Language language) override;
+  void ChangeSoundOn() override;
 
   void HandleKeyPressEvent(QKeyEvent* event) override;
   void HandleKeyReleaseEvent(QKeyEvent* event) override;
@@ -33,7 +38,7 @@ class Controller : public AbstractController {
   void TimerTick();
 
  private:
-  Vector2D GetDirection() const;
+  Vector2D GetHeroDirection() const;
 
  private:
   std::unique_ptr<Model> model_;
