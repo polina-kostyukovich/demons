@@ -27,9 +27,11 @@ void Hero::LoadPictures() {
 
 void Hero::Move(const Vector2D& direction,
                 int window_width,
-                int window_height) {
+                int window_height,
+                const Map& map) {
   int width = window_width - constants::kHeroSize;
   int height = window_height - constants::kHeroSize;
+  Point old_position = position_;
   SetPosition(GetPosition() + direction * constants::kHeroStep);
   // std::clog << "Coords depending on checking collisions: before: "
   //           << position_ << "; ";
@@ -45,6 +47,56 @@ void Hero::Move(const Vector2D& direction,
   }
   if (GetPosition().GetY() > constants::kEpsilon + height) {
     SetPositionY(static_cast<long double>(height));
+  }
+
+  Point moved_pos_x = Point(position_.GetX(), old_position.GetY());
+  auto x_left_top_map_coord = map.GetCellCoordinatesOnMap(moved_pos_x);
+  auto x_left_bottom_map_coord = map.GetCellCoordinatesOnMap(
+      moved_pos_x + Point(0., constants::kHeroSize));
+  auto x_right_top_map_coord = map.GetCellCoordinatesOnMap(
+      moved_pos_x + Point(constants::kHeroSize, 0.));
+
+  if (direction.GetX() <= -constants::kEpsilon) {
+    for (int map_y = x_left_top_map_coord.second;
+         map_y <= x_left_bottom_map_coord.second; ++map_y) {
+      if (map.GetObject(x_left_top_map_coord.first, map_y) != nullptr) {
+        position_.SetX(old_position.GetX());
+        break;
+      }
+    }
+  } else if (direction.GetX() >= constants::kEpsilon) {
+    for (int map_y = x_left_top_map_coord.second;
+         map_y <= x_left_bottom_map_coord.second; ++map_y) {
+      if (map.GetObject(x_right_top_map_coord.first, map_y) != nullptr) {
+        position_.SetX(old_position.GetX());
+        break;
+      }
+    }
+  }
+
+  Point moved_pos_y = Point(old_position.GetX(), position_.GetY());
+  auto y_left_top_map_coord = map.GetCellCoordinatesOnMap(moved_pos_y);
+  auto y_left_bottom_map_coord = map.GetCellCoordinatesOnMap(
+      moved_pos_y + Point(0., constants::kHeroSize));
+  auto y_right_top_map_coord = map.GetCellCoordinatesOnMap(
+      moved_pos_y + Point(constants::kHeroSize, 0.));
+
+  if (direction.GetY() <= -constants::kEpsilon) {
+    for (int map_x = y_left_top_map_coord.first;
+         map_x <= y_right_top_map_coord.first; ++map_x) {
+      if (map.GetObject(map_x, y_left_top_map_coord.second) != nullptr) {
+        position_.SetY(old_position.GetY());
+        break;
+      }
+    }
+  } else if (direction.GetY() >= constants::kEpsilon) {
+    for (int map_x = y_left_top_map_coord.first;
+         map_x <= y_right_top_map_coord.first; ++map_x) {
+      if (map.GetObject(map_x, y_left_bottom_map_coord.second) != nullptr) {
+        position_.SetY(old_position.GetY());
+        break;
+      }
+    }
   }
 
   // std::clog << "after: " << position_ << '\n';

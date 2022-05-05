@@ -7,8 +7,6 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-Map::Map() {}
-
 int Map::GetColumnsNumber() const {
   return columns_;
 }
@@ -17,13 +15,13 @@ int Map::GetRowsNumber() const {
   return rows_;
 }
 
-void Map::SetObject(const std::shared_ptr<GameObject>& object, int x, int y) {
+void Map::SetObject(const std::shared_ptr<StaticObject>& object, int x, int y) {
   assert(x >= 0 && x < columns_ && y >= 0 && y < rows_);
   objects_[x][y] = object;
   RemakeVectorOfObjects();
 }
 
-const std::shared_ptr<GameObject>& Map::GetObject(int x, int y) const {
+const std::shared_ptr<StaticObject>& Map::GetObject(int x, int y) const {
   assert(x >= 0 && x < columns_ && y >= 0 && y < rows_);
   return objects_[x][y];
 }
@@ -119,8 +117,27 @@ void Map::LoadBoilers() {
   RemakeVectorOfObjects();
 }
 
-const std::vector<std::shared_ptr<GameObject>>& Map::GetObjects() const {
+const std::vector<std::shared_ptr<StaticObject>>& Map::GetObjects() const {
   return objects_vector_;
+}
+
+std::pair<int, int> Map::GetCellSize() const {
+  int cell_width = width_ / columns_;
+  int cell_height = height_ / rows_;
+  return {cell_width, cell_height};
+}
+
+std::pair<int, int> Map::GetCellCoordinatesOnMap(const Point& point) const {
+  auto cell = GetCellSize();
+  int x = static_cast<int>(point.GetX() / cell.first);
+  if (x == columns_) {
+    x = columns_ - 1;
+  }
+  int y = static_cast<int>(point.GetY() / cell.second);
+  if (y == rows_) {
+    y = rows_ - 1;
+  }
+  return {x, y};
 }
 
 void Map::RemakeVectorOfObjects() {

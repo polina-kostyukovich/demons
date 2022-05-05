@@ -21,7 +21,6 @@ class Model {
 
   const Map& GetMap() const;
   Map& GetMap();
-  const Map& GetMap() const;
 
   void LoadPictures();
 
@@ -29,12 +28,6 @@ class Model {
   const std::vector<Fireball>& GetFireballs() const;
 
   void AddFireball(const Fireball& fireball);
-
- private:
-  std::pair<int, int> GetCellSize(int window_width, int window_height) const;
-  std::pair<int, int> GetCellCoordinatesOnMap(const Point& point,
-                                              int window_width,
-                                              int window_height) const;
 
  private:
   Hero hero_;

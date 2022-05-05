@@ -15,7 +15,7 @@ class Boiler : public StaticObject {
 
   static void LoadPictures();
 
-  Picture GetPicture(int counter) const override;
+  Picture GetPicture() const override;
 
  private:
   static inline std::unique_ptr<QPixmap> picture_;

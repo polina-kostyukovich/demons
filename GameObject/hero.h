@@ -6,6 +6,7 @@
 #include <QPainter>
 
 #include "creature.h"
+#include "../Map/map.h"
 #include "../Util/structs.h"
 #include "../Util/vector.h"
 
@@ -14,7 +15,10 @@ class Hero : public Creature {
   explicit Hero(const Point& position = Point());
   void LoadPictures();
 
-  void Move(const Vector2D& direction, int window_width, int window_height);
+  void Move(const Vector2D& direction,
+            int window_width,
+            int window_height,
+            const Map& map);
 
   Picture GetPicture(int counter) const;
 

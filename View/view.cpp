@@ -35,7 +35,7 @@ void View::paintEvent(QPaintEvent* event) {
   QPainter painter(this);
   Draw(controller_->GetModel().GetMap().GetPicture(), &painter);
   for (const auto& object : controller_->GetModel().GetMap().GetObjects()) {
-    Draw(object->GetPicture(0), &painter);
+    Draw(object->GetPicture(), &painter);
   }
   Draw(controller_->GetModel().GetHero().GetPicture(controller_->GetCounter()),
        &painter);
@@ -69,6 +69,7 @@ void View::keyPressEvent(QKeyEvent* event) {
 void View::keyReleaseEvent(QKeyEvent* event) {
   controller_->HandleKeyReleaseEvent(event);
 }
+
 void View::closeEvent(QCloseEvent* event) {
   // save settings
 }

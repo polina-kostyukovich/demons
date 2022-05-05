@@ -8,19 +8,19 @@
 #include <QPixmap>
 
 #include "../GameObject/boiler.h"
-#include "../GameObject/game_object.h"
+#include "../GameObject/static_object.h"
 #include "../Model/constants.h"
 #include "../Util/structs.h"
 
 class Map {
  public:
-  Map();
+  Map() = default;
 
   int GetColumnsNumber() const;
   int GetRowsNumber() const;
 
-  void SetObject(const std::shared_ptr<GameObject>& object, int x, int y);
-  const std::shared_ptr<GameObject>& GetObject(int x, int y) const;
+  void SetObject(const std::shared_ptr<StaticObject>& object, int x, int y);
+  const std::shared_ptr<StaticObject>& GetObject(int x, int y) const;
   void RemoveObject(int x, int y);
 
   void LoadPictures();
@@ -29,7 +29,10 @@ class Map {
   void SetSize(int width, int height);
   void LoadBoilers();
 
-  const std::vector<std::shared_ptr<GameObject>>& GetObjects() const;
+  const std::vector<std::shared_ptr<StaticObject>>& GetObjects() const;
+
+  std::pair<int, int> GetCellSize() const;
+  std::pair<int, int> GetCellCoordinatesOnMap(const Point& point) const;
 
  private:
   void RemakeVectorOfObjects();
@@ -37,8 +40,8 @@ class Map {
  private:
   int columns_;
   int rows_;
-  std::vector<std::vector<std::shared_ptr<GameObject>>> objects_;
-  std::vector<std::shared_ptr<GameObject>> objects_vector_;
+  std::vector<std::vector<std::shared_ptr<StaticObject>>> objects_;
+  std::vector<std::shared_ptr<StaticObject>> objects_vector_;
   QPixmap picture_;
   int width_;
   int height_;
