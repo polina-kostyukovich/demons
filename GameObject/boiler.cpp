@@ -1,7 +1,8 @@
 #include "boiler.h"
 
 void Boiler::LoadPictures() {
-  picture_ = std::make_unique<QPixmap>(":Resources/Picture/StaticObject/boiler.png");
+  picture_ =
+      std::make_unique<QPixmap>(":Resources/Picture/StaticObject/boiler.png");
 }
 
 Picture Boiler::GetPicture() const {

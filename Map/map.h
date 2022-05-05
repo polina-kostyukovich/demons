@@ -2,6 +2,7 @@
 #define MAP_MAP_H_
 
 #include <memory>
+#include <utility>
 #include <vector>
 
 #include <QPainter>
