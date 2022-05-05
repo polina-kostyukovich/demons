@@ -33,6 +33,8 @@ class View : public QMainWindow {
 
   void closeEvent(QCloseEvent* event) override;
 
+  void mousePressEvent(QMouseEvent* event) override;
+
  private:
   std::shared_ptr<AbstractController> controller_;
 

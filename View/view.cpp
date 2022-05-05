@@ -2,6 +2,7 @@
 
 #include <utility>
 #include <QGuiApplication>
+#include <QScreen>
 
 View::View() {
   setWindowState(Qt::WindowFullScreen);
@@ -32,12 +33,17 @@ void View::ShowMenu() {
 
 void View::paintEvent(QPaintEvent* event) {
   QPainter painter(this);
-  Draw(controller_->GetMap().GetPicture(), &painter);
+  Draw(controller_->GetModel().GetMap().GetPicture(), &painter);
   for (const auto& object : controller_->GetModel().GetMap().GetObjects()) {
     Draw(object->GetPicture(0), &painter);
   }
-  Draw(controller_->GetHero().GetPicture(controller_->GetCounter()),
+  Draw(controller_->GetModel().GetHero().GetPicture(controller_->GetCounter()),
        &painter);
+
+  auto fireballs = controller_->GetModel().GetFireballs();
+  for (const auto& fireball : fireballs) {
+    Draw(fireball.GetPicture(), &painter);
+  }
 }
 
 void View::Draw(Picture animation, QPainter* painter) {
@@ -65,4 +71,8 @@ void View::keyReleaseEvent(QKeyEvent* event) {
 }
 void View::closeEvent(QCloseEvent* event) {
   // save settings
+}
+
+void View::mousePressEvent(QMouseEvent* event) {
+  controller_->HandleMousePressEvent(event);
 }

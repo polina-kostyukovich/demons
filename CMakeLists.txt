@@ -23,6 +23,7 @@ add_executable(demons
         GameObject/boss.cpp
         GameObject/creature.cpp
         GameObject/dynamic_object.cpp
+        GameObject/fireball.cpp
         GameObject/game_object.cpp
         GameObject/hero.cpp
         GameObject/npc.cpp

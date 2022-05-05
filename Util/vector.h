@@ -3,12 +3,15 @@
 
 #include <ostream>
 
+#include "point.h"
+
 class Vector2D {
  public:
   Vector2D() = default;
   Vector2D(long double x, long double y);
   Vector2D(const Vector2D& vector);
   Vector2D(Vector2D&&  vector);
+  Vector2D(const Point& a, const Point& b);
 
   void SetX(long double new_x);
   void SetY(long double new_y);
@@ -40,6 +43,10 @@ class Vector2D {
                           long double num);
   friend Vector2D operator*(long double num,
                           const Vector2D& first_vector);
+
+  friend Point operator+(const Point& point, const Vector2D& vector);
+  friend Point operator+(const Vector2D& vector, const Point& point);
+  friend Point operator-(const Point& point, const Vector2D& vector);
 
   friend std::ostream& operator<<(std::ostream& out, const Vector2D& vector);
 
