@@ -21,6 +21,7 @@ void Controller::ConnectTimer() {
 void Controller::Start() {
   view_->CreateMenu();
   model_->GetMap().SetSize(view_->GetWindowWidth(), view_->GetWindowHeight());
+  model_->GetMap().LoadBoilers();
   model_->LoadPictures();
   view_->show();
 }
@@ -56,6 +57,10 @@ const Hero& Controller::GetHero() const {
 
 const Map& Controller::GetMap() const {
   return model_->GetMap();
+}
+
+const Model& Controller::GetModel() const {
+  return *model_;
 }
 
 void Controller::TimerTick() {
@@ -99,7 +104,6 @@ Vector2D Controller::GetHeroDirection() const {
   direction.Normalize();
   return direction;
 }
-
 int Controller::GetCounter() const {
   return counter_;
 }

@@ -8,6 +8,10 @@ Map& Model::GetMap() {
   return map_;
 }
 
+const Map& Model::GetMap() const {
+  return map_;
+}
+
 void Model::LoadPictures() {
   hero_.LoadPictures();
   map_.LoadPictures();

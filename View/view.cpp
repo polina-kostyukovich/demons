@@ -33,6 +33,9 @@ void View::ShowMenu() {
 void View::paintEvent(QPaintEvent* event) {
   QPainter painter(this);
   Draw(controller_->GetMap().GetPicture(), &painter);
+  for (const auto& object : controller_->GetModel().GetMap().GetObjects()) {
+    Draw(object->GetPicture(0), &painter);
+  }
   Draw(controller_->GetHero().GetPicture(controller_->GetCounter()),
        &painter);
 }

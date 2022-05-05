@@ -16,6 +16,7 @@ class Model {
 
   Hero& GetHero();
   Map& GetMap();
+  const Map& GetMap() const;
 
   void LoadPictures();
 

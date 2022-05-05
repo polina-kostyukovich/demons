@@ -31,6 +31,7 @@ class Controller : public AbstractController {
 
   const Hero& GetHero() const override;
   const Map& GetMap() const override;
+  const Model& GetModel() const override;
 
   void HandleKeyPressEvent(QKeyEvent* event) override;
   void HandleKeyReleaseEvent(QKeyEvent* event) override;

@@ -2,6 +2,7 @@
 #define GAMEOBJECT_GAME_OBJECT_H_
 
 #include "../Util/point.h"
+#include "../Util/structs.h"
 
 class GameObject {
  public:
@@ -12,6 +13,8 @@ class GameObject {
   void SetPositionY(long double new_y);
 
   Point GetPosition() const;
+
+  virtual Picture GetPicture(int counter) const = 0;
 
  protected:
   Point position_;

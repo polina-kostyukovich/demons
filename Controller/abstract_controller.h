@@ -6,6 +6,7 @@
 
 #include "../GameObject/hero.h"
 #include "../Map/map.h"
+#include "../Model/model.h"
 #include "../Util/structs.h"
 
 class AbstractController : public QObject {
@@ -19,6 +20,7 @@ class AbstractController : public QObject {
 
   virtual const Hero& GetHero() const = 0;
   virtual const Map& GetMap() const = 0;
+  virtual const Model& GetModel() const = 0;
   virtual int GetCounter() const = 0;
 
   virtual void HandleKeyPressEvent(QKeyEvent* event) = 0;
