@@ -49,10 +49,11 @@ void Hero::Move(const Vector2D& direction,
     SetPositionY(static_cast<long double>(height));
   }
 
-  Point moved_pos_x = Point(position_.GetX(), old_position.GetY());
+  Point moved_pos_x =
+      Point(position_.GetX(), old_position.GetY() + constants::kHeroSize / 2.);
   auto x_left_top_map_coord = map.GetCellCoordinatesOnMap(moved_pos_x);
   auto x_left_bottom_map_coord = map.GetCellCoordinatesOnMap(
-      moved_pos_x + Point(0., constants::kHeroSize));
+      moved_pos_x + Point(0., constants::kHeroSize / 2.));
   auto x_right_top_map_coord = map.GetCellCoordinatesOnMap(
       moved_pos_x + Point(constants::kHeroSize, 0.));
 
@@ -74,10 +75,11 @@ void Hero::Move(const Vector2D& direction,
     }
   }
 
-  Point moved_pos_y = Point(old_position.GetX(), position_.GetY());
+  Point moved_pos_y =
+      Point(old_position.GetX(), position_.GetY() + constants::kHeroSize / 2.);
   auto y_left_top_map_coord = map.GetCellCoordinatesOnMap(moved_pos_y);
   auto y_left_bottom_map_coord = map.GetCellCoordinatesOnMap(
-      moved_pos_y + Point(0., constants::kHeroSize));
+      moved_pos_y + Point(0., constants::kHeroSize / 2.));
   auto y_right_top_map_coord = map.GetCellCoordinatesOnMap(
       moved_pos_y + Point(constants::kHeroSize, 0.));
 
