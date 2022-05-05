@@ -75,18 +75,6 @@ Point& Point::operator-=(const Point& another_point) {
   return *this;
 }
 
-Point& Point::operator+=(const Vector2D& vector) {
-  x_ += vector.GetX();
-  y_ += vector.GetY();
-  return *this;
-}
-
-Point& Point::operator-=(const Vector2D& vector) {
-  x_ -= vector.GetX();
-  y_ -= vector.GetY();
-  return *this;
-}
-
 Point& Point::operator*=(long double num) {
   x_ *= num;
   y_ *= num;
@@ -113,22 +101,6 @@ Point operator-(const Point& first, const Point& second) {
     Point result(first);
     result -= second;
     return result;
-}
-
-Point operator+(const Point& point, const Vector2D& vector) {
-  Point result(point);
-  result += vector;
-  return result;
-}
-
-Point operator+(const Vector2D& vector, const Point& point) {
-  return point + vector;
-}
-
-Point operator-(const Point& point, const Vector2D& vector) {
-  Point result(point);
-  result -= vector;
-  return result;
 }
 
 Point operator*(const Point& point, long double num) {

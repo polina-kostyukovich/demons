@@ -36,6 +36,8 @@ class Controller : public AbstractController {
 
   int GetCounter() const override;
 
+  void HandleMousePressEvent(QMouseEvent* event) override;
+
  public slots:
   void TimerTick();
 
