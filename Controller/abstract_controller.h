@@ -11,7 +11,7 @@
 #include "../Util/structs.h"
 
 class AbstractController : public QObject {
- Q_OBJECT
+  Q_OBJECT
  public:
   virtual const Model& GetModel() const = 0;
 
