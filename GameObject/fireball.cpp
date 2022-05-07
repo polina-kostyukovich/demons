@@ -40,6 +40,9 @@ Picture Fireball::GetPicture() const {
 void Fireball::Move() {
   if (!is_born_) {
     SetPosition(position_ + direction_ * constants::kFireballSpeed);
+  } else {
+    SetPosition(Point(spawn_pos_.GetX() + constants::kHeroSize / 2,
+                      spawn_pos_.GetY() + constants::kHeroSize / 1.65));
   }
 }
 
@@ -57,4 +60,8 @@ int Fireball::GetCounter() {
 
 void Fireball::SetCounter(int count) {
   counter_ = count;
+}
+
+void Fireball::SetSpawnPos(const Point& pos) {
+  spawn_pos_ = pos;
 }

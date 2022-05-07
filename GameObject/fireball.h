@@ -23,11 +23,14 @@ class Fireball : public DynamicObject {
   int GetCounter();
   void SetCounter(int count);
 
+  void SetSpawnPos(const Point& pos);
+
  private:
   Vector2D direction_;
   static inline std::vector<QPixmap> pictures_;
   bool is_born_{true};
   int counter_{0};
+  Point spawn_pos_;
 };
 
 #endif  // GAMEOBJECT_FIREBALL_H_

@@ -103,8 +103,11 @@ void Controller::TimerTick() {
     }
   }
 
+  Point spawn_pos = model_->GetHero().GetPosition();
+
   int counter2;
   for (auto& fireball : fireballs) {
+    fireball.SetSpawnPos(spawn_pos);
     counter2 = fireball.GetCounter();
     if (fireball.IsBorn()) {
       if (fireball.GetCounter() == constants::kNumberBorn *
