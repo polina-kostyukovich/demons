@@ -29,10 +29,10 @@ Picture Fireball::GetPicture() const {
   output.left_top.SetY(position_.GetY() - constants::kFireballSize / 2);
 
   if (is_born_) {
-    output.picture = pictures_[counter_ / constants::kSlowAnimation];
+    output.picture = pictures_[counter_ / constants::kSlowFireBall];
   } else {
     output.picture = pictures_[constants::kNumberBorn
-        + counter_ / constants::kSlowAnimation];
+        + counter_ / constants::kSlowFireBall];
   }
   return output;
 }

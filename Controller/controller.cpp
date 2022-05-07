@@ -93,17 +93,17 @@ void Controller::TimerTick() {
   view_->repaint();
   ++counter_;
   counter_ %= constants::kSlowAnimation * constants::kNumberAnimation;
-  int counter2;
 
   if (is_striking_) {
     number_hero_++;
-    if (number_hero_
-        == constants::kSlowAnimation * constants::kNumberAnimation) {
+    if (number_hero_ == constants::kSlowAnimation *
+        constants::kNumberAnimation) {
       number_hero_ = 0;
       is_striking_ = false;
     }
   }
 
+  int counter2;
   for (auto& fireball: fireballs) {
     counter2 = fireball.GetCounter();
     if (fireball.GetBool()) {
@@ -164,7 +164,7 @@ int Controller::GetNumberHero() const {
 void Controller::HandleMousePressEvent(QMouseEvent* event) {
   Point spawn_pos = model_->GetHero().GetPosition();
   spawn_pos.SetX(spawn_pos.GetX() + constants::kHeroSize / 2);
-  spawn_pos.SetY(spawn_pos.GetY() + constants::kHeroSize / 1.5);
+  spawn_pos.SetY(spawn_pos.GetY() + constants::kHeroSize / 1.65);
 
   Vector2D direction(spawn_pos, Point(event->pos().x(), event->pos().y()));
   direction.Normalize();

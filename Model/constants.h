@@ -17,7 +17,7 @@ const int kLavaSize = 60;
 const int kWallSize = 30;
 const int kMiddleAnimation = 6;
 
-const int kSlowFireBall = 50;
+const int kSlowFireBall = 5;
 const int kNumberBorn = 4;
 const int kNumberFireBall = 7;
 }  // namespace constants
