@@ -50,7 +50,7 @@ void Hero::Move(const Vector2D& direction,
   // std::clog << "after: " << position_ << '\n';
 }
 
-Picture Hero::GetPicture(int counter) const {
+Picture Hero::GetPicture(int counter, int number_hero) const {
   Picture output;
   output.left_top = position_;
   output.width = constants::kHeroSize;
@@ -58,7 +58,8 @@ Picture Hero::GetPicture(int counter) const {
   QPixmap pixmap(wings_pixmaps_[counter / constants::kSlowAnimation]);
   QPainter painter(&pixmap);
 
-  QPixmap hero_image(hero_pixmaps_[0].scaled(pixmap.width(), pixmap.height()));
+  QPixmap hero_image(hero_pixmaps_[number_hero
+      / constants::kSlowAnimation].scaled(pixmap.width(), pixmap.height()));
 
   painter.drawPixmap(0, 0, hero_image);
   output.picture = pixmap;

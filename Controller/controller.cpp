@@ -60,7 +60,7 @@ void Controller::TimerTick() {
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());
 
-  for (auto& fireball : model_->GetFireballs()) {
+  for (auto& fireball: model_->GetFireballs()) {
     fireball.Move();
   }
 
@@ -72,7 +72,7 @@ void Controller::TimerTick() {
   for (int i = 0; i < fireballs.size(); ++i) {
     bool is_collided_with_left_wall =
         (fireballs[i].GetPosition().GetX() - constants::kFireballSize / 2
-        <= -constants::kEpsilon);
+            <= -constants::kEpsilon);
     bool is_collided_with_right_wall =
         (fireballs[i].GetPosition().GetX() + constants::kFireballSize / 2
             - width >= constants::kEpsilon);
@@ -93,6 +93,31 @@ void Controller::TimerTick() {
   view_->repaint();
   ++counter_;
   counter_ %= constants::kSlowAnimation * constants::kNumberAnimation;
+  int counter2;
+
+  if (is_striking_) {
+    number_hero_++;
+    if (number_hero_
+        == constants::kSlowAnimation * constants::kNumberAnimation) {
+      number_hero_ = 0;
+      is_striking_ = false;
+    }
+  }
+
+  for (auto& fireball: fireballs) {
+    counter2 = fireball.GetCounter();
+    if (fireball.GetBool()) {
+      if (fireball.GetCounter() == constants::kNumberBorn *
+          constants::kSlowFireBall) {
+        fireball.SetCounter(0);
+        fireball.SetBool(false);
+      }
+      fireball.SetCounter(counter2 + 1);
+    } else {
+      fireball.SetCounter((counter2 + 1) % (constants::kSlowFireBall
+          * constants::kNumberFireBall));
+    }
+  }
 }
 
 void Controller::HandleKeyPressEvent(QKeyEvent* event) {
@@ -132,6 +157,10 @@ int Controller::GetCounter() const {
   return counter_;
 }
 
+int Controller::GetNumberHero() const {
+  return number_hero_;
+}
+
 void Controller::HandleMousePressEvent(QMouseEvent* event) {
   Point spawn_pos = model_->GetHero().GetPosition();
   spawn_pos.SetX(spawn_pos.GetX() + constants::kHeroSize / 2);
@@ -141,4 +170,6 @@ void Controller::HandleMousePressEvent(QMouseEvent* event) {
   direction.Normalize();
 
   model_->AddFireball(Fireball(spawn_pos, direction));
+  is_striking_ = true;
+  number_hero_ = 0;
 }

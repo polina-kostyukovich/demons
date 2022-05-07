@@ -35,6 +35,7 @@ class Controller : public AbstractController {
   void HandleKeyReleaseEvent(QKeyEvent* event) override;
 
   int GetCounter() const override;
+  int GetNumberHero() const override;
 
   void HandleMousePressEvent(QMouseEvent* event) override;
 
@@ -50,6 +51,8 @@ class Controller : public AbstractController {
   QTimer* timer_{new QTimer(this)};
   std::map<int, bool> keys_;
   int counter_{0};
+  int number_hero_{0};
+  bool is_striking_{false};
 };
 
 #endif  // CONTROLLER_CONTROLLER_H_

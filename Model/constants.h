@@ -16,6 +16,10 @@ const int kFireballSize = 60;
 const int kLavaSize = 60;
 const int kWallSize = 30;
 const int kMiddleAnimation = 6;
+
+const int kSlowFireBall = 50;
+const int kNumberBorn = 4;
+const int kNumberFireBall = 7;
 }  // namespace constants
 
 #endif  // MODEL_CONSTANTS_H_

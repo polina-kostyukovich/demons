@@ -34,11 +34,11 @@ void View::ShowMenu() {
 void View::paintEvent(QPaintEvent* event) {
   QPainter painter(this);
   Draw(controller_->GetModel().GetMap().GetPicture(), &painter);
-  Draw(controller_->GetModel().GetHero().GetPicture(controller_->GetCounter()),
-       &painter);
+  Draw(controller_->GetModel().GetHero().GetPicture(
+           controller_->GetCounter(), controller_->GetNumberHero()), &painter);
 
   auto fireballs = controller_->GetModel().GetFireballs();
-  for (const auto& fireball : fireballs) {
+  for (const auto& fireball: fireballs) {
     Draw(fireball.GetPicture(), &painter);
   }
 }

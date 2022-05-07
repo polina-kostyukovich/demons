@@ -11,7 +11,7 @@
 #include "../Util/structs.h"
 
 class AbstractController : public QObject {
-  Q_OBJECT
+ Q_OBJECT
  public:
   virtual const Model& GetModel() const = 0;
 
@@ -22,6 +22,7 @@ class AbstractController : public QObject {
   virtual void ChangeSoundOn() = 0;
 
   virtual int GetCounter() const = 0;
+  virtual int GetNumberHero() const = 0;
 
   virtual void HandleKeyPressEvent(QKeyEvent* event) = 0;
   virtual void HandleKeyReleaseEvent(QKeyEvent* event) = 0;
