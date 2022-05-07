@@ -17,8 +17,8 @@ class Fireball : public DynamicObject {
 
   void Move();
 
-  bool GetBool();
-  void SetBool(bool set);
+  bool IsBorn();
+  void SetBorn(bool set);
 
   int GetCounter();
   void SetCounter(int count);

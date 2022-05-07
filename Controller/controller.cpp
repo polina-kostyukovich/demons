@@ -106,11 +106,11 @@ void Controller::TimerTick() {
   int counter2;
   for (auto& fireball : fireballs) {
     counter2 = fireball.GetCounter();
-    if (fireball.GetBool()) {
+    if (fireball.IsBorn()) {
       if (fireball.GetCounter() == constants::kNumberBorn *
           constants::kSlowFireBall) {
         fireball.SetCounter(0);
-        fireball.SetBool(false);
+        fireball.SetBorn(false);
       }
       fireball.SetCounter(counter2 + 1);
     } else {
@@ -157,7 +157,7 @@ int Controller::GetCounter() const {
   return counter_;
 }
 
-int Controller::GetNumberHero() const {
+int Controller::GetHeroCurrentFrame() const {
   return number_hero_;
 }
 

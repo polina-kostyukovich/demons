@@ -43,11 +43,11 @@ void Fireball::Move() {
   }
 }
 
-bool Fireball::GetBool() {
+bool Fireball::IsBorn() {
   return is_born_;
 }
 
-void Fireball::SetBool(bool set) {
+void Fireball::SetBorn(bool set) {
   is_born_ = set;
 }
 

@@ -22,7 +22,7 @@ class AbstractController : public QObject {
   virtual void ChangeSoundOn() = 0;
 
   virtual int GetCounter() const = 0;
-  virtual int GetNumberHero() const = 0;
+  virtual int GetHeroCurrentFrame() const = 0;
 
   virtual void HandleKeyPressEvent(QKeyEvent* event) = 0;
   virtual void HandleKeyReleaseEvent(QKeyEvent* event) = 0;

@@ -35,7 +35,7 @@ class Controller : public AbstractController {
   void HandleKeyReleaseEvent(QKeyEvent* event) override;
 
   int GetCounter() const override;
-  int GetNumberHero() const override;
+  int GetHeroCurrentFrame() const override;
 
   void HandleMousePressEvent(QMouseEvent* event) override;
 
