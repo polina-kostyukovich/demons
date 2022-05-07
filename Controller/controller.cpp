@@ -60,7 +60,7 @@ void Controller::TimerTick() {
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());
 
-  for (auto& fireball: model_->GetFireballs()) {
+  for (auto& fireball : model_->GetFireballs()) {
     fireball.Move();
   }
 
@@ -104,7 +104,7 @@ void Controller::TimerTick() {
   }
 
   int counter2;
-  for (auto& fireball: fireballs) {
+  for (auto& fireball : fireballs) {
     counter2 = fireball.GetCounter();
     if (fireball.GetBool()) {
       if (fireball.GetCounter() == constants::kNumberBorn *

@@ -38,7 +38,7 @@ void View::paintEvent(QPaintEvent* event) {
            controller_->GetCounter(), controller_->GetNumberHero()), &painter);
 
   auto fireballs = controller_->GetModel().GetFireballs();
-  for (const auto& fireball: fireballs) {
+  for (const auto& fireball : fireballs) {
     Draw(fireball.GetPicture(), &painter);
   }
 }
