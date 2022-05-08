@@ -60,7 +60,7 @@ void Controller::TimerTick() {
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());
 
-  for (auto& fireball : model_->GetFireballs()) {
+  for (auto& fireball: model_->GetFireballs()) {
     fireball.Move();
   }
 
@@ -95,10 +95,11 @@ void Controller::TimerTick() {
   counter_ %= constants::kHeroSpeedCoefficient * constants::kNumberAnimation;
 
   if (model_->GetHero().IsStriking()) {
-    model_->GetHero().SetNumberHero(model_->GetHero().GetNumberHero() + 1);
-    if (model_->GetHero().GetNumberHero() == constants::kHeroSpeedCoefficient *
-        constants::kNumberAnimation) {
-      model_->GetHero().SetNumberHero(0);
+    model_->GetHero().SetNumberTickHero(
+        model_->GetHero().GetNumberTickHero() + 1);
+    if (model_->GetHero().GetNumberTickHero()
+        == constants::kHeroSpeedCoefficient * constants::kNumberAnimation) {
+      model_->GetHero().SetNumberTickHero(0);
       model_->GetHero().SetStriking(false);
     }
   }
@@ -109,7 +110,7 @@ void Controller::TimerTick() {
                         constants::kTorsoPercentage);
 
   int current_counter;
-  for (auto& fireball : fireballs) {
+  for (auto& fireball: fireballs) {
     fireball.SetSpawnPos(spawn_pos);
     current_counter = fireball.GetCounter();
     if (fireball.IsBorn()) {
@@ -168,12 +169,12 @@ void Controller::HandleMousePressEvent(QMouseEvent* event) {
   Point spawn_pos = model_->GetHero().GetPosition();
   spawn_pos.SetX(spawn_pos.GetX() + constants::kHeroSize / 2);
   spawn_pos.SetY(spawn_pos.GetY() + constants::kHeroSize /
-                                    constants::kTorsoPercentage);
+      constants::kTorsoPercentage);
 
   Vector2D direction(spawn_pos, Point(event->pos().x(), event->pos().y()));
   direction.Normalize();
 
   model_->AddFireball(Fireball(spawn_pos, direction));
   model_->GetHero().SetStriking(true);
-  model_->GetHero().SetNumberHero(0);
+  model_->GetHero().SetNumberTickHero(0);
 }

@@ -18,15 +18,15 @@ class Hero : public Creature {
 
   Picture GetPicture(int counter) const;
 
-  int GetNumberHero();
-  void SetNumberHero(int number);
+  int GetNumberTickHero();
+  void SetNumberTickHero(int number);
   bool IsStriking();
-  void SetStriking(bool set);
+  void SetStriking(bool);
 
  private:
   std::vector<QPixmap> wings_pixmaps_;
   std::vector<QPixmap> hero_pixmaps_;
-  int number_hero_{0};
+  int number_tick_hero_{0};
   bool is_striking_{false};
 };
 
