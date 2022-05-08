@@ -58,10 +58,10 @@ Picture Hero::GetPicture(int counter) const {
   QPixmap pixmap(wings_pixmaps_[counter / constants::kHeroSpeedCoefficient]);
   QPainter painter(&pixmap);
 
-  QPixmap hero_image
-      (hero_pixmaps_[number_tick_hero_ / constants::kHeroSpeedCoefficient].scaled(
-          pixmap.width(),
-          pixmap.height()));
+  QPixmap hero_image(hero_pixmaps_[number_tick_hero_
+      / constants::kHeroSpeedCoefficient].scaled(
+      pixmap.width(),
+      pixmap.height()));
 
   painter.drawPixmap(0, 0, hero_image);
   output.picture = pixmap;
