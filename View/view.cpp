@@ -35,7 +35,7 @@ void View::paintEvent(QPaintEvent* event) {
   QPainter painter(this);
   Draw(controller_->GetModel().GetMap().GetPicture(), &painter);
   Draw(controller_->GetModel().GetHero().GetPicture(
-      controller_->GetCounter(), controller_->GetHeroCurrentFrame()), &painter);
+      controller_->GetCounter()), &painter);
 
   auto fireballs = controller_->GetModel().GetFireballs();
   for (const auto& fireball : fireballs) {

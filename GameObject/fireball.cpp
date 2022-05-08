@@ -4,13 +4,13 @@
 #include <QPainter>
 
 void Fireball::LoadPictures() {
-  for (int i = 1; i < 5; i++) {
+  for (int i = 1; i <= constants::kNumberBorn; i++) {
     std::string picture = ":Resources/Picture/Fireball/born_fireball";
     picture += std::to_string(i);
     picture += ".png";
     pictures_.emplace_back(picture.c_str());
   }
-  for (int i = 1; i < 8; i++) {
+  for (int i = 1; i <= constants::kNumberFireBall; i++) {
     std::string picture = ":Resources/Picture/Fireball/fireball";
     picture += std::to_string(i);
     picture += ".png";
@@ -29,10 +29,11 @@ Picture Fireball::GetPicture() const {
   output.left_top.SetY(position_.GetY() - constants::kFireballSize / 2);
 
   if (is_born_) {
-    output.picture = pictures_[counter_ / constants::kSlowFireBall];
+    output.picture =
+        pictures_[tick_counter_ / constants::kFireballSpeedCoefficient];
   } else {
-    output.picture = pictures_[constants::kNumberBorn
-        + counter_ / constants::kSlowFireBall];
+    output.picture = pictures_[constants::kNumberBorn + tick_counter_ /
+        constants::kFireballSpeedCoefficient];
   }
   return output;
 }
@@ -41,8 +42,7 @@ void Fireball::Move() {
   if (!is_born_) {
     SetPosition(position_ + direction_ * constants::kFireballSpeed);
   } else {
-    SetPosition(Point(spawn_pos_.GetX() + constants::kHeroSize / 2,
-                      spawn_pos_.GetY() + constants::kHeroSize / 1.65));
+    SetPosition(spawn_pos_);
   }
 }
 
@@ -55,11 +55,11 @@ void Fireball::SetBorn(bool set) {
 }
 
 int Fireball::GetCounter() {
-  return counter_;
+  return tick_counter_;
 }
 
 void Fireball::SetCounter(int count) {
-  counter_ = count;
+  tick_counter_ = count;
 }
 
 void Fireball::SetSpawnPos(const Point& pos) {

@@ -16,11 +16,18 @@ class Hero : public Creature {
 
   void Move(const Vector2D& direction, int window_width, int window_height);
 
-  Picture GetPicture(int counter, int number_hero) const;
+  Picture GetPicture(int counter) const;
+
+  int GetNumberHero();
+  void SetNumberHero(int number);
+  bool IsStriking();
+  void SetStriking(bool set);
 
  private:
   std::vector<QPixmap> wings_pixmaps_;
   std::vector<QPixmap> hero_pixmaps_;
+  int number_hero_{0};
+  bool is_striking_{false};
 };
 
 #endif  // GAMEOBJECT_HERO_H_

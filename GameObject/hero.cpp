@@ -50,18 +50,36 @@ void Hero::Move(const Vector2D& direction,
   // std::clog << "after: " << position_ << '\n';
 }
 
-Picture Hero::GetPicture(int counter, int number_hero) const {
+Picture Hero::GetPicture(int counter) const {
   Picture output;
   output.left_top = position_;
   output.width = constants::kHeroSize;
   output.height = constants::kHeroSize;
-  QPixmap pixmap(wings_pixmaps_[counter / constants::kSlowAnimation]);
+  QPixmap pixmap(wings_pixmaps_[counter / constants::kHeroSpeedCoefficient]);
   QPainter painter(&pixmap);
 
-  QPixmap hero_image(hero_pixmaps_[number_hero
-      / constants::kSlowAnimation].scaled(pixmap.width(), pixmap.height()));
+  QPixmap hero_image
+      (hero_pixmaps_[number_hero_ / constants::kHeroSpeedCoefficient].scaled(
+          pixmap.width(),
+          pixmap.height()));
 
   painter.drawPixmap(0, 0, hero_image);
   output.picture = pixmap;
   return output;
+}
+
+int Hero::GetNumberHero() {
+  return number_hero_;
+}
+
+void Hero::SetNumberHero(int number) {
+  number_hero_ = number;
+}
+
+bool Hero::IsStriking() {
+  return is_striking_;
+}
+
+void Hero::SetStriking(bool set) {
+  is_striking_ = set;
 }

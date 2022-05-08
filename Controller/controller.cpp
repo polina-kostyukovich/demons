@@ -92,33 +92,37 @@ void Controller::TimerTick() {
 
   view_->repaint();
   ++counter_;
-  counter_ %= constants::kSlowAnimation * constants::kNumberAnimation;
+  counter_ %= constants::kHeroSpeedCoefficient * constants::kNumberAnimation;
 
-  if (is_striking_) {
-    number_hero_++;
-    if (number_hero_ == constants::kSlowAnimation *
+  if (model_->GetHero().IsStriking()) {
+    model_->GetHero().SetNumberHero(model_->GetHero().GetNumberHero() + 1);
+    if (model_->GetHero().GetNumberHero() == constants::kHeroSpeedCoefficient *
         constants::kNumberAnimation) {
-      number_hero_ = 0;
-      is_striking_ = false;
+      model_->GetHero().SetNumberHero(0);
+      model_->GetHero().SetStriking(false);
     }
   }
 
   Point spawn_pos = model_->GetHero().GetPosition();
+  spawn_pos = Point(spawn_pos.GetX() + constants::kHeroSize / 2,
+                    spawn_pos.GetY() + constants::kHeroSize /
+                        constants::kTorsoPercentage);
 
-  int counter2;
+  int current_counter;
   for (auto& fireball : fireballs) {
     fireball.SetSpawnPos(spawn_pos);
-    counter2 = fireball.GetCounter();
+    current_counter = fireball.GetCounter();
     if (fireball.IsBorn()) {
       if (fireball.GetCounter() == constants::kNumberBorn *
-          constants::kSlowFireBall) {
+          constants::kFireballSpeedCoefficient) {
         fireball.SetCounter(0);
         fireball.SetBorn(false);
       }
-      fireball.SetCounter(counter2 + 1);
+      fireball.SetCounter(current_counter + 1);
     } else {
-      fireball.SetCounter((counter2 + 1) % (constants::kSlowFireBall
-          * constants::kNumberFireBall));
+      fireball.SetCounter(
+          (current_counter + 1) % (constants::kFireballSpeedCoefficient
+              * constants::kNumberFireBall));
     }
   }
 }
@@ -160,19 +164,16 @@ int Controller::GetCounter() const {
   return counter_;
 }
 
-int Controller::GetHeroCurrentFrame() const {
-  return number_hero_;
-}
-
 void Controller::HandleMousePressEvent(QMouseEvent* event) {
   Point spawn_pos = model_->GetHero().GetPosition();
   spawn_pos.SetX(spawn_pos.GetX() + constants::kHeroSize / 2);
-  spawn_pos.SetY(spawn_pos.GetY() + constants::kHeroSize / 1.65);
+  spawn_pos.SetY(spawn_pos.GetY() + constants::kHeroSize /
+                                    constants::kTorsoPercentage);
 
   Vector2D direction(spawn_pos, Point(event->pos().x(), event->pos().y()));
   direction.Normalize();
 
   model_->AddFireball(Fireball(spawn_pos, direction));
-  is_striking_ = true;
-  number_hero_ = 0;
+  model_->GetHero().SetStriking(true);
+  model_->GetHero().SetNumberHero(0);
 }
