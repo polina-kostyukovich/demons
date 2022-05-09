@@ -67,6 +67,6 @@ void Fireball::CreateDirection() {
   direction_.Normalize();
 }
 
-Point Fireball::GetPurpose() const{
+Point Fireball::GetPurpose() const {
   return purpose_;
 }
