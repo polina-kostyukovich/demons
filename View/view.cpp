@@ -39,7 +39,7 @@ void View::paintEvent(QPaintEvent* event) {
   for (int i = 0; i < npc_list.size(); i++) {
     painter.drawEllipse(npc_list[i].GetPosition().GetX(),
                         npc_list[i].GetPosition().GetY(),
-                        50, 50);
+                        constants::kNpcSize, constants::kNpcSize);
   }
 }
 
