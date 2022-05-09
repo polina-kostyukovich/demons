@@ -15,10 +15,7 @@ class Hero : public Creature {
   explicit Hero(const Point& position = Point());
   void LoadPictures();
 
-  void Move(const Vector2D& direction,
-            int window_width,
-            int window_height,
-            const Map& map);
+  void Move(const Vector2D& direction, int window_width, int window_height);
 
   Picture GetPicture(int counter) const;
 
