@@ -38,6 +38,10 @@ class Controller : public AbstractController {
 
   void HandleMousePressEvent(QMouseEvent* event) override;
 
+  void CheckFireballsCollisionsWithWalls();
+  void UpdateHeroFields();
+  void UpdateFireballsFields();
+
  public slots:
   void TimerTick();
 
