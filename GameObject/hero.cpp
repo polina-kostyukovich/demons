@@ -58,7 +58,7 @@ Picture Hero::GetPicture(int counter) const {
   QPixmap pixmap(wings_pixmaps_[counter / constants::kHeroSpeedCoefficient]);
   QPainter painter(&pixmap);
 
-  QPixmap hero_image(hero_pixmaps_[number_tick_hero_
+  QPixmap hero_image(hero_pixmaps_[number_tick_
       / constants::kHeroSpeedCoefficient].scaled(
       pixmap.width(),
       pixmap.height()));
@@ -69,17 +69,17 @@ Picture Hero::GetPicture(int counter) const {
 }
 
 int Hero::GetNumberTickHero() {
-  return number_tick_hero_;
+  return number_tick_;
 }
 
 void Hero::SetNumberTickHero(int number) {
-  number_tick_hero_ = number;
+  number_tick_ = number;
 }
 
 bool Hero::IsStriking() {
   return is_striking_;
 }
 
-void Hero::SetStriking(bool new_bool) {
-  is_striking_ = new_bool;
+void Hero::SetStriking(bool is_striking) {
+  is_striking_ = is_striking;
 }

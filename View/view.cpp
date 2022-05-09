@@ -43,7 +43,7 @@ void View::paintEvent(QPaintEvent* event) {
   }
 }
 
-void View::Draw(Picture animation, QPainter* painter) {
+void View::Draw(const Picture& animation, QPainter* painter) {
   painter->drawPixmap(static_cast<int>(animation.left_top.GetX()),
                       static_cast<int>(animation.left_top.GetY()),
                       animation.width,

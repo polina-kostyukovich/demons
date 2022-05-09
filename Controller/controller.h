@@ -38,9 +38,9 @@ class Controller : public AbstractController {
 
   void HandleMousePressEvent(QMouseEvent* event) override;
 
-  void CheckFireballsPosition();
-  void OverloadHeroFields();
-  void OverloadFireballFields();
+  void CheckFireballsCollisionsWithWalls();
+  void UpdateHeroFields();
+  void UpdateFireballFields();
 
  public slots:
   void TimerTick();

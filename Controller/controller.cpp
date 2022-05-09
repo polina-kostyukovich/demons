@@ -38,6 +38,8 @@ void Controller::StartGame() {
 void Controller::NewGame() {
   model_->GetHero().SetPosition(Point());
   model_->GetFireballs().clear();
+  model_->GetHero().SetNumberTickHero(0);
+  counter_=0;
   // set default parameters to all objects
 
   StartGame();
@@ -61,19 +63,25 @@ void Controller::TimerTick() {
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());
 
-  for (auto& fireball : model_->GetFireballs()) {
-    fireball.Move();
-  }
-
   // todo collisions with other objects
-
-  CheckFireballsPosition();
 
   ++counter_;
   counter_ %= constants::kHeroSpeedCoefficient * constants::kNumberAnimation;
 
-  OverloadHeroFields();
-  OverloadFireballFields();
+  CheckFireballsCollisionsWithWalls();
+
+  UpdateHeroFields();
+  UpdateFireballFields();
+
+  Point spawn_pos =
+      Point(model_->GetHero().GetPosition().GetX() + constants::kHeroSize / 2,
+            model_->GetHero().GetPosition().GetY()
+                + constants::kHeroSize / constants::kTorsoPercentage);
+  for (auto& fireball : model_->GetFireballs()) {
+    fireball.Move(spawn_pos);
+  }
+
+  view_->repaint();
 }
 
 void Controller::HandleKeyPressEvent(QKeyEvent* event) {
@@ -114,11 +122,9 @@ int Controller::GetCounter() const {
 }
 
 void Controller::HandleMousePressEvent(QMouseEvent* event) {
-  Point spawn_pos =
-      Point(model_->GetHero().GetPosition().GetX() + constants::kHeroSize / 2,
-            model_->GetHero().GetPosition().GetY() + constants::kHeroSize /
-                constants::kTorsoPercentage);
-
+  Point spawn_pos = model_->GetHero().GetPosition()
+      + Point(constants::kHeroSize / 2,
+              constants::kHeroSize / constants::kTorsoPercentage);
   Vector2D direction(spawn_pos, Point(event->pos().x(), event->pos().y()));
   direction.Normalize();
 
@@ -127,7 +133,7 @@ void Controller::HandleMousePressEvent(QMouseEvent* event) {
   model_->GetHero().SetNumberTickHero(0);
 }
 
-void Controller::CheckFireballsPosition() {
+void Controller::CheckFireballsCollisionsWithWalls() {
   std::vector<Fireball>& fireballs = model_->GetFireballs();
   int height = view_->GetWindowHeight();
   int width = view_->GetWindowWidth();
@@ -151,11 +157,9 @@ void Controller::CheckFireballsPosition() {
       --i;
     }
   }
-
-  view_->repaint();
 }
 
-void Controller::OverloadHeroFields() {
+void Controller::UpdateHeroFields() {
   if (model_->GetHero().IsStriking()) {
     model_->GetHero().SetNumberTickHero(
         model_->GetHero().GetNumberTickHero() + 1);
@@ -167,14 +171,9 @@ void Controller::OverloadHeroFields() {
   }
 }
 
-void Controller::OverloadFireballFields() {
+void Controller::UpdateFireballFields() {
   std::vector<Fireball>& fireballs = model_->GetFireballs();
-  Point spawn_pos =
-      Point(model_->GetHero().GetPosition().GetX() + constants::kHeroSize / 2,
-            model_->GetHero().GetPosition().GetY() + constants::kHeroSize /
-                constants::kTorsoPercentage);
   for (auto& fireball : fireballs) {
-    fireball.SetSpawnPos(spawn_pos);
     int current_counter = fireball.GetCounter();
     if (fireball.IsBorn()) {
       if (fireball.GetCounter() == constants::kNumberBorn *

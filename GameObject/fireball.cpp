@@ -38,11 +38,11 @@ Picture Fireball::GetPicture() const {
   return output;
 }
 
-void Fireball::Move() {
+void Fireball::Move(const Point& spawn_pos) {
   if (!is_born_) {
     SetPosition(position_ + direction_ * constants::kFireballSpeed);
   } else {
-    SetPosition(spawn_pos_);
+    SetPosition(spawn_pos);
   }
 }
 
@@ -60,8 +60,4 @@ int Fireball::GetCounter() {
 
 void Fireball::SetCounter(int count) {
   tick_counter_ = count;
-}
-
-void Fireball::SetSpawnPos(const Point& pos) {
-  spawn_pos_ = pos;
 }

@@ -21,7 +21,7 @@ const int kFireballSpeedCoefficient = 5;
 const int kNumberBorn = 4;
 const int kNumberFireBall = 7;
 
-const double kTorsoPercentage = 1.65;
+const long double kTorsoPercentage = 1.65;
 }  // namespace constants
 
 #endif  // MODEL_CONSTANTS_H_

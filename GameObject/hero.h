@@ -26,7 +26,7 @@ class Hero : public Creature {
  private:
   std::vector<QPixmap> wings_pixmaps_;
   std::vector<QPixmap> hero_pixmaps_;
-  int number_tick_hero_{0};
+  int number_tick_{0};
   bool is_striking_{false};
 };
 
