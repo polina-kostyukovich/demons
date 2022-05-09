@@ -125,10 +125,9 @@ void Controller::HandleMousePressEvent(QMouseEvent* event) {
   Point spawn_pos = model_->GetHero().GetPosition()
       + Point(constants::kHeroSize / 2,
               constants::kHeroSize / constants::kTorsoPercentage);
-  Vector2D direction(spawn_pos, Point(event->pos().x(), event->pos().y()));
-  direction.Normalize();
 
-  model_->AddFireball(Fireball(spawn_pos, direction));
+  model_->AddFireball(Fireball(spawn_pos,
+                               Point(event->pos().x(), event->pos().y())));
   model_->GetHero().SetStriking(true);
   model_->GetHero().SetNumberTickHero(0);
 }
@@ -180,6 +179,8 @@ void Controller::UpdateFireballFields() {
           constants::kFireballSpeedCoefficient) {
         fireball.SetCounter(0);
         fireball.SetBorn(false);
+        fireball.SetDirection(model_->GetHero().GetPosition(),
+                              fireball.GetPurpose());
       }
       fireball.SetCounter(current_counter + 1);
     } else {

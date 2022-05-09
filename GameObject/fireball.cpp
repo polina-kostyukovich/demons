@@ -50,8 +50,8 @@ bool Fireball::IsBorn() {
   return is_born_;
 }
 
-void Fireball::SetBorn(bool set) {
-  is_born_ = set;
+void Fireball::SetBorn(bool is_born) {
+  is_born_ = is_born;
 }
 
 int Fireball::GetCounter() {
@@ -60,4 +60,13 @@ int Fireball::GetCounter() {
 
 void Fireball::SetCounter(int count) {
   tick_counter_ = count;
+}
+
+void Fireball::SetDirection(const Point&, const Point&) {
+  direction_ = Vector2D(position_, purpose_);
+  direction_.Normalize();
+}
+
+Point Fireball::GetPurpose() {
+  return purpose_;
 }
