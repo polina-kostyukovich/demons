@@ -2,7 +2,7 @@
 
 NpcController::NpcController() {
   npc_list_.push_back(Npc(Point(800, 800)));
-  npc_list_.push_back(Npc(Point(0, 0))); // for test
+  npc_list_.push_back(Npc(Point(0, 0)));  // for test
 }
 
 void NpcController::Update(const Point& hero_position) {
@@ -11,6 +11,6 @@ void NpcController::Update(const Point& hero_position) {
   }
 }
 
-const std::vector<Npc> &NpcController::GetNpcList() const {
+const std::vector<Npc>& NpcController::GetNpcList() const {
   return npc_list_;
 }

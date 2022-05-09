@@ -5,7 +5,7 @@
 
 View::View() {
   setWindowState(Qt::WindowFullScreen);
-  //resize(QGuiApplication::primaryScreen()->availableGeometry().size());
+  resize(QGuiApplication::primaryScreen()->availableGeometry().size());
   setCentralWidget(&menu_);
 }
 
