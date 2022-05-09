@@ -39,7 +39,7 @@ void Controller::NewGame() {
   model_->GetHero().SetPosition(Point());
   model_->GetFireballs().clear();
   model_->GetHero().SetNumberTickHero(0);
-  counter_=0;
+  counter_ = 0;
   // set default parameters to all objects
 
   StartGame();
