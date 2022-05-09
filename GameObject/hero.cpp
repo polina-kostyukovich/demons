@@ -55,12 +55,31 @@ Picture Hero::GetPicture(int counter) const {
   output.left_top = position_;
   output.width = constants::kHeroSize;
   output.height = constants::kHeroSize;
-  QPixmap pixmap(wings_pixmaps_[counter / constants::kSlowAnimation]);
+  QPixmap pixmap(wings_pixmaps_[counter / constants::kHeroSpeedCoefficient]);
   QPainter painter(&pixmap);
 
-  QPixmap hero_image(hero_pixmaps_[0].scaled(pixmap.width(), pixmap.height()));
+  QPixmap hero_image(hero_pixmaps_[number_tick_
+      / constants::kHeroSpeedCoefficient].scaled(
+      pixmap.width(),
+      pixmap.height()));
 
   painter.drawPixmap(0, 0, hero_image);
   output.picture = pixmap;
   return output;
+}
+
+int Hero::GetNumberTick() {
+  return number_tick_;
+}
+
+void Hero::SetNumberTick(int number) {
+  number_tick_ = number;
+}
+
+bool Hero::IsStriking() {
+  return is_striking_;
+}
+
+void Hero::SetStriking(bool is_striking) {
+  is_striking_ = is_striking;
 }

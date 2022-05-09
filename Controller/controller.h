@@ -36,6 +36,12 @@ class Controller : public AbstractController {
 
   int GetCounter() const override;
 
+  void HandleMousePressEvent(QMouseEvent* event) override;
+
+  void CheckFireballsCollisionsWithWalls();
+  void UpdateHeroFields();
+  void UpdateFireballsFields();
+
  public slots:
   void TimerTick();
 

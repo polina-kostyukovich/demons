@@ -19,10 +19,11 @@ add_executable(demons
         Controller/abstract_controller.cpp
         Controller/controller.cpp
         Controller/level_controller.cpp
-        Controller/npc_controller.cpp
+        GameObject/boiler.cpp
         GameObject/boss.cpp
         GameObject/creature.cpp
         GameObject/dynamic_object.cpp
+        GameObject/fireball.cpp
         GameObject/game_object.cpp
         GameObject/hero.cpp
         GameObject/npc.cpp
