@@ -74,17 +74,6 @@ int Controller::GetCounter() const {
   return counter_;
 }
 
-void Controller::HandleMousePressEvent(QMouseEvent* event) {
-  Point spawn_pos = model_->GetHero().GetPosition();
-  spawn_pos.SetX(spawn_pos.GetX() + constants::kHeroSize / 2);
-  spawn_pos.SetY(spawn_pos.GetY() + constants::kHeroSize / 1.5);
-
-  Vector2D direction(spawn_pos, Point(event->pos().x(), event->pos().y()));
-  direction.Normalize();
-
-  model_->AddFireball(Fireball(spawn_pos, direction));
-}
-
 void Controller::TimerTick() {
   model_->GetHero().Move(GetHeroDirection(),
                          view_->GetWindowWidth(),
@@ -131,10 +120,6 @@ Vector2D Controller::GetHeroDirection() const {
   }
   direction.Normalize();
   return direction;
-}
-
-int Controller::GetCounter() const {
-  return counter_;
 }
 
 void Controller::HandleMousePressEvent(QMouseEvent* event) {
