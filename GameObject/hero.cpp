@@ -68,11 +68,11 @@ Picture Hero::GetPicture(int counter) const {
   return output;
 }
 
-int Hero::GetNumberTickHero() {
+int Hero::GetNumberTick() {
   return number_tick_;
 }
 
-void Hero::SetNumberTickHero(int number) {
+void Hero::SetNumberTick(int number) {
   number_tick_ = number;
 }
 

@@ -40,7 +40,7 @@ class Controller : public AbstractController {
 
   void CheckFireballsCollisionsWithWalls();
   void UpdateHeroFields();
-  void UpdateFireballFields();
+  void UpdateFireballsFields();
 
  public slots:
   void TimerTick();

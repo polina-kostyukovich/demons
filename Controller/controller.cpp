@@ -38,7 +38,7 @@ void Controller::StartGame() {
 void Controller::NewGame() {
   model_->GetHero().SetPosition(Point());
   model_->GetFireballs().clear();
-  model_->GetHero().SetNumberTickHero(0);
+  model_->GetHero().SetNumberTick(0);
   counter_ = 0;
   // set default parameters to all objects
 
@@ -68,18 +68,18 @@ void Controller::TimerTick() {
   ++counter_;
   counter_ %= constants::kHeroSpeedCoefficient * constants::kNumberAnimation;
 
+  Point spawn_pos = model_->GetHero().GetPosition()
+      + Point(constants::kHeroSize / 2,
+              constants::kHeroSize / constants::kTorsoPercentage);
+  for (auto& fireball: model_->GetFireballs()) {
+    fireball.Move(spawn_pos);
+  }
+
   CheckFireballsCollisionsWithWalls();
 
   UpdateHeroFields();
-  UpdateFireballFields();
+  UpdateFireballsFields();
 
-  Point spawn_pos =
-      Point(model_->GetHero().GetPosition().GetX() + constants::kHeroSize / 2,
-            model_->GetHero().GetPosition().GetY()
-                + constants::kHeroSize / constants::kTorsoPercentage);
-  for (auto& fireball : model_->GetFireballs()) {
-    fireball.Move(spawn_pos);
-  }
 
   view_->repaint();
 }
@@ -129,7 +129,7 @@ void Controller::HandleMousePressEvent(QMouseEvent* event) {
   model_->AddFireball(Fireball(spawn_pos,
                                Point(event->pos().x(), event->pos().y())));
   model_->GetHero().SetStriking(true);
-  model_->GetHero().SetNumberTickHero(0);
+  model_->GetHero().SetNumberTick(0);
 }
 
 void Controller::CheckFireballsCollisionsWithWalls() {
@@ -160,19 +160,19 @@ void Controller::CheckFireballsCollisionsWithWalls() {
 
 void Controller::UpdateHeroFields() {
   if (model_->GetHero().IsStriking()) {
-    model_->GetHero().SetNumberTickHero(
-        model_->GetHero().GetNumberTickHero() + 1);
-    if (model_->GetHero().GetNumberTickHero()
+    model_->GetHero().SetNumberTick(
+        model_->GetHero().GetNumberTick() + 1);
+    if (model_->GetHero().GetNumberTick()
         == constants::kHeroSpeedCoefficient * constants::kNumberAnimation) {
-      model_->GetHero().SetNumberTickHero(0);
+      model_->GetHero().SetNumberTick(0);
       model_->GetHero().SetStriking(false);
     }
   }
 }
 
-void Controller::UpdateFireballFields() {
+void Controller::UpdateFireballsFields() {
   std::vector<Fireball>& fireballs = model_->GetFireballs();
-  for (auto& fireball : fireballs) {
+  for (auto& fireball: fireballs) {
     int current_counter = fireball.GetCounter();
     if (fireball.IsBorn()) {
       if (fireball.GetCounter() == constants::kNumberBorn *
@@ -181,8 +181,9 @@ void Controller::UpdateFireballFields() {
         fireball.SetBorn(false);
         fireball.SetDirection(model_->GetHero().GetPosition(),
                               fireball.GetPurpose());
+      } else {
+        fireball.SetCounter(current_counter + 1);
       }
-      fireball.SetCounter(current_counter + 1);
     } else {
       fireball.SetCounter(
           (current_counter + 1) % (constants::kFireballSpeedCoefficient

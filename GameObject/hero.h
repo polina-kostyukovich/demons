@@ -18,8 +18,8 @@ class Hero : public Creature {
 
   Picture GetPicture(int counter) const;
 
-  int GetNumberTickHero();
-  void SetNumberTickHero(int number);
+  int GetNumberTick();
+  void SetNumberTick(int number);
   bool IsStriking();
   void SetStriking(bool);
 
