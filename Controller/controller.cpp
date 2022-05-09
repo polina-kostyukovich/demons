@@ -26,6 +26,7 @@ const Model& Controller::GetModel() const {
 void Controller::Start() {
   view_->CreateMenu();
   model_->GetMap().SetSize(view_->GetWindowWidth(), view_->GetWindowHeight());
+  model_->GetMap().LoadBoilers();
   model_->LoadPictures();
   view_->show();
 }
@@ -55,6 +56,32 @@ void Controller::ChangeSoundOn() {
   // todo
 }
 
+void Controller::HandleKeyPressEvent(QKeyEvent* event) {
+  if (event->key() == Qt::Key_Space) {
+    Pause();
+  }
+  keys_[event->key()] = true;
+}
+
+void Controller::HandleKeyReleaseEvent(QKeyEvent* event) {
+  keys_[event->key()] = false;
+}
+
+int Controller::GetCounter() const {
+  return counter_;
+}
+
+void Controller::HandleMousePressEvent(QMouseEvent* event) {
+  Point spawn_pos = model_->GetHero().GetPosition();
+  spawn_pos.SetX(spawn_pos.GetX() + constants::kHeroSize / 2);
+  spawn_pos.SetY(spawn_pos.GetY() + constants::kHeroSize / 1.5);
+
+  Vector2D direction(spawn_pos, Point(event->pos().x(), event->pos().y()));
+  direction.Normalize();
+
+  model_->AddFireball(Fireball(spawn_pos, direction));
+}
+
 void Controller::TimerTick() {
   model_->GetHero().Move(GetHeroDirection(),
                          view_->GetWindowWidth(),
@@ -72,7 +99,7 @@ void Controller::TimerTick() {
   for (int i = 0; i < fireballs.size(); ++i) {
     bool is_collided_with_left_wall =
         (fireballs[i].GetPosition().GetX() - constants::kFireballSize / 2
-        <= -constants::kEpsilon);
+            <= -constants::kEpsilon);
     bool is_collided_with_right_wall =
         (fireballs[i].GetPosition().GetX() + constants::kFireballSize / 2
             - width >= constants::kEpsilon);
@@ -95,17 +122,6 @@ void Controller::TimerTick() {
   counter_ %= constants::kSlowAnimation * constants::kNumberAnimation;
 }
 
-void Controller::HandleKeyPressEvent(QKeyEvent* event) {
-  if (event->key() == Qt::Key_Space) {
-    Pause();
-  }
-  keys_[event->key()] = true;
-}
-
-void Controller::HandleKeyReleaseEvent(QKeyEvent* event) {
-  keys_[event->key()] = false;
-}
-
 Vector2D Controller::GetHeroDirection() const {
   Vector2D direction;
   if ((keys_.contains(Qt::Key_Left) && keys_.at(Qt::Key_Left))
@@ -126,19 +142,4 @@ Vector2D Controller::GetHeroDirection() const {
   }
   direction.Normalize();
   return direction;
-}
-
-int Controller::GetCounter() const {
-  return counter_;
-}
-
-void Controller::HandleMousePressEvent(QMouseEvent* event) {
-  Point spawn_pos = model_->GetHero().GetPosition();
-  spawn_pos.SetX(spawn_pos.GetX() + constants::kHeroSize / 2);
-  spawn_pos.SetY(spawn_pos.GetY() + constants::kHeroSize / 1.5);
-
-  Vector2D direction(spawn_pos, Point(event->pos().x(), event->pos().y()));
-  direction.Normalize();
-
-  model_->AddFireball(Fireball(spawn_pos, direction));
 }

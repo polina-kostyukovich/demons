@@ -6,6 +6,7 @@
 #include <QPainter>
 
 #include "creature.h"
+#include "../Map/map.h"
 #include "../Util/structs.h"
 #include "../Util/vector.h"
 
