@@ -10,11 +10,13 @@ const long double kDirectionStep = 0.2;
 const int kTickTime = 20;
 const long double kHeroStep = 8;
 const long double kNpcStep = 5;
+const long double kFireballSpeed = 20;
 
 const int kSlowAnimation = 3;
 const int kNumberAnimation = 11;
 const int kHeroSize = 120;
 const int kNpcSize = 50;
+const int kFireballSize = 60;
 const int kLavaSize = 60;
 const int kWallSize = 30;
 const int kMiddleAnimation = 6;

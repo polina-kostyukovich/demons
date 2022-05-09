@@ -2,6 +2,7 @@
 
 #include <utility>
 #include <QGuiApplication>
+#include <QScreen>
 
 View::View() {
   setWindowState(Qt::WindowFullScreen);
@@ -40,6 +41,15 @@ void View::paintEvent(QPaintEvent* event) {
     painter.drawEllipse(npc_list[i].GetPosition().GetX(),
                         npc_list[i].GetPosition().GetY(),
                         constants::kNpcSize, constants::kNpcSize);
+  for (const auto& object : controller_->GetModel().GetMap().GetObjects()) {
+    Draw(object->GetPicture(), &painter);
+  }
+  Draw(controller_->GetModel().GetHero().GetPicture(controller_->GetCounter()),
+       &painter);
+
+  auto fireballs = controller_->GetModel().GetFireballs();
+  for (const auto& fireball : fireballs) {
+    Draw(fireball.GetPicture(), &painter);
   }
 }
 
@@ -66,6 +76,11 @@ void View::keyPressEvent(QKeyEvent* event) {
 void View::keyReleaseEvent(QKeyEvent* event) {
   controller_->HandleKeyReleaseEvent(event);
 }
+
 void View::closeEvent(QCloseEvent* event) {
   // save settings
+}
+
+void View::mousePressEvent(QMouseEvent* event) {
+  controller_->HandleMousePressEvent(event);
 }

@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <utility>
+#include <vector>
 
 void Controller::SetModel(std::unique_ptr<Model>&& model) {
   assert(model != nullptr);
@@ -25,6 +26,7 @@ const Model& Controller::GetModel() const {
 void Controller::Start() {
   view_->CreateMenu();
   model_->GetMap().SetSize(view_->GetWindowWidth(), view_->GetWindowHeight());
+  model_->GetMap().LoadBoilers();
   model_->LoadPictures();
   view_->show();
 }
@@ -54,17 +56,6 @@ void Controller::ChangeSoundOn() {
   // todo
 }
 
-void Controller::TimerTick() {
-  model_->GetHero().Move(GetHeroDirection(),
-                         view_->GetWindowWidth(),
-                         view_->GetWindowHeight());
-  model_->GetNpcController().Update(model_->GetHero().GetPosition() +
-  Point(constants::kHeroSize / 2., constants::kHeroSize / 2.));
-  view_->repaint();
-  ++counter_;
-  counter_ %= constants::kSlowAnimation * constants::kNumberAnimation;
-}
-
 void Controller::HandleKeyPressEvent(QKeyEvent* event) {
   if (event->key() == Qt::Key_Space) {
     Pause();
@@ -74,6 +65,63 @@ void Controller::HandleKeyPressEvent(QKeyEvent* event) {
 
 void Controller::HandleKeyReleaseEvent(QKeyEvent* event) {
   keys_[event->key()] = false;
+}
+
+int Controller::GetCounter() const {
+  return counter_;
+}
+
+void Controller::HandleMousePressEvent(QMouseEvent* event) {
+  Point spawn_pos = model_->GetHero().GetPosition();
+  spawn_pos.SetX(spawn_pos.GetX() + constants::kHeroSize / 2);
+  spawn_pos.SetY(spawn_pos.GetY() + constants::kHeroSize / 1.5);
+
+  Vector2D direction(spawn_pos, Point(event->pos().x(), event->pos().y()));
+  direction.Normalize();
+
+  model_->AddFireball(Fireball(spawn_pos, direction));
+}
+
+void Controller::TimerTick() {
+  model_->GetHero().Move(GetHeroDirection(),
+                         view_->GetWindowWidth(),
+                         view_->GetWindowHeight());
+  model_->GetNpcController().Update(model_->GetHero().GetPosition() +
+  Point(constants::kHeroSize / 2., constants::kHeroSize / 2.));
+
+  for (auto& fireball : model_->GetFireballs()) {
+    fireball.Move();
+  }
+
+  // todo collisions with other objects
+
+  std::vector<Fireball>& fireballs = model_->GetFireballs();
+  int height = view_->GetWindowHeight();
+  int width = view_->GetWindowWidth();
+  for (int i = 0; i < fireballs.size(); ++i) {
+    bool is_collided_with_left_wall =
+        (fireballs[i].GetPosition().GetX() - constants::kFireballSize / 2
+            <= -constants::kEpsilon);
+    bool is_collided_with_right_wall =
+        (fireballs[i].GetPosition().GetX() + constants::kFireballSize / 2
+            - width >= constants::kEpsilon);
+    bool is_collided_with_top_wall =
+        (fireballs[i].GetPosition().GetY() - constants::kFireballSize / 2
+            <= -constants::kEpsilon);
+    bool is_collided_with_bottom_wall =
+        (fireballs[i].GetPosition().GetY() + constants::kFireballSize / 2
+            - height >= constants::kEpsilon);
+
+    if (is_collided_with_left_wall || is_collided_with_right_wall ||
+        is_collided_with_top_wall || is_collided_with_bottom_wall) {
+      fireballs.erase(fireballs.begin() + i);
+      --i;
+    }
+  }
+
+  view_->repaint();
+  ++counter_;
+  counter_ %= constants::kSlowAnimation * constants::kNumberAnimation;
 }
 
 Vector2D Controller::GetHeroDirection() const {
@@ -96,8 +144,4 @@ Vector2D Controller::GetHeroDirection() const {
   }
   direction.Normalize();
   return direction;
-}
-
-int Controller::GetCounter() const {
-  return counter_;
 }
