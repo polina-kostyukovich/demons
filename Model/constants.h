@@ -4,9 +4,11 @@
 namespace constants {
 const long double kEpsilon = 1e-9;
 const long double kClose = 3;
+const long double kMaxDistance = 1e9;
 
 const int kTickTime = 20;
 const long double kHeroStep = 8;
+const long double kNpcStep = 5;
 
 const int kSlowAnimation = 3;
 const int kNumberAnimation = 11;

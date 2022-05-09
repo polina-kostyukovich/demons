@@ -58,6 +58,7 @@ void Controller::TimerTick() {
   model_->GetHero().Move(GetHeroDirection(),
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());
+  model_->GetNpcController().Update(model_->GetHero().GetPosition());
   view_->repaint();
   ++counter_;
   counter_ %= constants::kSlowAnimation * constants::kNumberAnimation;

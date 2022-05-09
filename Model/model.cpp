@@ -16,6 +16,14 @@ Map& Model::GetMap() {
   return map_;
 }
 
+const NpcController &Model::GetNpcController() const {
+  return npc_controller_;
+}
+
+NpcController &Model::GetNpcController() {
+  return npc_controller_;
+}
+
 void Model::LoadPictures() {
   hero_.LoadPictures();
   map_.LoadPictures();

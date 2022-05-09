@@ -19,6 +19,7 @@ add_executable(demons
         Controller/abstract_controller.cpp
         Controller/controller.cpp
         Controller/level_controller.cpp
+        Controller/npc_controller.cpp
         GameObject/boss.cpp
         GameObject/creature.cpp
         GameObject/dynamic_object.cpp
@@ -40,7 +41,7 @@ add_executable(demons
         resources.qrc)
 
 target_link_libraries(demons
-        Qt::Core
-        Qt::Gui
-        Qt::Widgets
+        Qt6::Core
+        Qt6::Gui
+        Qt6::Widgets
         )

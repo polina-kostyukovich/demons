@@ -6,6 +6,7 @@
 #include <QWidget>
 
 #include "constants.h"
+#include "../Controller/npc_controller.h"
 #include "../GameObject/hero.h"
 #include "../Map/map.h"
 #include "../Util/vector.h"
@@ -20,6 +21,9 @@ class Model {
   const Map& GetMap() const;
   Map& GetMap();
 
+  const NpcController& GetNpcController() const;
+  NpcController& GetNpcController();
+
   void LoadPictures();
 
  private:
@@ -31,6 +35,7 @@ class Model {
  private:
   Hero hero_;
   Map map_;
+  NpcController npc_controller_;
 };
 
 #endif  // MODEL_MODEL_H_
