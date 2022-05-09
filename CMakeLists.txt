@@ -41,7 +41,7 @@ add_executable(demons
         resources.qrc)
 
 target_link_libraries(demons
-        Qt6::Core
-        Qt6::Gui
-        Qt6::Widgets
+        Qt::Core
+        Qt::Gui
+        Qt::Widgets
         )

@@ -5,7 +5,7 @@
 
 View::View() {
   setWindowState(Qt::WindowFullScreen);
-  resize(QGuiApplication::primaryScreen()->availableGeometry().size());
+  //resize(QGuiApplication::primaryScreen()->availableGeometry().size());
   setCentralWidget(&menu_);
 }
 
@@ -35,6 +35,12 @@ void View::paintEvent(QPaintEvent* event) {
   Draw(controller_->GetModel().GetMap().GetPicture(), &painter);
   Draw(controller_->GetModel().GetHero().GetPicture(controller_->GetCounter()),
        &painter);
+  auto npc_list = controller_->GetModel().GetNpcController().GetNpcList();
+  for (int i = 0; i < npc_list.size(); i++) {
+    painter.drawEllipse(npc_list[i].GetPosition().GetX(),
+                        npc_list[i].GetPosition().GetY(),
+                        50, 50);
+  }
 }
 
 void View::Draw(Picture animation, QPainter* painter) {
