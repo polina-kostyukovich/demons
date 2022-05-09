@@ -179,8 +179,7 @@ void Controller::UpdateFireballsFields() {
           constants::kFireballSpeedCoefficient) {
         fireball.SetCounter(0);
         fireball.SetBorn(false);
-        fireball.SetDirection(model_->GetHero().GetPosition(),
-                              fireball.GetPurpose());
+        fireball.CreateDirection();
       } else {
         fireball.SetCounter(current_counter + 1);
       }

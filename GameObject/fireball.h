@@ -23,9 +23,9 @@ class Fireball : public DynamicObject {
   int GetCounter();
   void SetCounter(int count);
 
-  void SetDirection(const Point&, const Point&);
+  void CreateDirection();
 
-  Point GetPurpose();
+  Point GetPurpose() const;
 
  private:
   Vector2D direction_;

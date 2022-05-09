@@ -62,11 +62,11 @@ void Fireball::SetCounter(int count) {
   tick_counter_ = count;
 }
 
-void Fireball::SetDirection(const Point&, const Point&) {
+void Fireball::CreateDirection() {
   direction_ = Vector2D(position_, purpose_);
   direction_.Normalize();
 }
 
-Point Fireball::GetPurpose() {
+Point Fireball::GetPurpose() const{
   return purpose_;
 }
