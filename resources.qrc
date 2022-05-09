@@ -37,5 +37,7 @@
         <file>Resources/Picture/Menu/sound_off.png</file>
         <file>Resources/Picture/Menu/language.png</file>
         <file>Resources/Picture/Menu/settings.png</file>
+
+        <file>Resources/Jsons/boilers_data.json</file>
     </qresource>
 </RCC>

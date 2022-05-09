@@ -30,12 +30,6 @@ class Model {
   void AddFireball(const Fireball& fireball);
 
  private:
-  std::pair<int, int> GetCellSize(int window_width, int window_height) const;
-  std::pair<int, int> GetCellCoordinatesOnMap(const Point& point,
-                                              int window_width,
-                                              int window_height) const;
-
- private:
   Hero hero_;
   Map map_;
   std::vector<Fireball> fireballs_;
