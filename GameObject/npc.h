@@ -5,6 +5,7 @@
 
 #include "creature.h"
 #include "../Util/structs.h"
+#include "../Util/vector.h"
 
 class Npc : public Creature {
  public:

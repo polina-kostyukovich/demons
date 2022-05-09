@@ -44,6 +44,13 @@ void View::paintEvent(QPaintEvent* event) {
   for (const auto& fireball : fireballs) {
     Draw(fireball.GetPicture(), &painter);
   }
+
+  auto npc_list = controller_->GetModel().GetNpcController().GetNpcList();
+  for (int i = 0; i < npc_list.size(); i++) {
+    painter.drawEllipse(npc_list[i].GetPosition().GetX(),
+                        npc_list[i].GetPosition().GetY(),
+                        constants::kNpcSize, constants::kNpcSize);
+  }
 }
 
 void View::Draw(const Picture& animation, QPainter* painter) {

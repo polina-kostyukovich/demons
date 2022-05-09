@@ -79,6 +79,9 @@ void Controller::TimerTick() {
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());
 
+  model_->GetNpcController().Update(model_->GetHero().GetPosition() +
+      Point(constants::kHeroSize / 2., constants::kHeroSize / 2.));
+
   // todo collisions with other objects
 
   ++counter_;
