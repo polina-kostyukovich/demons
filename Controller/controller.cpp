@@ -79,7 +79,7 @@ void Controller::TimerTick() {
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());
   model_->GetNpcController().Update(model_->GetHero().GetPosition() +
-  Point(constants::kHeroSize / 2., constants::kHeroSize / 2.));
+      Point(constants::kHeroSize / 2., constants::kHeroSize / 2.));
 
   // todo collisions with other objects
 
@@ -97,7 +97,7 @@ void Controller::TimerTick() {
 
   UpdateHeroFields();
   UpdateFireballsFields();
-
+  UpdateNpcsFields();
 
   view_->repaint();
 }
@@ -178,7 +178,7 @@ void Controller::UpdateFireballsFields() {
   for (auto& fireball : fireballs) {
     int current_counter = fireball.GetCounter();
     if (fireball.IsBorn()) {
-      if (fireball.GetCounter() == constants::kNumberBorn *
+      if (fireball.GetCounter() + 1 == constants::kNumberBorn *
           constants::kFireballSpeedCoefficient) {
         fireball.SetCounter(0);
         fireball.SetBorn(false);
@@ -190,6 +190,18 @@ void Controller::UpdateFireballsFields() {
       fireball.SetCounter(
           (current_counter + 1) % (constants::kFireballSpeedCoefficient
               * constants::kNumberFireBall));
+    }
+  }
+}
+
+void Controller::UpdateNpcsFields() {
+  std::vector<Npc> npcs = model_->GetNpcController().GetNpcList();
+  for (auto& npc : npcs) {
+    if (npc.GetCounter() + 1 == constants::kNumberNpc *
+        constants::kNpcSpeedCoefficient) {
+      npc.SetCounter(0);
+    } else {
+      npc.SetCounter(npc.GetCounter() + 1);
     }
   }
 }

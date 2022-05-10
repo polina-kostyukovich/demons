@@ -3,6 +3,7 @@
 NpcController::NpcController() {
   npc_list_.push_back(Npc(Point(800, 800)));
   npc_list_.push_back(Npc(Point(0, 0)));  // for test
+  // todo from boilers
 }
 
 void NpcController::Update(const Point& hero_position) {

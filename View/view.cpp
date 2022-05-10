@@ -34,22 +34,20 @@ void View::ShowMenu() {
 void View::paintEvent(QPaintEvent* event) {
   QPainter painter(this);
   Draw(controller_->GetModel().GetMap().GetPicture(), &painter);
-  for (const auto& object : controller_->GetModel().GetMap().GetObjects()) {
+  for (const auto& object: controller_->GetModel().GetMap().GetObjects()) {
     Draw(object->GetPicture(), &painter);
   }
 
   auto npc_list = controller_->GetModel().GetNpcController().GetNpcList();
-  for (auto& npc : npc_list) {
-    painter.drawEllipse(npc.GetPosition().GetX(),
-                        npc.GetPosition().GetY(),
-                        constants::kNpcSize, constants::kNpcSize);
+  for (const auto& npc: npc_list) {
+    Draw(npc.GetPicture(), &painter);
   }
 
   Draw(controller_->GetModel().GetHero().GetPicture(controller_->GetCounter()),
        &painter);
 
   auto fireballs = controller_->GetModel().GetFireballs();
-  for (const auto& fireball : fireballs) {
+  for (const auto& fireball: fireballs) {
     Draw(fireball.GetPicture(), &painter);
   }
 }

@@ -20,7 +20,6 @@ void Fireball::LoadPictures() {
 
 Picture Fireball::GetPicture() const {
   Picture output;
-  output.left_top = position_;
 
   output.width = constants::kFireballSize;
   output.height = constants::kFireballSize;
