@@ -22,15 +22,14 @@ const int kFireballSpeedCoefficient = 5;
 const int kNpcSpeedCoefficient = 5;
 const int kHeroSpeedCoefficient = 3;
 
-const int kNumberOfBorn = 4;
+const int kNumberOfBornFireballs = 4;
 const int kNumberOfAnimation = 11;
 const int kNumberOfFireBall = 7;
-const int kNumberOfFight = 3;
+const int kNumberOfFightingNpc = 3;
 const int kNumberOfNpc = 4;
+const int kNumberOfEquallySidedNpc = 7;
 
-const int kNumberEquallySidedNpc = 7;
 const int kMiddleAnimation = 6;
-
 const long double kTorsoPercentage = 1.65;
 }  // namespace constants
 

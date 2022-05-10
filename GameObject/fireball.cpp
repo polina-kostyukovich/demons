@@ -4,7 +4,7 @@
 #include <QPainter>
 
 void Fireball::LoadPictures() {
-  for (int i = 1; i <= constants::kNumberOfBorn; i++) {
+  for (int i = 1; i <= constants::kNumberOfBornFireballs; i++) {
     std::string picture = ":Resources/Picture/Fireball/born_fireball";
     picture += std::to_string(i);
     picture += ".png";
@@ -31,8 +31,8 @@ Picture Fireball::GetPicture() const {
     output.picture =
         pictures_[tick_counter_ / constants::kFireballSpeedCoefficient];
   } else {
-    output.picture = pictures_[constants::kNumberOfBorn + tick_counter_ /
-        constants::kFireballSpeedCoefficient];
+    output.picture = pictures_[constants::kNumberOfBornFireballs + tick_counter_
+        / constants::kFireballSpeedCoefficient];
   }
   return output;
 }

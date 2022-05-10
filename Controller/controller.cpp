@@ -177,7 +177,7 @@ void Controller::UpdateFireballsFields() {
   for (auto& fireball : fireballs) {
     int current_counter = fireball.GetCounter();
     if (fireball.IsBorn()) {
-      if (fireball.GetCounter() + 1 == constants::kNumberOfBorn *
+      if (fireball.GetCounter() + 1 == constants::kNumberOfBornFireballs *
           constants::kFireballSpeedCoefficient) {
         fireball.SetCounter(0);
         fireball.SetBorn(false);

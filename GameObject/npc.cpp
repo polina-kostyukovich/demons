@@ -51,7 +51,7 @@ Picture Npc::GetPicture() const {
   if (is_moving_right_) {
     output.picture = pictures_[tick_counter_ / constants::kNpcSpeedCoefficient];
   } else {
-    output.picture = pictures_[constants::kNumberEquallySidedNpc
+    output.picture = pictures_[constants::kNumberOfEquallySidedNpc
         + tick_counter_ / constants::kNpcSpeedCoefficient];
   }
   return output;
@@ -62,7 +62,7 @@ void Npc::InputPictures(std::string picture) {
     pictures_.emplace_back((picture + std::to_string(i) + ".png").c_str());
   }
   picture += "_fight";
-  for (int i = 1; i <= constants::kNumberOfFight; i++) {
+  for (int i = 1; i <= constants::kNumberOfFightingNpc; i++) {
     pictures_.emplace_back((picture + std::to_string(i) + ".png").c_str());
   }
 }
