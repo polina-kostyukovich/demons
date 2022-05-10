@@ -2,6 +2,7 @@
 #define GAMEOBJECT_NPC_H_
 
 #include <string>
+#include <vector>
 
 #include "creature.h"
 #include "../Util/structs.h"
