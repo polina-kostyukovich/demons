@@ -88,7 +88,7 @@ void Controller::TimerTick() {
 
   Point spawn_pos = model_->GetHero().GetPosition()
       + Point(0, constants::kHeroSize * constants::kTorsoPercentage);
-  for (auto& fireball: model_->GetFireballs()) {
+  for (auto& fireball : model_->GetFireballs()) {
     fireball.Move(spawn_pos);
   }
 
@@ -172,7 +172,7 @@ void Controller::UpdateHeroFields() {
 
 void Controller::UpdateFireballsFields() {
   std::vector<Fireball>& fireballs = model_->GetFireballs();
-  for (auto& fireball: fireballs) {
+  for (auto& fireball : fireballs) {
     int current_counter = fireball.GetCounter();
     if (fireball.IsBorn()) {
       if (fireball.GetCounter() + 1 == constants::kNumberOfBornFireballs *

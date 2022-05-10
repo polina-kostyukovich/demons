@@ -101,7 +101,7 @@ void Map::LoadBoilers() {
   int boiler_width = width_ / columns_;
   int boiler_height = height_ / rows_;
 
-  for (const auto& boiler_coords: boilers_coords) {
+  for (const auto& boiler_coords : boilers_coords) {
     int column = boiler_coords.toObject().value("x").toInt();
     int row = boiler_coords.toObject().value("y").toInt();
     Point position(column * boiler_width + boiler_width / 2.,
