@@ -30,7 +30,7 @@ const int kNumberOfNpc = 4;
 const int kNumberOfEquallySidedNpc = 7;
 
 const int kMiddleAnimation = 6;
-const long double kTorsoPercentage = 1.65;
+const long double kTorsoPercentage = 0.105;
 }  // namespace constants
 
 #endif  // MODEL_CONSTANTS_H_

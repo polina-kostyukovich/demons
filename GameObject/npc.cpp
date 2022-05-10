@@ -47,7 +47,8 @@ Picture Npc::GetPicture() const {
   Picture output;
   output.height = constants::kNpcSize;
   output.width = output.height;
-  output.left_top = position_;
+  output.left_top =
+      position_ - Point(constants::kNpcSize / 2., constants::kNpcSize / 2.);
   if (is_moving_right_) {
     output.picture = pictures_[tick_counter_ / constants::kNpcSpeedCoefficient];
   } else {

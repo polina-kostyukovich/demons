@@ -37,7 +37,8 @@ void Controller::StartGame() {
 }
 
 void Controller::NewGame() {
-  model_->GetHero().SetPosition(Point());
+  model_->GetHero().SetPosition(Point(constants::kHeroSize / 2.,
+                                      constants::kHeroSize / 2.));
   model_->GetFireballs().clear();
   model_->GetHero().SetNumberTick(0);
   counter_ = 0;
@@ -78,8 +79,7 @@ void Controller::TimerTick() {
   model_->GetHero().Move(GetHeroDirection(),
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());
-  model_->GetNpcController().Update(model_->GetHero().GetPosition() +
-      Point(constants::kHeroSize / 2., constants::kHeroSize / 2.));
+  model_->GetNpcController().Update(model_->GetHero().GetPosition());
 
   // todo collisions with other objects
 
@@ -87,9 +87,8 @@ void Controller::TimerTick() {
   counter_ %= constants::kHeroSpeedCoefficient * constants::kNumberOfAnimation;
 
   Point spawn_pos = model_->GetHero().GetPosition()
-      + Point(constants::kHeroSize / 2,
-              constants::kHeroSize / constants::kTorsoPercentage);
-  for (auto& fireball : model_->GetFireballs()) {
+      + Point(0, constants::kHeroSize * constants::kTorsoPercentage);
+  for (auto& fireball: model_->GetFireballs()) {
     fireball.Move(spawn_pos);
   }
 
@@ -125,8 +124,7 @@ Vector2D Controller::GetHeroDirection() const {
 
 void Controller::HandleMousePressEvent(QMouseEvent* event) {
   Point spawn_pos = model_->GetHero().GetPosition()
-      + Point(constants::kHeroSize / 2,
-              constants::kHeroSize / constants::kTorsoPercentage);
+      + Point(0, constants::kHeroSize * constants::kTorsoPercentage);
 
   model_->AddFireball(Fireball(spawn_pos,
                                Point(event->pos().x(), event->pos().y())));
@@ -140,16 +138,16 @@ void Controller::CheckFireballsCollisionsWithWalls() {
   int width = view_->GetWindowWidth();
   for (int i = 0; i < fireballs.size(); ++i) {
     bool is_collided_with_left_wall =
-        (fireballs[i].GetPosition().GetX() - constants::kFireballSize / 2
+        (fireballs[i].GetPosition().GetX() - constants::kFireballSize / 2.
             <= -constants::kEpsilon);
     bool is_collided_with_right_wall =
-        (fireballs[i].GetPosition().GetX() + constants::kFireballSize / 2
+        (fireballs[i].GetPosition().GetX() + constants::kFireballSize / 2.
             - width >= constants::kEpsilon);
     bool is_collided_with_top_wall =
-        (fireballs[i].GetPosition().GetY() - constants::kFireballSize / 2
+        (fireballs[i].GetPosition().GetY() - constants::kFireballSize / 2.
             <= -constants::kEpsilon);
     bool is_collided_with_bottom_wall =
-        (fireballs[i].GetPosition().GetY() + constants::kFireballSize / 2
+        (fireballs[i].GetPosition().GetY() + constants::kFireballSize / 2.
             - height >= constants::kEpsilon);
 
     if (is_collided_with_left_wall || is_collided_with_right_wall ||
@@ -174,7 +172,7 @@ void Controller::UpdateHeroFields() {
 
 void Controller::UpdateFireballsFields() {
   std::vector<Fireball>& fireballs = model_->GetFireballs();
-  for (auto& fireball : fireballs) {
+  for (auto& fireball: fireballs) {
     int current_counter = fireball.GetCounter();
     if (fireball.IsBorn()) {
       if (fireball.GetCounter() + 1 == constants::kNumberOfBornFireballs *
