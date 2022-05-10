@@ -5,7 +5,7 @@
 
 class DynamicObject : public GameObject {
  public:
-  explicit DynamicObject(const Point& position = {0, 0});
+  explicit DynamicObject(const Point& position = Point());
 };
 
 #endif  // GAMEOBJECT_DYNAMIC_OBJECT_H_

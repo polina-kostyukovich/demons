@@ -5,7 +5,7 @@
 
 class Creature : public DynamicObject {
  public:
-  explicit Creature(const Point& position = {0, 0});
+  explicit Creature(const Point& position = Point());
 };
 
 #endif  // GAMEOBJECT_CREATURE_H_
