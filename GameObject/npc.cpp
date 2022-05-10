@@ -17,7 +17,7 @@ void Npc::Update(const Point& target_position) {
       long double cur_distance =
           Point::Distance(position_ + new_direction * constants::kNpcStep,
                           target_position);
-      if (cur_distance - min_distance < constants::kEpsilon) {
+      if (cur_distance - min_distance < -constants::kEpsilon) {
         direction = new_direction;
         min_distance = cur_distance;
       }
