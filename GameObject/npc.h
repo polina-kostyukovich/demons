@@ -1,8 +1,6 @@
 #ifndef GAMEOBJECT_NPC_H_
 #define GAMEOBJECT_NPC_H_
 
-#include <QPainter>
-
 #include "creature.h"
 #include "../Util/structs.h"
 #include "../Util/vector.h"
@@ -13,8 +11,6 @@ class Npc : public Creature {
 
   void Update(const Point& target_position);
   void Move(const Vector2D& direction);
-
- private:
 };
 
 #endif  // GAMEOBJECT_NPC_H_
