@@ -38,6 +38,9 @@ void Controller::StartGame() {
 
 void Controller::NewGame() {
   model_->GetHero().SetPosition(Point());
+  model_->GetFireballs().clear();
+  model_->GetHero().SetNumberTick(0);
+  counter_ = 0;
   // set default parameters to all objects
 
   StartGame();
@@ -71,17 +74,6 @@ int Controller::GetCounter() const {
   return counter_;
 }
 
-void Controller::HandleMousePressEvent(QMouseEvent* event) {
-  Point spawn_pos = model_->GetHero().GetPosition();
-  spawn_pos.SetX(spawn_pos.GetX() + constants::kHeroSize / 2);
-  spawn_pos.SetY(spawn_pos.GetY() + constants::kHeroSize / 1.5);
-
-  Vector2D direction(spawn_pos, Point(event->pos().x(), event->pos().y()));
-  direction.Normalize();
-
-  model_->AddFireball(Fireball(spawn_pos, direction));
-}
-
 void Controller::TimerTick() {
   model_->GetHero().Move(GetHeroDirection(),
                          view_->GetWindowWidth(),
@@ -89,12 +81,61 @@ void Controller::TimerTick() {
   model_->GetNpcController().Update(model_->GetHero().GetPosition() +
   Point(constants::kHeroSize / 2., constants::kHeroSize / 2.));
 
-  for (auto& fireball : model_->GetFireballs()) {
-    fireball.Move();
-  }
-
   // todo collisions with other objects
 
+  ++counter_;
+  counter_ %= constants::kHeroSpeedCoefficient * constants::kNumberAnimation;
+
+  Point spawn_pos = model_->GetHero().GetPosition()
+      + Point(constants::kHeroSize / 2,
+              constants::kHeroSize / constants::kTorsoPercentage);
+  for (auto& fireball : model_->GetFireballs()) {
+    fireball.Move(spawn_pos);
+  }
+
+  CheckFireballsCollisionsWithWalls();
+
+  UpdateHeroFields();
+  UpdateFireballsFields();
+
+
+  view_->repaint();
+}
+
+Vector2D Controller::GetHeroDirection() const {
+  Vector2D direction;
+  if ((keys_.contains(Qt::Key_Left) && keys_.at(Qt::Key_Left))
+      || (keys_.contains(Qt::Key_A) && keys_.at(Qt::Key_A))) {
+    direction += {-1, 0};
+  }
+  if ((keys_.contains(Qt::Key_Up) && keys_.at(Qt::Key_Up))
+      || (keys_.contains(Qt::Key_W) && keys_.at(Qt::Key_W))) {
+    direction += {0, -1};
+  }
+  if ((keys_.contains(Qt::Key_Right) && keys_.at(Qt::Key_Right))
+      || (keys_.contains(Qt::Key_D) && keys_.at(Qt::Key_D))) {
+    direction += {1, 0};
+  }
+  if ((keys_.contains(Qt::Key_Down) && keys_.at(Qt::Key_Down))
+      || (keys_.contains(Qt::Key_S) && keys_.at(Qt::Key_S))) {
+    direction += {0, 1};
+  }
+  direction.Normalize();
+  return direction;
+}
+
+void Controller::HandleMousePressEvent(QMouseEvent* event) {
+  Point spawn_pos = model_->GetHero().GetPosition()
+      + Point(constants::kHeroSize / 2,
+              constants::kHeroSize / constants::kTorsoPercentage);
+
+  model_->AddFireball(Fireball(spawn_pos,
+                               Point(event->pos().x(), event->pos().y())));
+  model_->GetHero().SetStriking(true);
+  model_->GetHero().SetNumberTick(0);
+}
+
+void Controller::CheckFireballsCollisionsWithWalls() {
   std::vector<Fireball>& fireballs = model_->GetFireballs();
   int height = view_->GetWindowHeight();
   int width = view_->GetWindowWidth();
@@ -118,30 +159,37 @@ void Controller::TimerTick() {
       --i;
     }
   }
-
-  view_->repaint();
-  ++counter_;
-  counter_ %= constants::kSlowAnimation * constants::kNumberAnimation;
 }
 
-Vector2D Controller::GetHeroDirection() const {
-  Vector2D direction;
-  if ((keys_.contains(Qt::Key_Left) && keys_.at(Qt::Key_Left))
-      || (keys_.contains(Qt::Key_A) && keys_.at(Qt::Key_A))) {
-    direction += {-1, 0};
+void Controller::UpdateHeroFields() {
+  if (model_->GetHero().IsStriking()) {
+    model_->GetHero().SetNumberTick(
+        model_->GetHero().GetNumberTick() + 1);
+    if (model_->GetHero().GetNumberTick()
+        == constants::kHeroSpeedCoefficient * constants::kNumberAnimation) {
+      model_->GetHero().SetNumberTick(0);
+      model_->GetHero().SetStriking(false);
+    }
   }
-  if ((keys_.contains(Qt::Key_Up) && keys_.at(Qt::Key_Up))
-      || (keys_.contains(Qt::Key_W) && keys_.at(Qt::Key_W))) {
-    direction += {0, -1};
+}
+
+void Controller::UpdateFireballsFields() {
+  std::vector<Fireball>& fireballs = model_->GetFireballs();
+  for (auto& fireball : fireballs) {
+    int current_counter = fireball.GetCounter();
+    if (fireball.IsBorn()) {
+      if (fireball.GetCounter() == constants::kNumberBorn *
+          constants::kFireballSpeedCoefficient) {
+        fireball.SetCounter(0);
+        fireball.SetBorn(false);
+        fireball.CreateDirection();
+      } else {
+        fireball.SetCounter(current_counter + 1);
+      }
+    } else {
+      fireball.SetCounter(
+          (current_counter + 1) % (constants::kFireballSpeedCoefficient
+              * constants::kNumberFireBall));
+    }
   }
-  if ((keys_.contains(Qt::Key_Right) && keys_.at(Qt::Key_Right))
-      || (keys_.contains(Qt::Key_D) && keys_.at(Qt::Key_D))) {
-    direction += {1, 0};
-  }
-  if ((keys_.contains(Qt::Key_Down) && keys_.at(Qt::Key_Down))
-      || (keys_.contains(Qt::Key_S) && keys_.at(Qt::Key_S))) {
-    direction += {0, 1};
-  }
-  direction.Normalize();
-  return direction;
 }

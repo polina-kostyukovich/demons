@@ -23,7 +23,7 @@ class View : public QMainWindow {
 
   void paintEvent(QPaintEvent* event) override;
 
-  void Draw(Picture animation, QPainter* painter);
+  void Draw(const Picture& animation, QPainter* painter);
 
   int GetWindowWidth() const;
   int GetWindowHeight() const;
