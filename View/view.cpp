@@ -41,6 +41,7 @@ void View::paintEvent(QPaintEvent* event) {
     painter.drawEllipse(npc_list[i].GetPosition().GetX(),
                         npc_list[i].GetPosition().GetY(),
                         constants::kNpcSize, constants::kNpcSize);
+  }
   for (const auto& object : controller_->GetModel().GetMap().GetObjects()) {
     Draw(object->GetPicture(), &painter);
   }
