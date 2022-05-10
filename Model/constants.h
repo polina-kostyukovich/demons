@@ -12,19 +12,24 @@ const long double kHeroStep = 8;
 const long double kNpcStep = 5;
 const long double kFireballSpeed = 20;
 
-const int kHeroSpeedCoefficient = 3;
-const int kNumberAnimation = 11;
 const int kHeroSize = 120;
-const int kNpcSize = 50;
+const int kNpcSize = 120;
 const int kFireballSize = 60;
 const int kLavaSize = 60;
 const int kWallSize = 30;
-const int kMiddleAnimation = 6;
 
 const int kFireballSpeedCoefficient = 5;
-const int kNumberBorn = 4;
-const int kNumberFireBall = 7;
+const int kNpcSpeedCoefficient = 5;
+const int kHeroSpeedCoefficient = 3;
 
+const int kNumberOfBornFireballs = 4;
+const int kNumberOfAnimation = 11;
+const int kNumberOfFireBall = 7;
+const int kNumberOfFightingNpc = 3;
+const int kNumberOfNpc = 4;
+const int kNumberOfEquallySidedNpc = 7;
+
+const int kMiddleAnimation = 6;
 const long double kTorsoPercentage = 1.65;
 }  // namespace constants
 

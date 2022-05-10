@@ -7,7 +7,7 @@ Hero::Hero(const Point& position) : Creature(position) {}
 
 void Hero::LoadPictures() {
   int reverse;
-  for (int i = 1; i <= constants::kNumberAnimation; i++) {
+  for (int i = 1; i <= constants::kNumberOfAnimation; i++) {
     std::string file_demonessa = ":Resources/Picture/Hero/demonessa";
     std::string file_wings = ":Resources/Picture/Wings/wings";
     if (i <= constants::kMiddleAnimation) {
