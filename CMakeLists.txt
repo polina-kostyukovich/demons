@@ -27,7 +27,6 @@ add_executable(demons
         GameObject/fireball.cpp
         GameObject/game_object.cpp
         GameObject/hero.cpp
-        GameObject/hit_box.cpp
         GameObject/npc.cpp
         GameObject/spawner.cpp
         GameObject/static_object.cpp
@@ -36,6 +35,7 @@ add_executable(demons
         Model/constants.cpp
         Model/model.cpp
         Util/collisions.cpp
+        Util/hit_box.cpp
         Util/point.cpp
         Util/structs.h
         Util/vector.cpp

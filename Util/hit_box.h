@@ -1,9 +1,9 @@
-#ifndef GAMEOBJECT_HIT_BOX_H_
-#define GAMEOBJECT_HIT_BOX_H_
+#ifndef UTIL_HIT_BOX_H_
+#define UTIL_HIT_BOX_H_
 
 #include <memory>
 
-#include "../Util/point.h"
+#include "point.h"
 
 class HitBox {
  private:
@@ -34,4 +34,4 @@ class HitBox {
   double hit_box_height_{0};
 };
 
-#endif  // GAMEOBJECT_HIT_BOX_H_
+#endif  // UTIL_HIT_BOX_H_
