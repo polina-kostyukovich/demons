@@ -10,7 +10,7 @@ void NpcController::Update(const Point& hero_position) {
   for (auto& npc : npc_list_) {
     npc.Update(hero_position - Point(constants::kNpcSize / 2.,
                                      constants::kNpcSize / 2.));
-    if (npc.GetCounter() + 1 == constants::kNumberNpc *
+    if (npc.GetCounter() + 1 == constants::kNumberOfNpc *
         constants::kNpcSpeedCoefficient) {
       npc.SetCounter(0);
     } else {

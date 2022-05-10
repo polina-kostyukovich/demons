@@ -36,10 +36,10 @@ void Npc::Update(const Point& target_position) {
 
 void Npc::Move(const Vector2D& direction) {
   SetPosition(position_ + direction * constants::kNpcStep);
-  if (direction.GetX() > 0) {
-    is_move_right_ = true;
+  if (direction.GetX() > constants::kEpsilon) {
+    is_moving_right_ = true;
   } else {
-    is_move_right_ = false;
+    is_moving_right_ = false;
   }
 }
 
@@ -48,7 +48,7 @@ Picture Npc::GetPicture() const {
   output.height = constants::kNpcSize;
   output.width = output.height;
   output.left_top = position_;
-  if (is_move_right_) {
+  if (is_moving_right_) {
     output.picture = pictures_[tick_counter_ / constants::kNpcSpeedCoefficient];
   } else {
     output.picture = pictures_[constants::kNumberEquallySidedNpc
@@ -58,11 +58,11 @@ Picture Npc::GetPicture() const {
 }
 
 void Npc::InputPictures(std::string picture) {
-  for (int i = 1; i <= constants::kNumberNpc; i++) {
+  for (int i = 1; i <= constants::kNumberOfNpc; i++) {
     pictures_.emplace_back((picture + std::to_string(i) + ".png").c_str());
   }
   picture += "_fight";
-  for (int i = 1; i <= constants::kNumberFight; i++) {
+  for (int i = 1; i <= constants::kNumberOfFight; i++) {
     pictures_.emplace_back((picture + std::to_string(i) + ".png").c_str());
   }
 }

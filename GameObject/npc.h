@@ -27,7 +27,7 @@ class Npc : public Creature {
 
  private:
   static inline std::vector<QPixmap> pictures_;
-  bool is_move_right_;
+  bool is_moving_right_;
   int tick_counter_{0};
 };
 

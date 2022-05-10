@@ -84,7 +84,7 @@ void Controller::TimerTick() {
   // todo collisions with other objects
 
   ++counter_;
-  counter_ %= constants::kHeroSpeedCoefficient * constants::kNumberAnimation;
+  counter_ %= constants::kHeroSpeedCoefficient * constants::kNumberOfAnimation;
 
   Point spawn_pos = model_->GetHero().GetPosition()
       + Point(constants::kHeroSize / 2,
@@ -165,7 +165,7 @@ void Controller::UpdateHeroFields() {
     model_->GetHero().SetNumberTick(
         model_->GetHero().GetNumberTick() + 1);
     if (model_->GetHero().GetNumberTick()
-        == constants::kHeroSpeedCoefficient * constants::kNumberAnimation) {
+        == constants::kHeroSpeedCoefficient * constants::kNumberOfAnimation) {
       model_->GetHero().SetNumberTick(0);
       model_->GetHero().SetStriking(false);
     }
@@ -177,7 +177,7 @@ void Controller::UpdateFireballsFields() {
   for (auto& fireball : fireballs) {
     int current_counter = fireball.GetCounter();
     if (fireball.IsBorn()) {
-      if (fireball.GetCounter() + 1 == constants::kNumberBorn *
+      if (fireball.GetCounter() + 1 == constants::kNumberOfBorn *
           constants::kFireballSpeedCoefficient) {
         fireball.SetCounter(0);
         fireball.SetBorn(false);
@@ -188,7 +188,7 @@ void Controller::UpdateFireballsFields() {
     } else {
       fireball.SetCounter(
           (current_counter + 1) % (constants::kFireballSpeedCoefficient
-              * constants::kNumberFireBall));
+              * constants::kNumberOfFireBall));
     }
   }
 }

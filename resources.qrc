@@ -38,9 +38,9 @@
         <file>Resources/Picture/Menu/language.png</file>
         <file>Resources/Picture/Menu/settings.png</file>
 
-         <file>Resources/Picture/Npc/npc_fight_left1.png</file>
-         <file>Resources/Picture/Npc/npc_fight_left2.png</file>
-         <file>Resources/Picture/Npc/npc_fight_left3.png</file>
+         <file>Resources/Picture/Npc/npc_left_fight1.png</file>
+         <file>Resources/Picture/Npc/npc_left_fight2.png</file>
+         <file>Resources/Picture/Npc/npc_left_fight3.png</file>
          <file>Resources/Picture/Npc/npc_fight1.png</file>
          <file>Resources/Picture/Npc/npc_fight2.png</file>
          <file>Resources/Picture/Npc/npc_fight3.png</file>
