@@ -1,6 +1,8 @@
 #ifndef GAMEOBJECT_NPC_H_
 #define GAMEOBJECT_NPC_H_
 
+#include <string>
+
 #include "creature.h"
 #include "../Util/structs.h"
 #include "../Util/vector.h"
@@ -16,7 +18,7 @@ class Npc : public Creature {
 
   Picture GetPicture() const;
 
-  int GetCounter();
+  int GetCounter() const;
   void SetCounter(int counter);
 
  private:

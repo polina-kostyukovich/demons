@@ -67,7 +67,7 @@ void Npc::InputPictures(std::string picture) {
   }
 }
 
-int Npc::GetCounter() {
+int Npc::GetCounter() const {
   return tick_counter_;
 }
 

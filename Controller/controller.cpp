@@ -97,7 +97,6 @@ void Controller::TimerTick() {
 
   UpdateHeroFields();
   UpdateFireballsFields();
-  UpdateNpcsFields();
 
   view_->repaint();
 }
@@ -190,18 +189,6 @@ void Controller::UpdateFireballsFields() {
       fireball.SetCounter(
           (current_counter + 1) % (constants::kFireballSpeedCoefficient
               * constants::kNumberFireBall));
-    }
-  }
-}
-
-void Controller::UpdateNpcsFields() {
-  std::vector<Npc> npcs = model_->GetNpcController().GetNpcList();
-  for (auto& npc : npcs) {
-    if (npc.GetCounter() + 1 == constants::kNumberNpc *
-        constants::kNpcSpeedCoefficient) {
-      npc.SetCounter(0);
-    } else {
-      npc.SetCounter(npc.GetCounter() + 1);
     }
   }
 }
