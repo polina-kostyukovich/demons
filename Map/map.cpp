@@ -95,13 +95,8 @@ void Map::LoadBoilers() {
 
   QJsonArray boilers_coords =
       object["BoilersCoordinates"].toArray();
-  // objects_ = std::vector<std::vector<std::shared_ptr<GameObject>>>(
-  //     columns_, std::vector<std::shared_ptr<GameObject>>(rows_));
-
-  objects_.resize(columns_);
-  for (auto& column : objects_) {
-    column.resize(rows_);
-  }
+  objects_ = std::vector<std::vector<std::shared_ptr<StaticObject>>>(
+      columns_, std::vector<std::shared_ptr<StaticObject>>(rows_));
 
   int boiler_width = width_ / columns_;
   int boiler_height = height_ / rows_;
@@ -109,7 +104,8 @@ void Map::LoadBoilers() {
   for (const auto& boiler_coords : boilers_coords) {
     int column = boiler_coords.toObject().value("x").toInt();
     int row = boiler_coords.toObject().value("y").toInt();
-    Point position(column * boiler_width, row * boiler_height);
+    Point position(column * boiler_width + boiler_width / 2.,
+                   row * boiler_height + boiler_height / 2.);
     objects_[column][row] =
         std::make_shared<Boiler>(position, boiler_width, boiler_height);
   }

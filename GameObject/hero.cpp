@@ -28,20 +28,20 @@ void Hero::LoadPictures() {
 void Hero::Move(const Vector2D& direction,
                 int window_width,
                 int window_height) {
-  int width = window_width - constants::kHeroSize;
-  int height = window_height - constants::kHeroSize;
+  int width = window_width - constants::kHeroSize / 2;
+  int height = window_height - constants::kHeroSize / 2;
   SetPosition(GetPosition() + direction * constants::kHeroStep);
   // std::clog << "Coords depending on checking collisions: before: "
   //           << position_ << "; ";
 
-  if (GetPosition().GetX() < -constants::kEpsilon) {
-    SetPositionX(0.);
+  if (GetPosition().GetX() - constants::kHeroSize / 2. < -constants::kEpsilon) {
+    SetPositionX(constants::kHeroSize / 2.);
   }
   if (GetPosition().GetX() > constants::kEpsilon + width) {
     SetPositionX(static_cast<long double>(width));
   }
-  if (GetPosition().GetY() < -constants::kEpsilon) {
-    SetPositionY(0.);
+  if (GetPosition().GetY() - constants::kHeroSize / 2. < -constants::kEpsilon) {
+    SetPositionY(constants::kHeroSize / 2.);
   }
   if (GetPosition().GetY() > constants::kEpsilon + height) {
     SetPositionY(static_cast<long double>(height));
@@ -52,7 +52,8 @@ void Hero::Move(const Vector2D& direction,
 
 Picture Hero::GetPicture(int counter) const {
   Picture output;
-  output.left_top = position_;
+  output.left_top =
+      position_ - Point(constants::kHeroSize / 2., constants::kHeroSize / 2.);
   output.width = constants::kHeroSize;
   output.height = constants::kHeroSize;
   QPixmap pixmap(wings_pixmaps_[counter / constants::kHeroSpeedCoefficient]);
