@@ -7,12 +7,14 @@
 
 #include "creature.h"
 #include "../Map/map.h"
+#include "../Model/constants.h"
 #include "../Util/structs.h"
 #include "../Util/vector.h"
 
 class Hero : public Creature {
  public:
-  explicit Hero(const Point& position = Point());
+  explicit Hero(const Point& position = Point(constants::kHeroSize / 2.,
+                                              constants::kHeroSize / 2.));
   void LoadPictures();
 
   void Move(const Vector2D& direction, int window_width, int window_height);

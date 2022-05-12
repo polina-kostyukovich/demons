@@ -2,6 +2,13 @@
 
 Npc::Npc(const Point& position) : Creature(position) {}
 
+void Npc::LoadPictures() {
+  std::string picture = ":Resources/Picture/Npc/npc";
+  InputPictures(picture);
+  picture += "_left";
+  InputPictures(picture);
+}
+
 void Npc::Update(const Point& target_position) {
   Vector2D direction;
   long double min_distance = constants::kMaxDistance;
@@ -29,4 +36,42 @@ void Npc::Update(const Point& target_position) {
 
 void Npc::Move(const Vector2D& direction) {
   SetPosition(position_ + direction * constants::kNpcStep);
+  if (direction.GetX() > constants::kEpsilon) {
+    is_moving_right_ = true;
+  } else {
+    is_moving_right_ = false;
+  }
+}
+
+Picture Npc::GetPicture() const {
+  Picture output;
+  output.height = constants::kNpcSize;
+  output.width = output.height;
+  output.left_top =
+      position_ - Point(constants::kNpcSize / 2., constants::kNpcSize / 2.);
+  if (is_moving_right_) {
+    output.picture = pictures_[tick_counter_ / constants::kNpcSpeedCoefficient];
+  } else {
+    output.picture = pictures_[constants::kNumberOfEquallySidedNpc
+        + tick_counter_ / constants::kNpcSpeedCoefficient];
+  }
+  return output;
+}
+
+void Npc::InputPictures(std::string picture) {
+  for (int i = 1; i <= constants::kNumberOfNpc; i++) {
+    pictures_.emplace_back((picture + std::to_string(i) + ".png").c_str());
+  }
+  picture += "_fight";
+  for (int i = 1; i <= constants::kNumberOfFightingNpc; i++) {
+    pictures_.emplace_back((picture + std::to_string(i) + ".png").c_str());
+  }
+}
+
+int Npc::GetCounter() const {
+  return tick_counter_;
+}
+
+void Npc::SetCounter(int counter) {
+  tick_counter_ = counter;
 }

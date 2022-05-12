@@ -8,7 +8,7 @@ void Boiler::LoadPictures() {
 Picture Boiler::GetPicture() const {
   Picture result = {
       *picture_,
-      position_,
+      position_ - Point(width_ / 2., height_ / 2.),
       width_,
       height_
   };

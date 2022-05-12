@@ -38,6 +38,21 @@
         <file>Resources/Picture/Menu/language.png</file>
         <file>Resources/Picture/Menu/settings.png</file>
 
+         <file>Resources/Picture/Npc/npc_left_fight1.png</file>
+         <file>Resources/Picture/Npc/npc_left_fight2.png</file>
+         <file>Resources/Picture/Npc/npc_left_fight3.png</file>
+         <file>Resources/Picture/Npc/npc_fight1.png</file>
+         <file>Resources/Picture/Npc/npc_fight2.png</file>
+         <file>Resources/Picture/Npc/npc_fight3.png</file>
+         <file>Resources/Picture/Npc/npc1.png</file>
+         <file>Resources/Picture/Npc/npc2.png</file>
+         <file>Resources/Picture/Npc/npc3.png</file>
+         <file>Resources/Picture/Npc/npc4.png</file>
+         <file>Resources/Picture/Npc/npc_left1.png</file>
+         <file>Resources/Picture/Npc/npc_left2.png</file>
+         <file>Resources/Picture/Npc/npc_left3.png</file>
+         <file>Resources/Picture/Npc/npc_left4.png</file>
+
         <file>Resources/Jsons/boilers_data.json</file>
     </qresource>
 </RCC>
