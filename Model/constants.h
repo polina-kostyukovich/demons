@@ -31,6 +31,9 @@ const int kNumberOfEquallySidedNpc = 7;
 
 const int kMiddleAnimation = 6;
 const long double kTorsoPercentage = 0.105;
+
+const long double kHeroHitBoxHeightCoefficient = 0.4;
+const long double kBoilerHitBoxHeightCoefficient = 0.45;
 }  // namespace constants
 
 #endif  // MODEL_CONSTANTS_H_

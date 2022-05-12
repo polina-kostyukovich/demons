@@ -3,7 +3,13 @@
 #include <iostream>
 #include <string>
 
-Hero::Hero(const Point& position) : Creature(position) {}
+Hero::Hero(const Point& position) : Creature(position) {
+  hit_box_.SetWidth(constants::kHeroSize);
+  hit_box_.SetHeight(
+      constants::kHeroHitBoxHeightCoefficient * constants::kHeroSize);
+  hit_box_.SetVerticalShift((0.5 - constants::kHeroHitBoxHeightCoefficient / 2)
+                                * constants::kHeroSize);
+}
 
 void Hero::LoadPictures() {
   int reverse;

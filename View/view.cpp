@@ -46,6 +46,12 @@ void View::paintEvent(QPaintEvent* event) {
   Draw(controller_->GetModel().GetHero().GetPicture(controller_->GetCounter()),
        &painter);
 
+  for (const auto& object : controller_->GetModel().GetMap().GetObjects()) {
+    if (object->IsOverHero()) {
+      Draw(object->GetPicture(), &painter);
+    }
+  }
+
   auto fireballs = controller_->GetModel().GetFireballs();
   for (const auto& fireball : fireballs) {
     Draw(fireball.GetPicture(), &painter);
