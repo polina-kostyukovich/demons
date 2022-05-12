@@ -3,10 +3,10 @@
 HitBox::Rect HitBox::GetRect() const {
   Point left_upper_coords(pos_.GetX() - hit_box_width_ / 2,
                           pos_.GetY() - hit_box_height_ / 2 +
-                          object_height_ / 2);
+                          vertical_shift_);
   Point right_lower_coords(pos_.GetX() + hit_box_width_ / 2,
                            pos_.GetY() + hit_box_height_ / 2
-                           + object_height_ / 2);
+                           + vertical_shift_);
 
   return Rect(left_upper_coords, right_lower_coords);
 }
