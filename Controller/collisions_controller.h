@@ -2,7 +2,6 @@
 #define CONTROLLER_COLLISIONS_CONTROLLER_H_
 
 class CollisionsController {
-
 };
 
 #endif  // CONTROLLER_COLLISIONS_CONTROLLER_H_
