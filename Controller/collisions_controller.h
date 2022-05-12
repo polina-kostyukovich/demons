@@ -8,11 +8,11 @@
 class CollisionsController {
  public:
   void CheckHeroAndStaticObjects(
-      Hero& hero,
+      Hero* hero,
       const Point& old_hero_position,
       const std::vector<std::shared_ptr<StaticObject>>& objects);
 
-  void CheckHeroAndStaticObject(Hero& hero,
+  void CheckHeroAndStaticObject(Hero* hero,
                                 const Point& old_hero_position,
                                 const std::shared_ptr<StaticObject>& object);
 };
