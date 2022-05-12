@@ -29,9 +29,9 @@ class HitBox {
   Rect GetRect() const;
 
   const Point& pos_;
-  double vertical_shift_{0};
-  double hit_box_width_{0};
-  double hit_box_height_{0};
+  long double vertical_shift_{0};
+  long double hit_box_width_{0};
+  long double hit_box_height_{0};
 };
 
 #endif  // UTIL_HIT_BOX_H_
