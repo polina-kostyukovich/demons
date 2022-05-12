@@ -1,6 +1,9 @@
 #ifndef CONTROLLER_COLLISIONS_CONTROLLER_H_
 #define CONTROLLER_COLLISIONS_CONTROLLER_H_
 
+#include <memory>
+#include <vector>
+
 #include "../GameObject/boiler.h"
 #include "../GameObject/hero.h"
 #include "../Util/point.h"

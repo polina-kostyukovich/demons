@@ -1,8 +1,5 @@
 #include "collisions_controller.h"
 
-#include <memory>
-#include <vector>
-
 void CollisionsController::CheckHeroAndStaticObjects(
     Hero* hero,
     const Point& old_hero_position,
