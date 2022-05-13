@@ -1,14 +1,27 @@
 #include "hit_box.h"
 
-HitBox::Rect HitBox::GetRect() const {
-  Point left_upper_coords(pos_.GetX() - hit_box_width_ / 2,
-                          pos_.GetY() - hit_box_height_ / 2 +
-                          vertical_shift_);
-  Point right_lower_coords(pos_.GetX() + hit_box_width_ / 2,
-                           pos_.GetY() + hit_box_height_ / 2
-                           + vertical_shift_);
+void HitBox::SetVerticalShift(long double shift) {
+  vertical_shift_ = shift;
+}
 
-  return Rect(left_upper_coords, right_lower_coords);
+void HitBox::SetWidth(long double width) {
+  hit_box_width_ = width;
+}
+
+void HitBox::SetHeight(long double height) {
+  hit_box_height_ = height;
+}
+
+long double HitBox::GetWidth() const {
+  return hit_box_width_;
+}
+
+long double HitBox::GetHeight() const {
+  return hit_box_height_;
+}
+
+long double HitBox::GetVerticalShift() const {
+  return vertical_shift_;
 }
 
 bool HitBox::IsCollided(const HitBox& other_hit_box) const {
@@ -27,4 +40,15 @@ bool HitBox::IsCollided(const HitBox& other_hit_box) const {
               other_rect.right_lower_coords.GetY() > constants::kEpsilon);
 
   return (is_intersected_along_x_axis && is_intersected_along_y_axis);
+}
+
+HitBox::Rect HitBox::GetRect() const {
+  Point left_upper_coords(pos_.GetX() - hit_box_width_ / 2,
+                          pos_.GetY() - hit_box_height_ / 2 +
+                              vertical_shift_);
+  Point right_lower_coords(pos_.GetX() + hit_box_width_ / 2,
+                           pos_.GetY() + hit_box_height_ / 2
+                               + vertical_shift_);
+
+  return Rect(left_upper_coords, right_lower_coords);
 }

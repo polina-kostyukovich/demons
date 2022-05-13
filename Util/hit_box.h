@@ -18,10 +18,20 @@ class HitBox {
   };
 
  public:
-  HitBox() = default;
-  HitBox(const Point& pos, double vertical_shift, double width, double height) :
+  explicit HitBox(const Point& pos,
+                  double vertical_shift = 0,
+                  double width = 0,
+                  double height = 0) :
       pos_(pos), vertical_shift_(vertical_shift), hit_box_width_(width),
       hit_box_height_(height) {}
+
+  void SetVerticalShift(long double shift);
+  void SetWidth(long double width);
+  void SetHeight(long double height);
+
+  long double GetVerticalShift() const;
+  long double GetWidth() const;
+  long double GetHeight() const;
 
   bool IsCollided(const HitBox& other_hit_box) const;
 

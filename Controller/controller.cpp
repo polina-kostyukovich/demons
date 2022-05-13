@@ -76,12 +76,16 @@ int Controller::GetCounter() const {
 }
 
 void Controller::TimerTick() {
+  Point old_hero_position = model_->GetHero().GetPosition();
+
   model_->GetHero().Move(GetHeroDirection(),
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());
   model_->GetNpcController().Update(model_->GetHero().GetPosition());
 
   // todo collisions with other objects
+  collisions_controller_.CheckHeroAndStaticObjects(
+      &model_->GetHero(), old_hero_position, model_->GetMap().GetObjects());
 
   ++counter_;
   counter_ %= constants::kHeroSpeedCoefficient * constants::kNumberOfAnimation;
