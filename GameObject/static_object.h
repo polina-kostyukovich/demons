@@ -17,7 +17,7 @@ class StaticObject : public GameObject {
 
  protected:
   bool is_over_hero_{false};
-  HitBox top_hit_box_;
+  HitBox picture_above_hit_box_;
 };
 
 #endif  // GAMEOBJECT_STATIC_OBJECT_H_
