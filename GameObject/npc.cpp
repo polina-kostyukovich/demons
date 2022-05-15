@@ -1,6 +1,9 @@
 #include "npc.h"
 
-Npc::Npc(const Point& position) : Creature(position) {}
+Npc::Npc(const Point& position) : Creature(position) {
+  hit_box_.SetWidth(constants::kNpcSize);
+  hit_box_.SetHeight(constants::kNpcSize);
+}
 
 void Npc::LoadPictures() {
   std::string picture = ":Resources/Picture/Npc/npc";
