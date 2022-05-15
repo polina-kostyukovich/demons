@@ -15,8 +15,8 @@ class Npc : public Creature {
 
   static void LoadPictures();
 
-  void Update(const Point& target_position, Map& map);
-  bool CanMove(const Point& new_position, Map& map);
+  void Update(const Point& target_position, const Map& map);
+  bool CanMove(const Point& new_position, const Map& map);
   void Move(const Vector2D& direction);
 
   Picture GetPicture() const;

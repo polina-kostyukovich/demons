@@ -6,7 +6,7 @@ NpcController::NpcController() {
   // todo from boilers
 }
 
-void NpcController::Update(const Point& hero_position, Map& map) {
+void NpcController::Update(const Point& hero_position, const Map& map) {
   for (auto& npc : npc_list_) {
     npc.Update(hero_position, map);
     if (npc.GetCounter() + 1 == constants::kNumberOfNpc *

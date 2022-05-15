@@ -10,7 +10,7 @@ void Npc::LoadPictures() {
   InputPictures(picture);
 }
 
-void Npc::Update(const Point& target_position, Map& map) {
+void Npc::Update(const Point& target_position, const Map& map) {
   Vector2D direction;
   long double min_distance = constants::kMaxDistance;
   for (long double delta_x = -1;
@@ -35,7 +35,7 @@ void Npc::Update(const Point& target_position, Map& map) {
   Move(direction);
 }
 
-bool Npc::CanMove(const Point& new_position, Map& map) {
+bool Npc::CanMove(const Point& new_position, const Map& map) {
   int column = floor(new_position.GetX() / map.GetCellSize().first);
   int row = floor(new_position.GetY() / map.GetCellSize().second);
 
