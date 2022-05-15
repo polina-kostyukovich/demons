@@ -79,7 +79,8 @@ void Controller::TimerTick() {
   model_->GetHero().Move(GetHeroDirection(),
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());
-  model_->GetNpcController().Update(model_->GetHero().GetPosition());
+  model_->GetNpcController().Update(model_->GetHero().GetPosition(),
+                                    model_->GetMap());
 
   // todo collisions with other objects
 

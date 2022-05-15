@@ -7,6 +7,7 @@
 #include "creature.h"
 #include "../Util/structs.h"
 #include "../Util/vector.h"
+#include "../Map/map.h"
 
 class Npc : public Creature {
  public:
@@ -14,7 +15,8 @@ class Npc : public Creature {
 
   static void LoadPictures();
 
-  void Update(const Point& target_position);
+  void Update(const Point& target_position, Map& map);
+  bool CanMove(const Point& new_position, Map& map);
   void Move(const Vector2D& direction);
 
   Picture GetPicture() const;

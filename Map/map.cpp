@@ -108,6 +108,7 @@ void Map::LoadBoilers() {
                    row * boiler_height + boiler_height / 2.);
     objects_[column][row] =
         std::make_shared<Boiler>(position, boiler_width, boiler_height);
+
   }
 
   RemakeVectorOfObjects();

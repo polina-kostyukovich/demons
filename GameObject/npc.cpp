@@ -1,3 +1,4 @@
+#include <cmath>
 #include "npc.h"
 
 Npc::Npc(const Point& position) : Creature(position) {}
@@ -9,10 +10,9 @@ void Npc::LoadPictures() {
   InputPictures(picture);
 }
 
-void Npc::Update(const Point& target_position) {
+void Npc::Update(const Point& target_position, Map& map) {
   Vector2D direction;
   long double min_distance = constants::kMaxDistance;
-
   for (long double delta_x = -1;
        delta_x - 1. < constants::kEpsilon;
        delta_x += constants::kDirectionStep) {
@@ -24,7 +24,8 @@ void Npc::Update(const Point& target_position) {
       long double cur_distance =
           Point::Distance(position_ + new_direction * constants::kNpcStep,
                           target_position);
-      if (cur_distance - min_distance < -constants::kEpsilon) {
+      if (cur_distance - min_distance < -constants::kEpsilon &&
+          CanMove(position_ + new_direction * constants::kNpcStep, map)) {
         direction = new_direction;
         min_distance = cur_distance;
       }
@@ -32,6 +33,20 @@ void Npc::Update(const Point& target_position) {
   }
 
   Move(direction);
+}
+
+bool Npc::CanMove(const Point& new_position, Map& map) {
+  int column = floor(new_position.GetX() / map.GetCellSize().first);
+  int row = floor(new_position.GetY() / map.GetCellSize().second);
+
+  if (column < 0 || row < 0) {
+    return false;
+  }
+
+  if (dynamic_cast<Boiler*>(map.GetObject(column, row).get()) != nullptr) {
+    return false;
+  }
+  return true;
 }
 
 void Npc::Move(const Vector2D& direction) {
