@@ -87,9 +87,9 @@ void Controller::TimerTick() {
   collisions_controller_.CheckHeroAndStaticObjects(
       &model_->GetHero(), old_hero_position, model_->GetMap().GetObjects());
   collisions_controller_.CheckFireballsAndStaticObjects(
-      model_->GetFireballs(), model_->GetMap().GetObjects());
+      &model_->GetFireballs(), model_->GetMap().GetObjects());
   collisions_controller_.CheckFireballsAndNpcs(
-      model_->GetFireballs(), model_->GetNpcController().GetNpcList());
+      &model_->GetFireballs(), model_->GetNpcController().GetNpcList());
 
   ++counter_;
   counter_ %= constants::kHeroSpeedCoefficient * constants::kNumberOfAnimation;

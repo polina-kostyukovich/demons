@@ -3,6 +3,12 @@
 #include <string>
 #include <QPainter>
 
+Fireball::Fireball(const Point &position, const Point &purpose) :
+    DynamicObject(position), purpose_(purpose) {
+  hit_box_.SetWidth(constants::kFireballSize);
+  hit_box_.SetHeight(constants::kFireballSize);
+}
+
 void Fireball::LoadPictures() {
   for (int i = 1; i <= constants::kNumberOfBornFireballs; i++) {
     std::string picture = ":Resources/Picture/Fireball/born_fireball";
@@ -65,7 +71,6 @@ void Fireball::CreateDirection() {
   direction_ = Vector2D(position_, purpose_);
   direction_.Normalize();
 }
-
 Point Fireball::GetPurpose() const {
   return purpose_;
 }

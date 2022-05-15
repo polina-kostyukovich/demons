@@ -22,15 +22,15 @@ class CollisionsController {
                                 const std::shared_ptr<StaticObject>& object);
 
   void CheckFireballsAndStaticObjects(
-      std::vector<Fireball>& fireballs,
+      std::vector<Fireball>* fireballs,
       const std::vector<std::shared_ptr<StaticObject>>& object);
 
-  void CheckFireballsAndStaticObject(std::vector<Fireball>& fireballs,
+  void CheckFireballsAndStaticObject(std::vector<Fireball>* fireballs,
                                      const std::shared_ptr<StaticObject>& object);
-  void CheckFireballsAndNpcs(std::vector<Fireball>& fireballs,
+  void CheckFireballsAndNpcs(std::vector<Fireball>* fireballs,
                              const std::vector<Npc>& objects);
 
-  void CheckFireballsAndNpc(std::vector<Fireball>& fireballs, const Npc& npc);
+  void CheckFireballsAndNpc(std::vector<Fireball>* fireballs, const Npc& npc);
 };
 
 #endif  // CONTROLLER_COLLISIONS_CONTROLLER_H_

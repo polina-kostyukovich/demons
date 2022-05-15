@@ -9,8 +9,7 @@
 
 class Fireball : public DynamicObject {
  public:
-  Fireball(const Point& position, const Point& purpose) :
-      DynamicObject(position), purpose_(purpose) {}
+  Fireball(const Point& position, const Point& purpose);
 
   static void LoadPictures();
   Picture GetPicture() const;

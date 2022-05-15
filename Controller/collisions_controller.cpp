@@ -43,26 +43,27 @@ void CollisionsController::CheckHeroAndStaticObject(
   object->SetIsOverHero(has_top_intersection);
 }
 
-void CollisionsController::CheckFireballsAndStaticObjects(std::vector<Fireball>& fireballs,
-                                                          const std::vector<std::shared_ptr<StaticObject>>& objects) {
+void CollisionsController::CheckFireballsAndStaticObjects(
+    std::vector<Fireball>* fireballs,
+    const std::vector<std::shared_ptr<StaticObject>>& objects) {
   for (const auto& static_object : objects) {
     CheckFireballsAndStaticObject(fireballs, static_object);
   }
 }
 
 void CollisionsController::CheckFireballsAndStaticObject(
-    std::vector<Fireball>& fireballs,
+    std::vector<Fireball>* fireballs,
     const std::shared_ptr<StaticObject>& object) {
-  for (int i = 0; i < fireballs.size(); ++i) {
-    if (fireballs[i].GetHitBox().IsCollided(object->GetHitBox())) {
-      fireballs.erase(fireballs.begin() + i);
+  for (int i = 0; i < fireballs->size(); ++i) {
+    if (fireballs->at(i).GetHitBox().IsCollided(object->GetHitBox())) {
+      fireballs->erase(fireballs->begin() + i);
       --i;
     }
   }
 }
 
 void CollisionsController::CheckFireballsAndNpcs(
-    std::vector<Fireball>& fireballs,
+    std::vector<Fireball>* fireballs,
     const std::vector<Npc>& npcs) {
   for (const auto& object : npcs) {
     CheckFireballsAndNpc(fireballs, object);
@@ -70,11 +71,11 @@ void CollisionsController::CheckFireballsAndNpcs(
 }
 
 void CollisionsController::CheckFireballsAndNpc(
-    std::vector<Fireball>& fireballs,
+    std::vector<Fireball>* fireballs,
     const Npc& npc) {
-  for (int i = 0; i < fireballs.size(); ++i) {
-    if (fireballs[i].GetHitBox().IsCollided(npc.GetHitBox())) {
-      fireballs.erase(fireballs.begin() + i);
+  for (int i = 0; i < fireballs->size(); ++i) {
+    if (fireballs[i].at(i).GetHitBox().IsCollided(npc.GetHitBox())) {
+      fireballs->erase(fireballs->begin() + i);
       --i;
     }
   }
