@@ -5,8 +5,10 @@
 
 Fireball::Fireball(const Point &position, const Point &purpose) :
     DynamicObject(position), purpose_(purpose) {
-  hit_box_.SetWidth(constants::kFireballSize);
+  hit_box_.SetWidth(constants::kFireballHitBoxCoefficient);
   hit_box_.SetHeight(constants::kFireballSize);
+  hit_box_.SetVerticalShift((0.5 - constants::kFireballHitBoxCoefficient / 2)
+                                * constants::kFireballSize);
 }
 
 void Fireball::LoadPictures() {

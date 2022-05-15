@@ -34,6 +34,8 @@ const long double kTorsoPercentage = 0.105;
 
 const long double kHeroHitBoxHeightCoefficient = 0.4;
 const long double kBoilerHitBoxHeightCoefficient = 0.45;
+const long double kNpcHitBoxHeightCoefficient = 0.5;
+const long double kFireballHitBoxCoefficient = 1;
 }  // namespace constants
 
 #endif  // MODEL_CONSTANTS_H_

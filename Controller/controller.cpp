@@ -77,10 +77,12 @@ int Controller::GetCounter() const {
 
 void Controller::TimerTick() {
   Point old_hero_position = model_->GetHero().GetPosition();
+  std::vector<Point> old_npc_coords = model_->GetNpcController().GetNpcCoordinates();
 
   model_->GetHero().Move(GetHeroDirection(),
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());
+
   model_->GetNpcController().Update(model_->GetHero().GetPosition());
 
   // todo collisions with other objects
@@ -90,6 +92,9 @@ void Controller::TimerTick() {
       &model_->GetFireballs(), model_->GetMap().GetObjects());
   collisions_controller_.CheckFireballsAndNpcs(
       &model_->GetFireballs(), model_->GetNpcController().GetNpcList());
+  collisions_controller_.CheckHeroAndNpcs(
+      &model_->GetHero(), &model_->GetNpcController().GetNpcList(),
+      old_hero_position, old_npc_coords);
 
   ++counter_;
   counter_ %= constants::kHeroSpeedCoefficient * constants::kNumberOfAnimation;

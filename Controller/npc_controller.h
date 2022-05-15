@@ -11,6 +11,9 @@ class NpcController {
   void Update(const Point& hero_position);
 
   const std::vector<Npc>& GetNpcList() const;
+  std::vector<Npc>& GetNpcList();
+
+  std::vector<Point> GetNpcCoordinates() const;
 
  private:
   std::vector<Npc> npc_list_;

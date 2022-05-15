@@ -55,7 +55,8 @@ void CollisionsController::CheckFireballsAndStaticObject(
     std::vector<Fireball>* fireballs,
     const std::shared_ptr<StaticObject>& object) {
   for (int i = 0; i < fireballs->size(); ++i) {
-    if (fireballs->at(i).GetHitBox().IsCollided(object->GetHitBox())) {
+    if (fireballs->at(i).GetHitBox().IsCollided(object->GetHitBox()) ||
+        fireballs->at(i).GetHitBox().IsCollided(object->GetTopHitBox())) {
       fireballs->erase(fireballs->begin() + i);
       --i;
     }
@@ -74,9 +75,28 @@ void CollisionsController::CheckFireballsAndNpc(
     std::vector<Fireball>* fireballs,
     const Npc& npc) {
   for (int i = 0; i < fireballs->size(); ++i) {
-    if (fireballs[i].at(i).GetHitBox().IsCollided(npc.GetHitBox())) {
+    if (fireballs->at(i).GetHitBox().IsCollided(npc.GetHitBox())) {
       fireballs->erase(fireballs->begin() + i);
       --i;
     }
   }
+}
+void CollisionsController::CheckHeroAndNpcs(Hero* hero,
+                                            std::vector<Npc>* npcs,
+                                            const Point& old_hero_pos,
+                                            const std::vector<Point>& old_npcs_pos) {
+  for (int i = 0; i < npcs->size(); ++i) {
+    auto& npc = npcs->at(i);
+    CheckHeroAndNpc(hero, npc, old_hero_pos, old_npcs_pos[i]);
+  }
+}
+
+void CollisionsController::CheckHeroAndNpc(Hero* hero,
+                                            Npc& npc,
+                                            const Point& old_hero_pos,
+                                            const Point& old_npc_pos) {
+ if (hero->GetHitBox().IsCollided(npc.GetHitBox())) {
+   hero->SetPosition(old_hero_pos);
+   npc.SetPosition(old_npc_pos);
+ }
 }

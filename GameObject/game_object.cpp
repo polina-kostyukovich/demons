@@ -4,10 +4,18 @@ GameObject::GameObject(const Point& position) :
     position_(position), hit_box_(position_) {}
 
 GameObject::GameObject(const GameObject& other_object) :
-    position_(other_object.GetPosition()), hit_box_(position_) {}
+    position_(other_object.GetPosition()), hit_box_(position_) {
+  hit_box_.SetVerticalShift(other_object.hit_box_.GetVerticalShift());
+  hit_box_.SetHeight(other_object.hit_box_.GetHeight());
+  hit_box_.SetWidth(other_object.hit_box_.GetWidth());
+}
 
 GameObject::GameObject(GameObject&& other_object) :
-    position_(other_object.GetPosition()), hit_box_(position_) {}
+    position_(other_object.GetPosition()), hit_box_(position_) {
+  hit_box_.SetVerticalShift(other_object.hit_box_.GetVerticalShift());
+  hit_box_.SetHeight(other_object.hit_box_.GetHeight());
+  hit_box_.SetWidth(other_object.hit_box_.GetWidth());
+}
 
 GameObject& GameObject::operator=(const GameObject& other_object) {
   position_ = other_object.GetPosition();

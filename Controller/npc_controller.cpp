@@ -21,3 +21,16 @@ void NpcController::Update(const Point& hero_position) {
 const std::vector<Npc>& NpcController::GetNpcList() const {
   return npc_list_;
 }
+
+std::vector<Npc> &NpcController::GetNpcList() {
+  return npc_list_;
+}
+
+std::vector<Point> NpcController::GetNpcCoordinates() const {
+  std::vector<Point> result;
+  for (const auto& npc : npc_list_) {
+    result.push_back(npc.GetPosition());
+  }
+
+  return result;
+}
