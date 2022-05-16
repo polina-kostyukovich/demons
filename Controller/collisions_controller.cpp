@@ -83,26 +83,27 @@ void CollisionsController::CheckFireballsAndNpc(
     }
   }
 }
-void CollisionsController::CheckHeroAndNpcs(Hero* hero,
-                                            std::vector<Npc>* npcs,
-                                            const Point& old_hero_pos,
-                                            const std::vector<Point>& old_npcs_pos) {
+void CollisionsController::CheckHeroAndNpcs(
+    Hero* hero,
+    std::vector<Npc>* npcs,
+    const Point& old_hero_pos,
+    const std::vector<Point>& old_npcs_pos) {
   for (int i = 0; i < npcs->size(); ++i) {
     auto& npc = npcs->at(i);
-    CheckHeroAndNpc(hero, npc, old_hero_pos, old_npcs_pos[i]);
+    CheckHeroAndNpc(hero, &npc, old_hero_pos, old_npcs_pos[i]);
   }
 }
 
 void CollisionsController::CheckHeroAndNpc(Hero* hero,
-                                            Npc& npc,
-                                            const Point& old_hero_pos,
-                                            const Point& old_npc_pos) {
- if (hero->GetHitBox().IsCollided(npc.GetHitBox())) {
+                                           Npc* npc,
+                                           const Point& old_hero_pos,
+                                           const Point& old_npc_pos) {
+ if (hero->GetHitBox().IsCollided(npc->GetHitBox())) {
    Vector2D repulsion_direction( hero->GetPosition(), old_npc_pos);
    repulsion_direction.Normalize();
 
-   Point new_npc_pos = npc.GetPosition() + (constants::kNpcRepulsionCoefficient
+   Point new_npc_pos = npc->GetPosition() + (constants::kNpcRepulsionCoefficient
                                             * repulsion_direction);
-   npc.SetPosition(new_npc_pos);
+   npc->SetPosition(new_npc_pos);
  }
 }

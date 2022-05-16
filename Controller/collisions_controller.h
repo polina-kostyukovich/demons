@@ -39,8 +39,10 @@ class CollisionsController {
                         const Point& old_hero_pos,
                         const std::vector<Point>& old_npcs_pos);
 
-  void CheckHeroAndNpc(Hero* hero, Npc& npc,
-                        const Point& old_hero_pos, const Point& old_npcs_pos);
+  void CheckHeroAndNpc(Hero* hero,
+                       Npc* npc,
+                       const Point& old_hero_pos,
+                       const Point& old_npcs_pos);
 };
 
 #endif  // CONTROLLER_COLLISIONS_CONTROLLER_H_
