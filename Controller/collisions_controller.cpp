@@ -55,8 +55,9 @@ void CollisionsController::CheckFireballsAndStaticObject(
     std::vector<Fireball>* fireballs,
     const std::shared_ptr<StaticObject>& object) {
   for (int i = 0; i < fireballs->size(); ++i) {
-    if (fireballs->at(i).GetHitBox().IsCollided(object->GetHitBox()) ||
-        fireballs->at(i).GetHitBox().IsCollided(object->GetTopHitBox())) {
+    if (!fireballs->at(i).IsBorn() &&
+        (fireballs->at(i).GetHitBox().IsCollided(object->GetHitBox()) ||
+        fireballs->at(i).GetHitBox().IsCollided(object->GetTopHitBox()))) {
       fireballs->erase(fireballs->begin() + i);
       --i;
     }
@@ -75,7 +76,8 @@ void CollisionsController::CheckFireballsAndNpc(
     std::vector<Fireball>* fireballs,
     const Npc& npc) {
   for (int i = 0; i < fireballs->size(); ++i) {
-    if (fireballs->at(i).GetHitBox().IsCollided(npc.GetHitBox())) {
+    if (!fireballs->at(i).IsBorn() &&
+        fireballs->at(i).GetHitBox().IsCollided(npc.GetHitBox())) {
       fireballs->erase(fireballs->begin() + i);
       --i;
     }
@@ -96,7 +98,11 @@ void CollisionsController::CheckHeroAndNpc(Hero* hero,
                                             const Point& old_hero_pos,
                                             const Point& old_npc_pos) {
  if (hero->GetHitBox().IsCollided(npc.GetHitBox())) {
-   hero->SetPosition(old_hero_pos);
-   npc.SetPosition(old_npc_pos);
+   Vector2D repulsion_direction( hero->GetPosition(), old_npc_pos);
+   repulsion_direction.Normalize();
+
+   Point new_npc_pos = npc.GetPosition() + (constants::kNpcRepulsionCoefficient
+                                            * repulsion_direction);
+   npc.SetPosition(new_npc_pos);
  }
 }
