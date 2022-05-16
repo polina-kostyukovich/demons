@@ -77,7 +77,8 @@ int Controller::GetCounter() const {
 
 void Controller::TimerTick() {
   Point old_hero_position = model_->GetHero().GetPosition();
-  std::vector<Point> old_npc_coords = model_->GetNpcController().GetNpcCoordinates();
+  std::vector<Point> old_npc_coords =
+      model_->GetNpcController().GetNpcCoordinates();
 
   model_->GetHero().Move(GetHeroDirection(),
                          view_->GetWindowWidth(),

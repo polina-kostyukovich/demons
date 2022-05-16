@@ -98,12 +98,12 @@ void CollisionsController::CheckHeroAndNpc(Hero* hero,
                                            Npc* npc,
                                            const Point& old_hero_pos,
                                            const Point& old_npc_pos) {
- if (hero->GetHitBox().IsCollided(npc->GetHitBox())) {
-   Vector2D repulsion_direction( hero->GetPosition(), old_npc_pos);
-   repulsion_direction.Normalize();
+  if (hero->GetHitBox().IsCollided(npc->GetHitBox())) {
+    Vector2D repulsion_direction( hero->GetPosition(), old_npc_pos);
+    repulsion_direction.Normalize();
 
-   Point new_npc_pos = npc->GetPosition() + (constants::kNpcRepulsionCoefficient
+    Point new_npc_pos = npc->GetPosition() + (constants::kNpcRepulsionCoefficient
                                             * repulsion_direction);
-   npc->SetPosition(new_npc_pos);
+    npc->SetPosition(new_npc_pos);
  }
 }
