@@ -110,12 +110,14 @@ void CollisionsController::CheckHeroAndNpc(Hero* hero,
     hero->SetPosition(old_hero_pos);
     hero->SetPositionX(current_hero_pos.GetX());
 
-    bool has_horizontal_collision = (hero->GetHitBox().IsCollided(npc->GetHitBox()));
+    bool has_horizontal_collision =
+        (hero->GetHitBox().IsCollided(npc->GetHitBox()));
 
     hero->SetPosition(old_hero_pos);
     hero->SetPositionY(current_hero_pos.GetY());
 
-    bool has_vertical_collision = (hero->GetHitBox().IsCollided(npc->GetHitBox()));
+    bool has_vertical_collision =
+        (hero->GetHitBox().IsCollided(npc->GetHitBox()));
     hero->SetPosition(old_hero_pos);
 
     if (!has_horizontal_collision) {
@@ -138,8 +140,9 @@ void CollisionsController::CheckNpcAndStaticObjects(
   }
 }
 
-void CollisionsController::CheckNpcAndStaticObject(Npc* npc,
-                                                   std::shared_ptr<StaticObject> object) {
+void CollisionsController::CheckNpcAndStaticObject(
+    Npc* npc,
+    std::shared_ptr<StaticObject> object) {
   if (npc->GetHitBox().IsCollided(object->GetHitBox()) ||
       npc->GetHitBox().IsCollided(object->GetTopHitBox())) {
     object->SetIsOverSomething(true);
