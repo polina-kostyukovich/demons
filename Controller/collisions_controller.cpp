@@ -1,3 +1,4 @@
+#include <iostream>
 #include "collisions_controller.h"
 
 void CollisionsController::CheckHeroAndStaticObjects(
@@ -40,7 +41,7 @@ void CollisionsController::CheckHeroAndStaticObject(
 
   bool has_top_intersection =
       hero->GetHitBox().IsCollided(object->GetTopHitBox());
-  object->SetIsOverHero(has_top_intersection);
+  object->SetIsOverSomething(has_top_intersection);
 }
 
 void CollisionsController::CheckFireballsAndStaticObjects(
@@ -67,8 +68,8 @@ void CollisionsController::CheckFireballsAndStaticObject(
 void CollisionsController::CheckFireballsAndNpcs(
     std::vector<Fireball>* fireballs,
     const std::vector<Npc>& npcs) {
-  for (const auto& object : npcs) {
-    CheckFireballsAndNpc(fireballs, object);
+  for (const auto& npc : npcs) {
+    CheckFireballsAndNpc(fireballs, npc);
   }
 }
 
@@ -99,11 +100,49 @@ void CollisionsController::CheckHeroAndNpc(Hero* hero,
                                            const Point& old_hero_pos,
                                            const Point& old_npc_pos) {
   if (hero->GetHitBox().IsCollided(npc->GetHitBox())) {
-    Vector2D repulsion_direction(hero->GetPosition(), old_npc_pos);
-    repulsion_direction.Normalize();
+    npc->SetPosition(old_npc_pos);
 
-    Point new_npc_pos = npc->GetPosition()
-        + (constants::kNpcRepulsionCoefficient * repulsion_direction);
-    npc->SetPosition(new_npc_pos);
+    Point current_hero_pos = hero->GetPosition();
+
+    hero->SetPosition(old_hero_pos);
+    hero->SetPositionX(current_hero_pos.GetX());
+
+    bool has_horizontal_collision = (hero->GetHitBox().IsCollided(npc->GetHitBox()));
+
+    hero->SetPosition(old_hero_pos);
+    hero->SetPositionY(current_hero_pos.GetY());
+
+    bool has_vertical_collision = (hero->GetHitBox().IsCollided(npc->GetHitBox()));
+    hero->SetPosition(old_hero_pos);
+
+    if (!has_horizontal_collision) {
+      hero->SetPositionX(current_hero_pos.GetX());
+    }
+
+    if (!has_vertical_collision) {
+      hero->SetPositionY(current_hero_pos.GetY());
+    }
+  }
+
+//    Point new_npc_pos = npc->GetPosition()
+//        + (constants::kNpcRepulsionCoefficient * repulsion_direction);
+//    npc->SetPosition(new_npc_pos);
+}
+
+void CollisionsController::CheckNpcAndStaticObjects(
+    std::vector<Npc>* npcs,
+    const std::vector<std::shared_ptr<StaticObject>>& objects) {
+  for (auto npc : *npcs) {
+    for (auto object : objects) {
+      CheckNpcAndStaticObject(&npc, object);
+    }
+  }
+}
+
+void CollisionsController::CheckNpcAndStaticObject(Npc* npc,
+                                                   std::shared_ptr<StaticObject> object) {
+  if (npc->GetHitBox().IsCollided(object->GetHitBox()) ||
+      npc->GetHitBox().IsCollided(object->GetTopHitBox())) {
+    object->SetIsOverSomething(true);
   }
 }

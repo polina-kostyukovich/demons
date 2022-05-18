@@ -12,11 +12,11 @@ class StaticObject : public GameObject {
 
   const HitBox& GetTopHitBox() const;
 
-  void SetIsOverHero(bool is_over_hero);
-  bool IsOverHero() const;
+  void SetIsOverSomething(bool is_over_hero);
+  bool IsOverSomething() const;
 
  protected:
-  bool is_over_hero_{false};
+  bool is_over_something{false};
   HitBox picture_above_hit_box_;
 };
 

@@ -7,10 +7,10 @@ const HitBox& StaticObject::GetTopHitBox() const {
   return picture_above_hit_box_;
 }
 
-void StaticObject::SetIsOverHero(bool is_over_hero) {
-  is_over_hero_ = is_over_hero;
+void StaticObject::SetIsOverSomething(bool is_over_hero) {
+  is_over_something = is_over_hero;
 }
 
-bool StaticObject::IsOverHero() const {
-  return is_over_hero_;
+bool StaticObject::IsOverSomething() const {
+  return is_over_something;
 }
