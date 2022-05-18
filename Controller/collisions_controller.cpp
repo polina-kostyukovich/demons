@@ -57,8 +57,7 @@ void CollisionsController::CheckFireballsAndStaticObject(
     const std::shared_ptr<StaticObject>& object) {
   for (int i = 0; i < fireballs->size(); ++i) {
     if (!fireballs->at(i).IsBorn() &&
-        (fireballs->at(i).GetHitBox().IsCollided(object->GetHitBox()) ||
-        fireballs->at(i).GetHitBox().IsCollided(object->GetTopHitBox()))) {
+        fireballs->at(i).GetHitBox().IsCollided(object->GetHitBox())) {
       fireballs->erase(fireballs->begin() + i);
       --i;
     }
@@ -123,10 +122,6 @@ void CollisionsController::CheckHeroAndNpc(Hero* hero,
       hero->SetPositionY(current_hero_pos.GetY());
     }
   }
-
-//    Point new_npc_pos = npc->GetPosition()
-//        + (constants::kNpcRepulsionCoefficient * repulsion_direction);
-//    npc->SetPosition(new_npc_pos);
 }
 
 void CollisionsController::CheckNpcAndStaticObjects(
