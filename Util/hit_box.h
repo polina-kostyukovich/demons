@@ -19,9 +19,9 @@ class HitBox {
 
  public:
   explicit HitBox(const Point& pos,
-                  double vertical_shift = 0,
-                  double width = 0,
-                  double height = 0) :
+                  long double vertical_shift = 0,
+                  long double width = 0,
+                  long double height = 0) :
       pos_(pos), vertical_shift_(vertical_shift), hit_box_width_(width),
       hit_box_height_(height) {}
 

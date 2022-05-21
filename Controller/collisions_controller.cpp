@@ -1,4 +1,3 @@
-#include <iostream>
 #include "collisions_controller.h"
 
 void CollisionsController::CheckHeroAndStaticObjects(
@@ -40,7 +39,7 @@ void CollisionsController::CheckHeroAndStaticObject(
   }
 
   bool has_top_intersection =
-      hero->GetHitBox().IsCollided(object->GetTopHitBox());
+      hero->GetHitBox().IsCollided(object->GetPictureAboveHitBox());
   object->SetIsOverSomething(has_top_intersection);
 }
 
@@ -56,7 +55,7 @@ void CollisionsController::CheckFireballsAndStaticObject(
     std::vector<Fireball>* fireballs,
     const std::shared_ptr<StaticObject>& object) {
   for (int i = 0; i < fireballs->size(); ++i) {
-    if (fireballs->at(i).GetHitBox().IsCollided(object->GetTopHitBox())) {
+    if (fireballs->at(i).GetHitBox().IsCollided(object->GetPictureAboveHitBox())) {
       object->SetIsOverSomething(true);
     }
 
@@ -93,8 +92,7 @@ void CollisionsController::CheckHeroAndNpcs(
     const Point& old_hero_pos,
     const std::vector<Point>& old_npcs_pos) {
   for (int i = 0; i < npcs->size(); ++i) {
-    auto& npc = npcs->at(i);
-    CheckHeroAndNpc(hero, &npc, old_hero_pos, old_npcs_pos[i]);
+    CheckHeroAndNpc(hero, &npcs->at(i), old_hero_pos, old_npcs_pos.at(i));
   }
 }
 
@@ -135,16 +133,15 @@ void CollisionsController::CheckNpcAndStaticObjects(
     const std::vector<std::shared_ptr<StaticObject>>& objects) {
   for (auto npc : *npcs) {
     for (auto object : objects) {
-      CheckNpcAndStaticObject(&npc, object);
+      CheckNpcAndStaticObject(npc, object);
     }
   }
 }
 
 void CollisionsController::CheckNpcAndStaticObject(
-    Npc* npc,
+    const Npc& npc,
     std::shared_ptr<StaticObject> object) {
-  if (npc->GetHitBox().IsCollided(object->GetHitBox()) ||
-      npc->GetHitBox().IsCollided(object->GetTopHitBox())) {
+  if (npc.GetHitBox().IsCollided(object->GetPictureAboveHitBox())) {
     object->SetIsOverSomething(true);
   }
 }

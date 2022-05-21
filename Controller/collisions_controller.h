@@ -7,8 +7,8 @@
 #include "../GameObject/boiler.h"
 #include "../GameObject/fireball.h"
 #include "../GameObject/hero.h"
-#include "../Util/point.h"
 #include "../GameObject/npc.h"
+#include "../Util/point.h"
 
 class CollisionsController {
  public:
@@ -48,7 +48,7 @@ class CollisionsController {
       std::vector<Npc>* npcs,
       const std::vector<std::shared_ptr<StaticObject>>& objects);
 
-  void CheckNpcAndStaticObject(Npc* npc, std::shared_ptr<StaticObject> object);
+  void CheckNpcAndStaticObject(const Npc& npc, std::shared_ptr<StaticObject> object);
 };
 
 #endif  // CONTROLLER_COLLISIONS_CONTROLLER_H_

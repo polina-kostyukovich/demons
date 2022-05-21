@@ -21,10 +21,16 @@ class GameObject {
   Point GetPosition() const;
 
   const HitBox& GetHitBox() const;
+  const HitBox& GetPictureAboveHitBox() const;
+
+  void SetIsOverSomething(bool is_over_something);
+  bool IsOverSomething() const;
 
  protected:
   Point position_;
   HitBox hit_box_;
+  HitBox picture_above_hit_box_;
+  bool is_over_something_{false};
 };
 
 #endif  // GAMEOBJECT_GAME_OBJECT_H_

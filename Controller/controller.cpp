@@ -86,7 +86,6 @@ void Controller::TimerTick() {
 
   model_->GetNpcController().Update(model_->GetHero().GetPosition());
 
-  // todo collisions with other objects
   collisions_controller_.CheckHeroAndStaticObjects(
       &model_->GetHero(), old_hero_position, model_->GetMap().GetObjects());
   collisions_controller_.CheckFireballsAndStaticObjects(
