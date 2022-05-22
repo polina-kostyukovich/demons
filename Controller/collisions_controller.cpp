@@ -70,6 +70,8 @@ void CollisionsController::CheckFireballsAndStaticObject(
       fireballs->erase(fireballs->begin() + i);
       --i;
     }
+
+
   }
 }
 
