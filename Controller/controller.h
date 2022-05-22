@@ -18,6 +18,9 @@ class Controller : public AbstractController {
   void SetModel(std::unique_ptr<Model>&& model);
   void SetView(std::unique_ptr<View>&& view);
 
+  void ReadSettings();
+  void WriteSettings() override;
+
   void ConnectTimer();
 
   const Model& GetModel() const override;
@@ -35,6 +38,8 @@ class Controller : public AbstractController {
   void HandleKeyReleaseEvent(QKeyEvent* event) override;
 
   int GetCounter() const override;
+
+  bool IsSoundOn() const override;
 
   void HandleMousePressEvent(QMouseEvent* event) override;
 
@@ -54,6 +59,7 @@ class Controller : public AbstractController {
   QTimer* timer_{new QTimer(this)};
   std::map<int, bool> keys_;
   int counter_{0};
+  bool is_sound_on_;
 };
 
 #endif  // CONTROLLER_CONTROLLER_H_

@@ -77,7 +77,7 @@ void View::keyReleaseEvent(QKeyEvent* event) {
 }
 
 void View::closeEvent(QCloseEvent* event) {
-  // save settings
+  controller_->WriteSettings();
 }
 
 void View::mousePressEvent(QMouseEvent* event) {

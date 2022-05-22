@@ -54,5 +54,11 @@
          <file>Resources/Picture/Npc/npc_left4.png</file>
 
         <file>Resources/Jsons/boilers_data.json</file>
+
+        <file>Resources/Music/appearance.wav</file>
+        <file>Resources/Music/background.wav</file>
+        <file>Resources/Music/hit.wav</file>
+        <file>Resources/Music/menu.wav</file>
+        <file>Resources/Music/shot.wav</file>
     </qresource>
 </RCC>

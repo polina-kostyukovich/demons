@@ -3,6 +3,7 @@
 #include <cassert>
 #include <utility>
 #include <vector>
+#include <QSettings>
 
 void Controller::SetModel(std::unique_ptr<Model>&& model) {
   assert(model != nullptr);
@@ -12,6 +13,16 @@ void Controller::SetModel(std::unique_ptr<Model>&& model) {
 void Controller::SetView(std::unique_ptr<View>&& view) {
   assert(view != nullptr);
   view_ = std::move(view);
+}
+
+void Controller::ReadSettings() {
+  QSettings settings("Merciless procrastinators", "Demons");
+  is_sound_on_ = settings.value("IsSoundOn", true).toBool();
+}
+
+void Controller::WriteSettings() {
+  QSettings settings("Merciless procrastinators", "Demons");
+  settings.setValue("IsSoundOn", is_sound_on_);
 }
 
 void Controller::ConnectTimer() {
@@ -24,16 +35,22 @@ const Model& Controller::GetModel() const {
 }
 
 void Controller::Start() {
+  ReadSettings();
   view_->CreateMenu();
   model_->GetMap().SetSize(view_->GetWindowWidth(), view_->GetWindowHeight());
   model_->GetMap().LoadBoilers();
   model_->LoadPictures();
+  model_->LoadSounds();
+  model_->SetMuted(!is_sound_on_);
   view_->show();
+  model_->GetSound(Sound::kMenuMusic).play();
 }
 
 void Controller::StartGame() {
   view_->ShowGame();
   timer_->start();
+  model_->GetSound(Sound::kMenuMusic).stop();
+  model_->GetSound(Sound::kBackgroundMusic).play();
 }
 
 void Controller::NewGame() {
@@ -50,6 +67,8 @@ void Controller::NewGame() {
 void Controller::Pause() {
   view_->ShowMenu();
   timer_->stop();
+  model_->GetSound(Sound::kBackgroundMusic).stop();
+  model_->GetSound(Sound::kMenuMusic).play();
 }
 
 void Controller::ChangeLanguage(Language language) {
@@ -57,7 +76,8 @@ void Controller::ChangeLanguage(Language language) {
 }
 
 void Controller::ChangeSoundOn() {
-  // todo
+  is_sound_on_ = !is_sound_on_;
+  model_->SetMuted(!is_sound_on_);
 }
 
 void Controller::HandleKeyPressEvent(QKeyEvent* event) {
@@ -75,7 +95,15 @@ int Controller::GetCounter() const {
   return counter_;
 }
 
+bool Controller::IsSoundOn() const {
+  return is_sound_on_;
+}
+
 void Controller::TimerTick() {
+  if (!model_->GetSound(Sound::kBackgroundMusic).isPlaying()) {
+    model_->GetSound(Sound::kBackgroundMusic).play();
+  }
+
   model_->GetHero().Move(GetHeroDirection(),
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());
@@ -169,7 +197,6 @@ void Controller::UpdateHeroFields() {
     }
   }
 }
-
 void Controller::UpdateFireballsFields() {
   std::vector<Fireball>& fireballs = model_->GetFireballs();
   for (auto& fireball : fireballs) {

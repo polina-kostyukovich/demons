@@ -11,6 +11,7 @@ find_package(Qt6 COMPONENTS
         Core
         Gui
         Widgets
+        Multimedia
         REQUIRED)
 
 add_executable(demons
@@ -46,4 +47,5 @@ target_link_libraries(demons
         Qt::Core
         Qt::Gui
         Qt::Widgets
+        Qt::Multimedia
         )

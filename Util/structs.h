@@ -16,4 +16,12 @@ enum class Language {
   kRussian,
 };
 
+enum class Sound {
+  kMenuMusic,
+  kBackgroundMusic,
+  kNpcAppearance,
+  kNpcHit,
+  kHeroShot
+};
+
 #endif  // UTIL_STRUCTS_H_

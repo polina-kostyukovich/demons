@@ -12,8 +12,6 @@ Menu::Menu(QWidget* parent) :
     dropdown_menu_(new QMenu(settings_button_)) {
   LoadPictures();
   continue_game_button_->setVisible(false);
-  sound_state_ = Sound::kOn;
-  // in future load from settings
 }
 
 void Menu::SetController(
@@ -105,7 +103,7 @@ void Menu::SetButtonsStyle() {
 
 void Menu::CreateDropdownMenu() {
   QIcon sound_icon;
-  if (sound_state_ == Sound::kOn) {
+  if (controller_->IsSoundOn()) {
     sound_icon = QIcon(sound_on_picture_);
   } else {
     sound_icon = QIcon(sound_off_picture_);
@@ -114,12 +112,10 @@ void Menu::CreateDropdownMenu() {
 
   connect(sound_action, &QAction::triggered, this, [&, sound_action] {
     controller_->ChangeSoundOn();
-    if (sound_state_ == Sound::kOn) {
-      sound_state_ = Sound::kOff;
-      sound_action->setIcon(QIcon(sound_off_picture_));
-    } else {
-      sound_state_ = Sound::kOn;
+    if (controller_->IsSoundOn()) {
       sound_action->setIcon(QIcon(sound_on_picture_));
+    } else {
+      sound_action->setIcon(QIcon(sound_off_picture_));
     }
   });
 
