@@ -77,27 +77,28 @@ void View::mousePressEvent(QMouseEvent* event) {
 
 void View::RenderLevel(int level, QPainter* painter) {
   if (controller_->GetModel().GetHero().GetRenderingLevel() == level) {
-    Draw(controller_->GetModel().GetHero().GetPicture(controller_->GetCounter()),
+    Draw(controller_->GetModel().GetHero().GetPicture(
+        controller_->GetCounter()),
          painter);
-    painter->drawRect(controller_->GetModel().GetHero().GetPosition().GetX()
-                         - controller_->GetModel().GetHero().GetHitBox().GetWidth()
-                             / 2,
-                     controller_->GetModel().GetHero().GetPosition().GetY()
-                         - controller_->GetModel().GetHero().GetHitBox().GetHeight()
-                             / 2
-                         + controller_->
-                             GetModel().GetHero().GetHitBox().GetVerticalShift(),
-                     controller_->GetModel().GetHero().GetHitBox().GetWidth(),
-                     controller_->GetModel().GetHero().GetHitBox().GetHeight());
+    painter->drawRect(
+        controller_->GetModel().GetHero().GetPosition().GetX()
+        - controller_->GetModel().GetHero().GetHitBox().GetWidth() / 2,
+        controller_->GetModel().GetHero().GetPosition().GetY()
+        - controller_->GetModel().GetHero().GetHitBox().GetHeight() / 2
+        + controller_-> GetModel().GetHero().GetHitBox().GetVerticalShift(),
+        controller_->GetModel().GetHero().GetHitBox().GetWidth(),
+        controller_->GetModel().GetHero().GetHitBox().GetHeight());
   }
 
   auto npc_list = controller_->GetModel().GetNpcController().GetNpcList();
   for (const auto& npc : npc_list) {
     if (npc.GetRenderingLevel() == level) {
       Draw(npc.GetPicture(), painter);
-      painter->drawRect(npc.GetPosition().GetX() - npc.GetHitBox().GetWidth() / 2,
-                       npc.GetPosition().GetY() - npc.GetHitBox().GetHeight() / 2
-                           + npc.GetHitBox().GetVerticalShift(),
+      painter->drawRect(npc.GetPosition().GetX()
+                        - npc.GetHitBox().GetWidth() / 2,
+                       npc.GetPosition().GetY()
+                        - npc.GetHitBox().GetHeight() / 2
+                        + npc.GetHitBox().GetVerticalShift(),
                        npc.GetHitBox().GetWidth(), npc.GetHitBox().GetHeight());
     }
   }
@@ -106,10 +107,13 @@ void View::RenderLevel(int level, QPainter* painter) {
   for (const auto& fireball : fireballs) {
     if (fireball.GetRenderingLevel() == level) {
       Draw(fireball.GetPicture(), painter);
-      painter->drawRect(fireball.GetPosition().GetX() - fireball.GetHitBox().GetWidth() / 2,
-                       fireball.GetPosition().GetY() - fireball.GetHitBox().GetHeight() / 2
-                           + fireball.GetHitBox().GetVerticalShift(),
-                       fireball.GetHitBox().GetWidth(), fireball.GetHitBox().GetHeight());
+      painter->drawRect(fireball.GetPosition().GetX()
+                        - fireball.GetHitBox().GetWidth() / 2,
+                        fireball.GetPosition().GetY()
+                        - fireball.GetHitBox().GetHeight() / 2
+                        + fireball.GetHitBox().GetVerticalShift(),
+                        fireball.GetHitBox().GetWidth(),
+                        fireball.GetHitBox().GetHeight());
     }
   }
 
