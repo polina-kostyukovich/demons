@@ -9,8 +9,8 @@ Npc::Npc(const Point& position) : Creature(position) {
                             * constants::kNpcSize);
 
   picture_above_hit_box_.SetWidth(hit_box_.GetWidth());
-  picture_above_hit_box_.SetHeight(constants::kNpcSize
-                                   * (1 - constants::kNpcHitBoxHeightCoefficient));
+  picture_above_hit_box_.SetHeight(
+      constants::kNpcSize * (1 - constants::kNpcHitBoxHeightCoefficient));
   picture_above_hit_box_.SetVerticalShift(
       -(0.5 * hit_box_.GetHeight() - hit_box_.GetVerticalShift()));
 }

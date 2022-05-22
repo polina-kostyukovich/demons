@@ -90,7 +90,8 @@ void CollisionsController::CheckFireballsAndNpcs(
 
       if (npcs->at(i).GetHitBox().IsCollided(
           fireballs->at(j).GetPictureAboveHitBox())) {
-        fireballs->at(j).SetRenderingLevel(npcs->at(i).GetRenderingLevel() + 1);
+        fireballs->at(j).SetRenderingLevel(
+            npcs->at(i).GetRenderingLevel() + 1);
       }
 
       if (!fireballs->at(j).IsBorn() &&

@@ -13,10 +13,11 @@ Fireball::Fireball(const Point &position, const Point &purpose) :
       (0.5 - constants::kFireballHitBoxHeightCoefficient / 2)
       * constants::kFireballSize);
 
-  picture_above_hit_box_.SetWidth(constants::kFireballSize
-                                      * constants::kFireballHitBoxWidthCoefficient);
+  picture_above_hit_box_.SetWidth(
+      constants::kFireballSize * constants::kFireballHitBoxWidthCoefficient);
   picture_above_hit_box_.SetHeight(
-      constants::kFireballSize * (1.5 - constants::kFireballHitBoxHeightCoefficient));
+      constants::kFireballSize
+      * (1.5 - constants::kFireballHitBoxHeightCoefficient));
   picture_above_hit_box_.SetVerticalShift(
       -(0.5 * hit_box_.GetHeight() - hit_box_.GetVerticalShift()));
 }
