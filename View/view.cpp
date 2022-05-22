@@ -36,11 +36,9 @@ void View::paintEvent(QPaintEvent* event) {
   Draw(controller_->GetModel().GetMap().GetPicture(), &painter);
 
   int max_rendering_level = controller_->GetMaxRenderingLevel();
-  for (int level = max_rendering_level; level >= 0; --level) {
+  for (int level = 0; level <= max_rendering_level; ++level) {
     RenderLevel(level, &painter);
   }
-
-  controller_->ResetAllRenderingLevels();
 }
 
 void View::Draw(const Picture& animation, QPainter* painter) {

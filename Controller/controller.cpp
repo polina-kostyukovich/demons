@@ -77,6 +77,8 @@ int Controller::GetCounter() const {
 }
 
 void Controller::TimerTick() {
+  ResetAllRenderingLevels();
+
   Point old_hero_position = model_->GetHero().GetPosition();
   std::vector<Point> old_npc_coords =
       model_->GetNpcController().GetNpcCoordinates();

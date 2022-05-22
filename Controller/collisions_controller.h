@@ -48,7 +48,8 @@ class CollisionsController {
       std::vector<Npc>* npcs,
       const std::vector<std::shared_ptr<StaticObject>>& objects);
 
-  void CheckNpcAndStaticObject(Npc* npc, std::shared_ptr<StaticObject> object);
+  void CheckNpcAndStaticObject(const std::shared_ptr<Npc>& npc,
+                               std::shared_ptr<StaticObject> object);
 };
 
 #endif  // CONTROLLER_COLLISIONS_CONTROLLER_H_

@@ -9,6 +9,12 @@ Hero::Hero(const Point& position) : Creature(position) {
       constants::kHeroHitBoxHeightCoefficient * constants::kHeroSize);
   hit_box_.SetVerticalShift((0.5 - constants::kHeroHitBoxHeightCoefficient / 2)
                                 * constants::kHeroSize);
+
+  picture_above_hit_box_.SetWidth(constants::kHeroSize);
+  picture_above_hit_box_.SetHeight(
+      constants::kHeroSize * constants::kHeroPictureHeightCoefficient);
+  picture_above_hit_box_.SetVerticalShift(
+      -(0.5 * hit_box_.GetHeight() - hit_box_.GetVerticalShift()));
 }
 
 void Hero::LoadPictures() {
