@@ -34,53 +34,13 @@ void View::ShowMenu() {
 void View::paintEvent(QPaintEvent* event) {
   QPainter painter(this);
   Draw(controller_->GetModel().GetMap().GetPicture(), &painter);
-  painter.drawRect(controller_->GetModel().GetHero().GetPosition().GetX()
-                   - controller_->GetModel().GetHero().GetHitBox().GetWidth()
-                   / 2,
-                   controller_->GetModel().GetHero().GetPosition().GetY()
-                   - controller_->GetModel().GetHero().GetHitBox().GetHeight()
-                   / 2
-                   + controller_->
-                   GetModel().GetHero().GetHitBox().GetVerticalShift(),
-                   controller_->GetModel().GetHero().GetHitBox().GetWidth(),
-                   controller_->GetModel().GetHero().GetHitBox().GetHeight());
-  for (const auto& object : controller_->GetModel().GetMap().GetObjects()) {
-    Draw(object->GetPicture(), &painter);
-    painter.drawRect(object->GetPosition().GetX() -
-                    object->GetHitBox().GetWidth() / 2,
-                    object->GetPosition().GetY()
-                    - object->GetHitBox().GetHeight() / 2
-                    + object->GetHitBox().GetVerticalShift(),
-                    object->GetHitBox().GetWidth(),
-                    object->GetHitBox().GetHeight());
+
+  int max_rendering_level = controller_->GetMaxRenderingLevel();
+  for (int level = max_rendering_level; level >= 0; --level) {
+    RenderLevel(level, &painter);
   }
 
-  auto npc_list = controller_->GetModel().GetNpcController().GetNpcList();
-  for (const auto& npc : npc_list) {
-    Draw(npc.GetPicture(), &painter);
-    painter.drawRect(npc.GetPosition().GetX() - npc.GetHitBox().GetWidth() / 2,
-                     npc.GetPosition().GetY() - npc.GetHitBox().GetHeight() / 2
-                     + npc.GetHitBox().GetVerticalShift(),
-                     npc.GetHitBox().GetWidth(), npc.GetHitBox().GetHeight());
-  }
-
-  Draw(controller_->GetModel().GetHero().GetPicture(controller_->GetCounter()),
-       &painter);
-
-  auto fireballs = controller_->GetModel().GetFireballs();
-  for (const auto& fireball : fireballs) {
-    Draw(fireball.GetPicture(), &painter);
-    painter.drawRect(fireball.GetPosition().GetX() - fireball.GetHitBox().GetWidth() / 2,
-                     fireball.GetPosition().GetY() - fireball.GetHitBox().GetHeight() / 2
-                     + fireball.GetHitBox().GetVerticalShift(),
-                     fireball.GetHitBox().GetWidth(), fireball.GetHitBox().GetHeight());
-  }
-
-  for (const auto& object : controller_->GetModel().GetMap().GetObjects()) {
-    if (object->IsOverSomething()) {
-      Draw(object->GetPicture(), &painter);
-    }
-  }
+  controller_->ResetAllRenderingLevels();
 }
 
 void View::Draw(const Picture& animation, QPainter* painter) {
@@ -113,4 +73,56 @@ void View::closeEvent(QCloseEvent* event) {
 
 void View::mousePressEvent(QMouseEvent* event) {
   controller_->HandleMousePressEvent(event);
+}
+
+void View::RenderLevel(int level, QPainter* painter) {
+  if (controller_->GetModel().GetHero().GetRenderingLevel() == level) {
+    Draw(controller_->GetModel().GetHero().GetPicture(controller_->GetCounter()),
+         painter);
+    painter->drawRect(controller_->GetModel().GetHero().GetPosition().GetX()
+                         - controller_->GetModel().GetHero().GetHitBox().GetWidth()
+                             / 2,
+                     controller_->GetModel().GetHero().GetPosition().GetY()
+                         - controller_->GetModel().GetHero().GetHitBox().GetHeight()
+                             / 2
+                         + controller_->
+                             GetModel().GetHero().GetHitBox().GetVerticalShift(),
+                     controller_->GetModel().GetHero().GetHitBox().GetWidth(),
+                     controller_->GetModel().GetHero().GetHitBox().GetHeight());
+  }
+
+  auto npc_list = controller_->GetModel().GetNpcController().GetNpcList();
+  for (const auto& npc : npc_list) {
+    if (npc.GetRenderingLevel() == level) {
+      Draw(npc.GetPicture(), painter);
+      painter->drawRect(npc.GetPosition().GetX() - npc.GetHitBox().GetWidth() / 2,
+                       npc.GetPosition().GetY() - npc.GetHitBox().GetHeight() / 2
+                           + npc.GetHitBox().GetVerticalShift(),
+                       npc.GetHitBox().GetWidth(), npc.GetHitBox().GetHeight());
+    }
+  }
+
+  auto fireballs = controller_->GetModel().GetFireballs();
+  for (const auto& fireball : fireballs) {
+    if (fireball.GetRenderingLevel() == level) {
+      Draw(fireball.GetPicture(), painter);
+      painter->drawRect(fireball.GetPosition().GetX() - fireball.GetHitBox().GetWidth() / 2,
+                       fireball.GetPosition().GetY() - fireball.GetHitBox().GetHeight() / 2
+                           + fireball.GetHitBox().GetVerticalShift(),
+                       fireball.GetHitBox().GetWidth(), fireball.GetHitBox().GetHeight());
+    }
+  }
+
+  for (const auto& object : controller_->GetModel().GetMap().GetObjects()) {
+    if (object->GetRenderingLevel() == level) {
+      Draw(object->GetPicture(), painter);
+      painter->drawRect(object->GetPosition().GetX() -
+                            object->GetHitBox().GetWidth() / 2,
+                        object->GetPosition().GetY()
+                            - object->GetHitBox().GetHeight() / 2
+                            + object->GetHitBox().GetVerticalShift(),
+                        object->GetHitBox().GetWidth(),
+                        object->GetHitBox().GetHeight());
+    }
+  }
 }

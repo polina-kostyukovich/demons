@@ -205,3 +205,44 @@ void Controller::UpdateFireballsFields() {
     }
   }
 }
+
+int Controller::GetMaxRenderingLevel() const {
+  int result = 0;
+
+  auto npcs = model_->GetNpcController().GetNpcList();
+  for (const auto& npc : npcs) {
+    result = std::max(result, npc.GetRenderingLevel());
+  }
+
+  auto objects = model_->GetMap().GetObjects();
+  for (const auto& object : objects) {
+    result = std::max(result, object->GetRenderingLevel());
+  }
+
+  auto fireballs = model_->GetFireballs();
+  for (const auto& fireball : fireballs) {
+    result = std::max(result, fireball.GetRenderingLevel());
+  }
+
+  result = std::max(result, model_->GetHero().GetRenderingLevel());
+  return result;
+}
+
+void Controller::ResetAllRenderingLevels() {
+  auto npcs = model_->GetNpcController().GetNpcList();
+  for (auto& npc : npcs) {
+    npc.SetRenderingLevel(0);
+  }
+
+  auto objects = model_->GetMap().GetObjects();
+  for (auto& object : objects) {
+    object->SetRenderingLevel(0);
+  }
+
+  auto fireballs = model_->GetFireballs();
+  for (auto& fireball : fireballs) {
+    fireball.SetRenderingLevel(0);
+  }
+
+  model_->GetHero().SetRenderingLevel(0);
+}

@@ -40,7 +40,12 @@ void CollisionsController::CheckHeroAndStaticObject(
 
   bool has_top_intersection =
       hero->GetHitBox().IsCollided(object->GetPictureAboveHitBox());
-  object->SetIsOverSomething(has_top_intersection);
+  if (has_top_intersection) {
+    hero->SetRenderingLevel(object->GetRenderingLevel() + 1);
+  }
+  if (object->GetHitBox().IsCollided(hero->GetPictureAboveHitBox())) {
+    object->SetRenderingLevel(hero->GetRenderingLevel() + 1);
+  }
 }
 
 void CollisionsController::CheckFireballsAndStaticObjects(
@@ -56,7 +61,7 @@ void CollisionsController::CheckFireballsAndStaticObject(
     const std::shared_ptr<StaticObject>& object) {
   for (int i = 0; i < fireballs->size(); ++i) {
     if (fireballs->at(i).GetHitBox().IsCollided(object->GetPictureAboveHitBox())) {
-      object->SetIsOverSomething(true);
+      fireballs->at(i).SetRenderingLevel(object->GetRenderingLevel() + 1);
     }
 
     if (!fireballs->at(i).IsBorn() &&
@@ -128,6 +133,14 @@ void CollisionsController::CheckHeroAndNpc(Hero* hero,
       hero->SetPositionY(current_hero_pos.GetY());
     }
   }
+
+  if (hero->GetHitBox().IsCollided(npc->GetPictureAboveHitBox())) {
+    hero->SetRenderingLevel(npc->GetRenderingLevel() + 1);
+  }
+
+  if (npc->GetHitBox().IsCollided(hero->GetPictureAboveHitBox())) {
+    npc->SetRenderingLevel(hero->GetRenderingLevel() + 1);
+  }
 }
 
 void CollisionsController::CheckNpcAndStaticObjects(
@@ -135,15 +148,18 @@ void CollisionsController::CheckNpcAndStaticObjects(
     const std::vector<std::shared_ptr<StaticObject>>& objects) {
   for (auto npc : *npcs) {
     for (auto object : objects) {
-      CheckNpcAndStaticObject(npc, object);
+      CheckNpcAndStaticObject(&npc, object);
     }
   }
 }
 
 void CollisionsController::CheckNpcAndStaticObject(
-    const Npc& npc,
+     Npc* npc,
     std::shared_ptr<StaticObject> object) {
-  if (npc.GetHitBox().IsCollided(object->GetPictureAboveHitBox())) {
-    object->SetIsOverSomething(true);
+  if (npc->GetHitBox().IsCollided(object->GetPictureAboveHitBox())) {
+    npc->SetRenderingLevel(object->GetRenderingLevel() + 1);
+  }
+  if (object->GetHitBox().IsCollided(npc->GetPictureAboveHitBox())) {
+    object->SetRenderingLevel(npc->GetRenderingLevel() + 1);
   }
 }

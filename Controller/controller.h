@@ -43,6 +43,9 @@ class Controller : public AbstractController {
   void UpdateHeroFields();
   void UpdateFireballsFields();
 
+  int GetMaxRenderingLevel() const override;
+  void ResetAllRenderingLevels() override;
+
  public slots:
   void TimerTick();
 
