@@ -60,7 +60,8 @@ void CollisionsController::CheckFireballsAndStaticObject(
     std::vector<Fireball>* fireballs,
     const std::shared_ptr<StaticObject>& object) {
   for (int i = 0; i < fireballs->size(); ++i) {
-    if (fireballs->at(i).GetHitBox().IsCollided(object->GetPictureAboveHitBox())) {
+    if (fireballs->at(i).GetHitBox().IsCollided(
+        object->GetPictureAboveHitBox())) {
       fireballs->at(i).SetRenderingLevel(object->GetRenderingLevel() + 1);
     }
 
