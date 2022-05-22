@@ -3,7 +3,7 @@
 GameObject::GameObject(const Point& position) :
     position_(position),
     hit_box_(position_),
-    picture_above_hit_box_(position) {
+    picture_above_hit_box_(position_) {
   is_over_something_ = false;
 }
 

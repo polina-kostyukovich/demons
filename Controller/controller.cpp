@@ -91,7 +91,7 @@ void Controller::TimerTick() {
   collisions_controller_.CheckFireballsAndStaticObjects(
       &model_->GetFireballs(), model_->GetMap().GetObjects());
   collisions_controller_.CheckFireballsAndNpcs(
-      &model_->GetFireballs(), model_->GetNpcController().GetNpcList());
+      &model_->GetFireballs(), &model_->GetNpcController().GetNpcList());
   collisions_controller_.CheckHeroAndNpcs(
       &model_->GetHero(), &model_->GetNpcController().GetNpcList(),
       old_hero_position, old_npc_coords);

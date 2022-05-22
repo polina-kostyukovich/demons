@@ -69,23 +69,25 @@ void CollisionsController::CheckFireballsAndStaticObject(
 
 void CollisionsController::CheckFireballsAndNpcs(
     std::vector<Fireball>* fireballs,
-    const std::vector<Npc>& npcs) {
-  for (const auto& npc : npcs) {
-    CheckFireballsAndNpc(fireballs, npc);
-  }
-}
-
-void CollisionsController::CheckFireballsAndNpc(
-    std::vector<Fireball>* fireballs,
-    const Npc& npc) {
-  for (int i = 0; i < fireballs->size(); ++i) {
-    if (!fireballs->at(i).IsBorn() &&
-        fireballs->at(i).GetHitBox().IsCollided(npc.GetHitBox())) {
-      fireballs->erase(fireballs->begin() + i);
+    std::vector<Npc>* npcs) {
+  for (int i = 0; i < npcs->size(); ++i) {
+    bool is_dead = false;
+    for (int j = 0; j < fireballs->size(); ++j) {
+      if (!fireballs->at(j).IsBorn() &&
+          fireballs->at(j).GetHitBox().IsCollided(npcs->at(i).GetHitBox())) {
+        is_dead = true;
+        fireballs->erase(fireballs->begin() + j);
+        --j;
+        break;
+      }
+    }
+    if (is_dead) {
+      npcs->erase(npcs->begin() + i);
       --i;
     }
   }
 }
+
 void CollisionsController::CheckHeroAndNpcs(
     Hero* hero,
     std::vector<Npc>* npcs,
