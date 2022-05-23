@@ -1,5 +1,6 @@
 #include <cmath>
 #include <iostream>
+#include <map>
 #include <set>
 
 #include "npc.h"
@@ -37,7 +38,6 @@ void Npc::Update(const Point& target_position, const Map& map) {
   directions.emplace_back(position_, target_position);
 
   while (!hero_was_riched) {
-    assert(int(points_order.size()) > 0);
     ProcessingPoint cur_point = *points_order.begin();
     points_order.erase(points_order.begin());
 
