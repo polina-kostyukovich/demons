@@ -104,7 +104,6 @@ void View::RenderLevel(int level, QPainter* painter) {
   auto npc_list = controller_->GetModel().GetNpcController().GetNpcList();
   for (const auto& npc : npc_list) {
     if (npc.GetRenderingLevel() == level) {
-
       std::cerr << npc.GetHitBox().GetWidth()
                 << " " << npc.GetHitBox().GetHeight() << '\n';
       Draw(npc.GetPicture(), painter);
