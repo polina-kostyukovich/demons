@@ -149,7 +149,8 @@ void View::RenderLevel(int level, QPainter* painter) {
                             object->GetPictureAboveHitBox().GetWidth() / 2,
                         object->GetPosition().GetY()
                             - object->GetPictureAboveHitBox().GetHeight() / 2
-                            + object->GetPictureAboveHitBox().GetVerticalShift(),
+                            + object->GetPictureAboveHitBox().
+                            GetVerticalShift(),
                         object->GetPictureAboveHitBox().GetWidth(),
                         object->GetPictureAboveHitBox().GetHeight());
     }
