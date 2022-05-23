@@ -100,7 +100,6 @@ void Controller::TimerTick() {
       old_hero_position, old_npc_coords);
   collisions_controller_.CheckNpcAndStaticObjects(
       &model_->GetNpcController().GetNpcList(), model_->GetMap().GetObjects());
-
   while(!AreAllRenderingLevelsNumerated()) {
     NumerateAllRenderingLevels();
   }
