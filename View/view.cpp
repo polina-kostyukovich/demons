@@ -90,10 +90,13 @@ void View::RenderLevel(int level, QPainter* painter) {
 
     painter->drawRect(
         controller_->GetModel().GetHero().GetPosition().GetX()
-            - controller_->GetModel().GetHero().GetPictureAboveHitBox().GetWidth() / 2,
+            - controller_->GetModel().GetHero().GetPictureAboveHitBox().GetWidth()
+            / 2,
         controller_->GetModel().GetHero().GetPosition().GetY()
-            - controller_->GetModel().GetHero().GetPictureAboveHitBox().GetHeight() / 2
-            + controller_-> GetModel().GetHero().GetPictureAboveHitBox().GetVerticalShift(),
+            - controller_->GetModel().GetHero().GetPictureAboveHitBox().GetHeight()
+            / 2
+            + controller_->
+            GetModel().GetHero().GetPictureAboveHitBox().GetVerticalShift(),
         controller_->GetModel().GetHero().GetPictureAboveHitBox().GetWidth(),
         controller_->GetModel().GetHero().GetPictureAboveHitBox().GetHeight());
   }
@@ -116,7 +119,8 @@ void View::RenderLevel(int level, QPainter* painter) {
                         npc.GetPosition().GetY()
                             - npc.GetPictureAboveHitBox().GetHeight() / 2
                             + npc.GetPictureAboveHitBox().GetVerticalShift(),
-                        npc.GetPictureAboveHitBox().GetWidth(), npc.GetPictureAboveHitBox().GetHeight());
+                        npc.GetPictureAboveHitBox().GetWidth(),
+                        npc.GetPictureAboveHitBox().GetHeight());
     }
   }
 
