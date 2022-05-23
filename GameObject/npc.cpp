@@ -13,34 +13,6 @@ void Npc::LoadPictures() {
   InputPictures(picture);
 }
 
-struct ProcessingPoint {
-  Point position_;
-  long double weight_{0.};
-
-  ProcessingPoint() = default;
-
-  ProcessingPoint(const Point& position, long double weight) :
-                  position_(position),
-                  weight_(weight) {}
-
-  bool operator<(const ProcessingPoint& second) const {
-    if (abs(weight_ - second.weight_) > constants::kEpsilon) {
-      return weight_ - second.weight_ < -constants::kEpsilon;
-    }
-    if (abs(position_.GetX() - second.position_.GetX()) < constants::kEpsilon) {
-      return position_.GetY() - second.position_.GetY() < -constants::kEpsilon;
-    } else {
-      return position_.GetX() - second.position_.GetX() < -constants::kEpsilon;
-    }
-  }
-
-  bool operator==(const ProcessingPoint& second) const {
-    return (abs(position_.GetX() - second.position_.GetX()) < constants::kEpsilon) &&
-           (abs(position_.GetY() - second.position_.GetY()) < constants::kEpsilon) &&
-           (abs(weight_ - second.weight_) < constants::kEpsilon);
-  }
-};
-
 void Npc::Update(const Point& target_position, const Map& map) {
   std::set<ProcessingPoint> points_order;
   std::map<ProcessingPoint, bool> point_is_used;
@@ -69,7 +41,8 @@ void Npc::Update(const Point& target_position, const Map& map) {
     ProcessingPoint cur_point = *points_order.begin();
     points_order.erase(points_order.begin());
 
-    if (Point::Distance(cur_point.position_, target_position) <= constants::kClose) {
+    if (Point::Distance(cur_point.position_, target_position) <=
+        constants::kClose) {
       hero_was_riched = true;
       end_point = cur_point;
       break;
@@ -162,4 +135,30 @@ int Npc::GetCounter() const {
 
 void Npc::SetCounter(int counter) {
   tick_counter_ = counter;
+}
+
+Npc::ProcessingPoint::ProcessingPoint(const Point &position,
+                                      long double weight) :
+    position_(position),
+    weight_(weight) {}
+
+bool Npc::ProcessingPoint::operator<(
+    const Npc::ProcessingPoint &second) const {
+  if (abs(weight_ - second.weight_) > constants::kEpsilon) {
+    return weight_ - second.weight_ < -constants::kEpsilon;
+  }
+  if (abs(position_.GetX() - second.position_.GetX()) < constants::kEpsilon) {
+    return position_.GetY() - second.position_.GetY() < -constants::kEpsilon;
+  } else {
+    return position_.GetX() - second.position_.GetX() < -constants::kEpsilon;
+  }
+}
+
+bool Npc::ProcessingPoint::operator==(
+    const Npc::ProcessingPoint &second) const {
+  return (abs(position_.GetX() - second.position_.GetX()) <
+          constants::kEpsilon) &&
+         (abs(position_.GetY() - second.position_.GetY()) <
+          constants::kEpsilon) &&
+         (abs(weight_ - second.weight_) < constants::kEpsilon);
 }

@@ -31,6 +31,18 @@ class Npc : public Creature {
   static inline std::vector<QPixmap> pictures_;
   bool is_moving_right_;
   int tick_counter_{0};
+
+  struct ProcessingPoint {
+    Point position_;
+    long double weight_{0.};
+
+    ProcessingPoint() = default;
+
+    ProcessingPoint(const Point& position, long double weight);
+
+    bool operator<(const ProcessingPoint& second) const;
+    bool operator==(const ProcessingPoint& second) const;
+  };
 };
 
 #endif  // GAMEOBJECT_NPC_H_
