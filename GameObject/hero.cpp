@@ -1,6 +1,5 @@
 #include "hero.h"
 
-#include <iostream>
 #include <string>
 
 Hero::Hero(const Point& position) : Creature(position) {
@@ -14,7 +13,8 @@ Hero::Hero(const Point& position) : Creature(position) {
   picture_above_hit_box_.SetHeight(
       constants::kHeroSize * (1. - constants::kHeroHitBoxHeightCoefficient));
   picture_above_hit_box_.SetVerticalShift(
-      -(0.5 - ((1. - constants::kHeroHitBoxHeightCoefficient) / 2.)) * constants::kHeroSize);
+      -(0.5 - (1. - constants::kHeroHitBoxHeightCoefficient) / 2.)
+      * constants::kHeroSize);
 }
 
 void Hero::LoadPictures() {
