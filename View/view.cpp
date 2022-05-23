@@ -3,7 +3,6 @@
 #include <utility>
 #include <QGuiApplication>
 #include <QScreen>
-#include <iostream>
 
 View::View() {
   setWindowState(Qt::WindowFullScreen);
@@ -104,8 +103,6 @@ void View::RenderLevel(int level, QPainter* painter) {
   auto npc_list = controller_->GetModel().GetNpcController().GetNpcList();
   for (const auto& npc : npc_list) {
     if (npc.GetRenderingLevel() == level) {
-      std::cerr << npc.GetHitBox().GetWidth()
-                << " " << npc.GetHitBox().GetHeight() << '\n';
       Draw(npc.GetPicture(), painter);
       painter->drawRect(npc.GetPosition().GetX()
                         - npc.GetHitBox().GetWidth() / 2,
@@ -147,6 +144,14 @@ void View::RenderLevel(int level, QPainter* painter) {
                             + object->GetHitBox().GetVerticalShift(),
                         object->GetHitBox().GetWidth(),
                         object->GetHitBox().GetHeight());
+
+      painter->drawRect(object->GetPosition().GetX() -
+                            object->GetPictureAboveHitBox().GetWidth() / 2,
+                        object->GetPosition().GetY()
+                            - object->GetPictureAboveHitBox().GetHeight() / 2
+                            + object->GetPictureAboveHitBox().GetVerticalShift(),
+                        object->GetPictureAboveHitBox().GetWidth(),
+                        object->GetPictureAboveHitBox().GetHeight());
     }
   }
 }

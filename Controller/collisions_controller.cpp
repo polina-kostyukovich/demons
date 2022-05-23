@@ -1,4 +1,3 @@
-#include <iostream>
 #include "collisions_controller.h"
 
 void CollisionsController::CheckHeroAndStaticObjects(

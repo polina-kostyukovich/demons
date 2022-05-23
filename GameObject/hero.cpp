@@ -7,15 +7,14 @@ Hero::Hero(const Point& position) : Creature(position) {
   hit_box_.SetWidth(constants::kHeroSize);
   hit_box_.SetHeight(
       constants::kHeroHitBoxHeightCoefficient * constants::kHeroSize);
-  hit_box_.SetVerticalShift((0.5 - constants::kHeroHitBoxHeightCoefficient / 2)
+  hit_box_.SetVerticalShift((0.5 - constants::kHeroHitBoxHeightCoefficient / 2.)
                                 * constants::kHeroSize);
 
   picture_above_hit_box_.SetWidth(constants::kHeroSize);
   picture_above_hit_box_.SetHeight(
-      constants::kHeroSize * constants::kHeroPictureHeightCoefficient);
+      constants::kHeroSize * (1. - constants::kHeroHitBoxHeightCoefficient));
   picture_above_hit_box_.SetVerticalShift(
-      -(0.5 * picture_above_hit_box_.GetHeight()
-      - hit_box_.GetVerticalShift()));
+      -(0.5 - ((1. - constants::kHeroHitBoxHeightCoefficient) / 2.)) * constants::kHeroSize);
 }
 
 void Hero::LoadPictures() {

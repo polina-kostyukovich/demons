@@ -14,9 +14,9 @@ GameObject::GameObject(const GameObject& other_object) :
   hit_box_.SetWidth(other_object.hit_box_.GetWidth());
 
   picture_above_hit_box_.SetVerticalShift(
-      other_object.hit_box_.GetVerticalShift());
-  picture_above_hit_box_.SetHeight(other_object.hit_box_.GetHeight());
-  picture_above_hit_box_.SetWidth(other_object.hit_box_.GetWidth());
+      other_object.picture_above_hit_box_.GetVerticalShift());
+  picture_above_hit_box_.SetHeight(other_object.picture_above_hit_box_.GetHeight());
+  picture_above_hit_box_.SetWidth(other_object.picture_above_hit_box_.GetWidth());
   SetRenderingLevel(other_object.rendering_level_);
 }
 
@@ -29,9 +29,11 @@ GameObject::GameObject(GameObject&& other_object) :
   hit_box_.SetWidth(other_object.hit_box_.GetWidth());
 
   picture_above_hit_box_.SetVerticalShift(
-      other_object.hit_box_.GetVerticalShift());
-  picture_above_hit_box_.SetHeight(other_object.hit_box_.GetHeight());
-  picture_above_hit_box_.SetWidth(other_object.hit_box_.GetWidth());
+      other_object.picture_above_hit_box_.GetVerticalShift());
+  picture_above_hit_box_.SetHeight(
+      other_object.picture_above_hit_box_.GetHeight());
+  picture_above_hit_box_.SetWidth(
+      other_object.picture_above_hit_box_.GetWidth());
   SetRenderingLevel(other_object.rendering_level_);
 }
 
@@ -42,9 +44,11 @@ GameObject& GameObject::operator=(const GameObject& other_object) {
   hit_box_.SetHeight(other_object.hit_box_.GetHeight());
 
   picture_above_hit_box_.SetVerticalShift(
-      other_object.hit_box_.GetVerticalShift());
-  picture_above_hit_box_.SetHeight(other_object.hit_box_.GetHeight());
-  picture_above_hit_box_.SetWidth(other_object.hit_box_.GetWidth());
+      other_object.picture_above_hit_box_.GetVerticalShift());
+  picture_above_hit_box_.SetHeight(
+      other_object.picture_above_hit_box_.GetHeight());
+  picture_above_hit_box_.SetWidth(
+      other_object.picture_above_hit_box_.GetWidth());
   SetRenderingLevel(other_object.rendering_level_);
   return *this;
 }
@@ -56,9 +60,11 @@ GameObject& GameObject::operator=(GameObject&& other_object) {
   hit_box_.SetHeight(other_object.hit_box_.GetHeight());
 
   picture_above_hit_box_.SetVerticalShift(
-      other_object.hit_box_.GetVerticalShift());
-  picture_above_hit_box_.SetHeight(other_object.hit_box_.GetHeight());
-  picture_above_hit_box_.SetWidth(other_object.hit_box_.GetWidth());
+      other_object.picture_above_hit_box_.GetVerticalShift());
+  picture_above_hit_box_.SetHeight(
+      other_object.picture_above_hit_box_.GetHeight());
+  picture_above_hit_box_.SetWidth(
+      other_object.picture_above_hit_box_.GetWidth());
   SetRenderingLevel(other_object.rendering_level_);
   return *this;
 }

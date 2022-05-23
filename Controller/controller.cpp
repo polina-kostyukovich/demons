@@ -101,6 +101,10 @@ void Controller::TimerTick() {
   collisions_controller_.CheckNpcAndStaticObjects(
       &model_->GetNpcController().GetNpcList(), model_->GetMap().GetObjects());
 
+  while(!AreAllRenderingLevelsNumerated()) {
+    NumerateAllRenderingLevels();
+  }
+
   ++counter_;
   counter_ %= constants::kHeroSpeedCoefficient * constants::kNumberOfAnimation;
 
@@ -248,4 +252,34 @@ void Controller::ResetAllRenderingLevels() {
   }
 
   model_->GetHero().SetRenderingLevel(0);
+}
+
+bool Controller::AreAllRenderingLevelsNumerated() const {
+  auto all_objects = model_->GetAllGameObjects();
+  for (int i = 0; i < all_objects.size(); ++i) {
+    for (int j = 0; j < all_objects.size(); ++j) {
+      if (all_objects.at(i)->GetHitBox().IsCollided(
+          all_objects.at(j)->GetPictureAboveHitBox()) &&
+          all_objects.at(i)->GetRenderingLevel() >
+          all_objects.at(j)->GetRenderingLevel()) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
+void Controller::NumerateAllRenderingLevels() {
+  auto all_objects = model_->GetAllGameObjects();
+
+  for (int i = 0; i < all_objects.size(); ++i) {
+    for (int j = 0; j < all_objects.size(); ++j) {
+      if (all_objects.at(i)->GetHitBox().IsCollided(
+          all_objects.at(j)->GetPictureAboveHitBox())) {
+        all_objects.at(j)->SetRenderingLevel(
+            all_objects.at(i)->GetRenderingLevel() + 1);
+      }
+    }
+  }
 }

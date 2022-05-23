@@ -42,3 +42,21 @@ const std::vector<Fireball>& Model::GetFireballs() const {
 void Model::AddFireball(const Fireball& fireball) {
   fireballs_.emplace_back(fireball);
 }
+
+std::vector<GameObject*> Model::GetAllGameObjects() {
+  std::vector<GameObject*> result;
+  for (const auto& object : GetMap().GetObjects()) {
+    result.emplace_back(object.get());
+  }
+  for (auto& object : GetFireballs()) {
+    result.emplace_back(&object);
+  }
+
+  for (auto& object : GetNpcController().GetNpcList()) {
+    result.emplace_back(&object);
+  }
+
+  result.emplace_back(&GetHero());
+
+  return result;
+}
