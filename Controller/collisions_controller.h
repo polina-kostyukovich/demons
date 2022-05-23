@@ -32,8 +32,6 @@ class CollisionsController {
   void CheckFireballsAndNpcs(std::vector<Fireball>* fireballs,
                              std::vector<Npc>* objects);
 
-  void CheckFireballsAndNpc(std::vector<Fireball>* fireballs, const Npc& npc);
-
   void CheckHeroAndNpcs(Hero* hero,
                         std::vector<Npc>* npcs,
                         const Point& old_hero_pos,
@@ -48,7 +46,7 @@ class CollisionsController {
       std::vector<Npc>* npcs,
       const std::vector<std::shared_ptr<StaticObject>>& objects);
 
-  void CheckNpcAndStaticObject(const std::shared_ptr<Npc>& npc,
+  void CheckNpcAndStaticObject(Npc* npc,
                                std::shared_ptr<StaticObject> object);
 };
 

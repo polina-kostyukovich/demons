@@ -165,13 +165,13 @@ void CollisionsController::CheckNpcAndStaticObjects(
     const std::vector<std::shared_ptr<StaticObject>>& objects) {
   for (auto& npc : *npcs) {
     for (auto& object : objects) {
-      CheckNpcAndStaticObject(std::make_shared<Npc>(npc), object);
+      CheckNpcAndStaticObject(&npc, object);
     }
   }
 }
 
 void CollisionsController::CheckNpcAndStaticObject(
-    const std::shared_ptr<Npc>& npc,
+    Npc* npc,
     std::shared_ptr<StaticObject> object) {
   if (npc->GetHitBox().IsCollided(object->GetPictureAboveHitBox())) {
     object->SetRenderingLevel(npc->GetRenderingLevel() + 1);
