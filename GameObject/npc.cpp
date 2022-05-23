@@ -1,4 +1,7 @@
 #include <cmath>
+#include <iostream>
+#include <set>
+
 #include "npc.h"
 
 Npc::Npc(const Point& position) : Creature(position) {}
@@ -10,28 +13,98 @@ void Npc::LoadPictures() {
   InputPictures(picture);
 }
 
+struct ProcessingPoint {
+  Point position_;
+  long double weight_{0.};
+
+  ProcessingPoint() = default;
+
+  ProcessingPoint(const Point& position, long double weight) :
+                  position_(position),
+                  weight_(weight) {}
+
+  bool operator<(const ProcessingPoint& second) const {
+    if (abs(weight_ - second.weight_) > constants::kEpsilon) {
+      return weight_ - second.weight_ < -constants::kEpsilon;
+    }
+    if (abs(position_.GetX() - second.position_.GetX()) < constants::kEpsilon) {
+      return position_.GetY() - second.position_.GetY() < -constants::kEpsilon;
+    } else {
+      return position_.GetX() - second.position_.GetX() < -constants::kEpsilon;
+    }
+  }
+
+  bool operator==(const ProcessingPoint& second) const {
+    return (abs(position_.GetX() - second.position_.GetX()) < constants::kEpsilon) &&
+           (abs(position_.GetY() - second.position_.GetY()) < constants::kEpsilon) &&
+           (abs(weight_ - second.weight_) < constants::kEpsilon);
+  }
+};
+
 void Npc::Update(const Point& target_position, const Map& map) {
-  Vector2D direction;
-  long double min_distance = constants::kMaxDistance;
-  for (long double delta_x = -1;
-       delta_x - 1. < constants::kEpsilon;
-       delta_x += constants::kDirectionStep) {
-    for (long double delta_y = -1;
-         delta_y - 1. < constants::kEpsilon;
-         delta_y += constants::kDirectionStep) {
-      Vector2D new_direction(delta_x, delta_y);
+  std::set<ProcessingPoint> points_order;
+  std::map<ProcessingPoint, bool> point_is_used;
+  std::map<ProcessingPoint, ProcessingPoint> previous_point;
+
+  ProcessingPoint start_point({position_,
+                               Point::Distance(position_, target_position)});
+  points_order.insert(start_point);
+  point_is_used[start_point] = true;
+  previous_point[start_point] = start_point;
+
+  ProcessingPoint end_point;
+
+  bool hero_was_riched = false;
+
+  std::vector<Vector2D> directions;
+  for (int delta_x = -1; delta_x <= 1; delta_x++) {
+    for (int delta_y = -1; delta_y <= 1; delta_y++) {
+      directions.emplace_back(delta_x, delta_y);
+    }
+  }
+  directions.emplace_back(position_, target_position);
+
+  while (!hero_was_riched) {
+    assert(int(points_order.size()) > 0);
+    ProcessingPoint cur_point = *points_order.begin();
+    points_order.erase(points_order.begin());
+
+    if (Point::Distance(cur_point.position_, target_position) <= constants::kClose) {
+      hero_was_riched = true;
+      end_point = cur_point;
+      break;
+    }
+
+    directions.pop_back();
+    directions.emplace_back(cur_point.position_, target_position);
+
+    for (auto& new_direction : directions) {
       new_direction.Normalize();
-      long double cur_distance =
-          Point::Distance(position_ + new_direction * constants::kNpcStep,
-                          target_position);
-      if (cur_distance - min_distance < -constants::kEpsilon &&
-          CanMove(position_ + new_direction * constants::kNpcStep, map)) {
-        direction = new_direction;
-        min_distance = cur_distance;
+
+      ProcessingPoint new_point;
+      new_point.position_ = cur_point.position_ +
+                            new_direction * constants::kNpcStep;
+      new_point.weight_ = Point::Distance(new_point.position_,
+                                          target_position);
+      if (CanMove(new_point.position_, map) &&
+          !point_is_used[new_point]) {
+        previous_point[new_point] = cur_point;
+        point_is_used[new_point] = true;
+        points_order.insert(new_point);
       }
     }
   }
 
+  bool next_point_found = false;
+  while (!next_point_found) {
+    if (previous_point[end_point] == start_point) {
+      next_point_found = true;
+    } else {
+      end_point = previous_point[end_point];
+    }
+  }
+  Vector2D direction(position_, end_point.position_);
+  direction.Normalize();
   Move(direction);
 }
 
@@ -43,7 +116,7 @@ bool Npc::CanMove(const Point& new_position, const Map& map) {
     return false;
   }
 
-  if (dynamic_cast<Boiler*>(map.GetObject(column, row).get()) != nullptr) {
+  if (map.GetObject(column, row).get() != nullptr) {
     return false;
   }
   return true;
