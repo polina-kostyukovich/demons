@@ -36,7 +36,7 @@ const long double kHeroHitBoxHeightCoefficient = 0.4;
 const long double kHeroPictureHeightCoefficient = 0.85;
 const long double kBoilerHitBoxHeightCoefficient = 0.55;
 const long double kNpcHitBoxHeightCoefficient = 0.5;
-const long double kNpcWidthHitBoxCoefficient = 0.4;
+const long double kNpcHitBoxWidthCoefficient = 0.4;
 const long double kFireballHitBoxHeightCoefficient = 0.4;
 const long double kFireballHitBoxWidthCoefficient = 0.6;
 }  // namespace constants

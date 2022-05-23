@@ -3,6 +3,7 @@
 #include <utility>
 #include <QGuiApplication>
 #include <QScreen>
+#include <iostream>
 
 View::View() {
   setWindowState(Qt::WindowFullScreen);
@@ -86,11 +87,23 @@ void View::RenderLevel(int level, QPainter* painter) {
         + controller_-> GetModel().GetHero().GetHitBox().GetVerticalShift(),
         controller_->GetModel().GetHero().GetHitBox().GetWidth(),
         controller_->GetModel().GetHero().GetHitBox().GetHeight());
+
+    painter->drawRect(
+        controller_->GetModel().GetHero().GetPosition().GetX()
+            - controller_->GetModel().GetHero().GetPictureAboveHitBox().GetWidth() / 2,
+        controller_->GetModel().GetHero().GetPosition().GetY()
+            - controller_->GetModel().GetHero().GetPictureAboveHitBox().GetHeight() / 2
+            + controller_-> GetModel().GetHero().GetPictureAboveHitBox().GetVerticalShift(),
+        controller_->GetModel().GetHero().GetPictureAboveHitBox().GetWidth(),
+        controller_->GetModel().GetHero().GetPictureAboveHitBox().GetHeight());
   }
 
   auto npc_list = controller_->GetModel().GetNpcController().GetNpcList();
   for (const auto& npc : npc_list) {
     if (npc.GetRenderingLevel() == level) {
+
+      std::cerr << npc.GetHitBox().GetWidth()
+                << " " << npc.GetHitBox().GetHeight() << '\n';
       Draw(npc.GetPicture(), painter);
       painter->drawRect(npc.GetPosition().GetX()
                         - npc.GetHitBox().GetWidth() / 2,
@@ -98,6 +111,12 @@ void View::RenderLevel(int level, QPainter* painter) {
                         - npc.GetHitBox().GetHeight() / 2
                         + npc.GetHitBox().GetVerticalShift(),
                        npc.GetHitBox().GetWidth(), npc.GetHitBox().GetHeight());
+      painter->drawRect(npc.GetPosition().GetX()
+                            - npc.GetPictureAboveHitBox().GetWidth() / 2,
+                        npc.GetPosition().GetY()
+                            - npc.GetPictureAboveHitBox().GetHeight() / 2
+                            + npc.GetPictureAboveHitBox().GetVerticalShift(),
+                        npc.GetPictureAboveHitBox().GetWidth(), npc.GetPictureAboveHitBox().GetHeight());
     }
   }
 

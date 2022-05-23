@@ -35,6 +35,9 @@ class HitBox {
 
   bool IsCollided(const HitBox& other_hit_box) const;
 
+  Point GetLeftUpperCoordinates() const;
+  Point GetRightLowerCoordinates() const;
+
  private:
   Rect GetRect() const;
 

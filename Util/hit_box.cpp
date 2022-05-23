@@ -52,3 +52,11 @@ HitBox::Rect HitBox::GetRect() const {
 
   return Rect(left_upper_coords, right_lower_coords);
 }
+
+Point HitBox::GetLeftUpperCoordinates() const {
+  return GetRect().left_upper_coords;
+}
+
+Point HitBox::GetRightLowerCoordinates() const {
+  return GetRect().right_lower_coords;
+}
