@@ -2,6 +2,7 @@
 #define MODEL_CONSTANTS_H_
 
 namespace constants {
+const long double kEpsilonTest = 1;
 const long double kEpsilon = 1e-9;
 const long double kClose = 3;
 const long double kMaxDistance = 1e9;

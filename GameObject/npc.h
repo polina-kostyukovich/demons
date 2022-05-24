@@ -40,8 +40,10 @@ class Npc : public Creature {
 
     ProcessingPoint(const Point& position, long double weight);
 
-    bool operator<(const ProcessingPoint& second) const;
     bool operator==(const ProcessingPoint& second) const;
+    bool operator<(const ProcessingPoint& second) const;
+
+    bool operator=(const ProcessingPoint& second);
   };
 };
 

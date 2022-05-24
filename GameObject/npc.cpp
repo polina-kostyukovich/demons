@@ -17,13 +17,13 @@ void Npc::LoadPictures() {
 void Npc::Update(const Point& target_position, const Map& map) {
   std::set<ProcessingPoint> points_order;
   std::map<ProcessingPoint, bool> point_is_used;
-  std::map<ProcessingPoint, ProcessingPoint> previous_point;
+  std::map<Point, Point> previous_point;
 
   ProcessingPoint start_point({position_,
                                Point::Distance(position_, target_position)});
   points_order.insert(start_point);
   point_is_used[start_point] = true;
-  previous_point[start_point] = start_point;
+  previous_point[start_point.position_] = start_point.position_;
 
   ProcessingPoint end_point;
 
@@ -38,13 +38,18 @@ void Npc::Update(const Point& target_position, const Map& map) {
   directions.emplace_back(position_, target_position);
 
   while (!hero_was_riched) {
+    if (points_order.empty()) {
+      return;
+    }
     ProcessingPoint cur_point = *points_order.begin();
+    // std::cout << cur_point.position_ << '\n';
     points_order.erase(points_order.begin());
 
     if (Point::Distance(cur_point.position_, target_position) <=
         constants::kClose) {
       hero_was_riched = true;
       end_point = cur_point;
+      // std::cout << "We riched the end!\n";
       break;
     }
 
@@ -61,21 +66,25 @@ void Npc::Update(const Point& target_position, const Map& map) {
                                           target_position);
       if (CanMove(new_point.position_, map) &&
           !point_is_used[new_point]) {
-        previous_point[new_point] = cur_point;
+        // std::cout << new_point.position_ << '\n';
+        previous_point[new_point.position_] = cur_point.position_;
         point_is_used[new_point] = true;
         points_order.insert(new_point);
       }
     }
   }
 
-  bool next_point_found = false;
-  while (!next_point_found) {
-    if (previous_point[end_point] == start_point) {
-      next_point_found = true;
-    } else {
-      end_point = previous_point[end_point];
+  Point next_step = end_point.position_;
+  // std::cout << "Try to find the way...\n";
+  int i = 0;
+  while (previous_point[next_step] != start_point.position_) {
+    // std::cout << next_step << " " << start_point.position_ << '\n';
+    if (previous_point[next_step].GetX() == 0 && i < 5) {
+      i++;
     }
+    next_step = previous_point[next_step];
   }
+  // std::cout << "Way was found!\n";
   Vector2D direction(position_, end_point.position_);
   direction.Normalize();
   Move(direction);
@@ -144,21 +153,25 @@ Npc::ProcessingPoint::ProcessingPoint(const Point &position,
 
 bool Npc::ProcessingPoint::operator<(
     const Npc::ProcessingPoint &second) const {
-  if (abs(weight_ - second.weight_) > constants::kEpsilon) {
-    return weight_ - second.weight_ < -constants::kEpsilon;
+  if (abs(weight_ - second.weight_) > constants::kEpsilonTest) {
+    return weight_ - second.weight_ < -constants::kEpsilonTest;
   }
-  if (abs(position_.GetX() - second.position_.GetX()) < constants::kEpsilon) {
-    return position_.GetY() - second.position_.GetY() < -constants::kEpsilon;
-  } else {
-    return position_.GetX() - second.position_.GetX() < -constants::kEpsilon;
+  if (abs(position_.GetX() - second.position_.GetX()) < constants::kEpsilonTest) {
+    return position_.GetY() - second.position_.GetY() < -constants::kEpsilonTest;
   }
+  return position_.GetX() - second.position_.GetX() < -constants::kEpsilonTest;
 }
 
 bool Npc::ProcessingPoint::operator==(
     const Npc::ProcessingPoint &second) const {
   return (abs(position_.GetX() - second.position_.GetX()) <
-          constants::kEpsilon) &&
+          constants::kEpsilonTest) &&
          (abs(position_.GetY() - second.position_.GetY()) <
-          constants::kEpsilon) &&
-         (abs(weight_ - second.weight_) < constants::kEpsilon);
+          constants::kEpsilonTest) &&
+         (abs(weight_ - second.weight_) < constants::kEpsilonTest);
+}
+
+bool Npc::ProcessingPoint::operator=(const Npc::ProcessingPoint& second) {
+  weight_ = second.weight_;
+  position_ = second.position_;
 }

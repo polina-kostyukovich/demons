@@ -45,11 +45,19 @@ long double Point::GetY() const {
 }
 
 bool Point::operator==(const Point& another_point) const {
-    return (Distance(*this, another_point) <= constants::kEpsilon);
+    return std::abs(x_ - another_point.x_) < constants::kEpsilon &&
+           std::abs(y_ - another_point.y_) < constants::kEpsilon;
 }
 
 bool Point::operator!=(const Point& another_point) const {
     return !(*this == another_point);
+}
+
+bool Point::operator<(const Point &another_point) const {
+  if (std::abs(x_ - another_point.x_) < constants::kEpsilon) {
+    return y_ - another_point.y_ < -constants::kEpsilon;
+  }
+  return x_ - another_point.x_ < -constants::kEpsilon;
 }
 
 Point& Point::operator=(const Point& another_point) {
