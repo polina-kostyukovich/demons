@@ -98,8 +98,7 @@ void Controller::TimerTick() {
   collisions_controller_.CheckHeroAndNpcs(
       &model_->GetHero(), &model_->GetNpcController().GetNpcList(),
       old_hero_position, old_npc_coords);
-  collisions_controller_.CheckNpcAndStaticObjects(
-      &model_->GetNpcController().GetNpcList(), model_->GetMap().GetObjects());
+
   while (!AreAllRenderingLevelsNumerated()) {
     NumerateAllRenderingLevels();
   }
@@ -215,51 +214,31 @@ void Controller::UpdateFireballsFields() {
 int Controller::GetMaxRenderingLevel() const {
   int result = 0;
 
-  auto npcs = model_->GetNpcController().GetNpcList();
-  for (const auto& npc : npcs) {
-    result = std::max(result, npc.GetRenderingLevel());
-  }
-
-  auto objects = model_->GetMap().GetObjects();
-  for (const auto& object : objects) {
+  auto all_objects = model_->GetAllGameObjects();
+  for (const auto& object : all_objects) {
     result = std::max(result, object->GetRenderingLevel());
   }
-
-  auto fireballs = model_->GetFireballs();
-  for (const auto& fireball : fireballs) {
-    result = std::max(result, fireball.GetRenderingLevel());
-  }
-
-  result = std::max(result, model_->GetHero().GetRenderingLevel());
   return result;
 }
 
 void Controller::ResetAllRenderingLevels() {
-  auto npcs = model_->GetNpcController().GetNpcList();
-  for (auto& npc : npcs) {
-    npc.SetRenderingLevel(0);
-  }
-
-  auto objects = model_->GetMap().GetObjects();
-  for (auto& object : objects) {
+  auto all_objects = model_->GetAllGameObjects();
+  for (auto& object : all_objects) {
     object->SetRenderingLevel(0);
   }
-
-  auto fireballs = model_->GetFireballs();
-  for (auto& fireball : fireballs) {
-    fireball.SetRenderingLevel(0);
-  }
-
-  model_->GetHero().SetRenderingLevel(0);
 }
 
 bool Controller::AreAllRenderingLevelsNumerated() const {
   auto all_objects = model_->GetAllGameObjects();
   for (int i = 0; i < all_objects.size(); ++i) {
     for (int j = 0; j < all_objects.size(); ++j) {
+      if (i == j) {
+        continue;
+      }
+
       if (all_objects.at(i)->GetHitBox().IsCollided(
           all_objects.at(j)->GetPictureAboveHitBox()) &&
-          all_objects.at(i)->GetRenderingLevel() >
+          all_objects.at(i)->GetRenderingLevel() >=
           all_objects.at(j)->GetRenderingLevel()) {
         return false;
       }
@@ -274,10 +253,16 @@ void Controller::NumerateAllRenderingLevels() {
 
   for (int i = 0; i < all_objects.size(); ++i) {
     for (int j = 0; j < all_objects.size(); ++j) {
+      if (i == j) {
+        continue;
+      }
+
       if (all_objects.at(i)->GetHitBox().IsCollided(
-          all_objects.at(j)->GetPictureAboveHitBox())) {
+          all_objects.at(j)->GetPictureAboveHitBox()) &&
+          all_objects.at(i)->GetRenderingLevel() >=
+          all_objects.at(j)->GetRenderingLevel()) {
         all_objects.at(j)->SetRenderingLevel(
-            all_objects.at(i)->GetRenderingLevel() + 1);
+            all_objects.at(j)->GetRenderingLevel() + 1);
       }
     }
   }

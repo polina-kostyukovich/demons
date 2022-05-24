@@ -56,7 +56,7 @@ std::vector<GameObject*> Model::GetAllGameObjects() {
     result.emplace_back(&object);
   }
 
-  result.emplace_back(&GetHero());
+  result.emplace_back(&hero_);
 
   return result;
 }

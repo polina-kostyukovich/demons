@@ -37,13 +37,6 @@ void CollisionsController::CheckHeroAndStaticObject(
       hero->SetPosition(old_hero_position);
     }
   }
-
-  if (hero->GetHitBox().IsCollided(object->GetPictureAboveHitBox())) {
-    object->SetRenderingLevel(hero->GetRenderingLevel() + 1);
-  }
-  if (object->GetHitBox().IsCollided(hero->GetPictureAboveHitBox())) {
-    hero->SetRenderingLevel(object->GetRenderingLevel() + 1);
-  }
 }
 
 void CollisionsController::CheckFireballsAndStaticObjects(
@@ -58,16 +51,6 @@ void CollisionsController::CheckFireballsAndStaticObject(
     std::vector<Fireball>* fireballs,
     const std::shared_ptr<StaticObject>& object) {
   for (int i = 0; i < fireballs->size(); ++i) {
-    if (fireballs->at(i).GetHitBox().IsCollided(
-        object->GetPictureAboveHitBox())) {
-      object->SetRenderingLevel(fireballs->at(i).GetRenderingLevel() + 1);
-    }
-
-    if (object->GetHitBox().IsCollided(
-        fireballs->at(i).GetPictureAboveHitBox())) {
-      fireballs->at(i).SetRenderingLevel(object->GetRenderingLevel() + 1);
-    }
-
     if (!fireballs->at(i).IsBorn() &&
         fireballs->at(i).GetHitBox().IsCollided(object->GetHitBox())) {
       fireballs->erase(fireballs->begin() + i);
@@ -82,18 +65,6 @@ void CollisionsController::CheckFireballsAndNpcs(
   for (int i = 0; i < npcs->size(); ++i) {
     bool is_dead = false;
     for (int j = 0; j < fireballs->size(); ++j) {
-      if (fireballs->at(j).GetHitBox().IsCollided(
-          npcs->at(i).GetPictureAboveHitBox())) {
-        npcs->at(i).SetRenderingLevel(
-            fireballs->at(j).GetRenderingLevel() + 1);
-      }
-
-      if (npcs->at(i).GetHitBox().IsCollided(
-          fireballs->at(j).GetPictureAboveHitBox())) {
-        fireballs->at(j).SetRenderingLevel(
-            npcs->at(i).GetRenderingLevel() + 1);
-      }
-
       if (!fireballs->at(j).IsBorn() &&
           fireballs->at(j).GetHitBox().IsCollided(npcs->at(i).GetHitBox())) {
         is_dead = true;
@@ -148,34 +119,5 @@ void CollisionsController::CheckHeroAndNpc(Hero* hero,
     if (!has_vertical_collision) {
       hero->SetPositionY(current_hero_pos.GetY());
     }
-  }
-
-  if (hero->GetHitBox().IsCollided(npc->GetPictureAboveHitBox())) {
-    npc->SetRenderingLevel(hero->GetRenderingLevel() + 1);
-  }
-
-  if (npc->GetHitBox().IsCollided(hero->GetPictureAboveHitBox())) {
-    hero->SetRenderingLevel(npc->GetRenderingLevel() + 1);
-  }
-}
-
-void CollisionsController::CheckNpcAndStaticObjects(
-    std::vector<Npc>* npcs,
-    const std::vector<std::shared_ptr<StaticObject>>& objects) {
-  for (auto& npc : *npcs) {
-    for (auto& object : objects) {
-      CheckNpcAndStaticObject(&npc, object);
-    }
-  }
-}
-
-void CollisionsController::CheckNpcAndStaticObject(
-    Npc* npc,
-    std::shared_ptr<StaticObject> object) {
-  if (npc->GetHitBox().IsCollided(object->GetPictureAboveHitBox())) {
-    object->SetRenderingLevel(npc->GetRenderingLevel() + 1);
-  }
-  if (object->GetHitBox().IsCollided(npc->GetPictureAboveHitBox())) {
-    npc->SetRenderingLevel(object->GetRenderingLevel() + 1);
   }
 }
