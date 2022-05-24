@@ -31,13 +31,15 @@ bool HitBox::IsCollided(const HitBox& other_hit_box) const {
       !(other_rect.left_upper_coords.GetX() -
           our_rect.right_lower_coords.GetX() > -constants::kCollisionEpsilon ||
           our_rect.left_upper_coords.GetX() -
-            other_rect.right_lower_coords.GetX() > -constants::kCollisionEpsilon);
+            other_rect.right_lower_coords.GetX() >
+            -constants::kCollisionEpsilon);
 
   bool is_intersected_along_y_axis =
       !(other_rect.left_upper_coords.GetY() -
           our_rect.right_lower_coords.GetY() > -constants::kCollisionEpsilon ||
           our_rect.left_upper_coords.GetY() -
-              other_rect.right_lower_coords.GetY() > -constants::kCollisionEpsilon);
+              other_rect.right_lower_coords.GetY() >
+              -constants::kCollisionEpsilon);
 
   return (is_intersected_along_x_axis && is_intersected_along_y_axis);
 }
