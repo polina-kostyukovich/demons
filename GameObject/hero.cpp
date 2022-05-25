@@ -96,3 +96,7 @@ bool Hero::IsStriking() {
 void Hero::SetStriking(bool is_striking) {
   is_striking_ = is_striking;
 }
+
+Picture Hero::GetPicture() const {
+  return Picture();
+}

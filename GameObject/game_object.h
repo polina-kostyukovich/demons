@@ -3,6 +3,7 @@
 
 #include "../Util/hit_box.h"
 #include "../Util/point.h"
+#include "../Util/structs.h"
 
 class GameObject {
  public:
@@ -25,6 +26,8 @@ class GameObject {
 
   void SetRenderingLevel(int layer);
   int GetRenderingLevel() const;
+
+  virtual Picture GetPicture() const = 0;
 
  protected:
   Point position_;

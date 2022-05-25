@@ -12,7 +12,7 @@ class Fireball : public DynamicObject {
   Fireball(const Point& position, const Point& purpose);
 
   static void LoadPictures();
-  Picture GetPicture() const;
+  Picture GetPicture() const override;
 
   void Move(const Point& spawn_pos);
 

@@ -236,7 +236,18 @@ bool Controller::AreAllRenderingLevelsNumerated() const {
         continue;
       }
 
-      if (all_objects.at(i)->GetHitBox().IsCollided(
+      if ((dynamic_cast<Fireball*>(all_objects[i]) != nullptr &&
+          dynamic_cast<Hero*>(all_objects[j]) != nullptr) &&
+          all_objects.at(i)->GetHitBox().IsCollided(
+              all_objects.at(j)->GetPictureAboveHitBox()) &&
+          all_objects.at(i)->GetRenderingLevel() <=
+              all_objects.at(j)->GetRenderingLevel()) {
+        return false;
+      }
+
+      if ((dynamic_cast<Fireball*>(all_objects[i]) == nullptr &&
+          dynamic_cast<Hero*>(all_objects[j]) == nullptr) &&
+          all_objects.at(i)->GetHitBox().IsCollided(
           all_objects.at(j)->GetPictureAboveHitBox()) &&
           all_objects.at(i)->GetRenderingLevel() >=
           all_objects.at(j)->GetRenderingLevel()) {
@@ -254,6 +265,17 @@ void Controller::NumerateAllRenderingLevels() {
   for (int i = 0; i < all_objects.size(); ++i) {
     for (int j = 0; j < all_objects.size(); ++j) {
       if (i == j) {
+        continue;
+      }
+
+      if ((dynamic_cast<Fireball*>(all_objects[i]) != nullptr &&
+          dynamic_cast<Hero*>(all_objects[j]) != nullptr) &&
+          all_objects.at(i)->GetHitBox().IsCollided(
+              all_objects.at(j)->GetPictureAboveHitBox()) &&
+          all_objects.at(i)->GetRenderingLevel() <=
+          all_objects.at(j)->GetRenderingLevel()) {
+        all_objects.at(i)->SetRenderingLevel(
+            all_objects.at(i)->GetRenderingLevel() + 1);
         continue;
       }
 
