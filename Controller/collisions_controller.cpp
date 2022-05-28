@@ -1,7 +1,7 @@
 #include "collisions_controller.h"
 
 void CollisionsController::CheckCollisions(
-    const std::shared_ptr<Model>& model,
+    const std::unique_ptr<Model>& model,
     const Point& old_hero_pos,
     const std::vector<Point>& old_npcs_pos,
     int window_width, int window_height) {
@@ -12,7 +12,8 @@ void CollisionsController::CheckCollisions(
   CheckHeroAndNpcs(model, old_hero_pos, old_npcs_pos);
 }
 
-void CollisionsController::PrepareForDrawing(const std::shared_ptr<Model>& model) {
+void CollisionsController::PrepareForDrawing(
+    const std::unique_ptr<Model>& model) {
   auto objects = model->GetAllGameObjects();
   ResetAllRenderingLevels(objects);
   while (!AreAllRenderingLevelsNumerated(objects)) {
@@ -21,7 +22,7 @@ void CollisionsController::PrepareForDrawing(const std::shared_ptr<Model>& model
 }
 
 void CollisionsController::CheckFireballsWithWalls(
-    const std::shared_ptr<Model>& model,
+    const std::unique_ptr<Model>& model,
     int window_width, int window_height) {
   auto& fireballs = model->GetFireballs();
   for (int i = 0; i < fireballs.size(); ++i) {
@@ -47,7 +48,7 @@ void CollisionsController::CheckFireballsWithWalls(
 }
 
 void CollisionsController::CheckHeroAndStaticObjects(
-    const std::shared_ptr<Model>& model,
+    const std::unique_ptr<Model>& model,
     const Point& old_hero_position) {
   auto& objects = model->GetMap().GetObjects();
   for (const auto& object : objects) {
@@ -56,7 +57,7 @@ void CollisionsController::CheckHeroAndStaticObjects(
 }
 
 void CollisionsController::CheckHeroAndStaticObject(
-    const std::shared_ptr<Model>& model,
+    const std::unique_ptr<Model>& model,
     const Point& old_hero_position,
     const std::shared_ptr<StaticObject>& object) {
   auto& hero = model->GetHero();
@@ -87,7 +88,7 @@ void CollisionsController::CheckHeroAndStaticObject(
 }
 
 void CollisionsController::CheckFireballsAndStaticObjects(
-    const std::shared_ptr<Model>& model) {
+    const std::unique_ptr<Model>& model) {
   auto& objects = model->GetMap().GetObjects();
   auto& fireballs = model->GetFireballs();
   for (const auto& static_object : objects) {
@@ -102,7 +103,7 @@ void CollisionsController::CheckFireballsAndStaticObjects(
 }
 
 void CollisionsController::CheckFireballsAndNpcs(
-    const std::shared_ptr<Model>& model) {
+    const std::unique_ptr<Model>& model) {
   auto& npcs = model->GetNpcController().GetNpcList();
   auto& fireballs = model->GetFireballs();
   for (int i = 0; i < npcs.size(); ++i) {
@@ -124,7 +125,7 @@ void CollisionsController::CheckFireballsAndNpcs(
 }
 
 void CollisionsController::CheckHeroAndNpcs(
-    const std::shared_ptr<Model>& model,
+    const std::unique_ptr<Model>& model,
     const Point& old_hero_pos,
     const std::vector<Point>& old_npcs_pos) {
   auto& hero = model->GetHero();

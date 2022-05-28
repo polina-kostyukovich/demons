@@ -16,7 +16,7 @@ class Controller : public AbstractController {
  public:
   Controller() = default;
 
-  void SetModel(std::shared_ptr<Model>&& model);
+  void SetModel(std::unique_ptr<Model>&& model);
   void SetView(std::unique_ptr<View>&& view);
 
   void ConnectTimer();
@@ -53,7 +53,7 @@ class Controller : public AbstractController {
   Vector2D GetHeroDirection() const;
 
  private:
-  std::shared_ptr<Model> model_;
+  std::unique_ptr<Model> model_;
   std::unique_ptr<View> view_;
   CollisionsController collisions_controller_;
   QTimer* timer_{new QTimer(this)};

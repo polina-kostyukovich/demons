@@ -5,7 +5,7 @@
 #include <utility>
 #include <vector>
 
-void Controller::SetModel(std::shared_ptr<Model>&& model) {
+void Controller::SetModel(std::unique_ptr<Model>&& model) {
   assert(model != nullptr);
   model_ = std::move(model);
 }
