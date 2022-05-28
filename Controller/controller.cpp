@@ -4,7 +4,6 @@
 #include <cassert>
 #include <utility>
 #include <vector>
-#include <iostream>
 
 void Controller::SetModel(std::unique_ptr<Model>&& model) {
   assert(model != nullptr);
