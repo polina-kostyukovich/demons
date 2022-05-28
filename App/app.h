@@ -9,7 +9,7 @@
 
 class App {
  public:
-  App(std::unique_ptr<Model>&& model,
+  App(std::shared_ptr<Model>&& model,
       std::shared_ptr<Controller>&& controller,
       std::unique_ptr<View>&& view);
   void Run();

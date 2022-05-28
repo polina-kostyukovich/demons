@@ -5,7 +5,7 @@
 int main(int argc, char* argv[]) {
   QApplication a(argc, argv);
 
-  std::unique_ptr<Model> model(new Model);
+  std::shared_ptr<Model> model(new Model);
   std::shared_ptr<Controller> controller(new Controller);
   std::unique_ptr<View> view(new View);
 

@@ -16,7 +16,7 @@ class Controller : public AbstractController {
  public:
   Controller() = default;
 
-  void SetModel(std::unique_ptr<Model>&& model);
+  void SetModel(std::shared_ptr<Model>&& model);
   void SetView(std::unique_ptr<View>&& view);
 
   void ConnectTimer();
@@ -39,12 +39,12 @@ class Controller : public AbstractController {
 
   void HandleMousePressEvent(QMouseEvent* event) override;
 
-  void CheckFireballsCollisionsWithWalls();
-  void UpdateHeroFields();
-  void UpdateFireballsFields();
+  void MoveObjects();
+
+  void UpdateHeroFieldsForDrawing();
+  void UpdateFireballsFieldsForDrawing();
 
   int GetMaxRenderingLevel() const override;
-  void ResetAllRenderingLevels() override;
 
  public slots:
   void TimerTick();
@@ -53,7 +53,7 @@ class Controller : public AbstractController {
   Vector2D GetHeroDirection() const;
 
  private:
-  std::unique_ptr<Model> model_;
+  std::shared_ptr<Model> model_;
   std::unique_ptr<View> view_;
   CollisionsController collisions_controller_;
   QTimer* timer_{new QTimer(this)};

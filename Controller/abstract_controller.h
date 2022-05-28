@@ -29,7 +29,6 @@ class AbstractController : public QObject {
   virtual void HandleMousePressEvent(QMouseEvent* event) = 0;
 
   virtual int GetMaxRenderingLevel() const = 0;
-  virtual void ResetAllRenderingLevels() = 0;
 };
 
 #endif  // CONTROLLER_ABSTRACT_CONTROLLER_H_
