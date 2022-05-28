@@ -46,9 +46,6 @@ class Controller : public AbstractController {
   int GetMaxRenderingLevel() const override;
   void ResetAllRenderingLevels() override;
 
-  bool AreAllRenderingLevelsNumerated() const;
-  void NumerateAllRenderingLevels();
-
  public slots:
   void TimerTick();
 

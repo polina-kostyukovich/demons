@@ -8,6 +8,7 @@
 #include "../GameObject/fireball.h"
 #include "../GameObject/hero.h"
 #include "../GameObject/npc.h"
+#include "../Model/model.h"
 #include "../Util/point.h"
 
 class CollisionsController {
@@ -41,6 +42,13 @@ class CollisionsController {
                        Npc* npc,
                        const Point& old_hero_pos,
                        const Point& old_npcs_pos);
+
+  void CheckCollisions(const std::vector<GameObject*>& objects);
+
+  bool AreAllRenderingLevelsNumerated(
+      const std::vector<GameObject*>& all_objects) const;
+  void NumerateAllRenderingLevels(const std::vector<GameObject*>& all_objects);
+
 };
 
 #endif  // CONTROLLER_COLLISIONS_CONTROLLER_H_

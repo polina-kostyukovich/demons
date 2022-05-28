@@ -99,9 +99,8 @@ void Controller::TimerTick() {
       &model_->GetHero(), &model_->GetNpcController().GetNpcList(),
       old_hero_position, old_npc_coords);
 
-  while (!AreAllRenderingLevelsNumerated()) {
-    NumerateAllRenderingLevels();
-  }
+  auto objects = model_->GetAllGameObjects();
+  collisions_controller_.CheckCollisions(objects);
 
   ++counter_;
   counter_ %= constants::kHeroSpeedCoefficient * constants::kNumberOfAnimation;
@@ -225,75 +224,5 @@ void Controller::ResetAllRenderingLevels() {
   auto all_objects = model_->GetAllGameObjects();
   for (auto& object : all_objects) {
     object->SetRenderingLevel(0);
-  }
-}
-
-bool Controller::AreAllRenderingLevelsNumerated() const {
-  auto all_objects = model_->GetAllGameObjects();
-  for (int i = 0; i < all_objects.size(); ++i) {
-    for (int j = 0; j < all_objects.size(); ++j) {
-      if (i == j) continue;
-
-      if (dynamic_cast<Fireball*>(all_objects[i]) != nullptr &&
-          dynamic_cast<Hero*>(all_objects[j]) != nullptr) {
-        if (all_objects.at(i)->GetHitBox().IsCollided(
-            all_objects.at(j)->GetPictureAboveHitBox()) &&
-            all_objects.at(i)->GetRenderingLevel() <=
-                all_objects.at(j)->GetRenderingLevel()) {
-          return false;
-        }
-        continue;
-      }
-
-      if (dynamic_cast<Fireball*>(all_objects[j]) != nullptr &&
-          dynamic_cast<Hero*>(all_objects[i]) != nullptr) {
-        if (all_objects.at(j)->GetHitBox().IsCollided(
-            all_objects.at(i)->GetPictureAboveHitBox()) &&
-            all_objects.at(j)->GetRenderingLevel() <=
-                all_objects.at(i)->GetRenderingLevel()) {
-          return false;
-        }
-        continue;
-      }
-
-      if (all_objects.at(i)->GetHitBox().IsCollided(
-          all_objects.at(j)->GetPictureAboveHitBox()) &&
-          all_objects.at(i)->GetRenderingLevel() >=
-              all_objects.at(j)->GetRenderingLevel()) {
-        return false;
-      }
-    }
-  }
-
-  return true;
-}
-
-void Controller::NumerateAllRenderingLevels() {
-  auto all_objects = model_->GetAllGameObjects();
-
-  for (int i = 0; i < all_objects.size(); ++i) {
-    for (int j = 0; j < all_objects.size(); ++j) {
-      if (i == j) continue;
-
-      if (dynamic_cast<Fireball*>(all_objects[i]) != nullptr &&
-          dynamic_cast<Hero*>(all_objects[j]) != nullptr) {
-        if (all_objects.at(i)->GetHitBox().IsCollided(
-            all_objects.at(j)->GetPictureAboveHitBox()) &&
-            all_objects.at(i)->GetRenderingLevel() <=
-                all_objects.at(j)->GetRenderingLevel()) {
-          all_objects.at(i)->SetRenderingLevel(
-              all_objects.at(j)->GetRenderingLevel() + 1);
-        }
-        continue;
-      }
-
-      if (all_objects.at(i)->GetHitBox().IsCollided(
-          all_objects.at(j)->GetPictureAboveHitBox()) &&
-          all_objects.at(i)->GetRenderingLevel() >=
-              all_objects.at(j)->GetRenderingLevel()) {
-        all_objects.at(j)->SetRenderingLevel(
-            all_objects.at(i)->GetRenderingLevel() + 1);
-      }
-    }
   }
 }

@@ -121,3 +121,76 @@ void CollisionsController::CheckHeroAndNpc(Hero* hero,
     }
   }
 }
+
+void CollisionsController::CheckCollisions(const std::vector<GameObject*>& objects) {
+  while (!AreAllRenderingLevelsNumerated(objects)) {
+    NumerateAllRenderingLevels(objects);
+  }
+}
+
+bool CollisionsController::AreAllRenderingLevelsNumerated(const std::vector<GameObject*>& all_objects) const {
+  for (int i = 0; i < all_objects.size(); ++i) {
+    for (int j = 0; j < all_objects.size(); ++j) {
+      if (i == j) continue;
+
+      if (dynamic_cast<Fireball*>(all_objects[i]) != nullptr &&
+          dynamic_cast<Hero*>(all_objects[j]) != nullptr) {
+        if (all_objects.at(i)->GetHitBox().IsCollided(
+            all_objects.at(j)->GetPictureAboveHitBox()) &&
+            all_objects.at(i)->GetRenderingLevel() <=
+                all_objects.at(j)->GetRenderingLevel()) {
+          return false;
+        }
+        continue;
+      }
+
+      if (dynamic_cast<Fireball*>(all_objects[j]) != nullptr &&
+          dynamic_cast<Hero*>(all_objects[i]) != nullptr) {
+        if (all_objects.at(j)->GetHitBox().IsCollided(
+            all_objects.at(i)->GetPictureAboveHitBox()) &&
+            all_objects.at(j)->GetRenderingLevel() <=
+                all_objects.at(i)->GetRenderingLevel()) {
+          return false;
+        }
+        continue;
+      }
+
+      if (all_objects.at(i)->GetHitBox().IsCollided(
+          all_objects.at(j)->GetPictureAboveHitBox()) &&
+          all_objects.at(i)->GetRenderingLevel() >=
+              all_objects.at(j)->GetRenderingLevel()) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
+void CollisionsController::NumerateAllRenderingLevels(const std::vector<GameObject*>& all_objects) {
+  for (int i = 0; i < all_objects.size(); ++i) {
+    for (int j = 0; j < all_objects.size(); ++j) {
+      if (i == j) continue;
+
+      if (dynamic_cast<Fireball*>(all_objects[i]) != nullptr &&
+          dynamic_cast<Hero*>(all_objects[j]) != nullptr) {
+        if (all_objects.at(i)->GetHitBox().IsCollided(
+            all_objects.at(j)->GetPictureAboveHitBox()) &&
+            all_objects.at(i)->GetRenderingLevel() <=
+                all_objects.at(j)->GetRenderingLevel()) {
+          all_objects.at(i)->SetRenderingLevel(
+              all_objects.at(j)->GetRenderingLevel() + 1);
+        }
+        continue;
+      }
+
+      if (all_objects.at(i)->GetHitBox().IsCollided(
+          all_objects.at(j)->GetPictureAboveHitBox()) &&
+          all_objects.at(i)->GetRenderingLevel() >=
+              all_objects.at(j)->GetRenderingLevel()) {
+        all_objects.at(j)->SetRenderingLevel(
+            all_objects.at(i)->GetRenderingLevel() + 1);
+      }
+    }
+  }
+}
