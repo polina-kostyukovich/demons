@@ -48,7 +48,6 @@ class CollisionsController {
   bool AreAllRenderingLevelsNumerated(
       const std::vector<GameObject*>& all_objects) const;
   void NumerateAllRenderingLevels(const std::vector<GameObject*>& all_objects);
-
 };
 
 #endif  // CONTROLLER_COLLISIONS_CONTROLLER_H_
