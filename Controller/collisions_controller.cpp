@@ -122,13 +122,15 @@ void CollisionsController::CheckHeroAndNpc(Hero* hero,
   }
 }
 
-void CollisionsController::CheckCollisions(const std::vector<GameObject*>& objects) {
+void CollisionsController::CheckCollisions(
+    const std::vector<GameObject*>& objects) {
   while (!AreAllRenderingLevelsNumerated(objects)) {
     NumerateAllRenderingLevels(objects);
   }
 }
 
-bool CollisionsController::AreAllRenderingLevelsNumerated(const std::vector<GameObject*>& all_objects) const {
+bool CollisionsController::AreAllRenderingLevelsNumerated(
+    const std::vector<GameObject*>& all_objects) const {
   for (int i = 0; i < all_objects.size(); ++i) {
     for (int j = 0; j < all_objects.size(); ++j) {
       if (i == j) continue;
@@ -167,7 +169,8 @@ bool CollisionsController::AreAllRenderingLevelsNumerated(const std::vector<Game
   return true;
 }
 
-void CollisionsController::NumerateAllRenderingLevels(const std::vector<GameObject*>& all_objects) {
+void CollisionsController::NumerateAllRenderingLevels(
+    const std::vector<GameObject*>& all_objects) {
   for (int i = 0; i < all_objects.size(); ++i) {
     for (int j = 0; j < all_objects.size(); ++j) {
       if (i == j) continue;
