@@ -3,9 +3,7 @@
 GameObject::GameObject(const Point& position) :
     position_(position),
     hit_box_(position_),
-    picture_above_hit_box_(position_) {
-  is_over_something_ = false;
-}
+    picture_above_hit_box_(position_) {}
 
 GameObject::GameObject(const GameObject& other_object) :
     position_(other_object.GetPosition()),
@@ -16,10 +14,12 @@ GameObject::GameObject(const GameObject& other_object) :
   hit_box_.SetWidth(other_object.hit_box_.GetWidth());
 
   picture_above_hit_box_.SetVerticalShift(
-      other_object.hit_box_.GetVerticalShift());
-  picture_above_hit_box_.SetHeight(other_object.hit_box_.GetHeight());
-  picture_above_hit_box_.SetWidth(other_object.hit_box_.GetWidth());
-  SetIsOverSomething(other_object.is_over_something_);
+      other_object.picture_above_hit_box_.GetVerticalShift());
+  picture_above_hit_box_.SetHeight(
+      other_object.picture_above_hit_box_.GetHeight());
+  picture_above_hit_box_.SetWidth(
+      other_object.picture_above_hit_box_.GetWidth());
+  SetRenderingLevel(other_object.rendering_level_);
 }
 
 GameObject::GameObject(GameObject&& other_object) :
@@ -31,10 +31,12 @@ GameObject::GameObject(GameObject&& other_object) :
   hit_box_.SetWidth(other_object.hit_box_.GetWidth());
 
   picture_above_hit_box_.SetVerticalShift(
-      other_object.hit_box_.GetVerticalShift());
-  picture_above_hit_box_.SetHeight(other_object.hit_box_.GetHeight());
-  picture_above_hit_box_.SetWidth(other_object.hit_box_.GetWidth());
-  SetIsOverSomething(other_object.is_over_something_);
+      other_object.picture_above_hit_box_.GetVerticalShift());
+  picture_above_hit_box_.SetHeight(
+      other_object.picture_above_hit_box_.GetHeight());
+  picture_above_hit_box_.SetWidth(
+      other_object.picture_above_hit_box_.GetWidth());
+  SetRenderingLevel(other_object.rendering_level_);
 }
 
 GameObject& GameObject::operator=(const GameObject& other_object) {
@@ -44,10 +46,12 @@ GameObject& GameObject::operator=(const GameObject& other_object) {
   hit_box_.SetHeight(other_object.hit_box_.GetHeight());
 
   picture_above_hit_box_.SetVerticalShift(
-      other_object.hit_box_.GetVerticalShift());
-  picture_above_hit_box_.SetHeight(other_object.hit_box_.GetHeight());
-  picture_above_hit_box_.SetWidth(other_object.hit_box_.GetWidth());
-  SetIsOverSomething(other_object.is_over_something_);
+      other_object.picture_above_hit_box_.GetVerticalShift());
+  picture_above_hit_box_.SetHeight(
+      other_object.picture_above_hit_box_.GetHeight());
+  picture_above_hit_box_.SetWidth(
+      other_object.picture_above_hit_box_.GetWidth());
+  SetRenderingLevel(other_object.rendering_level_);
   return *this;
 }
 
@@ -58,10 +62,12 @@ GameObject& GameObject::operator=(GameObject&& other_object) {
   hit_box_.SetHeight(other_object.hit_box_.GetHeight());
 
   picture_above_hit_box_.SetVerticalShift(
-      other_object.hit_box_.GetVerticalShift());
-  picture_above_hit_box_.SetHeight(other_object.hit_box_.GetHeight());
-  picture_above_hit_box_.SetWidth(other_object.hit_box_.GetWidth());
-  SetIsOverSomething(other_object.is_over_something_);
+      other_object.picture_above_hit_box_.GetVerticalShift());
+  picture_above_hit_box_.SetHeight(
+      other_object.picture_above_hit_box_.GetHeight());
+  picture_above_hit_box_.SetWidth(
+      other_object.picture_above_hit_box_.GetWidth());
+  SetRenderingLevel(other_object.rendering_level_);
   return *this;
 }
 
@@ -89,10 +95,11 @@ const HitBox &GameObject::GetPictureAboveHitBox() const {
   return picture_above_hit_box_;
 }
 
-void GameObject::SetIsOverSomething(bool is_over_something) {
-  is_over_something_ = is_over_something;
+void GameObject::SetRenderingLevel(int level) {
+  rendering_level_ = level;
 }
 
-bool GameObject::IsOverSomething() const {
-  return is_over_something_;
+int GameObject::GetRenderingLevel() const {
+  return rendering_level_;
 }
+

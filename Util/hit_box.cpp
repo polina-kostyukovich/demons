@@ -29,15 +29,17 @@ bool HitBox::IsCollided(const HitBox& other_hit_box) const {
   Rect other_rect = other_hit_box.GetRect();
   bool is_intersected_along_x_axis =
       !(other_rect.left_upper_coords.GetX() -
-          our_rect.right_lower_coords.GetX() > constants::kEpsilon ||
+          our_rect.right_lower_coords.GetX() > -constants::kCollisionEpsilon ||
           our_rect.left_upper_coords.GetX() -
-            other_rect.right_lower_coords.GetX() > constants::kEpsilon);
+            other_rect.right_lower_coords.GetX() >
+            -constants::kCollisionEpsilon);
 
   bool is_intersected_along_y_axis =
       !(other_rect.left_upper_coords.GetY() -
-          our_rect.right_lower_coords.GetY() > constants::kEpsilon ||
+          our_rect.right_lower_coords.GetY() > -constants::kCollisionEpsilon ||
           our_rect.left_upper_coords.GetY() -
-              other_rect.right_lower_coords.GetY() > constants::kEpsilon);
+              other_rect.right_lower_coords.GetY() >
+              -constants::kCollisionEpsilon);
 
   return (is_intersected_along_x_axis && is_intersected_along_y_axis);
 }
@@ -51,4 +53,12 @@ HitBox::Rect HitBox::GetRect() const {
                                + vertical_shift_);
 
   return Rect(left_upper_coords, right_lower_coords);
+}
+
+Point HitBox::GetLeftUpperCoordinates() const {
+  return GetRect().left_upper_coords;
+}
+
+Point HitBox::GetRightLowerCoordinates() const {
+  return GetRect().right_lower_coords;
 }

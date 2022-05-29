@@ -8,47 +8,40 @@
 #include "../GameObject/fireball.h"
 #include "../GameObject/hero.h"
 #include "../GameObject/npc.h"
+#include "../Model/model.h"
 #include "../Util/point.h"
 
 class CollisionsController {
  public:
-  void CheckHeroAndStaticObjects(
-      Hero* hero,
-      const Point& old_hero_position,
-      const std::vector<std::shared_ptr<StaticObject>>& objects);
+  void CheckCollisions(const std::unique_ptr<Model>& model,
+                       const Point& old_hero_pos,
+                       const std::vector<Point>& old_npcs_pos,
+                       int window_width, int window_height);
 
-  void CheckHeroAndStaticObject(Hero* hero,
+  void PrepareForDrawing(const std::unique_ptr<Model>& model);
+
+ private:
+  void CheckFireballsWithWalls(const std::unique_ptr<Model>& model,
+                               int window_width, int windoe_height);
+
+  void CheckHeroAndStaticObjects(const std::unique_ptr<Model>& model,
+                                 const Point& old_hero_position);
+  void CheckHeroAndStaticObject(const std::unique_ptr<Model>& model,
                                 const Point& old_hero_position,
                                 const std::shared_ptr<StaticObject>& object);
 
-  void CheckFireballsAndStaticObjects(
-      std::vector<Fireball>* fireballs,
-      const std::vector<std::shared_ptr<StaticObject>>& object);
+  void CheckFireballsAndStaticObjects(const std::unique_ptr<Model>& model);
 
-  void CheckFireballsAndStaticObject(
-      std::vector<Fireball>* fireballs,
-      const std::shared_ptr<StaticObject>& object);
+  void CheckFireballsAndNpcs(const std::unique_ptr<Model>& model);
 
-  void CheckFireballsAndNpcs(std::vector<Fireball>* fireballs,
-                             std::vector<Npc>* objects);
-
-  void CheckFireballsAndNpc(std::vector<Fireball>* fireballs, const Npc& npc);
-
-  void CheckHeroAndNpcs(Hero* hero,
-                        std::vector<Npc>* npcs,
+  void CheckHeroAndNpcs(const std::unique_ptr<Model>& model,
                         const Point& old_hero_pos,
                         const std::vector<Point>& old_npcs_pos);
 
-  void CheckHeroAndNpc(Hero* hero,
-                       Npc* npc,
-                       const Point& old_hero_pos,
-                       const Point& old_npcs_pos);
-
-  void CheckNpcAndStaticObjects(
-      std::vector<Npc>* npcs,
-      const std::vector<std::shared_ptr<StaticObject>>& objects);
-
-  void CheckNpcAndStaticObject(const Npc& npc, std::shared_ptr<StaticObject> object);
+  void ResetAllRenderingLevels(const std::vector<GameObject*>& all_objects);
+  bool AreAllRenderingLevelsNumerated(
+      const std::vector<GameObject*>& all_objects) const;
+  void NumerateAllRenderingLevels(const std::vector<GameObject*>& all_objects);
 };
 
 #endif  // CONTROLLER_COLLISIONS_CONTROLLER_H_

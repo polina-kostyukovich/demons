@@ -35,6 +35,8 @@ class View : public QMainWindow {
 
   void mousePressEvent(QMouseEvent* event) override;
 
+  void RenderLevel(int level, QPainter* painter);
+
  private:
   std::shared_ptr<AbstractController> controller_;
 

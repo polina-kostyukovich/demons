@@ -1,14 +1,20 @@
 #include "hero.h"
 
-#include <iostream>
 #include <string>
 
 Hero::Hero(const Point& position) : Creature(position) {
   hit_box_.SetWidth(constants::kHeroSize);
   hit_box_.SetHeight(
       constants::kHeroHitBoxHeightCoefficient * constants::kHeroSize);
-  hit_box_.SetVerticalShift((0.5 - constants::kHeroHitBoxHeightCoefficient / 2)
+  hit_box_.SetVerticalShift((0.5 - constants::kHeroHitBoxHeightCoefficient / 2.)
                                 * constants::kHeroSize);
+
+  picture_above_hit_box_.SetWidth(constants::kHeroSize);
+  picture_above_hit_box_.SetHeight(
+      constants::kHeroSize * (1. - constants::kHeroHitBoxHeightCoefficient));
+  picture_above_hit_box_.SetVerticalShift(
+      -(0.5 - (1. - constants::kHeroHitBoxHeightCoefficient) / 2.)
+      * constants::kHeroSize);
 }
 
 void Hero::LoadPictures() {
@@ -89,4 +95,8 @@ bool Hero::IsStriking() {
 
 void Hero::SetStriking(bool is_striking) {
   is_striking_ = is_striking;
+}
+
+Picture Hero::GetPicture() const {
+  return Picture();
 }
