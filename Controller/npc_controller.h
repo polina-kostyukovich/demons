@@ -12,6 +12,7 @@ class NpcController {
 
   const std::vector<Npc>& GetNpcList() const;
   std::vector<Npc>& GetNpcList();
+  std::vector<Npc*> GetNpcs();
 
   std::vector<Point> GetNpcCoordinates() const;
 

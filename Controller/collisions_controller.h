@@ -22,7 +22,7 @@ class CollisionsController {
 
  private:
   void CheckFireballsWithWalls(const std::unique_ptr<Model>& model,
-                               int window_width, int windoe_height);
+                               int window_width, int window_height);
 
   void CheckHeroAndStaticObjects(const std::unique_ptr<Model>& model,
                                  const Point& old_hero_position);
@@ -39,9 +39,13 @@ class CollisionsController {
                         const std::vector<Point>& old_npcs_pos);
 
   void ResetAllRenderingLevels(const std::vector<GameObject*>& all_objects);
+
   bool AreAllRenderingLevelsNumerated(
       const std::vector<GameObject*>& all_objects) const;
   void NumerateAllRenderingLevels(const std::vector<GameObject*>& all_objects);
+
+  void CheckNpcCollisions(const std::unique_ptr<Model>& model,
+                          const std::vector<Point>& old_npcs_pos);
 };
 
 #endif  // CONTROLLER_COLLISIONS_CONTROLLER_H_

@@ -26,6 +26,15 @@ std::vector<Npc> &NpcController::GetNpcList() {
   return npc_list_;
 }
 
+std::vector<Npc*> NpcController::GetNpcs() {
+  std::vector<Npc*> npcs;
+  for (auto& npc : npc_list_) {
+    npcs.push_back(&npc);
+  }
+
+  return npcs;
+}
+
 std::vector<Point> NpcController::GetNpcCoordinates() const {
   std::vector<Point> result;
   for (const auto& npc : npc_list_) {
