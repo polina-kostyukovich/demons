@@ -31,6 +31,8 @@ const int kNumberOfEquallySidedNpc = 7;
 
 const int kMiddleAnimation = 6;
 const long double kTorsoPercentage = 0.105;
+
+const int kTicksBetweenNpcAppearance = 100;
 }  // namespace constants
 
 #endif  // MODEL_CONSTANTS_H_

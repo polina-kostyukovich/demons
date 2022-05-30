@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "../GameObject/boiler.h"
 #include "../GameObject/npc.h"
 
 class NpcController {
@@ -12,8 +13,19 @@ class NpcController {
 
   const std::vector<Npc>& GetNpcList() const;
 
+  void ClearNpcList();
+
+  void IncrementTickCounter();
+
+  bool NeedToCreateNpc() const;
+
+  void CreateNpc(const Point& hero_pos,
+                 std::vector<Point>&& boilers_coords,
+                 int boiler_height);
+
  private:
   std::vector<Npc> npc_list_;
+  int tick_counter_{-1};
 };
 
 #endif  // CONTROLLER_NPC_CONTROLLER_H_

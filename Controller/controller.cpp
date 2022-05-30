@@ -41,8 +41,8 @@ void Controller::NewGame() {
                                       constants::kHeroSize / 2.));
   model_->GetFireballs().clear();
   model_->GetHero().SetNumberTick(0);
+  model_->GetNpcController().ClearNpcList();
   counter_ = 0;
-  // set default parameters to all objects
 
   StartGame();
 }
@@ -76,6 +76,13 @@ int Controller::GetCounter() const {
 }
 
 void Controller::TimerTick() {
+  model_->GetNpcController().IncrementTickCounter();
+  if (model_->GetNpcController().NeedToCreateNpc()) {
+    model_->GetNpcController().CreateNpc(model_->GetHero().GetPosition(),
+                                         model_->GetMap().GetBoilersCoords(),
+                                         model_->GetMap().GetCellSize().second);
+  }
+
   model_->GetHero().Move(GetHeroDirection(),
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());

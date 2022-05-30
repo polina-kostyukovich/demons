@@ -10,7 +10,7 @@
 
 class Npc : public Creature {
  public:
-  explicit Npc(const Point& position = Point());
+  explicit Npc(const Point& position, int boiler_height);
 
   static void LoadPictures();
 
@@ -25,10 +25,15 @@ class Npc : public Creature {
  private:
   static void InputPictures(std::string);
 
+  void UpdateFieldsIfBorn(const Point& target_position);
+
  private:
   static inline std::vector<QPixmap> pictures_;
   bool is_moving_right_;
   int tick_counter_{0};
+  Point spawn_pos_;
+  bool is_born_{true};
+  int boiler_height_;
 };
 
 #endif  // GAMEOBJECT_NPC_H_

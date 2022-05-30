@@ -1,6 +1,7 @@
 #include "npc.h"
 
-Npc::Npc(const Point& position) : Creature(position) {}
+Npc::Npc(const Point& position, int boiler_height) :
+    Creature(position), spawn_pos_(position), boiler_height_(boiler_height) {}
 
 void Npc::LoadPictures() {
   std::string picture = ":Resources/Picture/Npc/npc";
@@ -10,6 +11,11 @@ void Npc::LoadPictures() {
 }
 
 void Npc::Update(const Point& target_position) {
+  if (is_born_) {
+    UpdateFieldsIfBorn(target_position);
+    return;
+  }
+
   Vector2D direction;
   long double min_distance = constants::kMaxDistance;
 
@@ -46,7 +52,7 @@ void Npc::Move(const Vector2D& direction) {
 Picture Npc::GetPicture() const {
   Picture output;
   output.height = constants::kNpcSize;
-  output.width = output.height;
+  output.width = constants::kNpcSize;
   output.left_top =
       position_ - Point(constants::kNpcSize / 2., constants::kNpcSize / 2.);
   if (is_moving_right_) {
@@ -54,6 +60,14 @@ Picture Npc::GetPicture() const {
   } else {
     output.picture = pictures_[constants::kNumberOfEquallySidedNpc
         + tick_counter_ / constants::kNpcSpeedCoefficient];
+  }
+  if (is_born_) {
+    output.height = std::ceil(spawn_pos_.GetY() - position_.GetY());
+    long double height_coef =
+        (spawn_pos_.GetY() - position_.GetY()) / constants::kNpcSize;
+    output.picture = output.picture.copy(
+        0, 0, output.picture.width(),
+        std::ceil(height_coef * output.picture.height()));
   }
   return output;
 }
@@ -74,4 +88,16 @@ int Npc::GetCounter() const {
 
 void Npc::SetCounter(int counter) {
   tick_counter_ = counter;
+}
+
+void Npc::UpdateFieldsIfBorn(const Point& target_position) {
+  position_ -= Point(0, constants::kNpcStep);
+  is_moving_right_ =
+      (position_.GetX() - target_position.GetX() < -constants::kEpsilon);
+  if (spawn_pos_.GetY() - position_.GetY()
+      > constants::kNpcSize + constants::kEpsilon) {
+    is_born_ = false;
+  }
+
+  // todo hit_boxes
 }
