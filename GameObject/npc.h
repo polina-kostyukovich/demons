@@ -13,7 +13,7 @@
 class Npc : public Creature {
  public:
   explicit Npc(const Point& position,
-               std::weak_ptr<StaticObject>&& native_boiler);
+               const std::weak_ptr<StaticObject>& native_boiler);
 
   static void LoadPictures();
 
