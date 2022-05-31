@@ -34,21 +34,10 @@ void View::ShowMenu() {
 void View::paintEvent(QPaintEvent* event) {
   QPainter painter(this);
   Draw(controller_->GetModel().GetMap().GetPicture(), &painter);
-  for (const auto& object : controller_->GetModel().GetMap().GetObjects()) {
-    Draw(object->GetPicture(), &painter);
-  }
 
-  auto npc_list = controller_->GetModel().GetNpcController().GetNpcList();
-  for (const auto& npc : npc_list) {
-    Draw(npc.GetPicture(), &painter);
-  }
-
-  Draw(controller_->GetModel().GetHero().GetPicture(controller_->GetCounter()),
-       &painter);
-
-  auto fireballs = controller_->GetModel().GetFireballs();
-  for (const auto& fireball : fireballs) {
-    Draw(fireball.GetPicture(), &painter);
+  int max_rendering_level = controller_->GetMaxRenderingLevel();
+  for (int level = 0; level <= max_rendering_level; ++level) {
+    RenderLevel(level, &painter);
   }
 }
 
@@ -82,4 +71,32 @@ void View::closeEvent(QCloseEvent* event) {
 
 void View::mousePressEvent(QMouseEvent* event) {
   controller_->HandleMousePressEvent(event);
+}
+
+void View::RenderLevel(int level, QPainter* painter) {
+  if (controller_->GetModel().GetHero().GetRenderingLevel() == level) {
+    Draw(controller_->GetModel().GetHero().GetPicture(
+        controller_->GetCounter()),
+         painter);
+  }
+
+  auto npc_list = controller_->GetModel().GetNpcController().GetNpcList();
+  for (const auto& npc : npc_list) {
+    if (npc.GetRenderingLevel() == level) {
+      Draw(npc.GetPicture(), painter);
+    }
+  }
+
+  auto fireballs = controller_->GetModel().GetFireballs();
+  for (const auto& fireball : fireballs) {
+    if (fireball.GetRenderingLevel() == level) {
+      Draw(fireball.GetPicture(), painter);
+    }
+  }
+
+  for (const auto& object : controller_->GetModel().GetMap().GetObjects()) {
+    if (object->GetRenderingLevel() == level) {
+      Draw(object->GetPicture(), painter);
+    }
+  }
 }

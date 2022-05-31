@@ -1,5 +1,6 @@
 #include "controller.h"
 
+#include <algorithm>
 #include <cassert>
 #include <utility>
 #include <vector>
@@ -76,26 +77,24 @@ int Controller::GetCounter() const {
 }
 
 void Controller::TimerTick() {
-  model_->GetHero().Move(GetHeroDirection(),
-                         view_->GetWindowWidth(),
-                         view_->GetWindowHeight());
-  model_->GetNpcController().Update(model_->GetHero().GetPosition());
+  Point old_hero_position = model_->GetHero().GetPosition();
+  std::vector<Point> old_npc_coords =
+      model_->GetNpcController().GetNpcCoordinates();
 
-  // todo collisions with other objects
+  MoveObjects();
+
+  collisions_controller_.CheckCollisions(model_,
+                                         old_hero_position,
+                                         old_npc_coords,
+                                         view_->GetWindowWidth(),
+                                         view_->GetWindowHeight());
+  collisions_controller_.PrepareForDrawing(model_);
 
   ++counter_;
   counter_ %= constants::kHeroSpeedCoefficient * constants::kNumberOfAnimation;
 
-  Point spawn_pos = model_->GetHero().GetPosition()
-      + Point(0, constants::kHeroSize * constants::kTorsoPercentage);
-  for (auto& fireball : model_->GetFireballs()) {
-    fireball.Move(spawn_pos);
-  }
-
-  CheckFireballsCollisionsWithWalls();
-
-  UpdateHeroFields();
-  UpdateFireballsFields();
+  UpdateHeroFieldsForDrawing();
+  UpdateFireballsFieldsForDrawing();
 
   view_->repaint();
 }
@@ -132,33 +131,21 @@ void Controller::HandleMousePressEvent(QMouseEvent* event) {
   model_->GetHero().SetNumberTick(0);
 }
 
-void Controller::CheckFireballsCollisionsWithWalls() {
-  std::vector<Fireball>& fireballs = model_->GetFireballs();
-  int height = view_->GetWindowHeight();
-  int width = view_->GetWindowWidth();
-  for (int i = 0; i < fireballs.size(); ++i) {
-    bool is_collided_with_left_wall =
-        (fireballs[i].GetPosition().GetX() - constants::kFireballSize / 2.
-            <= -constants::kEpsilon);
-    bool is_collided_with_right_wall =
-        (fireballs[i].GetPosition().GetX() + constants::kFireballSize / 2.
-            - width >= constants::kEpsilon);
-    bool is_collided_with_top_wall =
-        (fireballs[i].GetPosition().GetY() - constants::kFireballSize / 2.
-            <= -constants::kEpsilon);
-    bool is_collided_with_bottom_wall =
-        (fireballs[i].GetPosition().GetY() + constants::kFireballSize / 2.
-            - height >= constants::kEpsilon);
+void Controller::MoveObjects() {
+  model_->GetHero().Move(GetHeroDirection(),
+                         view_->GetWindowWidth(),
+                         view_->GetWindowHeight());
 
-    if (is_collided_with_left_wall || is_collided_with_right_wall ||
-        is_collided_with_top_wall || is_collided_with_bottom_wall) {
-      fireballs.erase(fireballs.begin() + i);
-      --i;
-    }
+  model_->GetNpcController().Update(model_->GetHero().GetPosition());
+
+  Point spawn_pos = model_->GetHero().GetPosition()
+      + Point(0, constants::kHeroSize * constants::kTorsoPercentage);
+  for (auto& fireball : model_->GetFireballs()) {
+    fireball.Move(spawn_pos);
   }
 }
 
-void Controller::UpdateHeroFields() {
+void Controller::UpdateHeroFieldsForDrawing() {
   if (model_->GetHero().IsStriking()) {
     model_->GetHero().SetNumberTick(
         model_->GetHero().GetNumberTick() + 1);
@@ -170,7 +157,7 @@ void Controller::UpdateHeroFields() {
   }
 }
 
-void Controller::UpdateFireballsFields() {
+void Controller::UpdateFireballsFieldsForDrawing() {
   std::vector<Fireball>& fireballs = model_->GetFireballs();
   for (auto& fireball : fireballs) {
     int current_counter = fireball.GetCounter();
@@ -189,4 +176,13 @@ void Controller::UpdateFireballsFields() {
               * constants::kNumberOfFireBall));
     }
   }
+}
+int Controller::GetMaxRenderingLevel() const {
+  int result = 0;
+
+  auto all_objects = model_->GetAllGameObjects();
+  for (const auto& object : all_objects) {
+    result = std::max(result, object->GetRenderingLevel());
+  }
+  return result;
 }
