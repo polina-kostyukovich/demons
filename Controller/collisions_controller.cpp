@@ -10,7 +10,6 @@ void CollisionsController::CheckCollisions(
   CheckFireballsAndStaticObjects(model);
   CheckFireballsAndNpcs(model);
   CheckHeroAndNpcs(model, old_hero_pos, old_npcs_pos);
-  CheckNpcCollisions(model, old_npcs_pos);
 }
 
 void CollisionsController::PrepareForDrawing(
@@ -230,50 +229,6 @@ void CollisionsController::NumerateAllRenderingLevels(
               all_objects.at(j)->GetRenderingLevel()) {
         all_objects.at(j)->SetRenderingLevel(
             all_objects.at(i)->GetRenderingLevel() + 1);
-      }
-    }
-  }
-}
-
-void CollisionsController::CheckNpcCollisions(
-    const std::unique_ptr<Model>& model,
-    const std::vector<Point>& old_npcs_pos) {
-  auto& npcs = model->GetNpcController().GetNpcList();
-
-  auto new_npcs_pos = model->GetNpcController().GetNpcCoordinates();
-  for (int i = 0; i < npcs.size(); ++i) {
-    npcs[i].SetPosition(old_npcs_pos[i]);
-  }
-
-  for (int i = 0; i < npcs.size(); ++i) {
-    npcs[i].SetPosition(new_npcs_pos[i]);
-    for (int j = 0; j < npcs.size(); ++j) {
-      if (i == j) continue;
-
-      if (!npcs[i].GetHitBox().IsCollided(npcs[j].GetHitBox())) continue;
-
-      npcs[i].SetPosition(old_npcs_pos[i]);
-      Point new_npc_pos = new_npcs_pos[i];
-
-      npcs[i].SetPositionX(new_npc_pos.GetX());
-
-      bool has_horizontal_collision =
-          (npcs[i].GetHitBox().IsCollided(npcs[j].GetHitBox()));
-
-      npcs[i].SetPosition(old_npcs_pos[i]);
-      npcs[i].SetPositionY(new_npc_pos.GetY());
-
-      bool has_vertical_collision =
-          (npcs[i].GetHitBox().IsCollided(npcs[j].GetHitBox()));
-
-      npcs[i].SetPosition(old_npcs_pos[i]);
-
-      if (!has_horizontal_collision) {
-        npcs[i].SetPositionX(new_npc_pos.GetX());
-      }
-
-      if (!has_vertical_collision) {
-        npcs[i].SetPositionY(new_npc_pos.GetY());
       }
     }
   }
