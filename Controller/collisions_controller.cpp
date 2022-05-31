@@ -246,7 +246,6 @@ void CollisionsController::CheckNpcCollisions(
   }
 
   for (int i = 0; i < npcs.size(); ++i) {
-
     npcs[i].SetPosition(new_npcs_pos[i]);
     for (int j = 0; j < npcs.size(); ++j) {
       if (i == j) continue;
