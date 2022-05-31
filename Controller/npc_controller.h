@@ -3,12 +3,12 @@
 
 #include <vector>
 
-#include "../GameObject/boiler.h"
 #include "../GameObject/npc.h"
+#include "../Map/map.h"
 
 class NpcController {
  public:
-  NpcController();
+  NpcController() = default;
   void Update(const Point& hero_position);
 
   const std::vector<Npc>& GetNpcList() const;
@@ -22,9 +22,7 @@ class NpcController {
 
   bool NeedToCreateNpc() const;
 
-  void CreateNpc(const Point& hero_pos,
-                 std::vector<Point>&& boilers_coords,
-                 int boiler_height);
+  void CreateNpc(const Point& hero_pos, const Map& map);
 
  private:
   std::vector<Npc> npc_list_;

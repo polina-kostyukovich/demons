@@ -1,15 +1,7 @@
 #include "npc_controller.h"
 
+#include <algorithm>
 #include <random>
-
-NpcController::NpcController() {
-  npc_list_.push_back(Npc(Point(800, 800)));
-  npc_list_.push_back(Npc(Point(600, 600)));
-  npc_list_.push_back(Npc(Point(100, 300)));
-  npc_list_.push_back(Npc(Point(1000, 1000)));
-  npc_list_.push_back(Npc(Point(800, 100)));
-  // todo from boilers
-}
 
 void NpcController::Update(const Point& hero_position) {
   for (auto& npc: npc_list_) {
@@ -54,13 +46,34 @@ bool NpcController::NeedToCreateNpc() const {
   return tick_counter_ == 0;
 }
 
-void NpcController::CreateNpc(const Point& hero_pos,
-                              std::vector<Point>&& boilers_coords,
-                              int boiler_height) {
+void NpcController::CreateNpc(const Point& hero_pos, const Map& map) {
+  auto boilers_coords = map.GetBoilersCoords();
   std::shuffle(boilers_coords.begin(),
                boilers_coords.end(),
                std::mt19937(std::random_device()()));
-  Point npc_pos = boilers_coords[0] +
-      Point(0, (constants::kNpcSize - boiler_height) / 2.);
-  npc_list_.emplace_back(npc_pos, boiler_height);
+
+  Point boiler_pos;
+  if (npc_list_.empty() ||
+      boilers_coords[0] != npc_list_.back().GetSpawnPos() ||
+      boilers_coords.size() == 1) {
+    boiler_pos = boilers_coords[0];
+  } else {
+    boiler_pos = boilers_coords[1];
+  }
+
+  auto& static_objects = map.GetObjects();
+  auto our_boiler = std::find_if(static_objects.begin(),
+                                 static_objects.end(),
+                                 [&boiler_pos](auto object) {
+    return object->GetPosition() == boiler_pos;
+  });
+
+  Point npc_pos = boiler_pos +
+      Point(0.,
+            (*our_boiler)->GetHitBox().GetVerticalShift()
+               - (*our_boiler)->GetHitBox().GetHeight() / 2
+               - constants::kNpcSize * constants::kNpcHitBoxHeightCoefficient
+               + constants::kNpcSize / 2);
+
+  npc_list_.emplace_back(npc_pos, std::weak_ptr<StaticObject>(*our_boiler));
 }

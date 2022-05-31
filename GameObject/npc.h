@@ -5,12 +5,14 @@
 #include <vector>
 
 #include "creature.h"
+#include "../GameObject/static_object.h"
 #include "../Util/structs.h"
 #include "../Util/vector.h"
 
 class Npc : public Creature {
  public:
-  explicit Npc(const Point& position, int boiler_height);
+  explicit Npc(const Point& position,
+               std::weak_ptr<StaticObject>&& native_boiler);
 
   static void LoadPictures();
 
@@ -22,6 +24,8 @@ class Npc : public Creature {
   int GetCounter() const;
   void SetCounter(int counter);
 
+  Point GetSpawnPos() const;
+
  private:
   static void InputPictures(std::string);
 
@@ -31,9 +35,8 @@ class Npc : public Creature {
   static inline std::vector<QPixmap> pictures_;
   bool is_moving_right_;
   int tick_counter_{0};
-  Point spawn_pos_;
   bool is_born_{true};
-  int boiler_height_;
+  std::weak_ptr<StaticObject> native_boiler_;
 };
 
 #endif  // GAMEOBJECT_NPC_H_
