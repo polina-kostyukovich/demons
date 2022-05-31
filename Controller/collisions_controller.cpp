@@ -238,35 +238,36 @@ void CollisionsController::NumerateAllRenderingLevels(
 void CollisionsController::CheckNpcCollisions(
     const std::unique_ptr<Model>& model,
     const std::vector<Point>& old_npcs_pos) {
-  auto npcs = model->GetNpcController().GetNpcs();
+  auto npcs = model->GetNpcController().GetNpcList();
   for (int i = 0; i < npcs.size(); ++i) {
-    for (int j = i + 1; j < npcs.size(); ++j) {
-      if (!npcs[i]->GetHitBox().IsCollided(npcs[j]->GetHitBox())) continue;
+    for (int j = 0; j < npcs.size(); ++j) {
+      if (i == j) continue;
+      if (!npcs[i].GetHitBox().IsCollided(npcs[j].GetHitBox())) continue;
 
-      Point current_npc_pos = npcs[i]->GetPosition();
-      npcs[i]->SetPosition(old_npcs_pos[i]);
+      Point current_npc_pos = npcs[i].GetPosition();
+      npcs[i].SetPosition(old_npcs_pos[i]);
 
-      npcs[i]->SetPositionX(current_npc_pos.GetX());
+      npcs[i].SetPositionX(current_npc_pos.GetX());
 
       bool has_horizontal_collision =
-          (npcs[i]->GetHitBox().IsCollided(npcs[j]->GetHitBox()));
+          (npcs[i].GetHitBox().IsCollided(npcs[j].GetHitBox()));
 
-      npcs[i]->SetPosition(old_npcs_pos[i]);
-      npcs[i]->SetPositionY(current_npc_pos.GetY());
+      npcs[i].SetPosition(old_npcs_pos[i]);
+      npcs[i].SetPositionY(current_npc_pos.GetY());
 
       bool has_vertical_collision =
-          (npcs[i]->GetHitBox().IsCollided(npcs[j]->GetHitBox()));
+          (npcs[i].GetHitBox().IsCollided(npcs[j].GetHitBox()));
 
       if (!has_horizontal_collision) {
-        npcs[i]->SetPositionX(current_npc_pos.GetX());
+        npcs[i].SetPositionX(current_npc_pos.GetX());
       }
 
       if (!has_vertical_collision) {
-        npcs[i]->SetPositionY(current_npc_pos.GetY());
+        npcs[i].SetPositionY(current_npc_pos.GetY());
       }
 
-      if (npcs[i]->GetHitBox().IsCollided(npcs[j]->GetHitBox())) {
-        npcs[i]->SetPosition(old_npcs_pos[i]);
+      if (npcs[i].GetHitBox().IsCollided(npcs[j].GetHitBox())) {
+        npcs[i].SetPosition(old_npcs_pos[i]);
       }
     }
   }
