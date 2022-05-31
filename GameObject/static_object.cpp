@@ -1,3 +1,5 @@
 #include "static_object.h"
 
-StaticObject::StaticObject(const Point& position) : GameObject(position) {}
+StaticObject::StaticObject(const Point& position) :
+    GameObject(position) {}
+

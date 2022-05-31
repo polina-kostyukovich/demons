@@ -3,9 +3,12 @@
 #include <random>
 
 NpcController::NpcController() {
-  // npc_list_.push_back(Npc(Point(800, 800)));
-  // npc_list_.push_back(Npc(Point(0, 0)));  // for test
-  // // todo from boilers
+  npc_list_.push_back(Npc(Point(800, 800)));
+  npc_list_.push_back(Npc(Point(600, 600)));
+  npc_list_.push_back(Npc(Point(100, 300)));
+  npc_list_.push_back(Npc(Point(1000, 1000)));
+  npc_list_.push_back(Npc(Point(800, 100)));
+  // todo from boilers
 }
 
 void NpcController::Update(const Point& hero_position) {
@@ -22,6 +25,19 @@ void NpcController::Update(const Point& hero_position) {
 
 const std::vector<Npc>& NpcController::GetNpcList() const {
   return npc_list_;
+}
+
+std::vector<Npc>& NpcController::GetNpcList() {
+  return npc_list_;
+}
+
+std::vector<Point> NpcController::GetNpcCoordinates() const {
+  std::vector<Point> result(npc_list_.size());
+  for (int i = 0; i < npc_list_.size(); ++i) {
+    result[i] = npc_list_[i].GetPosition();
+  }
+
+  return result;
 }
 
 void NpcController::ClearNpcList() {

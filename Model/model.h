@@ -33,6 +33,8 @@ class Model {
 
   void AddFireball(const Fireball& fireball);
 
+  std::vector<GameObject*> GetAllGameObjects();
+
  private:
   Hero hero_;
   Map map_;
