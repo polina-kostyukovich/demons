@@ -1,6 +1,7 @@
 #ifndef GAMEOBJECT_NPC_H_
 #define GAMEOBJECT_NPC_H_
 
+#include <memory>
 #include <string>
 #include <vector>
 

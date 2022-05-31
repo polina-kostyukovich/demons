@@ -1,5 +1,7 @@
 #include "npc.h"
 
+#include <utility>
+
 Npc::Npc(const Point& position, std::weak_ptr<StaticObject>&& native_boiler) :
     Creature(position), native_boiler_(std::move(native_boiler)) {
   hit_box_.SetWidth(constants::kNpcSize
