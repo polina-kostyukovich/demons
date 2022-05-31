@@ -238,7 +238,7 @@ void CollisionsController::NumerateAllRenderingLevels(
 void CollisionsController::CheckNpcCollisions(
     const std::unique_ptr<Model>& model,
     const std::vector<Point>& old_npcs_pos) {
-  auto npcs = model->GetNpcController().GetNpcList();
+  auto& npcs = model->GetNpcController().GetNpcList();
   for (int i = 0; i < npcs.size(); ++i) {
     for (int j = 0; j < npcs.size(); ++j) {
       if (i == j) continue;
