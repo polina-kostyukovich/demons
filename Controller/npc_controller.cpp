@@ -30,9 +30,9 @@ std::vector<Npc> &NpcController::GetNpcList() {
 }
 
 std::vector<Point> NpcController::GetNpcCoordinates() const {
-  std::vector<Point> result;
-  for (const auto& npc : npc_list_) {
-    result.push_back(npc.GetPosition());
+  std::vector<Point> result(npc_list_.size());
+  for (int i = 0; i < npc_list_.size(); ++i) {
+    result[i] = npc_list_[i].GetPosition();
   }
 
   return result;

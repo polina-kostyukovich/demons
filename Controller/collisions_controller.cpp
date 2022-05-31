@@ -91,10 +91,10 @@ void CollisionsController::CheckFireballsAndStaticObjects(
     const std::unique_ptr<Model>& model) {
   auto& objects = model->GetMap().GetObjects();
   auto& fireballs = model->GetFireballs();
-  for (const auto& static_object : objects) {
+  for (const auto& object : objects) {
     for (int i = 0; i < fireballs.size(); ++i) {
       if (!fireballs.at(i).IsBorn() &&
-          fireballs.at(i).GetHitBox().IsCollided(static_object->GetHitBox())) {
+          fireballs.at(i).GetHitBox().IsCollided(object->GetHitBox())) {
         fireballs.erase(fireballs.begin() + i);
         --i;
       }
