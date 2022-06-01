@@ -112,6 +112,23 @@ void Npc::Update(const Point& target_position, const Map& map) {
   Move(cur_direction);
 }
 
+bool Npc::CanMove(const Point& new_position, const Map& map) {
+  int row = floor(new_position.GetY() / map.GetCellSize().second);
+  int column = floor(new_position.GetX() / map.GetCellSize().first);
+
+  if (row < 0 || column < 0 ||
+      row >= map.GetRowsNumber() ||
+      column >= map.GetColumnsNumber()) {
+    return false;
+  }
+
+  if (map.GetObject(column, row).get() != nullptr) {
+    return false;
+  }
+
+  return true;
+}
+
 void Npc::Move(const Vector2D& direction) {
   SetPosition(position_ + direction * constants::kNpcStep);
   if (direction.GetX() > constants::kEpsilon) {
