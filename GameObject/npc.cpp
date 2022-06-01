@@ -1,7 +1,6 @@
 #include "npc.h"
 
 #include <algorithm>
-#include <iostream>
 
 Npc::Npc(const Point& position,
          const std::weak_ptr<StaticObject>& native_boiler) :
@@ -89,8 +88,6 @@ Picture Npc::GetPicture() const {
   output.left_top =
       position_ - Point(constants::kNpcSize / 2., constants::kNpcSize / 2.);
 
-  std::cout << tick_counter_ << '\n';
-
   if (!is_fighting_) {
     if (is_moving_right_) {
       output.picture =
@@ -166,11 +163,11 @@ Point Npc::GetSpawnPos() const {
   return native_boiler_.lock()->GetPosition();
 }
 
-void Npc::SetFighting(bool value) {
+void Npc::SetFightingStatus(bool value) {
   is_fighting_ = value;
 }
 
-bool Npc::GetFighting() {
+bool Npc::GetFightingStatus() {
   return is_fighting_;
 }
 

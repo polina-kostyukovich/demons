@@ -7,7 +7,7 @@
 void NpcController::Update(const Point& hero_position) {
   for (auto& npc : npc_list_) {
     npc.Update(hero_position);
-    if (!npc.GetFighting()) {
+    if (!npc.GetFightingStatus()) {
       if (npc.GetCounter() + 1 == constants::kNumberOfNpc *
           constants::kNpcSpeedCoefficient) {
         npc.SetCounter(0);
