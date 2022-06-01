@@ -8,10 +8,12 @@ Point::Point(long double x, long double y) {
     x_ = x;
     y_ = y;
 }
+
 Point::Point(const Point& point) {
     x_ = point.x_;
     y_ = point.y_;
 }
+
 Point::Point(Point&& point) {
     x_ = point.x_;
     y_ = point.y_;
@@ -77,6 +79,7 @@ Point& Point::operator+=(const Point& another_point) {
   y_ += another_point.y_;
   return *this;
 }
+
 Point& Point::operator-=(const Point& another_point) {
   x_ -= another_point.x_;
   y_ -= another_point.y_;

@@ -7,7 +7,21 @@
 
 #include "npc.h"
 
-Npc::Npc(const Point& position) : Creature(position) {}
+Npc::Npc(const Point& position,
+         const std::weak_ptr<StaticObject>& native_boiler) :
+    Creature(position), native_boiler_(native_boiler) {
+  hit_box_.SetWidth(constants::kNpcSize
+                        * constants::kNpcHitBoxWidthCoefficient);
+  hit_box_.SetHeight(0);
+  hit_box_.SetVerticalShift(0);
+
+  picture_above_hit_box_.SetWidth(hit_box_.GetWidth());
+  picture_above_hit_box_.SetHeight(
+      constants::kNpcSize * (1 - constants::kNpcHitBoxHeightCoefficient));
+  picture_above_hit_box_.SetVerticalShift(
+      -(0.5 - (1 - constants::kNpcHitBoxHeightCoefficient) / 2)
+          * constants::kNpcSize);
+}
 
 void Npc::LoadPictures() {
   std::string picture = ":Resources/Picture/Npc/npc";
@@ -17,6 +31,10 @@ void Npc::LoadPictures() {
 }
 
 void Npc::Update(const Point& target_position, const Map& map) {
+  if (is_born_) {
+    UpdateFieldsIfBorn(target_position);
+    return;
+  }
   Vector2D row_direction(position_, target_position);
   row_direction.Normalize();
   if (CanMove(position_ + row_direction * constants::kNpcStep, map)) {
@@ -27,7 +45,7 @@ void Npc::Update(const Point& target_position, const Map& map) {
   int grid_columns = map.GetColumnsNumber() * map.GetCellSize().first /
       constants::kNpcStep;
   int grid_rows = map.GetRowsNumber() * map.GetCellSize().second /
-                  constants::kNpcStep;
+      constants::kNpcStep;
 
   std::vector<std::vector<std::pair<int, int>>> previous_cell(
       grid_columns, std::vector<std::pair<int, int>>(grid_rows, {0, 0}));
@@ -41,7 +59,7 @@ void Npc::Update(const Point& target_position, const Map& map) {
       floor(position_.GetY() / constants::kNpcStep));
 
   long double addition_x = position_.GetX() - start_cell.first *
-                           constants::kNpcStep;
+      constants::kNpcStep;
   long double addition_y = position_.GetY() - start_cell.second *
       constants::kNpcStep;
 
@@ -94,20 +112,6 @@ void Npc::Update(const Point& target_position, const Map& map) {
   Move(cur_direction);
 }
 
-bool Npc::CanMove(const Point& new_position, const Map& map) {
-  int column = floor(new_position.GetX() / map.GetCellSize().first);
-  int row = floor(new_position.GetY() / map.GetCellSize().second);
-
-  if (column < 0 || row < 0) {
-    return false;
-  }
-
-  if (map.GetObject(column, row).get() != nullptr) {
-    return false;
-  }
-  return true;
-}
-
 void Npc::Move(const Vector2D& direction) {
   SetPosition(position_ + direction * constants::kNpcStep);
   if (direction.GetX() > constants::kEpsilon) {
@@ -129,6 +133,19 @@ Picture Npc::GetPicture() const {
     output.picture = pictures_[constants::kNumberOfEquallySidedNpc
         + tick_counter_ / constants::kNpcSpeedCoefficient];
   }
+
+  if (is_born_) {
+    output.height = std::max(0, static_cast<int>(std::ceil(
+        native_boiler_.lock()->GetPosition().GetY() - position_.GetY()
+            - native_boiler_.lock()->GetHeight() / 2 + constants::kNpcSize / 2)));
+
+    long double height_coef =
+        static_cast<long double>(output.height) / constants::kNpcSize;
+
+    output.picture = output.picture.copy(
+        0, 0, output.picture.width(),
+        std::ceil(height_coef * output.picture.height()));
+  }
   return output;
 }
 
@@ -148,4 +165,36 @@ int Npc::GetCounter() const {
 
 void Npc::SetCounter(int counter) {
   tick_counter_ = counter;
+}
+
+void Npc::UpdateFieldsIfBorn(const Point& target_position) {
+  position_ -= Point(0, constants::kNpcStep);
+  is_moving_right_ =
+      (position_.GetX() - target_position.GetX() < -constants::kEpsilon);
+
+  if (native_boiler_.lock()->GetPosition().GetY() - position_.GetY()
+      > constants::kNpcSize / 2 + native_boiler_.lock()->GetHeight() / 2
+          + constants::kEpsilon) {
+    is_born_ = false;
+  }
+
+  long double boiler_hit_box_top =
+      native_boiler_.lock()->GetPosition().GetY()
+          + native_boiler_.lock()->GetHitBox().GetVerticalShift()
+          - native_boiler_.lock()->GetHitBox().GetHeight() / 2;
+
+  long double visible_height =
+      boiler_hit_box_top - position_.GetY() + constants::kNpcSize / 2;
+
+  hit_box_.SetHeight(std::min(
+      visible_height - picture_above_hit_box_.GetHeight(),
+      constants::kNpcHitBoxHeightCoefficient * constants::kNpcSize));
+
+  hit_box_.SetVerticalShift(
+      picture_above_hit_box_.GetHeight() + hit_box_.GetHeight() / 2
+          - constants::kNpcSize / 2);
+}
+
+Point Npc::GetSpawnPos() const {
+  return native_boiler_.lock()->GetPosition();
 }

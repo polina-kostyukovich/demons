@@ -6,9 +6,14 @@
 
 class StaticObject : public GameObject {
  public:
-  explicit StaticObject(const Point& position = Point());
+  explicit StaticObject(const Point& position, int width, int height);
 
-  virtual Picture GetPicture() const = 0;
+  int GetWidth() const;
+  int GetHeight() const;
+
+ protected:
+  int width_;
+  int height_;
 };
 
 #endif  // GAMEOBJECT_STATIC_OBJECT_H_

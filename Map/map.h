@@ -31,6 +31,7 @@ class Map {
   void LoadBoilers();
 
   const std::vector<std::shared_ptr<StaticObject>>& GetObjects() const;
+  std::vector<Point> GetBoilersCoords() const;
 
   std::pair<int, int> GetCellSize() const;
   std::pair<int, int> GetCellCoordinatesOnMap(const Point& point) const;

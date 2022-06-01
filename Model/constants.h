@@ -3,6 +3,7 @@
 
 namespace constants {
 const long double kEpsilon = 1e-9;
+const long double kCollisionEpsilon = 0.5;
 const long double kClose = 3;
 const long double kMaxDistance = 1e9;
 const long double kDirectionStep = 0.2;
@@ -31,6 +32,15 @@ const int kNumberOfEquallySidedNpc = 7;
 
 const int kMiddleAnimation = 6;
 const long double kTorsoPercentage = 0.105;
+
+const long double kHeroHitBoxHeightCoefficient = 0.4;
+const long double kBoilerHitBoxHeightCoefficient = 0.55;
+const long double kNpcHitBoxHeightCoefficient = 0.5;
+const long double kNpcHitBoxWidthCoefficient = 0.4;
+const long double kFireballHitBoxHeightCoefficient = 0.4;
+const long double kFireballHitBoxWidthCoefficient = 0.6;
+
+const int kTicksBetweenNpcAppearance = 100;
 }  // namespace constants
 
 #endif  // MODEL_CONSTANTS_H_
