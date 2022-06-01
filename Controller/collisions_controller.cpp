@@ -51,7 +51,7 @@ void CollisionsController::CheckHeroAndStaticObjects(
     const std::unique_ptr<Model>& model,
     const Point& old_hero_position) {
   auto& objects = model->GetMap().GetObjects();
-  for (const auto& object: objects) {
+  for (const auto& object : objects) {
     CheckHeroAndStaticObject(model, old_hero_position, object);
   }
 }
@@ -91,7 +91,7 @@ void CollisionsController::CheckFireballsAndStaticObjects(
     const std::unique_ptr<Model>& model) {
   auto& objects = model->GetMap().GetObjects();
   auto& fireballs = model->GetFireballs();
-  for (const auto& object: objects) {
+  for (const auto& object : objects) {
     for (int i = 0; i < fireballs.size(); ++i) {
       if (!fireballs.at(i).IsBorn() &&
           fireballs.at(i).GetHitBox().IsCollided(object->GetHitBox())) {
@@ -163,7 +163,7 @@ void CollisionsController::CheckHeroAndNpcs(
 
 void CollisionsController::ResetAllRenderingLevels(
     const std::vector<GameObject*>& all_objects) {
-  for (auto& object: all_objects) {
+  for (auto& object : all_objects) {
     object->SetRenderingLevel(0);
   }
 }
