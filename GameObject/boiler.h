@@ -19,8 +19,6 @@ class Boiler : public StaticObject {
 
  private:
   static inline std::unique_ptr<QPixmap> picture_;
-  int width_;
-  int height_;
 };
 
 #endif  // GAMEOBJECT_BOILER_H_

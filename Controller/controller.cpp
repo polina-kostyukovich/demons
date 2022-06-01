@@ -42,8 +42,8 @@ void Controller::NewGame() {
                                       constants::kHeroSize / 2.));
   model_->GetFireballs().clear();
   model_->GetHero().SetNumberTick(0);
+  model_->GetNpcController().ClearNpcList();
   counter_ = 0;
-  // set default parameters to all objects
 
   StartGame();
 }
@@ -77,6 +77,14 @@ int Controller::GetCounter() const {
 }
 
 void Controller::TimerTick() {
+  model_->GetNpcController().IncrementTickCounter();
+  if (model_->GetNpcController().NeedToCreateNpc()) {
+    model_->GetNpcController().CreateNpc(model_->GetHero().GetPosition(),
+                                         model_->GetMap());
+    model_->GetNpcController().CreateNpc(model_->GetHero().GetPosition(),
+                                         model_->GetMap());
+  }
+
   Point old_hero_position = model_->GetHero().GetPosition();
   std::vector<Point> old_npc_coords =
       model_->GetNpcController().GetNpcCoordinates();
@@ -177,6 +185,7 @@ void Controller::UpdateFireballsFieldsForDrawing() {
     }
   }
 }
+
 int Controller::GetMaxRenderingLevel() const {
   int result = 0;
 

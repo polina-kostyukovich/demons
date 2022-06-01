@@ -1,19 +1,21 @@
 #include "npc.h"
 
-Npc::Npc(const Point& position) : Creature(position) {
+#include <algorithm>
+
+Npc::Npc(const Point& position,
+         const std::weak_ptr<StaticObject>& native_boiler) :
+    Creature(position), native_boiler_(native_boiler) {
   hit_box_.SetWidth(constants::kNpcSize
-                    * constants::kNpcHitBoxWidthCoefficient);
-  hit_box_.SetHeight(constants::kNpcSize
-                    * constants::kNpcHitBoxHeightCoefficient);
-  hit_box_.SetVerticalShift((0.5 - constants::kNpcHitBoxHeightCoefficient / 2)
-                            * constants::kNpcSize);
+                        * constants::kNpcHitBoxWidthCoefficient);
+  hit_box_.SetHeight(0);
+  hit_box_.SetVerticalShift(0);
 
   picture_above_hit_box_.SetWidth(hit_box_.GetWidth());
   picture_above_hit_box_.SetHeight(
       constants::kNpcSize * (1 - constants::kNpcHitBoxHeightCoefficient));
   picture_above_hit_box_.SetVerticalShift(
       -(0.5 - (1 - constants::kNpcHitBoxHeightCoefficient) / 2)
-      * constants::kNpcSize);
+          * constants::kNpcSize);
 }
 
 void Npc::LoadPictures() {
@@ -24,6 +26,11 @@ void Npc::LoadPictures() {
 }
 
 void Npc::Update(const Point& target_position) {
+  if (is_born_) {
+    UpdateFieldsIfBorn(target_position);
+    return;
+  }
+
   Vector2D direction;
   long double min_distance = constants::kMaxDistance;
 
@@ -60,14 +67,28 @@ void Npc::Move(const Vector2D& direction) {
 Picture Npc::GetPicture() const {
   Picture output;
   output.height = constants::kNpcSize;
-  output.width = output.height;
+  output.width = constants::kNpcSize;
   output.left_top =
       position_ - Point(constants::kNpcSize / 2., constants::kNpcSize / 2.);
+
   if (is_moving_right_) {
     output.picture = pictures_[tick_counter_ / constants::kNpcSpeedCoefficient];
   } else {
     output.picture = pictures_[constants::kNumberOfEquallySidedNpc
         + tick_counter_ / constants::kNpcSpeedCoefficient];
+  }
+
+  if (is_born_) {
+    output.height = std::max(0, static_cast<int>(std::ceil(
+        native_boiler_.lock()->GetPosition().GetY() - position_.GetY()
+        - native_boiler_.lock()->GetHeight() / 2 + constants::kNpcSize / 2)));
+
+    long double height_coef =
+        static_cast<long double>(output.height) / constants::kNpcSize;
+
+    output.picture = output.picture.copy(
+        0, 0, output.picture.width(),
+        std::ceil(height_coef * output.picture.height()));
   }
   return output;
 }
@@ -88,4 +109,36 @@ int Npc::GetCounter() const {
 
 void Npc::SetCounter(int counter) {
   tick_counter_ = counter;
+}
+
+void Npc::UpdateFieldsIfBorn(const Point& target_position) {
+  position_ -= Point(0, constants::kNpcStep);
+  is_moving_right_ =
+      (position_.GetX() - target_position.GetX() < -constants::kEpsilon);
+
+  if (native_boiler_.lock()->GetPosition().GetY() - position_.GetY()
+      > constants::kNpcSize / 2 + native_boiler_.lock()->GetHeight() / 2
+          + constants::kEpsilon) {
+    is_born_ = false;
+  }
+
+  long double boiler_hit_box_top =
+      native_boiler_.lock()->GetPosition().GetY()
+          + native_boiler_.lock()->GetHitBox().GetVerticalShift()
+              - native_boiler_.lock()->GetHitBox().GetHeight() / 2;
+
+  long double visible_height =
+      boiler_hit_box_top - position_.GetY() + constants::kNpcSize / 2;
+
+  hit_box_.SetHeight(std::min(
+      visible_height - picture_above_hit_box_.GetHeight(),
+      constants::kNpcHitBoxHeightCoefficient * constants::kNpcSize));
+
+  hit_box_.SetVerticalShift(
+      picture_above_hit_box_.GetHeight() + hit_box_.GetHeight() / 2
+          - constants::kNpcSize / 2);
+}
+
+Point Npc::GetSpawnPos() const {
+  return native_boiler_.lock()->GetPosition();
 }
