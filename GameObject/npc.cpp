@@ -2,6 +2,7 @@
 #include <iostream>
 #include <map>
 #include <set>
+#include <queue>
 
 #include "npc.h"
 
@@ -15,79 +16,81 @@ void Npc::LoadPictures() {
 }
 
 void Npc::Update(const Point& target_position, const Map& map) {
-  std::set<ProcessingPoint> points_order;
-  std::map<ProcessingPoint, bool> point_is_used;
-  std::map<Point, Point> previous_point;
-
-  ProcessingPoint start_point({position_,
-                               Point::Distance(position_, target_position)});
-  points_order.insert(start_point);
-  point_is_used[start_point] = true;
-  previous_point[start_point.position_] = start_point.position_;
-
-  ProcessingPoint end_point;
-
-  bool hero_was_riched = false;
-
-  std::vector<Vector2D> directions;
-  for (int delta_x = -1; delta_x <= 1; delta_x++) {
-    for (int delta_y = -1; delta_y <= 1; delta_y++) {
-      directions.emplace_back(delta_x, delta_y);
-    }
+  Vector2D row_direction(position_, target_position);
+  row_direction.Normalize();
+  if (CanMove(position_ + row_direction * constants::kNpcStep, map)) {
+    Move(row_direction);
+    return;
   }
-  directions.emplace_back(position_, target_position);
 
-  while (!hero_was_riched) {
-    if (points_order.empty()) {
-      return;
-    }
-    ProcessingPoint cur_point = *points_order.begin();
-    // std::cout << cur_point.position_ << '\n';
-    points_order.erase(points_order.begin());
+  int grid_columns = map.GetColumnsNumber() * map.GetCellSize().first /
+      constants::kNpcStep;
+  int grid_rows = map.GetRowsNumber() * map.GetCellSize().second /
+                  constants::kNpcStep;
 
-    if (Point::Distance(cur_point.position_, target_position) <=
-        constants::kClose) {
-      hero_was_riched = true;
-      end_point = cur_point;
-      // std::cout << "We riched the end!\n";
-      break;
-    }
+  std::vector<std::vector<std::pair<int, int>>> previous_cell(
+      grid_columns, std::vector<std::pair<int, int>>(grid_rows, {0, 0}));
+  std::vector<std::vector<bool>> cell_is_used(
+      grid_columns, std::vector<bool>(grid_rows, false));
 
-    directions.pop_back();
-    directions.emplace_back(cur_point.position_, target_position);
+  std::queue<std::pair<int, int>> cells;
 
-    for (auto& new_direction : directions) {
-      new_direction.Normalize();
+  std::pair<int, int> start_cell(
+      floor(position_.GetX() / constants::kNpcStep),
+      floor(position_.GetY() / constants::kNpcStep));
 
-      ProcessingPoint new_point;
-      new_point.position_ = cur_point.position_ +
-                            new_direction * constants::kNpcStep;
-      new_point.weight_ = Point::Distance(new_point.position_,
-                                          target_position);
-      if (CanMove(new_point.position_, map) &&
-          !point_is_used[new_point]) {
-        // std::cout << new_point.position_ << '\n';
-        previous_point[new_point.position_] = cur_point.position_;
-        point_is_used[new_point] = true;
-        points_order.insert(new_point);
+  long double addition_x = position_.GetX() - start_cell.first *
+                           constants::kNpcStep;
+  long double addition_y = position_.GetY() - start_cell.second *
+      constants::kNpcStep;
+
+  cells.push(start_cell);
+  cell_is_used[start_cell.first][start_cell.second] = true;
+  previous_cell[start_cell.first][start_cell.second] = start_cell;
+
+  std::pair<int, int> end_cell(
+      floor(target_position.GetX() / constants::kNpcStep),
+      floor(target_position.GetY() / constants::kNpcStep));
+
+  std::vector<Vector2D> directions = {
+      {1, 0}, {-1, 0}, {0, 1}, {0, -1}
+  };
+
+  while (!cell_is_used[end_cell.first][end_cell.second]) {
+    std::pair<int, int> cur_cell = cells.front();
+    cells.pop();
+
+    for (auto& direction : directions) {
+      std::pair<int, int> new_cell = cur_cell;
+      new_cell.first += direction.GetX();
+      new_cell.second += direction.GetY();
+
+      if (new_cell.first < 0 || new_cell.second < 0 ||
+          new_cell.first >= grid_columns || new_cell.second >= grid_rows) {
+        continue;
+      }
+
+      Point new_point(new_cell.first * constants::kNpcStep + addition_x,
+                      new_cell.second * constants::kNpcStep + addition_y);
+
+      if (!cell_is_used[new_cell.first][new_cell.second] &&
+          CanMove(new_point, map)) {
+        cells.push(new_cell);
+        cell_is_used[new_cell.first][new_cell.second] = true;
+        previous_cell[new_cell.first][new_cell.second] = cur_cell;
       }
     }
   }
 
-  Point next_step = end_point.position_;
-  // std::cout << "Try to find the way...\n";
-  int i = 0;
-  while (previous_point[next_step] != start_point.position_) {
-    // std::cout << next_step << " " << start_point.position_ << '\n';
-    if (previous_point[next_step].GetX() == 0 && i < 5) {
-      i++;
-    }
-    next_step = previous_point[next_step];
+  while (previous_cell[end_cell.first][end_cell.second] != start_cell) {
+    end_cell = previous_cell[end_cell.first][end_cell.second];
   }
-  // std::cout << "Way was found!\n";
-  Vector2D direction(position_, end_point.position_);
-  direction.Normalize();
-  Move(direction);
+
+  Point end_point(end_cell.first * constants::kNpcStep + addition_x,
+                  end_cell.second * constants::kNpcStep + addition_y);
+  Vector2D cur_direction(position_, end_point);
+  cur_direction.Normalize();
+  Move(cur_direction);
 }
 
 bool Npc::CanMove(const Point& new_position, const Map& map) {
@@ -144,34 +147,4 @@ int Npc::GetCounter() const {
 
 void Npc::SetCounter(int counter) {
   tick_counter_ = counter;
-}
-
-Npc::ProcessingPoint::ProcessingPoint(const Point &position,
-                                      long double weight) :
-    position_(position),
-    weight_(weight) {}
-
-bool Npc::ProcessingPoint::operator<(
-    const Npc::ProcessingPoint &second) const {
-  if (abs(weight_ - second.weight_) > constants::kEpsilonTest) {
-    return weight_ - second.weight_ < -constants::kEpsilonTest;
-  }
-  if (abs(position_.GetX() - second.position_.GetX()) < constants::kEpsilonTest) {
-    return position_.GetY() - second.position_.GetY() < -constants::kEpsilonTest;
-  }
-  return position_.GetX() - second.position_.GetX() < -constants::kEpsilonTest;
-}
-
-bool Npc::ProcessingPoint::operator==(
-    const Npc::ProcessingPoint &second) const {
-  return (abs(position_.GetX() - second.position_.GetX()) <
-          constants::kEpsilonTest) &&
-         (abs(position_.GetY() - second.position_.GetY()) <
-          constants::kEpsilonTest) &&
-         (abs(weight_ - second.weight_) < constants::kEpsilonTest);
-}
-
-bool Npc::ProcessingPoint::operator=(const Npc::ProcessingPoint& second) {
-  weight_ = second.weight_;
-  position_ = second.position_;
 }
