@@ -117,5 +117,5 @@ void View::DrawHeroHealthBar(QPainter* painter) {
   long double health_bar_length =
       health_percentage * constants::kHeroHealthBarWidth;
 
-  painter->drawRect(0,0,health_bar_length, constants::kHeroHealthBarHeight);
+  painter->drawRect(0,0,health_bar_length,constants::kHeroHealthBarHeight);
 }
