@@ -1,5 +1,7 @@
 #include "npc.h"
 
+#include <algorithm>
+
 Npc::Npc(const Point& position,
          const std::weak_ptr<StaticObject>& native_boiler) :
     Creature(position), native_boiler_(native_boiler) {
