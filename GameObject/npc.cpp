@@ -71,17 +71,30 @@ Picture Npc::GetPicture() const {
   output.left_top =
       position_ - Point(constants::kNpcSize / 2., constants::kNpcSize / 2.);
 
-  if (is_moving_right_) {
-    output.picture = pictures_[tick_counter_ / constants::kNpcSpeedCoefficient];
+  if (!is_fighting_) {
+    if (is_moving_right_) {
+      output.picture =
+          pictures_[tick_counter_ / constants::kNpcSpeedCoefficient];
+    } else {
+      output.picture = pictures_[constants::kNumberOfEquallySidedNpc
+          + tick_counter_ / constants::kNpcSpeedCoefficient];
+    }
   } else {
-    output.picture = pictures_[constants::kNumberOfEquallySidedNpc
-        + tick_counter_ / constants::kNpcSpeedCoefficient];
+    if (is_moving_right_) {
+      output.picture = pictures_[constants::kNumberOfNpc
+          + tick_counter_ / constants::kNpcSpeedCoefficient];
+    } else {
+      output.picture = pictures_[constants::kNumberOfEquallySidedNpc
+          + constants::kNumberOfNpc
+          + tick_counter_ / constants::kNpcSpeedCoefficient];
+    }
   }
 
   if (is_born_) {
     output.height = std::max(0, static_cast<int>(std::ceil(
         native_boiler_.lock()->GetPosition().GetY() - position_.GetY()
-        - native_boiler_.lock()->GetHeight() / 2 + constants::kNpcSize / 2)));
+            - native_boiler_.lock()->GetHeight() / 2
+            + constants::kNpcSize / 2)));
 
     long double height_coef =
         static_cast<long double>(output.height) / constants::kNpcSize;
@@ -125,7 +138,7 @@ void Npc::UpdateFieldsIfBorn(const Point& target_position) {
   long double boiler_hit_box_top =
       native_boiler_.lock()->GetPosition().GetY()
           + native_boiler_.lock()->GetHitBox().GetVerticalShift()
-              - native_boiler_.lock()->GetHitBox().GetHeight() / 2;
+          - native_boiler_.lock()->GetHitBox().GetHeight() / 2;
 
   long double visible_height =
       boiler_hit_box_top - position_.GetY() + constants::kNpcSize / 2;
@@ -141,4 +154,15 @@ void Npc::UpdateFieldsIfBorn(const Point& target_position) {
 
 Point Npc::GetSpawnPos() const {
   return native_boiler_.lock()->GetPosition();
+}
+
+void Npc::SetFighting(bool is_true) {
+  is_fighting_ = is_true;
+}
+
+void Npc::CheckFighting() {
+  if (is_fighting_ && (tick_counter_ == constants::kNpcSpeedCoefficient
+      * constants::kNumberOfFightingNpc)) {
+    is_fighting_ = false;
+  }
 }
