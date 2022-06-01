@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cmath>
 #include <iostream>
 #include <map>
@@ -153,8 +154,8 @@ Picture Npc::GetPicture() const {
 
   if (is_born_) {
     output.height = std::max(0, static_cast<int>(std::ceil(
-        native_boiler_.lock()->GetPosition().GetY() - position_.GetY()
-            - native_boiler_.lock()->GetHeight() / 2 + constants::kNpcSize / 2)));
+        native_boiler_.lock()->GetPosition().GetY() - position_.GetY() -
+        native_boiler_.lock()->GetHeight() / 2 + constants::kNpcSize / 2)));
 
     long double height_coef =
         static_cast<long double>(output.height) / constants::kNpcSize;
