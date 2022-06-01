@@ -5,13 +5,13 @@
 #include <QPixmap>
 
 #include "static_object.h"
+#include "../Util/hit_box.h"
 #include "../Util/point.h"
 #include "../Util/structs.h"
 
 class Boiler : public StaticObject {
  public:
-  Boiler(const Point& position, int width, int height) :
-      StaticObject(position), width_(width), height_(height) {}
+  Boiler(const Point& position, int width, int height);
 
   static void LoadPictures();
 
@@ -19,8 +19,6 @@ class Boiler : public StaticObject {
 
  private:
   static inline std::unique_ptr<QPixmap> picture_;
-  int width_;
-  int height_;
 };
 
 #endif  // GAMEOBJECT_BOILER_H_

@@ -18,6 +18,7 @@ add_executable(demons
         main.cpp
         App/app.cpp
         Controller/abstract_controller.cpp
+        Controller/collisions_controller.cpp
         Controller/controller.cpp
         Controller/level_controller.cpp
         Controller/npc_controller.cpp
@@ -36,6 +37,7 @@ add_executable(demons
         Model/constants.cpp
         Model/model.cpp
         Util/collisions.cpp
+        Util/hit_box.cpp
         Util/point.cpp
         Util/structs.h
         Util/vector.cpp

@@ -8,6 +8,7 @@
 #include <QWidget>
 
 #include "abstract_controller.h"
+#include "collisions_controller.h"
 #include "../Model/model.h"
 #include "../View/view.h"
 
@@ -43,9 +44,12 @@ class Controller : public AbstractController {
 
   void HandleMousePressEvent(QMouseEvent* event) override;
 
-  void CheckFireballsCollisionsWithWalls();
-  void UpdateHeroFields();
-  void UpdateFireballsFields();
+  void MoveObjects();
+
+  void UpdateHeroFieldsForDrawing();
+  void UpdateFireballsFieldsForDrawing();
+
+  int GetMaxRenderingLevel() const override;
 
  public slots:
   void TimerTick();
@@ -56,6 +60,7 @@ class Controller : public AbstractController {
  private:
   std::unique_ptr<Model> model_;
   std::unique_ptr<View> view_;
+  CollisionsController collisions_controller_;
   QTimer* timer_{new QTimer(this)};
   std::map<int, bool> keys_;
   int counter_{0};

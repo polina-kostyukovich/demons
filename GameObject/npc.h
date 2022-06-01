@@ -1,16 +1,19 @@
 #ifndef GAMEOBJECT_NPC_H_
 #define GAMEOBJECT_NPC_H_
 
+#include <memory>
 #include <string>
 #include <vector>
 
 #include "creature.h"
+#include "../GameObject/static_object.h"
 #include "../Util/structs.h"
 #include "../Util/vector.h"
 
 class Npc : public Creature {
  public:
-  explicit Npc(const Point& position = Point());
+  explicit Npc(const Point& position,
+               const std::weak_ptr<StaticObject>& native_boiler);
 
   static void LoadPictures();
 
@@ -22,13 +25,19 @@ class Npc : public Creature {
   int GetCounter() const;
   void SetCounter(int counter);
 
+  Point GetSpawnPos() const;
+
  private:
   static void InputPictures(std::string);
+
+  void UpdateFieldsIfBorn(const Point& target_position);
 
  private:
   static inline std::vector<QPixmap> pictures_;
   bool is_moving_right_;
   int tick_counter_{0};
+  bool is_born_{true};
+  std::weak_ptr<StaticObject> native_boiler_;
 };
 
 #endif  // GAMEOBJECT_NPC_H_

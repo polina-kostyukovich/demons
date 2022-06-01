@@ -21,6 +21,8 @@ class Hero : public Creature {
 
   Picture GetPicture(int counter) const;
 
+  Picture GetPicture() const override;
+
   int GetNumberTick();
   void SetNumberTick(int number);
   bool IsStriking();
