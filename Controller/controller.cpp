@@ -38,6 +38,7 @@ void Controller::StartGame() {
 }
 
 void Controller::NewGame() {
+  model_->GetHero().SetHealthPoints(constants::kHeroHealthPoints);
   model_->GetHero().SetPosition(Point(constants::kHeroSize / 2.,
                                       constants::kHeroSize / 2.));
   model_->GetFireballs().clear();
