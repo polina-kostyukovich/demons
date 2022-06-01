@@ -1,6 +1,7 @@
 #include "npc.h"
 
 #include <algorithm>
+#include <iostream>
 
 Npc::Npc(const Point& position,
          const std::weak_ptr<StaticObject>& native_boiler) :
@@ -23,6 +24,23 @@ void Npc::LoadPictures() {
   InputPictures(picture);
   picture += "_left";
   InputPictures(picture);
+}
+
+void Npc::InputPictures(std::string picture) {
+  for (int i = 1; i <= constants::kNumberOfNpc; i++) {
+    pictures_.emplace_back((picture + std::to_string(i) + ".png").c_str());
+  }
+  picture += "_fight";
+  for (int i = 1; i <= constants::kNumberOfOnceFightingNpc; i++) {
+    pictures_.emplace_back((picture + std::to_string(i) + ".png").c_str());
+  }
+  pictures_.emplace_back(((picture
+      + std::to_string(constants::kNumberOfOnceFightingNpc)) + ".png").c_str());
+  for (int i = 0; i < (constants::kNumberOfOnceFightingNpc - 1); i++) {
+    pictures_.emplace_back((picture
+        + std::to_string(constants::kNumberOfOnceFightingNpc - i)
+        + ".png").c_str());
+  }
 }
 
 void Npc::Update(const Point& target_position) {
@@ -71,6 +89,8 @@ Picture Npc::GetPicture() const {
   output.left_top =
       position_ - Point(constants::kNpcSize / 2., constants::kNpcSize / 2.);
 
+  std::cout << tick_counter_ << '\n';
+
   if (!is_fighting_) {
     if (is_moving_right_) {
       output.picture =
@@ -104,16 +124,6 @@ Picture Npc::GetPicture() const {
         std::ceil(height_coef * output.picture.height()));
   }
   return output;
-}
-
-void Npc::InputPictures(std::string picture) {
-  for (int i = 1; i <= constants::kNumberOfNpc; i++) {
-    pictures_.emplace_back((picture + std::to_string(i) + ".png").c_str());
-  }
-  picture += "_fight";
-  for (int i = 1; i <= constants::kNumberOfFightingNpc; i++) {
-    pictures_.emplace_back((picture + std::to_string(i) + ".png").c_str());
-  }
 }
 
 int Npc::GetCounter() const {
@@ -156,13 +166,18 @@ Point Npc::GetSpawnPos() const {
   return native_boiler_.lock()->GetPosition();
 }
 
-void Npc::SetFighting(bool is_true) {
-  is_fighting_ = is_true;
+void Npc::SetFighting(bool value) {
+  is_fighting_ = value;
+}
+
+bool Npc::GetFighting() {
+  return is_fighting_;
 }
 
 void Npc::CheckFighting() {
   if (is_fighting_ && (tick_counter_ == constants::kNpcSpeedCoefficient
-      * constants::kNumberOfFightingNpc)) {
+      * constants::kNumberOfFightingNpc - 1)) {
     is_fighting_ = false;
+    tick_counter_ = 0;
   }
 }
