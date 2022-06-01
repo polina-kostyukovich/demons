@@ -1,3 +1,4 @@
+#include <cmath>
 #include "npc.h"
 
 Npc::Npc(const Point& position) : Creature(position) {
@@ -88,4 +89,28 @@ int Npc::GetCounter() const {
 
 void Npc::SetCounter(int counter) {
   tick_counter_ = counter;
+}
+
+bool Npc::IsAttacking() const {
+  return is_attacking_;
+}
+
+void Npc::SetAttackingStatus(bool is_attacking) {
+  is_attacking_ = is_attacking;
+}
+
+int Npc::GetAttackTickCounter() const {
+  return attack_tick_counter_;
+}
+
+void Npc::SetAttackTickCounter(int counter) {
+  attack_tick_counter_ = counter;
+}
+
+void Npc::IncrementAttackTickCounter() {
+  ++attack_tick_counter_;
+}
+
+void Npc::AttackHero(Hero* hero) {
+  hero->SetHealthPoints(hero->GetHealthPoints() - constants::kNpcDamage);
 }

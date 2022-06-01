@@ -1,5 +1,6 @@
 #include "view.h"
 
+#include <algorithm>
 #include <utility>
 #include <QGuiApplication>
 #include <QScreen>
@@ -39,6 +40,7 @@ void View::paintEvent(QPaintEvent* event) {
   for (int level = 0; level <= max_rendering_level; ++level) {
     RenderLevel(level, &painter);
   }
+  DrawHeroHealthBar(&painter);
 }
 
 void View::Draw(const Picture& animation, QPainter* painter) {
@@ -99,4 +101,21 @@ void View::RenderLevel(int level, QPainter* painter) {
       Draw(object->GetPicture(), painter);
     }
   }
+}
+
+void View::DrawHeroHealthBar(QPainter* painter) {
+  QBrush brush(Qt::SolidPattern);
+  brush.setColor(Qt::green);
+  painter->setBrush(brush);
+
+  long double health_percentage =
+      controller_->GetModel().GetHero().GetHealthPoints();
+  health_percentage /= constants::kHeroHealthPoints;
+
+  health_percentage = std::max(static_cast<long double> (0), health_percentage);
+
+  long double health_bar_length =
+      health_percentage * constants::kHeroHealthBarWidth;
+
+  painter->drawRect(0,0,health_bar_length, constants::kHeroHealthBarHeight);
 }

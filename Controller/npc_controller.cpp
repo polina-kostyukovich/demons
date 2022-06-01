@@ -2,10 +2,6 @@
 
 NpcController::NpcController() {
   npc_list_.push_back(Npc(Point(800, 800)));
-  npc_list_.push_back(Npc(Point(600, 600)));
-  npc_list_.push_back(Npc(Point(100, 300)));
-  npc_list_.push_back(Npc(Point(1000, 1000)));
-  npc_list_.push_back(Npc(Point(800, 100)));
   // todo from boilers
 }
 

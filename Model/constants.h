@@ -22,6 +22,8 @@ const int kWallSize = 30;
 const int kFireballSpeedCoefficient = 5;
 const int kNpcSpeedCoefficient = 5;
 const int kHeroSpeedCoefficient = 3;
+const int kNpcAttackSpeed = 10;
+const int kNpcAttackTick = 5;
 
 const int kNumberOfBornFireballs = 4;
 const int kNumberOfAnimation = 11;
@@ -41,6 +43,12 @@ const long double kNpcHitBoxWidthCoefficient = 0.4;
 const long double kNpcPictureHeightCoefficient = 1.2;
 const long double kFireballHitBoxHeightCoefficient = 0.4;
 const long double kFireballHitBoxWidthCoefficient = 0.6;
+const long double kHeroHealthBarWidth = 350;
+const long double kHeroHealthBarHeight = 25;
+
+const long double kNpcDamage = 2;
+
+const long double kHeroHealthPoints = 300;
 }  // namespace constants
 
 #endif  // MODEL_CONSTANTS_H_

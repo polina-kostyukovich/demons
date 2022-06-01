@@ -37,6 +37,8 @@ class View : public QMainWindow {
 
   void RenderLevel(int level, QPainter* painter);
 
+  void DrawHeroHealthBar(QPainter* painter);
+
  private:
   std::shared_ptr<AbstractController> controller_;
 
