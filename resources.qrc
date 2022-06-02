@@ -53,6 +53,9 @@
          <file>Resources/Picture/Npc/npc_left3.png</file>
          <file>Resources/Picture/Npc/npc_left4.png</file>
 
+         <file>Resources/Picture/Menu/defeat.jpg</file>
+         <file>Resources/Picture/Menu/victory.jpg</file>
+
         <file>Resources/Jsons/boilers_data.json</file>
     </qresource>
 </RCC>

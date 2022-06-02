@@ -21,7 +21,7 @@ class Menu : public QWidget {
 
   void paintEvent(QPaintEvent*) override;
 
-  void ShowContinueButton();
+  void ShowContinueButton(bool is_visible);
 
  private:
   void LoadPictures();

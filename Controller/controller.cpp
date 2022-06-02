@@ -49,7 +49,7 @@ void Controller::NewGame() {
 }
 
 void Controller::Pause() {
-  view_->ShowMenu();
+  view_->ShowMenu(true);
   timer_->stop();
 }
 

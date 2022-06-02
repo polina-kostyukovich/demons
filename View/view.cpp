@@ -26,9 +26,9 @@ void View::ShowGame() {
   takeCentralWidget();
 }
 
-void View::ShowMenu() {
+void View::ShowMenu(bool is_continue_button_visible) {
   setCentralWidget(&menu_);
-  menu_.ShowContinueButton();
+  menu_.ShowContinueButton(is_continue_button_visible);
 }
 
 void View::paintEvent(QPaintEvent* event) {

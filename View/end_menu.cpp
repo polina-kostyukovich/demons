@@ -7,7 +7,7 @@ EndMenu::EndMenu(QWidget* parent) :
   LoadPictures();
   SetLayout();
   ConnectButton();
-  SetStyle();
+  SetButtonStyle();
 }
 
 void EndMenu::paintEvent(QPaintEvent*) {
@@ -15,7 +15,8 @@ void EndMenu::paintEvent(QPaintEvent*) {
 }
 
 void EndMenu::LoadPictures() {
-
+  victory_picture_ = QPixmap(":Resources/Picture/Menu/victory.jpg");
+  defeat_picture_ = QPixmap(":Resources/Picture/Menu/defeat.jpg");
 }
 
 void EndMenu::SetLayout() {
@@ -26,6 +27,6 @@ void EndMenu::ConnectButton() {
 
 }
 
-void EndMenu::SetStyle() {
+void EndMenu::SetButtonStyle() {
 
 }

@@ -8,6 +8,7 @@
 #include <QWidget>
 
 #include "../Controller/abstract_controller.h"
+#include "end_menu.h"
 #include "menu.h"
 #include "../Util/structs.h"
 
@@ -19,7 +20,7 @@ class View : public QMainWindow {
   void CreateMenu();
 
   void ShowGame();
-  void ShowMenu();
+  void ShowMenu(bool is_continue_button_visible);
 
   void paintEvent(QPaintEvent* event) override;
 
@@ -41,6 +42,7 @@ class View : public QMainWindow {
   std::shared_ptr<AbstractController> controller_;
 
   Menu menu_{this};
+  EndMenu end_menu_{this};
 };
 
 #endif  // VIEW_VIEW_H_
