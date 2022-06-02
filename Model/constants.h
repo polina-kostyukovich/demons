@@ -22,15 +22,14 @@ const int kWallSize = 30;
 const int kFireballSpeedCoefficient = 5;
 const int kNpcSpeedCoefficient = 5;
 const int kHeroSpeedCoefficient = 3;
-const int kNpcAttackSpeed = 10;
-const int kNpcAttackTick = 5;
 
 const int kNumberOfBornFireballs = 4;
 const int kNumberOfAnimation = 11;
 const int kNumberOfFireBall = 7;
-const int kNumberOfFightingNpc = 3;
+const int kNumberOfRaisingHandNpc = 3;
+const int kNumberOfFightingNpc = 2 * kNumberOfRaisingHandNpc;
 const int kNumberOfNpc = 4;
-const int kNumberOfEquallySidedNpc = 7;
+const int kNumberOfEquallySidedNpc = kNumberOfFightingNpc + kNumberOfNpc;
 
 const int kMiddleAnimation = 6;
 const long double kTorsoPercentage = 0.105;
@@ -41,15 +40,8 @@ const long double kNpcHitBoxHeightCoefficient = 0.5;
 const long double kNpcHitBoxWidthCoefficient = 0.4;
 const long double kFireballHitBoxHeightCoefficient = 0.4;
 const long double kFireballHitBoxWidthCoefficient = 0.6;
-const long double kHeroHealthBarWidth = 350;
-const long double kHeroHealthBarHeight = 25;
 
-const long double kNpcDamage = 2;
-const long double kLavaDamage = 0.5;
-
-const int kStandingTicksToGetLavaDamage = 50;
-
-const long double kHeroHealthPoints = 300;
+const int kTicksBetweenNpcAppearance = 100;
 }  // namespace constants
 
 #endif  // MODEL_CONSTANTS_H_

@@ -1,9 +1,7 @@
 #include "boiler.h"
 
 Boiler::Boiler(const Point& position, int width, int height) :
-    StaticObject(position),
-    width_(width),
-    height_(height) {
+    StaticObject(position, width, height) {
   hit_box_.SetWidth(width_);
   hit_box_.SetHeight(height_ * constants::kBoilerHitBoxHeightCoefficient);
   hit_box_.SetVerticalShift(

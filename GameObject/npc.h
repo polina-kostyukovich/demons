@@ -1,17 +1,19 @@
 #ifndef GAMEOBJECT_NPC_H_
 #define GAMEOBJECT_NPC_H_
 
+#include <memory>
 #include <string>
 #include <vector>
 
 #include "creature.h"
+#include "../GameObject/static_object.h"
 #include "../Util/structs.h"
 #include "../Util/vector.h"
-#include "hero.h"
 
 class Npc : public Creature {
  public:
-  explicit Npc(const Point& position = Point());
+  explicit Npc(const Point& position,
+               const std::weak_ptr<StaticObject>& native_boiler);
 
   static void LoadPictures();
 
@@ -23,25 +25,25 @@ class Npc : public Creature {
   int GetCounter() const;
   void SetCounter(int counter);
 
-  bool IsAttacking() const;
-  void SetAttackingStatus(bool is_attacking);
+  Point GetSpawnPos() const;
 
-  int GetAttackTickCounter() const;
-  void SetAttackTickCounter(int counter);
-  void IncrementAttackTickCounter();
+  void SetFightingStatus(bool);
+  bool IsFighting() const;
 
-  void AttackHero(Hero* hero);
+  void CheckFighting();
 
  private:
   static void InputPictures(std::string);
+
+  void UpdateFieldsIfBorn(const Point& target_position);
 
  private:
   static inline std::vector<QPixmap> pictures_;
   bool is_moving_right_;
   int tick_counter_{0};
-
-  bool is_attacking_{false};
-  int attack_tick_counter_{-1};
+  bool is_born_{true};
+  std::weak_ptr<StaticObject> native_boiler_;
+  bool is_fighting_{false};
 };
 
 #endif  // GAMEOBJECT_NPC_H_

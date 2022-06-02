@@ -117,6 +117,16 @@ const std::vector<std::shared_ptr<StaticObject>>& Map::GetObjects() const {
   return objects_vector_;
 }
 
+std::vector<Point> Map::GetBoilersCoords() const {
+  std::vector<Point> boilers_coords;
+  for (auto& object : objects_vector_) {
+    if (dynamic_cast<Boiler*>(object.get()) != nullptr) {
+      boilers_coords.push_back(object->GetPosition());
+    }
+  }
+  return boilers_coords;
+}
+
 std::pair<int, int> Map::GetCellSize() const {
   int cell_width = width_ / columns_;
   int cell_height = height_ / rows_;

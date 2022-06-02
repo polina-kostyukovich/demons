@@ -131,26 +131,10 @@ void CollisionsController::CheckHeroAndNpcs(
   auto& hero = model->GetHero();
   auto& npcs = model->GetNpcController().GetNpcList();
   for (int i = 0; i < npcs.size(); ++i) {
-    if (!hero.GetHitBox().IsCollided(npcs[i].GetHitBox())) {
-      npcs[i].SetAttackingStatus(false);
-      npcs[i].SetAttackTickCounter(0);
-      continue;
-    }
-
-    if (!npcs[i].IsAttacking()) {
-      npcs[i].SetAttackingStatus(true);
-      npcs[i].SetAttackTickCounter(0);
-    }
-
-    npcs[i].IncrementAttackTickCounter();
-    if (npcs[i].GetAttackTickCounter() / constants::kNpcAttackSpeed ==
-        constants::kNpcAttackTick) {
-      npcs[i].AttackHero(&model->GetHero());
-    }
-
-    if (npcs[i].GetAttackTickCounter() / constants::kNpcAttackTick >
-        constants::kNpcAttackSpeed) {
-      npcs[i].SetAttackTickCounter(0);
+    if (!hero.GetHitBox().IsCollided(npcs[i].GetHitBox())) continue;
+    if (!npcs[i].IsFighting()) {
+      npcs[i].SetCounter(0);
+      npcs[i].SetFightingStatus(true);
     }
 
     npcs[i].SetPosition(old_npcs_pos[i]);
