@@ -5,7 +5,7 @@
 #include <random>
 
 void NpcController::Update(const Point& hero_position) {
-  for (auto& npc: npc_list_) {
+  for (auto& npc : npc_list_) {
     npc.Update(hero_position);
     if (!npc.IsFighting()) {
       npc.SetCounter((npc.GetCounter() + 1) % (constants::kNumberOfNpc
