@@ -6,7 +6,7 @@
 
 void NpcController::Update(const Point& hero_position, const Map& map) {
   for (auto& npc : npc_list_) {
-    npc.Update(hero_position, map);
+    npc.Update(hero_position, map, npc_list_);
     if (npc.GetCounter() + 1 == constants::kNumberOfNpc *
         constants::kNpcSpeedCoefficient) {
       npc.SetCounter(0);

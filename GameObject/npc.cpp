@@ -1,12 +1,12 @@
+#include "npc.h"
+
+#include <iostream>
+
 #include <algorithm>
 #include <cmath>
-#include <iostream>
-#include <map>
 #include <queue>
 #include <set>
 #include <utility>
-
-#include "npc.h"
 
 Npc::Npc(const Point& position,
          const std::weak_ptr<StaticObject>& native_boiler) :
@@ -31,15 +31,17 @@ void Npc::LoadPictures() {
   InputPictures(picture);
 }
 
-void Npc::Update(const Point& target_position, const Map& map) {
+void Npc::Update(const Point& target_position, const Map& map,
+                 std::vector<Npc>& npc_list) {
   if (is_born_) {
-    UpdateFieldsIfBorn(target_position);
+    UpdateFieldsIfBorn(target_position, map, npc_list);
     return;
   }
-  Vector2D row_direction(position_, target_position);
-  row_direction.Normalize();
-  if (CanMove(position_ + row_direction * constants::kNpcStep, map)) {
-    Move(row_direction);
+
+  Vector2D raw_direction(position_, target_position);
+  raw_direction.Normalize();
+  if (CanMove(position_ + raw_direction * constants::kNpcStep, map, npc_list)) {
+    Move(raw_direction);
     return;
   }
 
@@ -77,10 +79,13 @@ void Npc::Update(const Point& target_position, const Map& map) {
   };
 
   while (!cell_is_used[end_cell.first][end_cell.second]) {
+    if (cells.empty()) {
+      break;
+    }
     std::pair<int, int> cur_cell = cells.front();
     cells.pop();
 
-    for (auto& direction : directions) {
+    for (const auto& direction : directions) {
       std::pair<int, int> new_cell = cur_cell;
       new_cell.first += direction.GetX();
       new_cell.second += direction.GetY();
@@ -94,7 +99,7 @@ void Npc::Update(const Point& target_position, const Map& map) {
                       new_cell.second * constants::kNpcStep + addition_y);
 
       if (!cell_is_used[new_cell.first][new_cell.second] &&
-          CanMove(new_point, map)) {
+          CanMove(new_point, map, npc_list)) {
         cells.push(new_cell);
         cell_is_used[new_cell.first][new_cell.second] = true;
         previous_cell[new_cell.first][new_cell.second] = cur_cell;
@@ -113,7 +118,8 @@ void Npc::Update(const Point& target_position, const Map& map) {
   Move(cur_direction);
 }
 
-bool Npc::CanMove(const Point& new_position, const Map& map) {
+bool Npc::CanMove(const Point& new_position, const Map& map,
+                  std::vector<Npc>& npc_list) {
   int row = floor(new_position.GetY() / map.GetCellSize().second);
   int column = floor(new_position.GetX() / map.GetCellSize().first);
 
@@ -123,9 +129,17 @@ bool Npc::CanMove(const Point& new_position, const Map& map) {
     return false;
   }
 
-  if (map.GetObject(column, row).get() != nullptr) {
+  if (map.GetObject(column, row) != nullptr) {
     return false;
   }
+
+  Point old_position = position_;
+  position_ = new_position;
+  if (IsCollidedWithNpc(npc_list)) {
+    position_ = old_position;
+    return false;
+  }
+  position_ = old_position;
 
   return true;
 }
@@ -142,7 +156,7 @@ void Npc::Move(const Vector2D& direction) {
 Picture Npc::GetPicture() const {
   Picture output;
   output.height = constants::kNpcSize;
-  output.width = output.height;
+  output.width = constants::kNpcSize;
   output.left_top =
       position_ - Point(constants::kNpcSize / 2., constants::kNpcSize / 2.);
   if (is_moving_right_) {
@@ -154,8 +168,8 @@ Picture Npc::GetPicture() const {
 
   if (is_born_) {
     output.height = std::max(0, static_cast<int>(std::ceil(
-        native_boiler_.lock()->GetPosition().GetY() - position_.GetY() -
-        native_boiler_.lock()->GetHeight() / 2 + constants::kNpcSize / 2)));
+        native_boiler_.lock()->GetPosition().GetY() - position_.GetY()
+        - native_boiler_.lock()->GetHeight() / 2 + constants::kNpcSize / 2)));
 
     long double height_coef =
         static_cast<long double>(output.height) / constants::kNpcSize;
@@ -185,8 +199,15 @@ void Npc::SetCounter(int counter) {
   tick_counter_ = counter;
 }
 
-void Npc::UpdateFieldsIfBorn(const Point& target_position) {
+void Npc::UpdateFieldsIfBorn(const Point& target_position, const Map& map,
+                             std::vector<Npc>& npc_list) {
   position_ -= Point(0, constants::kNpcStep);
+  if (IsCollidedWithNpc(npc_list)) {
+    position_ += Point(0, constants::kNpcStep);
+  } else {
+    std::cerr << "Est shag\n";
+  }
+
   is_moving_right_ =
       (position_.GetX() - target_position.GetX() < -constants::kEpsilon);
 
@@ -215,4 +236,16 @@ void Npc::UpdateFieldsIfBorn(const Point& target_position) {
 
 Point Npc::GetSpawnPos() const {
   return native_boiler_.lock()->GetPosition();
+}
+
+bool Npc::IsCollidedWithNpc(std::vector<Npc>& npc_list) const {
+  for (const auto& npc : npc_list) {
+    if (position_ == npc.position_) {
+      continue;
+    }
+    if (GetHitBox().IsCollided(npc.GetHitBox())) {
+      return false;
+    }
+  }
+  return true;
 }
