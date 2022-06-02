@@ -13,6 +13,8 @@
 
 class CollisionsController {
  public:
+  bool SomeoneWasKilled() const;
+
   void CheckCollisions(const std::unique_ptr<Model>& model,
                        const Point& old_hero_pos,
                        const std::vector<Point>& old_npcs_pos,
@@ -43,6 +45,9 @@ class CollisionsController {
   bool AreAllRenderingLevelsNumerated(
       const std::vector<GameObject*>& all_objects) const;
   void NumerateAllRenderingLevels(const std::vector<GameObject*>& all_objects);
+
+ private:
+  bool someone_was_killed_{false};
 };
 
 #endif  // CONTROLLER_COLLISIONS_CONTROLLER_H_

@@ -1,10 +1,15 @@
 #include "collisions_controller.h"
 
+bool CollisionsController::SomeoneWasKilled() const {
+  return someone_was_killed_;
+}
+
 void CollisionsController::CheckCollisions(
     const std::unique_ptr<Model>& model,
     const Point& old_hero_pos,
     const std::vector<Point>& old_npcs_pos,
     int window_width, int window_height) {
+  someone_was_killed_ = false;
   CheckFireballsWithWalls(model, window_width, window_height);
   CheckHeroAndStaticObjects(model, old_hero_pos);
   CheckFireballsAndStaticObjects(model);
@@ -118,6 +123,7 @@ void CollisionsController::CheckFireballsAndNpcs(
       }
     }
     if (is_dead) {
+      someone_was_killed_ = true;
       npcs.erase(npcs.begin() + i);
       --i;
     }
@@ -204,7 +210,6 @@ bool CollisionsController::AreAllRenderingLevelsNumerated(
   }
   return true;
 }
-
 void CollisionsController::NumerateAllRenderingLevels(
     const std::vector<GameObject*>& all_objects) {
   for (int i = 0; i < all_objects.size(); ++i) {

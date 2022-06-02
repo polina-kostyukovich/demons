@@ -1,7 +1,5 @@
 #include "model.h"
 
-#include <limits>
-
 const Hero& Model::GetHero() const {
   return hero_;
 }
@@ -40,12 +38,14 @@ void Model::LoadSounds() {
   sounds_[Sound::kNpcAppearance].setSource(QUrl("qrc:/Resources/Music/appearance.wav"));
   sounds_[Sound::kNpcHit].setSource(QUrl("qrc:/Resources/Music/hit.wav"));
 
-  sounds_[Sound::kMenuMusic].setLoopCount(std::numeric_limits<int>::max());
+  sounds_[Sound::kMenuMusic].setLoopCount(INT_MAX);
+  sounds_[Sound::kBackgroundMusic].setLoopCount(INT_MAX);
+  sounds_[Sound::kNpcHit].setLoopCount(INT_MAX);
 
   sounds_[Sound::kBackgroundMusic].setVolume(0.2);
   sounds_[Sound::kHeroShot].setVolume(0.4);
   sounds_[Sound::kMenuMusic].setVolume(0.1);
-  sounds_[Sound::kNpcAppearance].setVolume(1);
+  sounds_[Sound::kNpcAppearance].setVolume(0.8);
   sounds_[Sound::kNpcHit].setVolume(0.8);
 }
 

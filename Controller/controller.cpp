@@ -68,7 +68,8 @@ void Controller::NewGame() {
 void Controller::Pause() {
   view_->ShowMenu();
   timer_->stop();
-  model_->GetSound(Sound::kBackgroundMusic).stop();
+
+  StopMusic();
   model_->GetSound(Sound::kMenuMusic).play();
 }
 
@@ -101,16 +102,13 @@ bool Controller::IsSoundOn() const {
 }
 
 void Controller::TimerTick() {
-  if (!model_->GetSound(Sound::kBackgroundMusic).isPlaying()) {
-    model_->GetSound(Sound::kBackgroundMusic).play();
-  }
-  
   model_->GetNpcController().IncrementTickCounter();
   if (model_->GetNpcController().NeedToCreateNpc()) {
     model_->GetNpcController().CreateNpc(model_->GetHero().GetPosition(),
                                          model_->GetMap());
     model_->GetNpcController().CreateNpc(model_->GetHero().GetPosition(),
                                          model_->GetMap());
+    model_->GetSound(Sound::kNpcAppearance).play();
   }
 
   Point old_hero_position = model_->GetHero().GetPosition();
@@ -125,6 +123,10 @@ void Controller::TimerTick() {
                                          view_->GetWindowWidth(),
                                          view_->GetWindowHeight());
   collisions_controller_.PrepareForDrawing(model_);
+
+  if (collisions_controller_.SomeoneWasKilled()) {
+    model_->GetSound(Sound::kHeroShot).play();
+  }
 
   ++counter_;
   counter_ %= constants::kHeroSpeedCoefficient * constants::kNumberOfAnimation;
@@ -222,4 +224,12 @@ int Controller::GetMaxRenderingLevel() const {
     result = std::max(result, object->GetRenderingLevel());
   }
   return result;
+}
+
+void Controller::StopMusic() {
+  model_->GetSound(Sound::kBackgroundMusic).stop();
+  model_->GetSound(Sound::kMenuMusic).stop();
+  model_->GetSound(Sound::kHeroShot).stop();
+  model_->GetSound(Sound::kNpcHit).stop();
+  model_->GetSound(Sound::kNpcAppearance).stop();
 }

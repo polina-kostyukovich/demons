@@ -56,6 +56,7 @@ class Controller : public AbstractController {
 
  private:
   Vector2D GetHeroDirection() const;
+  void StopMusic();
 
  private:
   std::unique_ptr<Model> model_;
