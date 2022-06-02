@@ -69,7 +69,9 @@ void Npc::Update(const Point& target_position) {
     }
   }
 
-  Move(direction);
+  if (!is_fighting_) {
+    Move(direction);
+  }
 }
 
 void Npc::Move(const Vector2D& direction) {
