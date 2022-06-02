@@ -45,6 +45,26 @@ class Npc : public Creature {
   int tick_counter_{0};
   bool is_born_{true};
   std::weak_ptr<StaticObject> native_boiler_;
+
+ public:struct Cell {
+    int x;
+    int y;
+    long double weight;
+
+    Cell() {
+      x = 0;
+      y = 0;
+      weight = 0;
+    }
+
+    Cell(int new_x, int new_y, long double new_weight) :
+        x(new_x),
+        y(new_y),
+        weight(new_weight) {}
+
+    bool operator==(const Cell& another_cell) const;
+    bool operator<(const Cell& another_cell) const;
+  };
 };
 
 #endif  // GAMEOBJECT_NPC_H_

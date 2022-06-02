@@ -8,9 +8,9 @@ const long double kClose = 3;
 const long double kMaxDistance = 1e9;
 const long double kDirectionStep = 0.2;
 
-const int kTickTime = 30;
-const long double kHeroStep = 12;
-const long double kNpcStep = 7.5;
+const int kTickTime = 40;
+const long double kHeroStep = 15;
+const long double kNpcStep = 10;
 const long double kFireballSpeed = 20;
 
 const int kHeroSize = 120;

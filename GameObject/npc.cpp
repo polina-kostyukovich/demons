@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+#include <map>
 #include <algorithm>
 #include <cmath>
 #include <queue>
@@ -31,6 +32,7 @@ void Npc::LoadPictures() {
   InputPictures(picture);
 }
 
+Npc::Cell checker(-5, -5, 0);
 void Npc::Update(const Point& target_position, const Map& map,
                  std::vector<Npc>& npc_list) {
   if (is_born_) {
@@ -50,69 +52,88 @@ void Npc::Update(const Point& target_position, const Map& map,
   int grid_rows = map.GetRowsNumber() * map.GetCellSize().second /
       constants::kNpcStep;
 
-  std::vector<std::vector<std::pair<int, int>>> previous_cell(
-      grid_columns, std::vector<std::pair<int, int>>(grid_rows, {0, 0}));
-  std::vector<std::vector<bool>> cell_is_used(
-      grid_columns, std::vector<bool>(grid_rows, false));
+  std::map<Cell, bool> cell_is_used;
+  std::map<Cell, Cell> previous_cell;
 
-  std::queue<std::pair<int, int>> cells;
+  std::set<Cell> cells;
 
-  std::pair<int, int> start_cell(
+  Cell start_cell(
       floor(position_.GetX() / constants::kNpcStep),
-      floor(position_.GetY() / constants::kNpcStep));
+      floor(position_.GetY() / constants::kNpcStep),
+      Point::Distance(position_, target_position));
 
-  long double addition_x = position_.GetX() - start_cell.first *
+  long double addition_x = position_.GetX() - start_cell.x *
       constants::kNpcStep;
-  long double addition_y = position_.GetY() - start_cell.second *
+  long double addition_y = position_.GetY() - start_cell.y *
       constants::kNpcStep;
 
-  cells.push(start_cell);
-  cell_is_used[start_cell.first][start_cell.second] = true;
-  previous_cell[start_cell.first][start_cell.second] = start_cell;
+  cells.insert(start_cell);
+  cell_is_used[start_cell] = true;
+  previous_cell[start_cell] = start_cell;
 
-  std::pair<int, int> end_cell(
+  Cell end_cell(
       floor(target_position.GetX() / constants::kNpcStep),
-      floor(target_position.GetY() / constants::kNpcStep));
+      floor(target_position.GetY() / constants::kNpcStep),
+      0.);
+  Point end_point(end_cell.x * constants::kNpcStep + addition_x,
+                  end_cell.y * constants::kNpcStep + addition_y);
+  end_cell.weight = Point::Distance(end_point, target_position);
+
 
   std::vector<Vector2D> directions = {
       {1, 0}, {-1, 0}, {0, 1}, {0, -1}
   };
 
-  while (!cell_is_used[end_cell.first][end_cell.second]) {
+  int op = 0;
+  while (!cell_is_used[end_cell]) {
     if (cells.empty()) {
       break;
     }
-    std::pair<int, int> cur_cell = cells.front();
-    cells.pop();
+    op++;
+    Cell cur_cell = *cells.begin();
+    cells.erase(cells.begin());
 
     for (const auto& direction : directions) {
-      std::pair<int, int> new_cell = cur_cell;
-      new_cell.first += direction.GetX();
-      new_cell.second += direction.GetY();
+      Cell new_cell = cur_cell;
+      new_cell.x += direction.GetX();
+      new_cell.y += direction.GetY();
 
-      if (new_cell.first < 0 || new_cell.second < 0 ||
-          new_cell.first >= grid_columns || new_cell.second >= grid_rows) {
+      if (new_cell.x < 0 || new_cell.y < 0 ||
+          new_cell.x >= grid_columns || new_cell.y >= grid_rows) {
         continue;
       }
 
-      Point new_point(new_cell.first * constants::kNpcStep + addition_x,
-                      new_cell.second * constants::kNpcStep + addition_y);
+      Point new_point(new_cell.x * constants::kNpcStep + addition_x,
+                      new_cell.y * constants::kNpcStep + addition_y);
 
-      if (!cell_is_used[new_cell.first][new_cell.second] &&
-          CanMove(new_point, map, npc_list)) {
-        cells.push(new_cell);
-        cell_is_used[new_cell.first][new_cell.second] = true;
-        previous_cell[new_cell.first][new_cell.second] = cur_cell;
+      new_cell.weight = Point::Distance(new_point, target_position);
+
+      if (!cell_is_used[new_cell]) {
+        cell_is_used[new_cell] = true;
+        if (CanMove(new_point, map, npc_list)) {
+          cells.insert(new_cell);
+          previous_cell[new_cell] = cur_cell;
+          if (new_cell == end_cell) {
+            checker = cur_cell;
+          }
+        }
       }
     }
   }
 
-  while (previous_cell[end_cell.first][end_cell.second] != start_cell) {
-    end_cell = previous_cell[end_cell.first][end_cell.second];
-  }
+  checker = previous_cell[end_cell];
 
-  Point end_point(end_cell.first * constants::kNpcStep + addition_x,
-                  end_cell.second * constants::kNpcStep + addition_y);
+  std::cerr << end_cell.x << " " << end_cell.y << " " <<
+  cell_is_used[end_cell] << " " << op << '\n';
+
+  std::cerr << checker.x << " " << checker.y << " " <<
+            cell_is_used[checker] << '\n';
+
+
+
+  while (!(previous_cell[end_cell] == start_cell)) {
+    end_cell = previous_cell[end_cell];
+  }
   Vector2D cur_direction(position_, end_point);
   cur_direction.Normalize();
   Move(cur_direction);
@@ -120,8 +141,8 @@ void Npc::Update(const Point& target_position, const Map& map,
 
 bool Npc::CanMove(const Point& new_position, const Map& map,
                   std::vector<Npc>& npc_list) {
-  int row = floor(new_position.GetY() / map.GetCellSize().second);
   int column = floor(new_position.GetX() / map.GetCellSize().first);
+  int row = floor(new_position.GetY() / map.GetCellSize().second);
 
   if (row < 0 || column < 0 ||
       row >= map.GetRowsNumber() ||
@@ -137,10 +158,11 @@ bool Npc::CanMove(const Point& new_position, const Map& map,
   position_ = new_position;
   if (IsCollidedWithNpc(npc_list)) {
     position_ = old_position;
+    checker.x = 143;
     return false;
   }
   position_ = old_position;
-
+  checker.x = -4;
   return true;
 }
 
@@ -204,8 +226,6 @@ void Npc::UpdateFieldsIfBorn(const Point& target_position, const Map& map,
   position_ -= Point(0, constants::kNpcStep);
   if (IsCollidedWithNpc(npc_list)) {
     position_ += Point(0, constants::kNpcStep);
-  } else {
-    std::cerr << "Est shag\n";
   }
 
   is_moving_right_ =
@@ -244,8 +264,25 @@ bool Npc::IsCollidedWithNpc(std::vector<Npc>& npc_list) const {
       continue;
     }
     if (GetHitBox().IsCollided(npc.GetHitBox())) {
-      return false;
+      return true;
     }
   }
-  return true;
+  return false;
+}
+
+bool Npc::Cell::operator==(const Cell& another_cell) const {
+  return (abs(weight - another_cell.weight) < constants::kEpsilon) &&
+          x == another_cell.x &&
+          y == another_cell.y;
+}
+
+bool Npc::Cell::operator<(const Cell& another_cell) const {
+  if (abs(weight - another_cell.weight) < constants::kEpsilon) {
+    if (x == another_cell.x) {
+      return y < another_cell.y;
+    }
+    return x < another_cell.x;
+  } else {
+    return (weight - another_cell.weight < -constants::kEpsilon);
+  }
 }
