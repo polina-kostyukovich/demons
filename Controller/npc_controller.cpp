@@ -15,8 +15,9 @@ void NpcController::Update(const Point& hero_position) {
         npc.SetCounter(npc.GetCounter() + 1);
       }
     } else {
-      if (npc.GetCounter() + 1 == constants::kNumberOfFightingNpc *
+      if (npc.GetCounter() == constants::kNumberOfFightingNpc *
           constants::kNpcSpeedCoefficient) {
+        npc.SetFightingStatus(false);
         npc.SetCounter(0);
       } else {
         npc.SetCounter(npc.GetCounter() + 1);

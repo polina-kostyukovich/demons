@@ -89,6 +89,9 @@ void Controller::TimerTick() {
   std::vector<Point> old_npc_coords =
       model_->GetNpcController().GetNpcCoordinates();
 
+  for (auto& npc : model_->GetNpcController().GetNpcList()) {
+    npc.CheckFighting();
+  }
   MoveObjects();
 
   collisions_controller_.CheckCollisions(model_,

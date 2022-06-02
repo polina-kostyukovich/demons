@@ -174,7 +174,7 @@ bool Npc::GetFightingStatus() {
 }
 
 void Npc::CheckFighting() {
-  if (is_fighting_ && (tick_counter_ == constants::kNpcSpeedCoefficient
+  if (is_fighting_ && (tick_counter_ + 1 == constants::kNpcSpeedCoefficient
       * constants::kNumberOfFightingNpc)) {
     is_fighting_ = false;
     tick_counter_ = 0;
