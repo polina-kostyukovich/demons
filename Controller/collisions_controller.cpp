@@ -132,6 +132,11 @@ void CollisionsController::CheckHeroAndNpcs(
   auto& npcs = model->GetNpcController().GetNpcList();
   for (int i = 0; i < npcs.size(); ++i) {
     if (!hero.GetHitBox().IsCollided(npcs[i].GetHitBox())) continue;
+    if (!npcs[i].IsFighting()) {
+      npcs[i].SetCounter(0);
+      npcs[i].SetFightingStatus(true);
+    }
+
     npcs[i].SetPosition(old_npcs_pos[i]);
 
     Point current_hero_pos = hero.GetPosition();

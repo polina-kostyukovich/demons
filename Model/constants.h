@@ -26,9 +26,10 @@ const int kHeroSpeedCoefficient = 3;
 const int kNumberOfBornFireballs = 4;
 const int kNumberOfAnimation = 11;
 const int kNumberOfFireBall = 7;
-const int kNumberOfFightingNpc = 3;
+const int kNumberOfRaisingHandNpc = 3;
+const int kNumberOfFightingNpc = 2 * kNumberOfRaisingHandNpc;
 const int kNumberOfNpc = 4;
-const int kNumberOfEquallySidedNpc = 7;
+const int kNumberOfEquallySidedNpc = kNumberOfFightingNpc + kNumberOfNpc;
 
 const int kMiddleAnimation = 6;
 const long double kTorsoPercentage = 0.105;

@@ -27,6 +27,11 @@ class Npc : public Creature {
 
   Point GetSpawnPos() const;
 
+  void SetFightingStatus(bool);
+  bool IsFighting() const;
+
+  void CheckFighting();
+
  private:
   static void InputPictures(std::string);
 
@@ -38,6 +43,7 @@ class Npc : public Creature {
   int tick_counter_{0};
   bool is_born_{true};
   std::weak_ptr<StaticObject> native_boiler_;
+  bool is_fighting_{false};
 };
 
 #endif  // GAMEOBJECT_NPC_H_
