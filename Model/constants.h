@@ -40,8 +40,22 @@ const long double kNpcHitBoxHeightCoefficient = 0.5;
 const long double kNpcHitBoxWidthCoefficient = 0.4;
 const long double kFireballHitBoxHeightCoefficient = 0.4;
 const long double kFireballHitBoxWidthCoefficient = 0.6;
+const long double kHeroHealthPoints = 300;
 
-const int kTicksBetweenNpcAppearance = 100;
+const long double kHeroHealthBarHeight = 20;
+const long double kHeroHealthBarWidthCoefficient = 0.4;
+const long double kProgressBarWidthCoefficient = 0.4;
+
+const int kGoalKills = 20;
+
+const long double kLavaDamage = 0.3;
+
+const long double kNpcDamage = 5;
+const int kStandingTicksToGetLavaDamage = 50;
+
+const int kTicksBetweenNpcAppearance = 200;
+
+const long double kUpperWallCollisionConstant = 30;
 }  // namespace constants
 
 #endif  // MODEL_CONSTANTS_H_

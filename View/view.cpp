@@ -4,6 +4,7 @@
 #include <utility>
 #include <QGuiApplication>
 #include <QScreen>
+#include <iostream>
 
 View::View() {
   setWindowState(Qt::WindowFullScreen);
@@ -115,7 +116,22 @@ void View::DrawHeroHealthBar(QPainter* painter) {
   health_percentage = std::max(static_cast<long double> (0), health_percentage);
 
   long double health_bar_length =
-      health_percentage * constants::kHeroHealthBarWidth;
+      health_percentage * GetWindowWidth() * constants::kHeroHealthBarWidthCoefficient;
 
-  painter->drawRect(0, 0, health_bar_length, constants::kHeroHealthBarHeight);
+  painter->drawRect(50, 5, health_bar_length, constants::kHeroHealthBarHeight);
+
+  brush.setColor(Qt::red);
+  painter->setBrush(brush);
+
+  long double progress_percentage =
+      static_cast<long double> (controller_->GetModel().GetProgress())
+      / constants::kGoalKills;
+
+  progress_percentage =
+      std::min(static_cast<long double> (100), progress_percentage);
+
+  long double progress_bar_width =
+      GetWindowWidth() * constants::kProgressBarWidthCoefficient * progress_percentage;
+  painter->drawRect(GetWindowWidth() * (1 - constants::kProgressBarWidthCoefficient),
+                    5, progress_bar_width, 20);
 }

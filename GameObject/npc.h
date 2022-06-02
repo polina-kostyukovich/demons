@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "creature.h"
+#include "hero.h"
 #include "../GameObject/static_object.h"
 #include "../Util/structs.h"
 #include "../Util/vector.h"
@@ -24,6 +25,7 @@ class Npc : public Creature {
 
   int GetCounter() const;
   void SetCounter(int counter);
+  void IncrementCounter();
 
   Point GetSpawnPos() const;
 
@@ -31,6 +33,8 @@ class Npc : public Creature {
   bool IsFighting() const;
 
   void CheckFighting();
+
+  void AttackHero(Hero* hero) const;
 
  private:
   static void InputPictures(std::string);

@@ -48,6 +48,8 @@ class Controller : public AbstractController {
 
   void HandleHeroAfkStanding(const Point& old_hero_pos);
 
+  void HandleNpcsAttack();
+
  public slots:
   void TimerTick();
 

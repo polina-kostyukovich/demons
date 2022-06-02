@@ -1,6 +1,7 @@
 #include "npc.h"
 
 #include <algorithm>
+#include <cmath>
 
 Npc::Npc(const Point& position,
          const std::weak_ptr<StaticObject>& native_boiler) :
@@ -179,4 +180,12 @@ void Npc::CheckFighting() {
     is_fighting_ = false;
     tick_counter_ = 0;
   }
+}
+
+void Npc::IncrementCounter() {
+  ++tick_counter_;
+}
+
+void Npc::AttackHero(Hero* hero) const {
+  hero->SetHealthPoints(hero->GetHealthPoints() - constants::kNpcDamage);
 }

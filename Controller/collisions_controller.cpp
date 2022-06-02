@@ -112,6 +112,7 @@ void CollisionsController::CheckFireballsAndNpcs(
       if (!fireballs.at(j).IsBorn() &&
           fireballs.at(j).GetHitBox().IsCollided(npcs.at(i).GetHitBox())) {
         is_dead = true;
+        model->SetProgress(model->GetProgress() + 1);
         fireballs.erase(fireballs.begin() + j);
         --j;
         break;
@@ -132,6 +133,7 @@ void CollisionsController::CheckHeroAndNpcs(
   auto& npcs = model->GetNpcController().GetNpcList();
   for (int i = 0; i < npcs.size(); ++i) {
     if (!hero.GetHitBox().IsCollided(npcs[i].GetHitBox())) continue;
+
     if (!npcs[i].IsFighting()) {
       npcs[i].SetCounter(0);
       npcs[i].SetFightingStatus(true);

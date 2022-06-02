@@ -90,9 +90,8 @@ void Controller::TimerTick() {
   std::vector<Point> old_npc_coords =
       model_->GetNpcController().GetNpcCoordinates();
 
-  for (auto& npc : model_->GetNpcController().GetNpcList()) {
-    npc.CheckFighting();
-  }
+  HandleNpcsAttack();
+
   MoveObjects();
 
   HandleHeroAfkStanding(old_hero_position);
@@ -213,5 +212,18 @@ void Controller::HandleHeroAfkStanding(const Point& old_hero_pos) {
       constants::kStandingTicksToGetLavaDamage) {
     model_->GetHero().SetHealthPoints(model_->GetHero().GetHealthPoints()
     - constants::kLavaDamage);
+  }
+}
+
+void Controller::HandleNpcsAttack() {
+  for (auto& npc : model_->GetNpcController().GetNpcList()) {
+    npc.CheckFighting();
+  }
+
+  for (const auto& npc : model_->GetNpcController().GetNpcList()) {
+    if (npc.IsFighting() && npc.GetCounter() ==
+        constants::kNpcSpeedCoefficient * constants::kNumberOfRaisingHandNpc) {
+      npc.AttackHero(&model_->GetHero());
+    }
   }
 }
