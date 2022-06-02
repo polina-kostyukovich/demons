@@ -169,7 +169,7 @@ void Npc::SetFightingStatus(bool value) {
   is_fighting_ = value;
 }
 
-bool Npc::IsFighting() {
+bool Npc::IsFighting() const {
   return is_fighting_;
 }
 

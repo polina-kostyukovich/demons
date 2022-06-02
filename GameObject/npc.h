@@ -28,7 +28,7 @@ class Npc : public Creature {
   Point GetSpawnPos() const;
 
   void SetFightingStatus(bool);
-  bool IsFighting();
+  bool IsFighting() const;
 
   void CheckFighting();
 
