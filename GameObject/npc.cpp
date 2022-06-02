@@ -30,14 +30,14 @@ void Npc::InputPictures(std::string picture) {
     pictures_.emplace_back((picture + std::to_string(i) + ".png").c_str());
   }
   picture += "_fight";
-  for (int i = 1; i <= constants::kNumberOfOnceFightingNpc; i++) {
+  for (int i = 1; i <= constants::kNumberOfRaisingHandNpc; i++) {
     pictures_.emplace_back((picture + std::to_string(i) + ".png").c_str());
   }
   pictures_.emplace_back(((picture
-      + std::to_string(constants::kNumberOfOnceFightingNpc)) + ".png").c_str());
-  for (int i = 0; i < (constants::kNumberOfOnceFightingNpc - 1); i++) {
+      + std::to_string(constants::kNumberOfRaisingHandNpc)) + ".png").c_str());
+  for (int i = 0; i < (constants::kNumberOfRaisingHandNpc - 1); i++) {
     pictures_.emplace_back((picture
-        + std::to_string(constants::kNumberOfOnceFightingNpc - i)
+        + std::to_string(constants::kNumberOfRaisingHandNpc - i)
         + ".png").c_str());
   }
 }
@@ -169,7 +169,7 @@ void Npc::SetFightingStatus(bool value) {
   is_fighting_ = value;
 }
 
-bool Npc::GetFightingStatus() {
+bool Npc::IsFighting() {
   return is_fighting_;
 }
 
