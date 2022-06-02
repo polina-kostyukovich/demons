@@ -36,11 +36,9 @@ const int kMiddleAnimation = 6;
 const long double kTorsoPercentage = 0.105;
 
 const long double kHeroHitBoxHeightCoefficient = 0.4;
-const long double kHeroPictureHeightCoefficient = 0.85;
 const long double kBoilerHitBoxHeightCoefficient = 0.55;
 const long double kNpcHitBoxHeightCoefficient = 0.5;
 const long double kNpcHitBoxWidthCoefficient = 0.4;
-const long double kNpcPictureHeightCoefficient = 1.2;
 const long double kFireballHitBoxHeightCoefficient = 0.4;
 const long double kFireballHitBoxWidthCoefficient = 0.6;
 const long double kHeroHealthBarWidth = 350;
