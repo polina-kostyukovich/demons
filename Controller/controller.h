@@ -29,6 +29,8 @@ class Controller : public AbstractController {
   void NewGame() override;
   void Pause();
 
+  void ShowMenuAfterEndOfGame() override;
+
   void ChangeLanguage(Language language) override;
   void ChangeSoundOn() override;
 

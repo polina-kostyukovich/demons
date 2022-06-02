@@ -25,7 +25,7 @@ const Model& Controller::GetModel() const {
 }
 
 void Controller::Start() {
-  view_->CreateMenu();
+  view_->CreateMenus();
   model_->GetMap().SetSize(view_->GetWindowWidth(), view_->GetWindowHeight());
   model_->GetMap().LoadBoilers();
   model_->LoadPictures();
@@ -49,8 +49,12 @@ void Controller::NewGame() {
 }
 
 void Controller::Pause() {
-  view_->ShowMenu(true);
+  view_->ShowMenu();
   timer_->stop();
+}
+
+void Controller::ShowMenuAfterEndOfGame() {
+  view_->ShowMenuAfterEndOfGame();
 }
 
 void Controller::ChangeLanguage(Language language) {

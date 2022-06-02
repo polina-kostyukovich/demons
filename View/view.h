@@ -17,10 +17,14 @@ class View : public QMainWindow {
   View();
 
   void SetController(const std::shared_ptr<AbstractController>& controller);
-  void CreateMenu();
+  void CreateMenus();
 
   void ShowGame();
-  void ShowMenu(bool is_continue_button_visible);
+  void ShowMenu();
+  void ShowMenuAfterEndOfGame();
+
+  void ShowVictoryEnd();
+  void ShowDefeatEnd();
 
   void paintEvent(QPaintEvent* event) override;
 

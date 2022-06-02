@@ -14,7 +14,7 @@
 class Menu : public QWidget {
  public:
   explicit Menu(QWidget* parent = nullptr);
-  void SetController(const std::shared_ptr<AbstractController>& controller_);
+  void SetController(const std::shared_ptr<AbstractController>& controller);
 
   void ConnectButtons();
   void SetStyle();
