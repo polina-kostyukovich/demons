@@ -84,6 +84,8 @@ void Controller::TimerTick() {
 
   MoveObjects();
 
+  HandleHeroAfkStanding(old_hero_position);
+
   collisions_controller_.CheckCollisions(model_,
                                          old_hero_position,
                                          old_npc_coords,
@@ -128,7 +130,7 @@ void Controller::HandleMousePressEvent(QMouseEvent* event) {
 
   model_->AddFireball(Fireball(spawn_pos,
                                Point(event->pos().x(), event->pos().y())));
-  model_->GetHero().SetStriking(true);
+  model_->GetHero().SetStrikingStatus(true);
   model_->GetHero().SetNumberTick(0);
 }
 
@@ -153,7 +155,7 @@ void Controller::UpdateHeroFieldsForDrawing() {
     if (model_->GetHero().GetNumberTick()
         == constants::kHeroSpeedCoefficient * constants::kNumberOfAnimation) {
       model_->GetHero().SetNumberTick(0);
-      model_->GetHero().SetStriking(false);
+      model_->GetHero().SetStrikingStatus(false);
     }
   }
 }
@@ -186,4 +188,18 @@ int Controller::GetMaxRenderingLevel() const {
     result = std::max(result, object->GetRenderingLevel());
   }
   return result;
+}
+
+void Controller::HandleHeroAfkStanding(const Point& old_hero_pos) {
+  if (model_->GetHero().GetPosition() == old_hero_pos) {
+    model_->GetHero().IncrementStandingTicks();
+  } else {
+    model_->GetHero().SetStandingTicks(0);
+  }
+
+  if (model_->GetHero().GetStandingTicks() >=
+      constants::kStandingTicksToGetLavaDamage) {
+    model_->GetHero().SetHealthPoints(model_->GetHero().GetHealthPoints()
+    - constants::kLavaDamage);
+  }
 }

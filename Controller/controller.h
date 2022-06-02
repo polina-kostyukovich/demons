@@ -46,6 +46,8 @@ class Controller : public AbstractController {
 
   int GetMaxRenderingLevel() const override;
 
+  void HandleHeroAfkStanding(const Point& old_hero_pos);
+
  public slots:
   void TimerTick();
 

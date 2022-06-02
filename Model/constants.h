@@ -47,6 +47,9 @@ const long double kHeroHealthBarWidth = 350;
 const long double kHeroHealthBarHeight = 25;
 
 const long double kNpcDamage = 2;
+const long double kLavaDamage = 0.5;
+
+const int kStandingTicksToGetLavaDamage = 50;
 
 const long double kHeroHealthPoints = 300;
 }  // namespace constants

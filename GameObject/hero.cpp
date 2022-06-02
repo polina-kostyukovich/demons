@@ -95,10 +95,22 @@ bool Hero::IsStriking() {
   return is_striking_;
 }
 
-void Hero::SetStriking(bool is_striking) {
+void Hero::SetStrikingStatus(bool is_striking) {
   is_striking_ = is_striking;
 }
 
 Picture Hero::GetPicture() const {
   return Picture();
+}
+
+int Hero::GetStandingTicks() const {
+  return standing_ticks_;
+}
+
+void Hero::SetStandingTicks(int ticks) {
+  standing_ticks_ = ticks;
+}
+
+void Hero::IncrementStandingTicks() {
+  ++standing_ticks_;
 }
