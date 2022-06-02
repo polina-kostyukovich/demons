@@ -43,6 +43,9 @@ class View : public QMainWindow {
   void RenderLevel(int level, QPainter* painter);
 
  private:
+  void SetIcon();
+
+ private:
   std::shared_ptr<AbstractController> controller_;
 
   Menu menu_{this};

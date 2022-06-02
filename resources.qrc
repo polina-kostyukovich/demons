@@ -55,6 +55,8 @@
 
          <file>Resources/Picture/Menu/defeat.jpg</file>
          <file>Resources/Picture/Menu/victory.jpg</file>
+         <file>Resources/Picture/Menu/icon.png</file>
+         <file>Resources/Picture/Menu/to_menu_button.png</file>
 
         <file>Resources/Jsons/boilers_data.json</file>
     </qresource>

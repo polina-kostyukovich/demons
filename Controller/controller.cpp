@@ -69,6 +69,9 @@ void Controller::HandleKeyPressEvent(QKeyEvent* event) {
   if (event->key() == Qt::Key_Space) {
     Pause();
   }
+  if (event->key() == Qt::Key_Escape) {
+    view_->ShowDefeatEnd();
+  }
   keys_[event->key()] = true;
 }
 

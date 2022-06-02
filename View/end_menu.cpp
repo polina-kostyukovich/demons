@@ -4,7 +4,7 @@
 
 EndMenu::EndMenu(QWidget* parent) :
     QWidget(parent),
-    to_menu_button_(new QPushButton(tr("To menu"), this)),
+    to_menu_button_(new QPushButton(this)),
     layout_(new QGridLayout(this)) {
   LoadPictures();
   SetLayout();
@@ -59,8 +59,8 @@ void EndMenu::SetLayout() {
 }
 
 void EndMenu::SetButtonStyle() {
-  to_menu_button_->setMinimumSize(150, 65);
-  QFont font;
-  font.setPixelSize(20);
-  to_menu_button_->setFont(font);
+  to_menu_button_->setFixedSize(200, 70);
+  QPixmap button_picture(":Resources/Picture/Menu/to_menu_button.png");
+  to_menu_button_->setIcon(button_picture);
+  to_menu_button_->setIconSize({200, 70});
 }

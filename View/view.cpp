@@ -9,6 +9,7 @@ View::View() {
   resize(QGuiApplication::primaryScreen()->availableGeometry().size());
   setCentralWidget(&menu_);
   end_menu_.setVisible(false);
+  SetIcon();
 }
 
 void View::SetController(
@@ -122,4 +123,9 @@ void View::RenderLevel(int level, QPainter* painter) {
       Draw(object->GetPicture(), painter);
     }
   }
+}
+
+void View::SetIcon() {
+  QPixmap icon(":Resources/Picture/Menu/icon.png");
+  setWindowIcon(QIcon(icon));
 }
