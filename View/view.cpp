@@ -116,7 +116,8 @@ void View::DrawHeroHealthBar(QPainter* painter) {
   health_percentage = std::max(static_cast<long double> (0), health_percentage);
 
   long double health_bar_length =
-      health_percentage * GetWindowWidth() * constants::kHeroHealthBarWidthCoefficient;
+      health_percentage * GetWindowWidth()
+      * constants::kHeroHealthBarWidthCoefficient;
 
   painter->drawRect(50, 5, health_bar_length, constants::kHeroHealthBarHeight);
 
@@ -131,7 +132,9 @@ void View::DrawHeroHealthBar(QPainter* painter) {
       std::min(static_cast<long double> (100), progress_percentage);
 
   long double progress_bar_width =
-      GetWindowWidth() * constants::kProgressBarWidthCoefficient * progress_percentage;
-  painter->drawRect(GetWindowWidth() * (1 - constants::kProgressBarWidthCoefficient),
+      GetWindowWidth() * constants::kProgressBarWidthCoefficient
+      * progress_percentage;
+  painter->drawRect(GetWindowWidth() *
+                    (1 - constants::kProgressBarWidthCoefficient),
                     5, progress_bar_width, 20);
 }

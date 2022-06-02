@@ -54,8 +54,10 @@ void Hero::Move(const Vector2D& direction,
   if (GetPosition().GetX() > constants::kEpsilon + width) {
     SetPositionX(static_cast<long double>(width));
   }
-  if (GetPosition().GetY() - constants::kHeroSize / 2. - constants::kUpperWallCollisionConstant < -constants::kEpsilon) {
-    SetPositionY(constants::kHeroSize / 2. + constants::kUpperWallCollisionConstant);
+  if (GetPosition().GetY() - constants::kHeroSize / 2.
+      - constants::kUpperWallCollisionConstant < -constants::kEpsilon) {
+    SetPositionY(constants::kHeroSize / 2.
+                 + constants::kUpperWallCollisionConstant);
   }
   if (GetPosition().GetY() > constants::kEpsilon + height) {
     SetPositionY(static_cast<long double>(height));
