@@ -10,6 +10,8 @@ View::View() {
   setWindowState(Qt::WindowFullScreen);
   resize(QGuiApplication::primaryScreen()->availableGeometry().size());
   setCentralWidget(&menu_);
+  end_menu_.setVisible(false);
+  SetIcon();
 }
 
 void View::SetController(
@@ -18,10 +20,13 @@ void View::SetController(
   controller_ = controller;
 }
 
-void View::CreateMenu() {
+void View::CreateMenus() {
   menu_.SetController(controller_);
   menu_.ConnectButtons();
   menu_.SetStyle();
+
+  end_menu_.SetController(controller_);
+  end_menu_.ConnectButton();
 }
 
 void View::ShowGame() {
@@ -30,7 +35,27 @@ void View::ShowGame() {
 
 void View::ShowMenu() {
   setCentralWidget(&menu_);
-  menu_.ShowContinueButton();
+  menu_.ShowContinueButton(true);
+  end_menu_.setVisible(false);
+}
+
+void View::ShowMenuAfterEndOfGame() {
+  takeCentralWidget();
+  setCentralWidget(&menu_);
+  menu_.ShowContinueButton(false);
+  end_menu_.setVisible(false);
+}
+
+void View::ShowVictoryEnd() {
+  end_menu_.SetVictoryMode();
+  end_menu_.setVisible(true);
+  setCentralWidget(&end_menu_);
+}
+
+void View::ShowDefeatEnd() {
+  end_menu_.SetDefeatMode();
+  end_menu_.setVisible(true);
+  setCentralWidget(&end_menu_);
 }
 
 void View::paintEvent(QPaintEvent* event) {
@@ -77,7 +102,6 @@ void View::closeEvent(QCloseEvent* event) {
 void View::mousePressEvent(QMouseEvent* event) {
   controller_->HandleMousePressEvent(event);
 }
-
 void View::RenderLevel(int level, QPainter* painter) {
   if (controller_->GetModel().GetHero().GetRenderingLevel() == level) {
     Draw(controller_->GetModel().GetHero().GetPicture(
@@ -157,6 +181,7 @@ void View::DrawHeroHealthBar(QPainter* painter) {
                     constants::kProgressBarHeight);
   painter->restore();
 }
+
 void View::LoadPictures() {
   std::string way = ":Resources/Picture/StaticObject/Knife.png";
   knife_ = QPixmap(way.c_str());
@@ -185,4 +210,9 @@ Picture View::GetKnifePicture() const {
   output.width = constants::kKnifeSize;
   output.height = constants::kKnifeSize;
   return output;
+}
+
+void View::SetIcon() {
+  QPixmap icon(":Resources/Picture/Menu/icon.png");
+  setWindowIcon(QIcon(icon));
 }
