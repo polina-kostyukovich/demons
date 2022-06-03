@@ -152,9 +152,15 @@ bool Npc::CanMove(const Point& new_position, const Map& map,
   int column = floor(new_position.GetX() / map.GetCellSize().first);
   int row = floor(new_position.GetY() / map.GetCellSize().second);
 
+  int right_column = floor((new_position.GetX() + GetHitBox().GetWidth() / 2.)
+      / map.GetCellSize().first);
+  int bottom_row = floor((new_position.GetY() + GetHitBox().GetHeight() / 2.)
+      / map.GetCellSize().second);
+
+
   if (row < 0 || column < 0 ||
-      row >= map.GetRowsNumber() ||
-      column >= map.GetColumnsNumber()) {
+      bottom_row >= map.GetRowsNumber() ||
+      right_column >= map.GetColumnsNumber()) {
     return false;
   }
 
