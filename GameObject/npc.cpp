@@ -5,7 +5,6 @@
 #include <queue>
 #include <set>
 #include <utility>
-#include <iostream>
 
 Npc::Npc(const Point& position,
          const std::weak_ptr<StaticObject>& native_boiler) :
@@ -31,7 +30,7 @@ void Npc::LoadPictures() {
 }
 
 void Npc::Update(const Point& target_position, const Map& map,
-                 std::vector<Npc>& npc_list) {
+                 const std::vector<Npc>& npc_list) {
   if (is_born_) {
     UpdateFieldsIfBorn(target_position, map, npc_list);
     return;
