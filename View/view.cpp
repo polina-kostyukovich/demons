@@ -1,6 +1,7 @@
 #include "view.h"
 
 #include <algorithm>
+#include <string>
 #include <utility>
 #include <QGuiApplication>
 #include <QScreen>
@@ -85,20 +86,20 @@ void View::RenderLevel(int level, QPainter* painter) {
   }
 
   auto& npc_list = controller_->GetModel().GetNpcController().GetNpcList();
-  for (const auto& npc: npc_list) {
+  for (const auto& npc : npc_list) {
     if (npc.GetRenderingLevel() == level) {
       Draw(npc.GetPicture(), painter);
     }
   }
 
   auto& fireballs = controller_->GetModel().GetFireballs();
-  for (const auto& fireball: fireballs) {
+  for (const auto& fireball : fireballs) {
     if (fireball.GetRenderingLevel() == level) {
       Draw(fireball.GetPicture(), painter);
     }
   }
 
-  for (const auto& object: controller_->GetModel().GetMap().GetObjects()) {
+  for (const auto& object : controller_->GetModel().GetMap().GetObjects()) {
     if (object->GetRenderingLevel() == level) {
       Draw(object->GetPicture(), painter);
     }
