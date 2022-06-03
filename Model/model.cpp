@@ -1,5 +1,6 @@
 #include "model.h"
 
+#include <string>
 #include <QAudioOutput>
 
 const Hero& Model::GetHero() const {
@@ -66,13 +67,16 @@ void Model::SetMuted(bool is_muted) {
 }
 
 Sound Model::GetCurrentMusic() const {
-  if (sounds_.at(Sound::kMenuMusic).playbackState() == QMediaPlayer::PlayingState) {
+  if (sounds_.at(Sound::kMenuMusic).playbackState()
+        == QMediaPlayer::PlayingState) {
     return Sound::kMenuMusic;
   }
-  if (sounds_.at(Sound::kVictoryMusic).playbackState() == QMediaPlayer::PlayingState) {
+  if (sounds_.at(Sound::kVictoryMusic).playbackState()
+        == QMediaPlayer::PlayingState) {
     return Sound::kVictoryMusic;
   }
-  if (sounds_.at(Sound::kDefeatMusic).playbackState() == QMediaPlayer::PlayingState) {
+  if (sounds_.at(Sound::kDefeatMusic).playbackState()
+        == QMediaPlayer::PlayingState) {
     return Sound::kDefeatMusic;
   }
   return Sound::kBackgroundMusic;

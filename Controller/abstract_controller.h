@@ -12,6 +12,7 @@
 
 class AbstractController : public QObject {
   Q_OBJECT
+
  public:
   virtual void WriteSettings() = 0;
 

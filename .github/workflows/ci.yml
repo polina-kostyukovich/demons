@@ -45,6 +45,7 @@ jobs:
       uses: jurplel/install-qt-action@v2
       with: 
         version: "6.2.0"
+        modules: 'addons.qtmultimedia'
 
     - name: Create Makefile
       working-directory: ${{runner.workspace}}/${{github.event.repository.name}}
