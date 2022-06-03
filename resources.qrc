@@ -39,6 +39,10 @@
         <file>Resources/Picture/Menu/sound_off.png</file>
         <file>Resources/Picture/Menu/language.png</file>
         <file>Resources/Picture/Menu/settings.png</file>
+        <file>Resources/Picture/Menu/continue_button.png</file>
+        <file>Resources/Picture/Menu/start_button.png</file>
+        <file>Resources/Picture/Menu/exit_button.png</file>
+        <file>Resources/Picture/Menu/settings_button.png</file>
 
          <file>Resources/Picture/Npc/npc_left_fight1.png</file>
          <file>Resources/Picture/Npc/npc_left_fight2.png</file>

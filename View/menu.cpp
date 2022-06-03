@@ -5,10 +5,10 @@
 Menu::Menu(QWidget* parent) :
     QWidget(parent),
     layout_(new QGridLayout(this)),
-    continue_game_button_(new QPushButton(tr("Continue game"), this)),
-    new_game_button_(new QPushButton(tr("New game"), this)),
+    continue_game_button_(new QPushButton(tr(""), this)),
+    new_game_button_(new QPushButton(tr(""), this)),
     settings_button_(new QPushButton(this)),
-    exit_button_(new QPushButton(tr("Exit"), this)),
+    exit_button_(new QPushButton(tr(""), this)),
     dropdown_menu_(new QMenu(settings_button_)) {
   LoadPictures();
   continue_game_button_->setVisible(false);
@@ -57,18 +57,17 @@ void Menu::ShowContinueButton(bool is_visible) {
 
 void Menu::LoadPictures() {
   background_picture_ = QPixmap(":Resources/Picture/Menu/hell.jpg");
-  settings_picture_ = QPixmap(":Resources/Picture/Menu/settings.png");
   sound_on_picture_ = QPixmap(":Resources/Picture/Menu/sound_on.png");
   sound_off_picture_ = QPixmap(":Resources/Picture/Menu/sound_off.png");
   language_picture_ = QPixmap(":Resources/Picture/Menu/language.png");
 }
 
 void Menu::SetLayout() {
-  layout_->addWidget(continue_game_button_, 1, 2, 1, 2, Qt::AlignBottom);
-  layout_->addWidget(new_game_button_, 2, 2, 1, 2, Qt::AlignTop);
-  layout_->addWidget(settings_button_, 3, 4, 1, 1,
+  layout_->addWidget(continue_game_button_, 1, 3, 1, 2, Qt::AlignBottom);
+  layout_->addWidget(new_game_button_, 2, 3, 1, 2, Qt::AlignTop);
+  layout_->addWidget(settings_button_, 3, 5, 1, 1,
                      Qt::AlignVCenter | Qt::AlignRight);
-  layout_->addWidget(exit_button_, 3, 5, 1, 1, Qt::AlignCenter);
+  layout_->addWidget(exit_button_, 3, 6, 1, 1, Qt::AlignCenter);
 
   layout_->setColumnStretch(0, 1);
   layout_->setColumnStretch(1, 1);
@@ -76,6 +75,7 @@ void Menu::SetLayout() {
   layout_->setColumnStretch(3, 1);
   layout_->setColumnStretch(4, 1);
   layout_->setColumnStretch(5, 1);
+  layout_->setColumnStretch(6, 1);
 
   layout_->setRowStretch(0, 1);
   layout_->setRowStretch(1, 1);
@@ -88,8 +88,24 @@ void Menu::SetLayout() {
 void Menu::SetButtonsStyle() {
   settings_button_->setFixedSize(90, 80);
   exit_button_->setFixedSize(90, 80);
-  continue_game_button_->setMinimumSize(200, 75);
-  new_game_button_->setMinimumSize(200, 75);
+
+  new_game_button_->setFixedSize(parentWidget()->width() / 7, 75);
+  QPixmap img(":Resources/Picture/Menu/start_button.png");
+  new_game_button_->setIcon(QIcon(img));
+  new_game_button_->setIconSize({parentWidget()->width() / 7, 75});
+
+  QPixmap img2(":Resources/Picture/Menu/continue_button.png");
+  continue_game_button_->setFixedSize(parentWidget()->width() / 7, 75);
+  continue_game_button_->setIcon(QIcon(img2));
+  continue_game_button_->setIconSize({parentWidget()->width() / 7, 75});
+
+  QPixmap img3(":Resources/Picture/Menu/exit_button.png");
+  exit_button_->setIcon(QIcon(img3));
+  exit_button_->setIconSize({100, 90});
+
+  QPixmap img4(":Resources/Picture/Menu/settings_button.png");
+  settings_button_->setIcon(QIcon(img4));
+  settings_button_->setIconSize({90, 80});
 
   QFont font;
   font.setPixelSize(20);
@@ -98,9 +114,6 @@ void Menu::SetButtonsStyle() {
   font.setPixelSize(24);
   continue_game_button_->setFont(font);
   new_game_button_->setFont(font);
-
-  settings_button_->setIcon(QIcon(settings_picture_));
-  settings_button_->setIconSize(QSize(70, 70));
 }
 
 void Menu::CreateDropdownMenu() {
