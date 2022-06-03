@@ -48,6 +48,10 @@ bool NpcController::NeedToCreateNpc() const {
 }
 
 void NpcController::CreateNpc(const Point& hero_pos, const Map& map) {
+  if (npc_list_.size() > constants::kMaxCountOfNpc) {
+    return;
+  }
+
   auto boilers_coords = map.GetBoilersCoords();
   std::shuffle(boilers_coords.begin(),
                boilers_coords.end(),

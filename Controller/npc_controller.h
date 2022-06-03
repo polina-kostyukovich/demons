@@ -24,8 +24,6 @@ class NpcController {
 
   void CreateNpc(const Point& hero_pos, const Map& map);
 
-
-
  private:
   std::vector<Npc> npc_list_;
   int tick_counter_{-1};

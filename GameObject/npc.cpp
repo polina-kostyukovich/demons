@@ -1,8 +1,5 @@
 #include "npc.h"
 
-#include <iostream>
-
-#include <map>
 #include <algorithm>
 #include <cmath>
 #include <queue>
@@ -32,10 +29,8 @@ void Npc::LoadPictures() {
   InputPictures(picture);
 }
 
-void Npc::Update(const Point& hero_position, const Map& map,
+void Npc::Update(const Point& target_position, const Map& map,
                  const std::vector<Npc>& npc_list) {
-  Point target_position = hero_position;
-
   if (is_born_) {
     UpdateFieldsIfBorn(target_position, map, npc_list);
     return;
@@ -89,22 +84,28 @@ void Npc::Update(const Point& hero_position, const Map& map,
                   end_cell.y * constants::kNpcStep + addition_y);
   end_cell.weight = Point::Distance(end_point, target_position);
 
+  Cell extra_cell;
+  extra_cell.weight = 2. * Point::Distance(position_, target_position);
 
   std::vector<std::pair<int, int>> directions = {
       {1, 0}, {-1, 0}, {0, 1}, {0, -1},
       {1, 1}, {-1, -1}, {-1, 1}, {1, -1}
   };
-  int op = 0;
+  int operations = 0;
   while (!cell_is_used[end_cell.x][end_cell.y]) {
     if (cells.empty()) {
       break;
     }
-    op++;
-    if (op > 300) {
+    operations++;
+    if (operations > constants::kNumberOfOperations) {
       break;
     }
     Cell cur_cell = *cells.begin();
     cells.erase(cells.begin());
+
+    if (cur_cell.weight - extra_cell.weight < -constants::kEpsilon) {
+      extra_cell = cur_cell;
+    }
 
     for (const auto& direction : directions) {
       Cell new_cell = cur_cell;
@@ -131,15 +132,12 @@ void Npc::Update(const Point& hero_position, const Map& map,
   Cell previous_end_cell = previous_cell[end_cell.x][end_cell.y];
   if (previous_end_cell ==
       previous_cell[previous_end_cell.x][previous_end_cell.y]) {
-    return;
+    end_cell = extra_cell;
   }
-  op = 0;
+
   while (!(previous_cell[end_cell.x][end_cell.y] == start_cell)) {
     end_cell = previous_cell[end_cell.x][end_cell.y];
-    op++;
-    if (op > 300) {
-      break;
-    }
+    operations++;
   }
   end_point = Point(end_cell.x * constants::kNpcStep + addition_x,
                     end_cell.y * constants::kNpcStep + addition_y);

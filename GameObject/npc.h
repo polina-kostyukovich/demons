@@ -7,9 +7,9 @@
 
 #include "creature.h"
 #include "../GameObject/static_object.h"
+#include "../Map/map.h"
 #include "../Util/structs.h"
 #include "../Util/vector.h"
-#include "../Map/map.h"
 
 class Npc : public Creature {
  public:

@@ -23,6 +23,8 @@ const int kFireballSpeedCoefficient = 5;
 const int kNpcSpeedCoefficient = 5;
 const int kHeroSpeedCoefficient = 3;
 
+const int kMaxCountOfNpc = 15;
+const int kNumberOfOperations = 300;
 const int kNumberOfBornFireballs = 4;
 const int kNumberOfAnimation = 11;
 const int kNumberOfFireBall = 7;
