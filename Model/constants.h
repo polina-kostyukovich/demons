@@ -60,7 +60,7 @@ const long double kUpperWallCollisionConstant = 30;
 
 const int kIndentionAlongXAxis = 50;
 const int kIndentionAlongYAxis = 5;
-const long double kProgressBarIndentionCoefficient = 0.1;
+const long double kProgressBarIndentionCoefficient = 0.01;
 
 }  // namespace constants
 
