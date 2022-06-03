@@ -119,6 +119,8 @@ void Controller::TimerTick() {
                                          old_npc_coords,
                                          view_->GetWindowWidth(),
                                          view_->GetWindowHeight());
+
+
   collisions_controller_.PrepareForDrawing(model_);
 
   ++counter_;
@@ -169,7 +171,8 @@ void Controller::MoveObjects() {
                          view_->GetWindowWidth(),
                          view_->GetWindowHeight());
 
-  model_->GetNpcController().Update(model_->GetHero().GetPosition());
+  model_->GetNpcController().Update(model_->GetHero().GetPosition(),
+                                    model_->GetMap());
 
   Point spawn_pos = model_->GetHero().GetPosition()
       + Point(0, constants::kHeroSize * constants::kTorsoPercentage);
