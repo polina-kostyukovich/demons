@@ -13,7 +13,10 @@ jobs:
         run: sudo apt update
 
       - name: Install packages
-        run: sudo apt install cppcheck python3-pip libgstpbutils-1.0.so.0 libgstaudio-1.0.so.0 libgstapp-1.0.so.0 libgstallocators-1.0.so.0 libgstvideo-1.0.so.0-y
+        run: sudo apt install cppcheck python3-pip -y
+        
+      - name: install_qt_deps
+        run: sudo apt-get install libgstreamer-plugins-base1.0-dev
 
       - name: Install cpplint
         run: pip3 install cpplint
