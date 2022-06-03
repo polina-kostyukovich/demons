@@ -49,8 +49,8 @@ void Menu::paintEvent(QPaintEvent*) {
   painter.drawPixmap(0, 0, width(), height(), background_picture_);
 }
 
-void Menu::ShowContinueButton() {
-  continue_game_button_->setVisible(true);
+void Menu::ShowContinueButton(bool is_visible) {
+  continue_game_button_->setVisible(is_visible);
 }
 
 void Menu::LoadPictures() {

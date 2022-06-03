@@ -37,10 +37,11 @@ const Model& Controller::GetModel() const {
 
 void Controller::Start() {
   ReadSettings();
-  view_->CreateMenu();
+  view_->CreateMenus();
   model_->GetMap().SetSize(view_->GetWindowWidth(), view_->GetWindowHeight());
   model_->GetMap().LoadBoilers();
   model_->LoadPictures();
+  view_->LoadPictures();
   model_->LoadSounds();
   model_->SetMuted(!is_sound_on_);
   view_->show();
@@ -55,6 +56,8 @@ void Controller::StartGame() {
 }
 
 void Controller::NewGame() {
+  model_->GetHero().SetHealthPoints(constants::kHeroHealthPoints);
+  model_->SetProgress(0);
   model_->GetHero().SetPosition(Point(constants::kHeroSize / 2.,
                                       constants::kHeroSize / 2.));
   model_->GetFireballs().clear();
@@ -71,6 +74,22 @@ void Controller::Pause() {
 
   StopGameSounds();
   model_->GetSound(Sound::kMenuMusic).play();
+}
+
+void Controller::CheckEndOfGame() {
+  if (model_->GetHero().GetHealthPoints() < constants::kEpsilon) {
+    timer_->stop();
+    view_->ShowDefeatEnd();
+    return;
+  }
+  if (model_->GetProgress() == constants::kGoalKills) {
+    timer_->stop();
+    view_->ShowVictoryEnd();
+  }
+}
+
+void Controller::ShowMenuAfterEndOfGame() {
+  view_->ShowMenuAfterEndOfGame();
 }
 
 void Controller::ChangeLanguage(Language language) {
@@ -115,7 +134,11 @@ void Controller::TimerTick() {
   std::vector<Point> old_npc_coords =
       model_->GetNpcController().GetNpcCoordinates();
 
+  HandleNpcsAttack();
+
   MoveObjects();
+
+  HandleHeroAfkStanding(old_hero_position);
 
   collisions_controller_.CheckCollisions(model_,
                                          old_hero_position,
@@ -135,6 +158,8 @@ void Controller::TimerTick() {
   UpdateFireballsFieldsForDrawing();
 
   view_->repaint();
+
+  CheckEndOfGame();
 }
 
 Vector2D Controller::GetHeroDirection() const {
@@ -165,7 +190,7 @@ void Controller::HandleMousePressEvent(QMouseEvent* event) {
 
   model_->AddFireball(Fireball(spawn_pos,
                                Point(event->pos().x(), event->pos().y())));
-  model_->GetHero().SetStriking(true);
+  model_->GetHero().SetStrikingStatus(true);
   model_->GetHero().SetNumberTick(0);
 }
 
@@ -190,7 +215,7 @@ void Controller::UpdateHeroFieldsForDrawing() {
     if (model_->GetHero().GetNumberTick()
         == constants::kHeroSpeedCoefficient * constants::kNumberOfAnimation) {
       model_->GetHero().SetNumberTick(0);
-      model_->GetHero().SetStriking(false);
+      model_->GetHero().SetStrikingStatus(false);
     }
   }
 }
@@ -224,6 +249,33 @@ int Controller::GetMaxRenderingLevel() const {
     result = std::max(result, object->GetRenderingLevel());
   }
   return result;
+}
+
+void Controller::HandleHeroAfkStanding(const Point& old_hero_pos) {
+  if (model_->GetHero().GetPosition() == old_hero_pos) {
+    model_->GetHero().IncrementStandingTicks();
+  } else {
+    model_->GetHero().SetStandingTicks(0);
+  }
+
+  if (model_->GetHero().GetStandingTicks() >=
+      constants::kStandingTicksToGetLavaDamage) {
+    model_->GetHero().SetHealthPoints(model_->GetHero().GetHealthPoints()
+    - constants::kLavaDamage);
+  }
+}
+
+void Controller::HandleNpcsAttack() {
+  for (auto& npc : model_->GetNpcController().GetNpcList()) {
+    npc.CheckFighting();
+  }
+
+  for (const auto& npc : model_->GetNpcController().GetNpcList()) {
+    if (npc.IsFighting() && npc.GetCounter() ==
+        constants::kNpcSpeedCoefficient * constants::kNumberOfRaisingHandNpc) {
+      npc.AttackHero(&model_->GetHero());
+    }
+  }
 }
 
 void Controller::StopGameSounds() {

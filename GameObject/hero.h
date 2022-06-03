@@ -26,13 +26,18 @@ class Hero : public Creature {
   int GetNumberTick();
   void SetNumberTick(int number);
   bool IsStriking();
-  void SetStriking(bool);
+  void SetStrikingStatus(bool is_striking);
+
+  int GetStandingTicks() const;
+  void SetStandingTicks(int ticks);
+  void IncrementStandingTicks();
 
  private:
   std::vector<QPixmap> wings_pixmaps_;
   std::vector<QPixmap> hero_pixmaps_;
   int number_tick_{0};
   bool is_striking_{false};
+  int standing_ticks_{0};
 };
 
 #endif  // GAMEOBJECT_HERO_H_

@@ -44,11 +44,16 @@ class Model {
 
   std::vector<GameObject*> GetAllGameObjects();
 
+  int GetProgress() const;
+  void SetProgress(int);
+
+
  private:
   Hero hero_;
   Map map_;
   NpcController npc_controller_;
   std::vector<Fireball> fireballs_;
+  int progress_{0};
   std::map<Sound, QMediaPlayer> sounds_;
 };
 

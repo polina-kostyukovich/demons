@@ -1,6 +1,7 @@
 #include "npc.h"
 
 #include <algorithm>
+#include <cmath>
 
 Npc::Npc(const Point& position,
          const std::weak_ptr<StaticObject>& native_boiler) :
@@ -23,6 +24,23 @@ void Npc::LoadPictures() {
   InputPictures(picture);
   picture += "_left";
   InputPictures(picture);
+}
+
+void Npc::InputPictures(std::string picture) {
+  for (int i = 1; i <= constants::kNumberOfNpc; i++) {
+    pictures_.emplace_back((picture + std::to_string(i) + ".png").c_str());
+  }
+  picture += "_fight";
+  for (int i = 1; i <= constants::kNumberOfRaisingHandNpc; i++) {
+    pictures_.emplace_back((picture + std::to_string(i) + ".png").c_str());
+  }
+  pictures_.emplace_back(((picture
+      + std::to_string(constants::kNumberOfRaisingHandNpc)) + ".png").c_str());
+  for (int i = 0; i < (constants::kNumberOfRaisingHandNpc - 1); i++) {
+    pictures_.emplace_back((picture
+        + std::to_string(constants::kNumberOfRaisingHandNpc - i)
+        + ".png").c_str());
+  }
 }
 
 void Npc::Update(const Point& target_position) {
@@ -52,7 +70,9 @@ void Npc::Update(const Point& target_position) {
     }
   }
 
-  Move(direction);
+  if (!is_fighting_) {
+    Move(direction);
+  }
 }
 
 void Npc::Move(const Vector2D& direction) {
@@ -71,17 +91,30 @@ Picture Npc::GetPicture() const {
   output.left_top =
       position_ - Point(constants::kNpcSize / 2., constants::kNpcSize / 2.);
 
-  if (is_moving_right_) {
-    output.picture = pictures_[tick_counter_ / constants::kNpcSpeedCoefficient];
+  if (!is_fighting_) {
+    if (is_moving_right_) {
+      output.picture =
+          pictures_[tick_counter_ / constants::kNpcSpeedCoefficient];
+    } else {
+      output.picture = pictures_[constants::kNumberOfEquallySidedNpc
+          + tick_counter_ / constants::kNpcSpeedCoefficient];
+    }
   } else {
-    output.picture = pictures_[constants::kNumberOfEquallySidedNpc
-        + tick_counter_ / constants::kNpcSpeedCoefficient];
+    if (is_moving_right_) {
+      output.picture = pictures_[constants::kNumberOfNpc
+          + tick_counter_ / constants::kNpcSpeedCoefficient];
+    } else {
+      output.picture = pictures_[constants::kNumberOfEquallySidedNpc
+          + constants::kNumberOfNpc
+          + tick_counter_ / constants::kNpcSpeedCoefficient];
+    }
   }
 
   if (is_born_) {
     output.height = std::max(0, static_cast<int>(std::ceil(
         native_boiler_.lock()->GetPosition().GetY() - position_.GetY()
-        - native_boiler_.lock()->GetHeight() / 2 + constants::kNpcSize / 2)));
+            - native_boiler_.lock()->GetHeight() / 2
+            + constants::kNpcSize / 2)));
 
     long double height_coef =
         static_cast<long double>(output.height) / constants::kNpcSize;
@@ -91,16 +124,6 @@ Picture Npc::GetPicture() const {
         std::ceil(height_coef * output.picture.height()));
   }
   return output;
-}
-
-void Npc::InputPictures(std::string picture) {
-  for (int i = 1; i <= constants::kNumberOfNpc; i++) {
-    pictures_.emplace_back((picture + std::to_string(i) + ".png").c_str());
-  }
-  picture += "_fight";
-  for (int i = 1; i <= constants::kNumberOfFightingNpc; i++) {
-    pictures_.emplace_back((picture + std::to_string(i) + ".png").c_str());
-  }
 }
 
 int Npc::GetCounter() const {
@@ -125,7 +148,7 @@ void Npc::UpdateFieldsIfBorn(const Point& target_position) {
   long double boiler_hit_box_top =
       native_boiler_.lock()->GetPosition().GetY()
           + native_boiler_.lock()->GetHitBox().GetVerticalShift()
-              - native_boiler_.lock()->GetHitBox().GetHeight() / 2;
+          - native_boiler_.lock()->GetHitBox().GetHeight() / 2;
 
   long double visible_height =
       boiler_hit_box_top - position_.GetY() + constants::kNpcSize / 2;
@@ -141,4 +164,28 @@ void Npc::UpdateFieldsIfBorn(const Point& target_position) {
 
 Point Npc::GetSpawnPos() const {
   return native_boiler_.lock()->GetPosition();
+}
+
+void Npc::SetFightingStatus(bool value) {
+  is_fighting_ = value;
+}
+
+bool Npc::IsFighting() const {
+  return is_fighting_;
+}
+
+void Npc::CheckFighting() {
+  if (is_fighting_ && (tick_counter_ + 1 == constants::kNpcSpeedCoefficient
+      * constants::kNumberOfFightingNpc)) {
+    is_fighting_ = false;
+    tick_counter_ = 0;
+  }
+}
+
+void Npc::IncrementCounter() {
+  ++tick_counter_;
+}
+
+void Npc::AttackHero(Hero* hero) const {
+  hero->SetHealthPoints(hero->GetHealthPoints() - constants::kNpcDamage);
 }
