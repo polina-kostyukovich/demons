@@ -54,7 +54,7 @@ const long double kLavaDamage = 0.3;
 const long double kNpcDamage = 5;
 const int kStandingTicksToGetLavaDamage = 50;
 
-const int kTicksBetweenNpcAppearance = 50;
+const int kTicksBetweenNpcAppearance = 100;
 
 const long double kUpperWallCollisionConstant = 30;
 
