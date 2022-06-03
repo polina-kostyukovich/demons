@@ -1,7 +1,6 @@
 #include "view.h"
 
 #include <algorithm>
-#include <string>
 #include <utility>
 #include <QGuiApplication>
 #include <QScreen>
@@ -81,7 +80,7 @@ void View::mousePressEvent(QMouseEvent* event) {
 void View::RenderLevel(int level, QPainter* painter) {
   if (controller_->GetModel().GetHero().GetRenderingLevel() == level) {
     Draw(controller_->GetModel().GetHero().GetPicture(
-             controller_->GetCounter()),
+        controller_->GetCounter()),
          painter);
   }
 
@@ -112,7 +111,7 @@ void View::DrawHeroHealthBar(QPainter* painter) {
 
   long double health_percentage =
       controller_->GetModel().GetHero().GetHealthPoints()
-          / constants::kHeroHealthPoints;
+      / constants::kHeroHealthPoints;
 
   health_percentage = std::max(static_cast<long double> (0), health_percentage);
 
@@ -130,7 +129,7 @@ void View::DrawHeroHealthBar(QPainter* painter) {
 
   long double health_bar_length =
       health_percentage * GetWindowWidth()
-          * constants::kHeroHealthBarWidthCoefficient;
+      * constants::kHeroHealthBarWidthCoefficient;
 
   painter->drawRect(constants::kIndentionAlongXAxis,
                     constants::kIndentionAlongYAxis,
@@ -141,23 +140,22 @@ void View::DrawHeroHealthBar(QPainter* painter) {
 
   long double progress_percentage =
       static_cast<long double> (controller_->GetModel().GetProgress())
-          / constants::kGoalKills;
+      / constants::kGoalKills;
 
   progress_percentage =
       std::min(static_cast<long double> (1), progress_percentage);
 
   long double progress_bar_width =
       GetWindowWidth() * constants::kProgressBarWidthCoefficient
-          * progress_percentage;
+      * progress_percentage;
   painter->drawRect(GetWindowWidth() *
-                        (1 - constants::kProgressBarWidthCoefficient
-                            - constants::kProgressBarIndentionCoefficient),
+                    (1 - constants::kProgressBarWidthCoefficient
+                    - constants::kProgressBarIndentionCoefficient),
                     constants::kIndentionAlongYAxis,
                     progress_bar_width,
                     constants::kProgressBarHeight);
   painter->restore();
 }
-
 void View::LoadPictures() {
   std::string way = ":Resources/Picture/StaticObject/Knife.png";
   knife_ = QPixmap(way.c_str());

@@ -43,7 +43,7 @@ const long double kNpcHitBoxWidthCoefficient = 0.4;
 const long double kFireballHitBoxHeightCoefficient = 0.4;
 const long double kFireballHitBoxWidthCoefficient = 0.6;
 const long double kHeroHealthBarWidthCoefficient = 0.4;
-const long double kProgressBarWidthCoefficient = 0.3;
+const long double kProgressBarWidthCoefficient = 0.5;
 const long double kProgressBarIndentionCoefficient = 0.01;
 
 const long double kHeroHealthPoints = 300;
