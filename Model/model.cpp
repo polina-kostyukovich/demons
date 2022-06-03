@@ -59,3 +59,12 @@ std::vector<GameObject*> Model::GetAllGameObjects() {
   result.emplace_back(&hero_);
   return result;
 }
+int Model::GetProgress() const {
+  return progress_;
+}
+
+void Model::SetProgress(int progress) {
+  progress_ = progress;
+}
+
+
