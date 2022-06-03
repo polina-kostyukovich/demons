@@ -114,7 +114,7 @@ void View::DrawHeroHealthBar(QPainter* painter) {
   health_percentage = std::max(static_cast<long double> (0), health_percentage);
 
   QColor color;
-  if (health_percentage > 0.5) {
+  if (health_percentage - 0.5 > constants::kEpsilon) {
     long double red_color = 255 * (1 - health_percentage) * 2;
     color.setRgb(red_color, 255, 0);
   } else {
