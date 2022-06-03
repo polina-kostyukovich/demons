@@ -49,17 +49,6 @@ void Model::LoadSounds() {
     sounds_[static_cast<Sound>(i)].setAudioOutput(audioOutput);
     sounds_[static_cast<Sound>(i)].setSource(QUrl(names[i].c_str()));
   }
-
-  // sounds_[Sound::kMenuMusic].setLoops(QMediaPlayer::Infinite);
-  // sounds_[Sound::kBackgroundMusic].setLoops(QMediaPlayer::Infinite);
-  // sounds_[Sound::kVictoryMusic].setLoops(QMediaPlayer::Infinite);
-  sounds_[Sound::kDefeatMusic].setLoops(QMediaPlayer::Infinite);
-
-  // sounds_[Sound::kBackgroundMusic].setVolume(0.2);
-  // sounds_[Sound::kHeroShot].setVolume(0.4);
-  // sounds_[Sound::kMenuMusic].setVolume(0.1);
-  // sounds_[Sound::kNpcAppearance].setVolume(0.8);
-  // sounds_[Sound::kNpcHit].setVolume(0.8);
 }
 
 const QMediaPlayer& Model::GetSound(Sound sound) const {
@@ -74,6 +63,19 @@ void Model::SetMuted(bool is_muted) {
   for (int i = 0; i < constants::kNumberOfSounds; ++i) {
     sounds_[static_cast<Sound>(i)].audioOutput()->setMuted(is_muted);
   }
+}
+
+Sound Model::GetCurrentMusic() const {
+  if (sounds_.at(Sound::kMenuMusic).playbackState() == QMediaPlayer::PlayingState) {
+    return Sound::kMenuMusic;
+  }
+  if (sounds_.at(Sound::kVictoryMusic).playbackState() == QMediaPlayer::PlayingState) {
+    return Sound::kVictoryMusic;
+  }
+  if (sounds_.at(Sound::kDefeatMusic).playbackState() == QMediaPlayer::PlayingState) {
+    return Sound::kDefeatMusic;
+  }
+  return Sound::kBackgroundMusic;
 }
 
 std::vector<Fireball>& Model::GetFireballs() {
@@ -108,7 +110,6 @@ std::vector<GameObject*> Model::GetAllGameObjects() {
 int Model::GetProgress() const {
   return progress_;
 }
-
 void Model::SetProgress(int progress) {
   progress_ = progress;
 }

@@ -51,7 +51,7 @@ const long double kHeroHealthPoints = 300;
 const long double kHeroHealthBarHeight = 20;
 const long double kProgressBarHeight = 20;
 
-const int kGoalKills = 20;
+const int kGoalKills = 10;
 const long double kLavaDamage = 0.3;
 const long double kNpcDamage = 5;
 
@@ -65,6 +65,13 @@ const int kIndentionAlongYAxis = 5;
 const double kHealthKnifeIndention = 5.0;
 
 const int kNumberOfSounds = 7;
+
+const int kMusicTickTime = 1000;
+const int kMusicComparisonConstant = 4;
+const int kMenuMusicDuration = 125;
+const int kBackgroundMusicDuration = 82;
+const int kVictoryMusicDuration = 14;
+const int kDefeatMusicDuration = 28;
 }  // namespace constants
 
 #endif  // MODEL_CONSTANTS_H_

@@ -60,6 +60,7 @@ class Controller : public AbstractController {
 
  public slots:
   void TimerTick();
+  void MusicTick();
 
  private:
   Vector2D GetHeroDirection() const;
@@ -70,9 +71,12 @@ class Controller : public AbstractController {
   std::unique_ptr<View> view_;
   CollisionsController collisions_controller_;
   QTimer* timer_{new QTimer(this)};
+  QTimer* music_timer_{new QTimer(this)};
   std::map<int, bool> keys_;
   int counter_{0};
   bool is_sound_on_;
+  int music_counter_{0};
+  Sound current_music_;
 };
 
 #endif  // CONTROLLER_CONTROLLER_H_

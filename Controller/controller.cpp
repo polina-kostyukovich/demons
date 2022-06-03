@@ -29,6 +29,8 @@ void Controller::WriteSettings() {
 void Controller::ConnectTimer() {
   timer_->setInterval(constants::kTickTime);
   connect(timer_, &QTimer::timeout, this, &Controller::TimerTick);
+  music_timer_->setInterval(constants::kMusicTickTime);
+  connect(music_timer_, &QTimer::timeout, this, &Controller::MusicTick);
 }
 
 const Model& Controller::GetModel() const {
@@ -45,7 +47,9 @@ void Controller::Start() {
   model_->LoadSounds();
   model_->SetMuted(!is_sound_on_);
   view_->show();
+  music_timer_->start();
   model_->GetSound(Sound::kMenuMusic).play();
+  current_music_ = Sound::kMenuMusic;
 }
 
 void Controller::StartGame() {
@@ -53,6 +57,8 @@ void Controller::StartGame() {
   timer_->start();
   model_->GetSound(Sound::kMenuMusic).stop();
   model_->GetSound(Sound::kBackgroundMusic).play();
+  music_counter_ = 0;
+  current_music_ = Sound::kBackgroundMusic;
 }
 
 void Controller::NewGame() {
@@ -74,6 +80,8 @@ void Controller::Pause() {
 
   StopGameSounds();
   model_->GetSound(Sound::kMenuMusic).play();
+  music_counter_ = 0;
+  current_music_ = Sound::kMenuMusic;
 }
 
 void Controller::CheckEndOfGame() {
@@ -81,6 +89,8 @@ void Controller::CheckEndOfGame() {
     timer_->stop();
     StopGameSounds();
     model_->GetSound(Sound::kDefeatMusic).play();
+    music_counter_ = 0;
+    current_music_ = Sound::kDefeatMusic;
     view_->ShowDefeatEnd();
     return;
   }
@@ -88,6 +98,7 @@ void Controller::CheckEndOfGame() {
     timer_->stop();
     StopGameSounds();
     model_->GetSound(Sound::kVictoryMusic).play();
+    music_counter_ = 0;
     view_->ShowVictoryEnd();
   }
 }
@@ -96,6 +107,7 @@ void Controller::ShowMenuAfterEndOfGame() {
   model_->GetSound(Sound::kVictoryMusic).stop();
   model_->GetSound(Sound::kDefeatMusic).stop();
   model_->GetSound(Sound::kMenuMusic).play();
+  music_counter_ = 0;
   view_->ShowMenuAfterEndOfGame();
 }
 
@@ -108,9 +120,11 @@ void Controller::ChangeSoundOn() {
   model_->SetMuted(!is_sound_on_);
   model_->GetSound(Sound::kMenuMusic).stop();
   model_->GetSound(Sound::kMenuMusic).play();
+  music_counter_ = 0;
 }
 
 void Controller::HandleKeyPressEvent(QKeyEvent* event) {
+  if (!timer_->isActive()) return;
   if (event->key() == Qt::Key_Space) {
     Pause();
   }
@@ -287,6 +301,47 @@ void Controller::HandleNpcsAttack() {
       model_->GetSound(Sound::kNpcHit).stop();
       model_->GetSound(Sound::kNpcHit).play();
     }
+  }
+}
+
+void Controller::MusicTick() {
+  ++music_counter_;
+  auto current_music = model_->GetCurrentMusic();
+  switch (current_music) {
+    case Sound::kMenuMusic: {
+      if (constants::kMenuMusicDuration - music_counter_ <= constants::kMusicComparisonConstant) {
+        model_->GetSound(current_music).stop();
+        model_->GetSound(current_music).play();
+        music_counter_ = 0;
+      }
+      break;
+    }
+    case Sound::kBackgroundMusic: {
+      if (constants::kBackgroundMusicDuration - music_counter_ <= constants::kMusicComparisonConstant) {
+        model_->GetSound(current_music).stop();
+        model_->GetSound(current_music).play();
+        music_counter_ = 0;
+      }
+      break;
+    }
+    case Sound::kVictoryMusic: {
+      if (constants::kVictoryMusicDuration - music_counter_ <= constants::kMusicComparisonConstant + 5) {
+        model_->GetSound(current_music).stop();
+        model_->GetSound(current_music).play();
+        music_counter_ = 0;
+      }
+      break;
+    }
+    case Sound::kDefeatMusic: {
+      if (constants::kDefeatMusicDuration - music_counter_ <= constants::kMusicComparisonConstant) {
+        model_->GetSound(current_music).stop();
+        model_->GetSound(current_music).play();
+        music_counter_ = 0;
+      }
+      break;
+    }
+    default:
+      return;
   }
 }
 

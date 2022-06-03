@@ -36,6 +36,7 @@ class Model {
   QMediaPlayer& GetSound(Sound sound);
 
   void SetMuted(bool is_muted);
+  Sound GetCurrentMusic() const;
 
   std::vector<Fireball>& GetFireballs();
   const std::vector<Fireball>& GetFireballs() const;
