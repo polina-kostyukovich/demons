@@ -5,6 +5,7 @@
 #include <queue>
 #include <set>
 #include <utility>
+#include <iostream>
 
 Npc::Npc(const Point& position,
          const std::weak_ptr<StaticObject>& native_boiler) :
@@ -30,10 +31,16 @@ void Npc::LoadPictures() {
 }
 
 void Npc::Update(const Point& target_position, const Map& map,
-                 const std::vector<Npc>& npc_list) {
+                 std::vector<Npc>& npc_list) {
   if (is_born_) {
     UpdateFieldsIfBorn(target_position, map, npc_list);
     return;
+  }
+
+  if (position_.GetX() - target_position.GetX() < -constants::kEpsilon) {
+    is_moving_right_ = true;
+  } else {
+    is_moving_right_ = false;
   }
 
   Vector2D raw_direction(position_, target_position);
@@ -183,11 +190,6 @@ bool Npc::CanMove(const Point& new_position, const Map& map,
 
 void Npc::Move(const Vector2D& direction) {
   SetPosition(position_ + direction * constants::kNpcStep);
-  if (direction.GetX() > constants::kEpsilon) {
-    is_moving_right_ = true;
-  } else {
-    is_moving_right_ = false;
-  }
 }
 
 Picture Npc::GetPicture() const {

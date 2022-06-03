@@ -19,7 +19,7 @@ class Npc : public Creature {
   static void LoadPictures();
 
   void Update(const Point& target_position, const Map& map,
-              const std::vector<Npc>& npc_list);
+              std::vector<Npc>& npc_list);
   bool CanMove(const Point& new_position, const Map& map,
                const std::vector<Npc>& npc_list);
   void Move(const Vector2D& direction);

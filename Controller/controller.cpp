@@ -96,6 +96,8 @@ void Controller::TimerTick() {
                                          old_npc_coords,
                                          view_->GetWindowWidth(),
                                          view_->GetWindowHeight());
+
+
   collisions_controller_.PrepareForDrawing(model_);
 
   ++counter_;
