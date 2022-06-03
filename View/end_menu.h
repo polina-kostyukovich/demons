@@ -1,6 +1,7 @@
 #ifndef VIEW_END_MENU_H_
 #define VIEW_END_MENU_H_
 
+#include <memory>
 #include <QGridLayout>
 #include <QPushButton>
 #include <QWidget>
