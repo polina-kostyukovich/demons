@@ -62,6 +62,12 @@ class Npc : public Creature {
         y(new_y),
         weight(new_weight) {}
 
+    Cell& operator=(const Cell& another_cell) {
+      x = another_cell.x;
+      y = another_cell.y;
+      weight = another_cell.weight;
+      return *this;
+    }
     bool operator==(const Cell& another_cell) const;
     bool operator<(const Cell& another_cell) const;
   };
