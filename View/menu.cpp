@@ -8,7 +8,7 @@ Menu::Menu(QWidget* parent) :
     continue_game_button_(new QPushButton(tr(""), this)),
     new_game_button_(new QPushButton(tr(""), this)),
     settings_button_(new QPushButton(this)),
-    exit_button_(new QPushButton(tr("Exit"), this)),
+    exit_button_(new QPushButton(tr(""), this)),
     dropdown_menu_(new QMenu(settings_button_)) {
   LoadPictures();
   continue_game_button_->setVisible(false);
@@ -57,7 +57,6 @@ void Menu::ShowContinueButton(bool is_visible) {
 
 void Menu::LoadPictures() {
   background_picture_ = QPixmap(":Resources/Picture/Menu/hell.jpg");
-  settings_picture_ = QPixmap(":Resources/Picture/Menu/settings.png");
   sound_on_picture_ = QPixmap(":Resources/Picture/Menu/sound_on.png");
   sound_off_picture_ = QPixmap(":Resources/Picture/Menu/sound_off.png");
   language_picture_ = QPixmap(":Resources/Picture/Menu/language.png");
@@ -91,14 +90,22 @@ void Menu::SetButtonsStyle() {
   exit_button_->setFixedSize(90, 80);
 
   new_game_button_->setFixedSize(parentWidget()->width() / 7, 75);
-  QPixmap img(":Resources/Picture/StaticObject/start_button.png");
+  QPixmap img(":Resources/Picture/Menu/start_button.png");
   new_game_button_->setIcon(QIcon(img));
   new_game_button_->setIconSize({parentWidget()->width() / 7, 75});
 
-  QPixmap img2(":Resources/Picture/StaticObject/continue_button.png");
+  QPixmap img2(":Resources/Picture/Menu/continue_button.png");
   continue_game_button_->setFixedSize(parentWidget()->width() / 7, 75);
   continue_game_button_->setIcon(QIcon(img2));
   continue_game_button_->setIconSize({parentWidget()->width() / 7, 75});
+
+  QPixmap img3(":Resources/Picture/Menu/exit_button.png");
+  exit_button_->setIcon(QIcon(img3));
+  exit_button_->setIconSize({100, 90});
+
+  QPixmap img4(":Resources/Picture/Menu/settings_button.png");
+  settings_button_->setIcon(QIcon(img4));
+  settings_button_->setIconSize({90, 80});
 
   QFont font;
   font.setPixelSize(20);
@@ -107,9 +114,6 @@ void Menu::SetButtonsStyle() {
   font.setPixelSize(24);
   continue_game_button_->setFont(font);
   new_game_button_->setFont(font);
-
-  settings_button_->setIcon(QIcon(settings_picture_));
-  settings_button_->setIconSize(QSize(70, 70));
 }
 
 void Menu::CreateDropdownMenu() {
