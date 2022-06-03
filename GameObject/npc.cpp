@@ -43,7 +43,8 @@ void Npc::Update(const Point& hero_position, const Map& map,
 
   Vector2D raw_direction(position_, target_position);
   raw_direction.Normalize();
-  long double length = Point::Distance(position_, target_position);
+  long double length = Point::Distance(position_, target_position) -
+      constants::kEpsilon;
   if (!(length - constants::kNpcStep < -constants::kEpsilon)) {
     length = constants::kNpcStep;
   }
