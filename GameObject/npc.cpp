@@ -48,6 +48,8 @@ void Npc::InputPictures(std::string picture) {
 
 void Npc::Update(const Point& target_position, const Map& map,
                  const std::vector<Npc>& npc_list) {
+  if (is_fighting_) return;
+
   if (is_born_) {
     UpdateFieldsIfBorn(target_position, map, npc_list);
     return;
@@ -188,6 +190,11 @@ bool Npc::CanMove(const Point& new_position, const Map& map,
     return false;
   }
 
+  if (new_position.GetY() - constants::kNpcSize / 2
+        - constants::kHeroHealthBarHeight < constants::kEpsilon) {
+    return false;
+  }
+
   if (map.GetObject(floor(new_position.GetX() / map.GetCellSize().first),
                     floor(new_position.GetY() / map.GetCellSize().second))
                     != nullptr) {
@@ -214,8 +221,6 @@ Picture Npc::GetPicture() const {
   output.width = constants::kNpcSize;
   output.left_top =
       position_ - Point(constants::kNpcSize / 2., constants::kNpcSize / 2.);
-  if (is_moving_right_) {
-    output.picture = pictures_[tick_counter_ / constants::kNpcSpeedCoefficient];
 
   if (!is_fighting_) {
     if (is_moving_right_) {

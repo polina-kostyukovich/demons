@@ -7,10 +7,6 @@
 void NpcController::Update(const Point& hero_position, const Map& map) {
   for (auto& npc : npc_list_) {
     npc.Update(hero_position, map, npc_list_);
-    if (npc.GetCounter() + 1 == constants::kNumberOfNpc *
-        constants::kNpcSpeedCoefficient) {
-      npc.SetCounter(0);
-    npc.Update(hero_position);
     if (!npc.IsFighting()) {
       npc.SetCounter((npc.GetCounter() + 1) % (constants::kNumberOfNpc
           * constants::kNpcSpeedCoefficient));
@@ -89,19 +85,6 @@ void NpcController::CreateNpc(const Point& hero_pos, const Map& map) {
                   - (*our_boiler)->GetHitBox().GetHeight() / 2
                   - constants::kNpcSize * constants::kNpcHitBoxHeightCoefficient
                   + constants::kNpcSize / 2);
-  auto& static_objects = map.GetObjects();
-  auto our_boiler = std::find_if(static_objects.begin(),
-                                 static_objects.end(),
-                                 [&boiler_pos](auto object) {
-                                   return object->GetPosition() == boiler_pos;
-                                 });
-
-  Point npc_pos = boiler_pos +
-      Point(0.,
-            (*our_boiler)->GetHitBox().GetVerticalShift()
-                - (*our_boiler)->GetHitBox().GetHeight() / 2
-                - constants::kNpcSize * constants::kNpcHitBoxHeightCoefficient
-                + constants::kNpcSize / 2);
 
     npc_list_.emplace_back(npc_pos, std::weak_ptr<StaticObject>(*our_boiler));
     if (npc_list_.back().IsCollidedWithNpc(npc_list_)) {
