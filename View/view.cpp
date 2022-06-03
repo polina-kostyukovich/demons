@@ -1,6 +1,7 @@
 #include "view.h"
 
 #include <algorithm>
+#include <string>
 #include <utility>
 #include <QGuiApplication>
 #include <QScreen>
