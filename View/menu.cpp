@@ -5,8 +5,8 @@
 Menu::Menu(QWidget* parent) :
     QWidget(parent),
     layout_(new QGridLayout(this)),
-    continue_game_button_(new QPushButton(tr("Continue game"), this)),
-    new_game_button_(new QPushButton(tr("New game"), this)),
+    continue_game_button_(new QPushButton(tr(""), this)),
+    new_game_button_(new QPushButton(tr(""), this)),
     settings_button_(new QPushButton(this)),
     exit_button_(new QPushButton(tr("Exit"), this)),
     dropdown_menu_(new QMenu(settings_button_)) {
@@ -91,12 +91,13 @@ void Menu::SetButtonsStyle() {
   exit_button_->setFixedSize(90, 80);
 
   new_game_button_->setFixedSize(parentWidget()->width() / 7, 75);
-  QPixmap img(":Resources/Picture/Menu/button.png");
+  QPixmap img(":Resources/Picture/StaticObject/start_button.png");
   new_game_button_->setIcon(QIcon(img));
   new_game_button_->setIconSize({parentWidget()->width() / 7, 75});
 
+  QPixmap img2(":Resources/Picture/StaticObject/continue_button.png");
   continue_game_button_->setFixedSize(parentWidget()->width() / 7, 75);
-  continue_game_button_->setIcon(QIcon(img));
+  continue_game_button_->setIcon(QIcon(img2));
   continue_game_button_->setIconSize({parentWidget()->width() / 7, 75});
 
   QFont font;

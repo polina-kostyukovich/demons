@@ -20,7 +20,8 @@
         <file>Resources/Picture/StaticObject/lava.png</file>
         <file>Resources/Picture/StaticObject/Knife.png</file>
         <file>Resources/Picture/StaticObject/Health.png</file>
-        <file>Resources/Picture/StaticObject/button.png</file>
+        <file>Resources/Picture/StaticObject/continue_button.png</file>
+        <file>Resources/Picture/StaticObject/start_button.png</file>
 
         <file>Resources/Picture/Fireball/born_fireball1.png</file>
         <file>Resources/Picture/Fireball/born_fireball2.png</file>
