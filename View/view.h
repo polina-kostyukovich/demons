@@ -42,11 +42,20 @@ class View : public QMainWindow {
 
   void RenderLevel(int level, QPainter* painter);
 
+  void DrawHeroHealthBar(QPainter* painter);
+
+  void LoadPictures();
+
+  Picture GetHealthPicture() const;
+  Picture GetKnifePicture() const;
+
  private:
   void SetIcon();
 
  private:
   std::shared_ptr<AbstractController> controller_;
+  QPixmap knife_;
+  QPixmap health_;
 
   Menu menu_{this};
   EndMenu end_menu_{this};

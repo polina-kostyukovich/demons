@@ -15,6 +15,8 @@ Hero::Hero(const Point& position) : Creature(position) {
   picture_above_hit_box_.SetVerticalShift(
       -(0.5 - (1. - constants::kHeroHitBoxHeightCoefficient) / 2.)
       * constants::kHeroSize);
+
+  SetHealthPoints(constants::kHeroHealthPoints);
 }
 
 void Hero::LoadPictures() {
@@ -52,8 +54,10 @@ void Hero::Move(const Vector2D& direction,
   if (GetPosition().GetX() > constants::kEpsilon + width) {
     SetPositionX(static_cast<long double>(width));
   }
-  if (GetPosition().GetY() - constants::kHeroSize / 2. < -constants::kEpsilon) {
-    SetPositionY(constants::kHeroSize / 2.);
+  if (GetPosition().GetY() - constants::kHeroSize / 2.
+      - constants::kUpperWallCollisionConstant < -constants::kEpsilon) {
+    SetPositionY(constants::kHeroSize / 2.
+                 + constants::kUpperWallCollisionConstant);
   }
   if (GetPosition().GetY() > constants::kEpsilon + height) {
     SetPositionY(static_cast<long double>(height));
@@ -93,10 +97,22 @@ bool Hero::IsStriking() {
   return is_striking_;
 }
 
-void Hero::SetStriking(bool is_striking) {
+void Hero::SetStrikingStatus(bool is_striking) {
   is_striking_ = is_striking;
 }
 
 Picture Hero::GetPicture() const {
   return Picture();
+}
+
+int Hero::GetStandingTicks() const {
+  return standing_ticks_;
+}
+
+void Hero::SetStandingTicks(int ticks) {
+  standing_ticks_ = ticks;
+}
+
+void Hero::IncrementStandingTicks() {
+  ++standing_ticks_;
 }
