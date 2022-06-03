@@ -70,7 +70,7 @@ const int kMusicTickTime = 1000;
 const int kMusicComparisonConstant = 4;
 const int kMenuMusicDuration = 125;
 const int kBackgroundMusicDuration = 82;
-const int kVictoryMusicDuration = 14;
+const int kVictoryMusicDuration = 20;
 const int kDefeatMusicDuration = 28;
 }  // namespace constants
 

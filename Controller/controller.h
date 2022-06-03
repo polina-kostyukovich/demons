@@ -76,7 +76,6 @@ class Controller : public AbstractController {
   int counter_{0};
   bool is_sound_on_;
   int music_counter_{0};
-  Sound current_music_;
 };
 
 #endif  // CONTROLLER_CONTROLLER_H_

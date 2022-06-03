@@ -49,7 +49,6 @@ void Controller::Start() {
   view_->show();
   music_timer_->start();
   model_->GetSound(Sound::kMenuMusic).play();
-  current_music_ = Sound::kMenuMusic;
 }
 
 void Controller::StartGame() {
@@ -58,7 +57,6 @@ void Controller::StartGame() {
   model_->GetSound(Sound::kMenuMusic).stop();
   model_->GetSound(Sound::kBackgroundMusic).play();
   music_counter_ = 0;
-  current_music_ = Sound::kBackgroundMusic;
 }
 
 void Controller::NewGame() {
@@ -81,7 +79,6 @@ void Controller::Pause() {
   StopGameSounds();
   model_->GetSound(Sound::kMenuMusic).play();
   music_counter_ = 0;
-  current_music_ = Sound::kMenuMusic;
 }
 
 void Controller::CheckEndOfGame() {
@@ -90,7 +87,6 @@ void Controller::CheckEndOfGame() {
     StopGameSounds();
     model_->GetSound(Sound::kDefeatMusic).play();
     music_counter_ = 0;
-    current_music_ = Sound::kDefeatMusic;
     view_->ShowDefeatEnd();
     return;
   }
@@ -309,7 +305,8 @@ void Controller::MusicTick() {
   auto current_music = model_->GetCurrentMusic();
   switch (current_music) {
     case Sound::kMenuMusic: {
-      if (constants::kMenuMusicDuration - music_counter_ <= constants::kMusicComparisonConstant) {
+      if (constants::kMenuMusicDuration - music_counter_
+            <= constants::kMusicComparisonConstant) {
         model_->GetSound(current_music).stop();
         model_->GetSound(current_music).play();
         music_counter_ = 0;
@@ -317,7 +314,8 @@ void Controller::MusicTick() {
       break;
     }
     case Sound::kBackgroundMusic: {
-      if (constants::kBackgroundMusicDuration - music_counter_ <= constants::kMusicComparisonConstant) {
+      if (constants::kBackgroundMusicDuration - music_counter_
+            <= constants::kMusicComparisonConstant) {
         model_->GetSound(current_music).stop();
         model_->GetSound(current_music).play();
         music_counter_ = 0;
@@ -325,7 +323,8 @@ void Controller::MusicTick() {
       break;
     }
     case Sound::kVictoryMusic: {
-      if (constants::kVictoryMusicDuration - music_counter_ <= constants::kMusicComparisonConstant + 5) {
+      if (constants::kVictoryMusicDuration - music_counter_
+            <= constants::kMusicComparisonConstant + 7) {
         model_->GetSound(current_music).stop();
         model_->GetSound(current_music).play();
         music_counter_ = 0;
@@ -333,7 +332,8 @@ void Controller::MusicTick() {
       break;
     }
     case Sound::kDefeatMusic: {
-      if (constants::kDefeatMusicDuration - music_counter_ <= constants::kMusicComparisonConstant) {
+      if (constants::kDefeatMusicDuration - music_counter_
+            <= constants::kMusicComparisonConstant) {
         model_->GetSound(current_music).stop();
         model_->GetSound(current_music).play();
         music_counter_ = 0;
