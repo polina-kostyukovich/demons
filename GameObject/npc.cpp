@@ -149,8 +149,10 @@ void Npc::Update(const Point& hero_position, const Map& map,
 
 bool Npc::CanMove(const Point& new_position, const Map& map,
                   const std::vector<Npc>& npc_list) {
-  int column = floor(new_position.GetX() / map.GetCellSize().first);
-  int row = floor(new_position.GetY() / map.GetCellSize().second);
+  int left_column = floor((new_position.GetX() - GetHitBox().GetWidth() / 2.)
+      / map.GetCellSize().first);
+  int top_row = floor((new_position.GetY() - GetHitBox().GetHeight() / 2.)
+      / map.GetCellSize().second);
 
   int right_column = floor((new_position.GetX() + GetHitBox().GetWidth() / 2.)
       / map.GetCellSize().first);
@@ -158,13 +160,15 @@ bool Npc::CanMove(const Point& new_position, const Map& map,
       / map.GetCellSize().second);
 
 
-  if (row < 0 || column < 0 ||
+  if (top_row < 0 || left_column < 0 ||
       bottom_row >= map.GetRowsNumber() ||
       right_column >= map.GetColumnsNumber()) {
     return false;
   }
 
-  if (map.GetObject(column, row) != nullptr) {
+  if (map.GetObject(floor(new_position.GetX() / map.GetCellSize().first),
+                    floor(new_position.GetY() / map.GetCellSize().second))
+                    != nullptr) {
     return false;
   }
 
