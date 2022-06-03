@@ -16,7 +16,7 @@ jobs:
         run: sudo apt install cppcheck python3-pip -y
         
       - name: install_qt_deps
-        run: sudo apt-get install libgstreamer-plugins-base1.0-dev
+        run: sudo apt-get install libgstreamer-plugins-base1.0-dev -y
 
       - name: Install cpplint
         run: pip3 install cpplint
