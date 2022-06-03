@@ -29,6 +29,7 @@ class Controller : public AbstractController {
   void NewGame() override;
   void Pause();
 
+  void CheckEndOfGame();
   void ShowMenuAfterEndOfGame() override;
 
   void ChangeLanguage(Language language) override;

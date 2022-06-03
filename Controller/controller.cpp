@@ -56,6 +56,18 @@ void Controller::Pause() {
   timer_->stop();
 }
 
+void Controller::CheckEndOfGame() {
+  if (model_->GetHero().GetHealthPoints() < constants::kEpsilon) {
+    timer_->stop();
+    view_->ShowDefeatEnd();
+    return;
+  }
+  if (model_->GetProgress() == constants::kGoalKills) {
+    timer_->stop();
+    view_->ShowVictoryEnd();
+  }
+}
+
 void Controller::ShowMenuAfterEndOfGame() {
   view_->ShowMenuAfterEndOfGame();
 }
@@ -71,9 +83,6 @@ void Controller::ChangeSoundOn() {
 void Controller::HandleKeyPressEvent(QKeyEvent* event) {
   if (event->key() == Qt::Key_Space) {
     Pause();
-  }
-  if (event->key() == Qt::Key_Escape) {
-    view_->ShowDefeatEnd();
   }
   keys_[event->key()] = true;
 }
@@ -119,6 +128,8 @@ void Controller::TimerTick() {
   UpdateFireballsFieldsForDrawing();
 
   view_->repaint();
+
+  CheckEndOfGame();
 }
 
 Vector2D Controller::GetHeroDirection() const {
