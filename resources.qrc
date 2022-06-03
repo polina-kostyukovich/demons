@@ -55,10 +55,12 @@
 
         <file>Resources/Jsons/boilers_data.json</file>
 
-        <file>Resources/Music/appearance.wav</file>
-        <file>Resources/Music/background.wav</file>
-        <file>Resources/Music/hit.wav</file>
-        <file>Resources/Music/menu.wav</file>
-        <file>Resources/Music/shot.wav</file>
+        <file>Resources/Music/appearance.mp3</file>
+        <file>Resources/Music/background.mp3</file>
+        <file>Resources/Music/hit.mp3</file>
+        <file>Resources/Music/menu.mp3</file>
+        <file>Resources/Music/shot.mp3</file>
+        <file>Resources/Music/victory.mp3</file>
+        <file>Resources/Music/defeat.mp3</file>
     </qresource>
 </RCC>

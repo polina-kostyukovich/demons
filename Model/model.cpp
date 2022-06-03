@@ -1,5 +1,7 @@
 #include "model.h"
 
+#include <QAudioOutput>
+
 const Hero& Model::GetHero() const {
   return hero_;
 }
@@ -32,37 +34,45 @@ void Model::LoadPictures() {
 }
 
 void Model::LoadSounds() {
-  sounds_[Sound::kBackgroundMusic].setSource(QUrl("qrc:/Resources/Music/background.wav"));
-  sounds_[Sound::kHeroShot].setSource(QUrl("qrc:/Resources/Music/shot.wav"));
-  sounds_[Sound::kMenuMusic].setSource(QUrl("qrc:/Resources/Music/menu.wav"));
-  sounds_[Sound::kNpcAppearance].setSource(QUrl("qrc:/Resources/Music/appearance.wav"));
-  sounds_[Sound::kNpcHit].setSource(QUrl("qrc:/Resources/Music/hit.wav"));
+  std::vector<std::string> names = {
+        "qrc:/Resources/Music/menu.mp3",
+        "qrc:/Resources/Music/background.mp3",
+        "qrc:/Resources/Music/appearance.mp3",
+        "qrc:/Resources/Music/hit.mp3",
+        "qrc:/Resources/Music/shot.mp3",
+        "qrc:/Resources/Music/victory.mp3",
+        "qrc:/Resources/Music/defeat.mp3",
+  };
 
-  sounds_[Sound::kMenuMusic].setLoopCount(INT_MAX);
-  sounds_[Sound::kBackgroundMusic].setLoopCount(INT_MAX);
-  sounds_[Sound::kNpcHit].setLoopCount(INT_MAX);
+  for (int i = 0; i < constants::kNumberOfSounds; ++i) {
+    auto audioOutput = new QAudioOutput;
+    sounds_[static_cast<Sound>(i)].setAudioOutput(audioOutput);
+    sounds_[static_cast<Sound>(i)].setSource(QUrl(names[i].c_str()));
+  }
 
-  sounds_[Sound::kBackgroundMusic].setVolume(0.2);
-  sounds_[Sound::kHeroShot].setVolume(0.4);
-  sounds_[Sound::kMenuMusic].setVolume(0.1);
-  sounds_[Sound::kNpcAppearance].setVolume(0.8);
-  sounds_[Sound::kNpcHit].setVolume(0.8);
+  sounds_[Sound::kMenuMusic].setLoops(QMediaPlayer::Infinite);
+  sounds_[Sound::kBackgroundMusic].setLoops(QMediaPlayer::Infinite);
+
+  // sounds_[Sound::kBackgroundMusic].setVolume(0.2);
+  // sounds_[Sound::kHeroShot].setVolume(0.4);
+  // sounds_[Sound::kMenuMusic].setVolume(0.1);
+  // sounds_[Sound::kNpcAppearance].setVolume(0.8);
+  // sounds_[Sound::kNpcHit].setVolume(0.8);
 }
 
-const QSoundEffect& Model::GetSound(Sound sound) const {
+const QMediaPlayer& Model::GetSound(Sound sound) const {
   return sounds_.at(sound);
 }
 
-QSoundEffect& Model::GetSound(Sound sound) {
+QMediaPlayer& Model::GetSound(Sound sound) {
   return sounds_.at(sound);
 }
 
 void Model::SetMuted(bool is_muted) {
-  sounds_[Sound::kBackgroundMusic].setMuted(is_muted);
-  sounds_[Sound::kHeroShot].setMuted(is_muted);
-  sounds_[Sound::kMenuMusic].setMuted(is_muted);
-  sounds_[Sound::kNpcAppearance].setMuted(is_muted);
-  sounds_[Sound::kNpcHit].setMuted(is_muted);
+  int current_track = is_muted ? -1 : 0;
+  for (int i = 0; i < constants::kNumberOfSounds; ++i) {
+    sounds_[static_cast<Sound>(i)].setActiveAudioTrack(current_track);
+  }
 }
 
 std::vector<Fireball>& Model::GetFireballs() {

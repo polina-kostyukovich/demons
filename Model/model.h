@@ -5,7 +5,7 @@
 #include <memory>
 #include <utility>
 #include <vector>
-#include <QSoundEffect>
+#include <QMediaPlayer>
 #include <QWidget>
 
 #include "constants.h"
@@ -32,8 +32,8 @@ class Model {
   void LoadPictures();
   void LoadSounds();
 
-  const QSoundEffect& GetSound(Sound sound) const;
-  QSoundEffect& GetSound(Sound sound);
+  const QMediaPlayer& GetSound(Sound sound) const;
+  QMediaPlayer& GetSound(Sound sound);
 
   void SetMuted(bool is_muted);
 
@@ -49,7 +49,7 @@ class Model {
   Map map_;
   NpcController npc_controller_;
   std::vector<Fireball> fireballs_;
-  std::map<Sound, QSoundEffect> sounds_;
+  std::map<Sound, QMediaPlayer> sounds_;
 };
 
 #endif  // MODEL_MODEL_H_

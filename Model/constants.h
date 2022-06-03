@@ -41,6 +41,8 @@ const long double kFireballHitBoxHeightCoefficient = 0.4;
 const long double kFireballHitBoxWidthCoefficient = 0.6;
 
 const int kTicksBetweenNpcAppearance = 100;
+
+const int kNumberOfSounds = 7;
 }  // namespace constants
 
 #endif  // MODEL_CONSTANTS_H_

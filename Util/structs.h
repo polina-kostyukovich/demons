@@ -17,11 +17,13 @@ enum class Language {
 };
 
 enum class Sound {
-  kMenuMusic,
-  kBackgroundMusic,
-  kNpcAppearance,
-  kNpcHit,
-  kHeroShot
+  kMenuMusic = 0,
+  kBackgroundMusic = 1,
+  kNpcAppearance = 2,
+  kNpcHit = 3,
+  kHeroShot = 4,
+  kVictoryMusic = 5,
+  kDefeatMusic = 6,
 };
 
 #endif  // UTIL_STRUCTS_H_

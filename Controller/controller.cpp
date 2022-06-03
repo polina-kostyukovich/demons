@@ -69,7 +69,7 @@ void Controller::Pause() {
   view_->ShowMenu();
   timer_->stop();
 
-  StopMusic();
+  StopGameSounds();
   model_->GetSound(Sound::kMenuMusic).play();
 }
 
@@ -226,9 +226,8 @@ int Controller::GetMaxRenderingLevel() const {
   return result;
 }
 
-void Controller::StopMusic() {
+void Controller::StopGameSounds() {
   model_->GetSound(Sound::kBackgroundMusic).stop();
-  model_->GetSound(Sound::kMenuMusic).stop();
   model_->GetSound(Sound::kHeroShot).stop();
   model_->GetSound(Sound::kNpcHit).stop();
   model_->GetSound(Sound::kNpcAppearance).stop();
