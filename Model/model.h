@@ -47,7 +47,6 @@ class Model {
   int GetProgress() const;
   void SetProgress(int);
 
-
  private:
   Hero hero_;
   Map map_;

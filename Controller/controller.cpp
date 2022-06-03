@@ -79,16 +79,23 @@ void Controller::Pause() {
 void Controller::CheckEndOfGame() {
   if (model_->GetHero().GetHealthPoints() < constants::kEpsilon) {
     timer_->stop();
+    StopGameSounds();
+    model_->GetSound(Sound::kDefeatMusic).play();
     view_->ShowDefeatEnd();
     return;
   }
   if (model_->GetProgress() == constants::kGoalKills) {
     timer_->stop();
+    StopGameSounds();
+    model_->GetSound(Sound::kVictoryMusic).play();
     view_->ShowVictoryEnd();
   }
 }
 
 void Controller::ShowMenuAfterEndOfGame() {
+  model_->GetSound(Sound::kVictoryMusic).stop();
+  model_->GetSound(Sound::kDefeatMusic).stop();
+  model_->GetSound(Sound::kMenuMusic).play();
   view_->ShowMenuAfterEndOfGame();
 }
 
@@ -99,6 +106,8 @@ void Controller::ChangeLanguage(Language language) {
 void Controller::ChangeSoundOn() {
   is_sound_on_ = !is_sound_on_;
   model_->SetMuted(!is_sound_on_);
+  model_->GetSound(Sound::kMenuMusic).stop();
+  model_->GetSound(Sound::kMenuMusic).play();
 }
 
 void Controller::HandleKeyPressEvent(QKeyEvent* event) {
@@ -148,6 +157,7 @@ void Controller::TimerTick() {
   collisions_controller_.PrepareForDrawing(model_);
 
   if (collisions_controller_.SomeoneWasKilled()) {
+    model_->GetSound(Sound::kHeroShot).stop();
     model_->GetSound(Sound::kHeroShot).play();
   }
 
@@ -274,6 +284,8 @@ void Controller::HandleNpcsAttack() {
     if (npc.IsFighting() && npc.GetCounter() ==
         constants::kNpcSpeedCoefficient * constants::kNumberOfRaisingHandNpc) {
       npc.AttackHero(&model_->GetHero());
+      model_->GetSound(Sound::kNpcHit).stop();
+      model_->GetSound(Sound::kNpcHit).play();
     }
   }
 }

@@ -50,8 +50,10 @@ void Model::LoadSounds() {
     sounds_[static_cast<Sound>(i)].setSource(QUrl(names[i].c_str()));
   }
 
-  sounds_[Sound::kMenuMusic].setLoops(QMediaPlayer::Infinite);
-  sounds_[Sound::kBackgroundMusic].setLoops(QMediaPlayer::Infinite);
+  // sounds_[Sound::kMenuMusic].setLoops(QMediaPlayer::Infinite);
+  // sounds_[Sound::kBackgroundMusic].setLoops(QMediaPlayer::Infinite);
+  // sounds_[Sound::kVictoryMusic].setLoops(QMediaPlayer::Infinite);
+  sounds_[Sound::kDefeatMusic].setLoops(QMediaPlayer::Infinite);
 
   // sounds_[Sound::kBackgroundMusic].setVolume(0.2);
   // sounds_[Sound::kHeroShot].setVolume(0.4);
@@ -69,18 +71,19 @@ QMediaPlayer& Model::GetSound(Sound sound) {
 }
 
 void Model::SetMuted(bool is_muted) {
-  int current_track = is_muted ? -1 : 0;
   for (int i = 0; i < constants::kNumberOfSounds; ++i) {
-    sounds_[static_cast<Sound>(i)].setActiveAudioTrack(current_track);
+    sounds_[static_cast<Sound>(i)].audioOutput()->setMuted(is_muted);
   }
 }
 
 std::vector<Fireball>& Model::GetFireballs() {
   return fireballs_;
 }
+
 const std::vector<Fireball>& Model::GetFireballs() const {
   return fireballs_;
 }
+
 void Model::AddFireball(const Fireball& fireball) {
   fireballs_.emplace_back(fireball);
 }
@@ -101,6 +104,7 @@ std::vector<GameObject*> Model::GetAllGameObjects() {
   result.emplace_back(&hero_);
   return result;
 }
+
 int Model::GetProgress() const {
   return progress_;
 }
