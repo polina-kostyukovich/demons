@@ -29,6 +29,9 @@ class Controller : public AbstractController {
   void NewGame() override;
   void Pause();
 
+  void CheckEndOfGame();
+  void ShowMenuAfterEndOfGame() override;
+
   void ChangeLanguage(Language language) override;
   void ChangeSoundOn() override;
 
@@ -45,6 +48,10 @@ class Controller : public AbstractController {
   void UpdateFireballsFieldsForDrawing();
 
   int GetMaxRenderingLevel() const override;
+
+  void HandleHeroAfkStanding(const Point& old_hero_pos);
+
+  void HandleNpcsAttack();
 
  public slots:
   void TimerTick();

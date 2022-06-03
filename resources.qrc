@@ -18,6 +18,8 @@
         <file>Resources/Picture/StaticObject/horizontal_wall.png</file>
         <file>Resources/Picture/StaticObject/vertical_wall.png</file>
         <file>Resources/Picture/StaticObject/lava.png</file>
+        <file>Resources/Picture/StaticObject/Knife.png</file>
+        <file>Resources/Picture/StaticObject/Health.png</file>
 
         <file>Resources/Picture/Fireball/born_fireball1.png</file>
         <file>Resources/Picture/Fireball/born_fireball2.png</file>
@@ -37,6 +39,10 @@
         <file>Resources/Picture/Menu/sound_off.png</file>
         <file>Resources/Picture/Menu/language.png</file>
         <file>Resources/Picture/Menu/settings.png</file>
+        <file>Resources/Picture/Menu/continue_button.png</file>
+        <file>Resources/Picture/Menu/start_button.png</file>
+        <file>Resources/Picture/Menu/exit_button.png</file>
+        <file>Resources/Picture/Menu/settings_button.png</file>
 
          <file>Resources/Picture/Npc/npc_left_fight1.png</file>
          <file>Resources/Picture/Npc/npc_left_fight2.png</file>
@@ -52,6 +58,11 @@
          <file>Resources/Picture/Npc/npc_left2.png</file>
          <file>Resources/Picture/Npc/npc_left3.png</file>
          <file>Resources/Picture/Npc/npc_left4.png</file>
+
+         <file>Resources/Picture/Menu/defeat.jpg</file>
+         <file>Resources/Picture/Menu/victory.jpg</file>
+         <file>Resources/Picture/Menu/icon.png</file>
+         <file>Resources/Picture/Menu/to_menu_button.png</file>
 
         <file>Resources/Jsons/boilers_data.json</file>
     </qresource>

@@ -14,14 +14,14 @@
 class Menu : public QWidget {
  public:
   explicit Menu(QWidget* parent = nullptr);
-  void SetController(const std::shared_ptr<AbstractController>& controller_);
+  void SetController(const std::shared_ptr<AbstractController>& controller);
 
   void ConnectButtons();
   void SetStyle();
 
   void paintEvent(QPaintEvent*) override;
 
-  void ShowContinueButton();
+  void ShowContinueButton(bool is_visible);
 
  private:
   void LoadPictures();

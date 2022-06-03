@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "creature.h"
+#include "hero.h"
 #include "../GameObject/static_object.h"
 #include "../Map/map.h"
 #include "../Util/structs.h"
@@ -28,10 +29,18 @@ class Npc : public Creature {
 
   int GetCounter() const;
   void SetCounter(int counter);
+  void IncrementCounter();
 
   Point GetSpawnPos() const;
 
   bool IsCollidedWithNpc(const std::vector<Npc>& npc_list) const;
+
+  void SetFightingStatus(bool);
+  bool IsFighting() const;
+
+  void CheckFighting();
+
+  void AttackHero(Hero* hero) const;
 
  private:
   static void InputPictures(std::string);
@@ -45,6 +54,7 @@ class Npc : public Creature {
   int tick_counter_{0};
   bool is_born_{true};
   std::weak_ptr<StaticObject> native_boiler_;
+  bool is_fighting_{false};
 
   struct Cell {
     int x;
