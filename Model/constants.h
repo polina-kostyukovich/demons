@@ -44,7 +44,8 @@ const long double kHeroHealthPoints = 300;
 
 const long double kHeroHealthBarHeight = 20;
 const long double kHeroHealthBarWidthCoefficient = 0.4;
-const long double kProgressBarWidthCoefficient = 0.4;
+const long double kProgressBarWidthCoefficient = 0.3;
+const long double kProgressBarHeight = 20;
 
 const int kGoalKills = 20;
 
@@ -53,9 +54,14 @@ const long double kLavaDamage = 0.3;
 const long double kNpcDamage = 5;
 const int kStandingTicksToGetLavaDamage = 50;
 
-const int kTicksBetweenNpcAppearance = 200;
+const int kTicksBetweenNpcAppearance = 50;
 
 const long double kUpperWallCollisionConstant = 30;
+
+const int kIndentionAlongXAxis = 50;
+const int kIndentionAlongYAxis = 5;
+const long double kProgressBarIndentionCoefficient = 0.1;
+
 }  // namespace constants
 
 #endif  // MODEL_CONSTANTS_H_

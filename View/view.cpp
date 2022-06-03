@@ -4,7 +4,6 @@
 #include <utility>
 #include <QGuiApplication>
 #include <QScreen>
-#include <iostream>
 
 View::View() {
   setWindowState(Qt::WindowFullScreen);
@@ -105,21 +104,34 @@ void View::RenderLevel(int level, QPainter* painter) {
 }
 
 void View::DrawHeroHealthBar(QPainter* painter) {
+  painter->save();
   QBrush brush(Qt::SolidPattern);
-  brush.setColor(Qt::green);
-  painter->setBrush(brush);
 
   long double health_percentage =
-      controller_->GetModel().GetHero().GetHealthPoints();
-  health_percentage /= constants::kHeroHealthPoints;
+      controller_->GetModel().GetHero().GetHealthPoints()
+      / constants::kHeroHealthPoints;
 
   health_percentage = std::max(static_cast<long double> (0), health_percentage);
+
+  QColor color;
+  if (health_percentage > 0.5) {
+    long double red_color = 255 * (1 - health_percentage) * 2;
+    color.setRgb(red_color, 255, 0);
+  } else {
+    long double green_color = 255 * health_percentage * 2;
+    color.setRgb(255, green_color, 0);
+  }
+
+  brush.setColor(color);
+  painter->setBrush(brush);
 
   long double health_bar_length =
       health_percentage * GetWindowWidth()
       * constants::kHeroHealthBarWidthCoefficient;
 
-  painter->drawRect(50, 5, health_bar_length, constants::kHeroHealthBarHeight);
+  painter->drawRect(constants::kIndentionAlongXAxis,
+                    constants::kIndentionAlongYAxis,
+                    health_bar_length, constants::kHeroHealthBarHeight);
 
   brush.setColor(Qt::red);
   painter->setBrush(brush);
@@ -129,12 +141,16 @@ void View::DrawHeroHealthBar(QPainter* painter) {
       / constants::kGoalKills;
 
   progress_percentage =
-      std::min(static_cast<long double> (100), progress_percentage);
+      std::min(static_cast<long double> (1), progress_percentage);
 
   long double progress_bar_width =
       GetWindowWidth() * constants::kProgressBarWidthCoefficient
       * progress_percentage;
   painter->drawRect(GetWindowWidth() *
-                    (1 - constants::kProgressBarWidthCoefficient),
-                    5, progress_bar_width, 20);
+                    (1 - constants::kProgressBarWidthCoefficient
+                    - constants::kProgressBarIndentionCoefficient),
+                    constants::kIndentionAlongYAxis,
+                    progress_bar_width,
+                    constants::kProgressBarHeight);
+  painter->restore();
 }
