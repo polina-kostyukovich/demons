@@ -29,6 +29,7 @@ void Controller::Start() {
   model_->GetMap().SetSize(view_->GetWindowWidth(), view_->GetWindowHeight());
   model_->GetMap().LoadBoilers();
   model_->LoadPictures();
+  view_->LoadPictures();
   view_->show();
 }
 

@@ -41,6 +41,8 @@ void View::paintEvent(QPaintEvent* event) {
     RenderLevel(level, &painter);
   }
   DrawHeroHealthBar(&painter);
+  Draw(GetKnifePicture(), &painter);
+  Draw(GetHealthPicture(), &painter);
 }
 
 void View::Draw(const Picture& animation, QPainter* painter) {
@@ -78,25 +80,25 @@ void View::mousePressEvent(QMouseEvent* event) {
 void View::RenderLevel(int level, QPainter* painter) {
   if (controller_->GetModel().GetHero().GetRenderingLevel() == level) {
     Draw(controller_->GetModel().GetHero().GetPicture(
-        controller_->GetCounter()),
+             controller_->GetCounter()),
          painter);
   }
 
   auto& npc_list = controller_->GetModel().GetNpcController().GetNpcList();
-  for (const auto& npc : npc_list) {
+  for (const auto& npc: npc_list) {
     if (npc.GetRenderingLevel() == level) {
       Draw(npc.GetPicture(), painter);
     }
   }
 
   auto& fireballs = controller_->GetModel().GetFireballs();
-  for (const auto& fireball : fireballs) {
+  for (const auto& fireball: fireballs) {
     if (fireball.GetRenderingLevel() == level) {
       Draw(fireball.GetPicture(), painter);
     }
   }
 
-  for (const auto& object : controller_->GetModel().GetMap().GetObjects()) {
+  for (const auto& object: controller_->GetModel().GetMap().GetObjects()) {
     if (object->GetRenderingLevel() == level) {
       Draw(object->GetPicture(), painter);
     }
@@ -109,7 +111,7 @@ void View::DrawHeroHealthBar(QPainter* painter) {
 
   long double health_percentage =
       controller_->GetModel().GetHero().GetHealthPoints()
-      / constants::kHeroHealthPoints;
+          / constants::kHeroHealthPoints;
 
   health_percentage = std::max(static_cast<long double> (0), health_percentage);
 
@@ -127,7 +129,7 @@ void View::DrawHeroHealthBar(QPainter* painter) {
 
   long double health_bar_length =
       health_percentage * GetWindowWidth()
-      * constants::kHeroHealthBarWidthCoefficient;
+          * constants::kHeroHealthBarWidthCoefficient;
 
   painter->drawRect(constants::kIndentionAlongXAxis,
                     constants::kIndentionAlongYAxis,
@@ -138,19 +140,49 @@ void View::DrawHeroHealthBar(QPainter* painter) {
 
   long double progress_percentage =
       static_cast<long double> (controller_->GetModel().GetProgress())
-      / constants::kGoalKills;
+          / constants::kGoalKills;
 
   progress_percentage =
       std::min(static_cast<long double> (1), progress_percentage);
 
   long double progress_bar_width =
       GetWindowWidth() * constants::kProgressBarWidthCoefficient
-      * progress_percentage;
+          * progress_percentage;
   painter->drawRect(GetWindowWidth() *
-                    (1 - constants::kProgressBarWidthCoefficient
-                    - constants::kProgressBarIndentionCoefficient),
+                        (1 - constants::kProgressBarWidthCoefficient
+                            - constants::kProgressBarIndentionCoefficient),
                     constants::kIndentionAlongYAxis,
                     progress_bar_width,
                     constants::kProgressBarHeight);
   painter->restore();
+}
+
+void View::LoadPictures() {
+  std::string way = ":Resources/Picture/StaticObject/Knife.png";
+  knife_ = QPixmap(way.c_str());
+  way = ":Resources/Picture/StaticObject/Health.png";
+  health_ = QPixmap(way.c_str());
+}
+
+Picture View::GetHealthPicture() const {
+  Picture output;
+  output.left_top =
+      Point(constants::kHealthKnifeIndention, constants::kHealthKnifeIndention);
+  output.picture = health_;
+  output.width = constants::kHealthSize;
+  output.height = constants::kHealthSize;
+  return output;
+}
+
+Picture View::GetKnifePicture() const {
+  Picture output;
+  output.left_top = Point(
+      GetWindowWidth() * (1 - constants::kProgressBarWidthCoefficient
+          - constants::kProgressBarIndentionCoefficient)
+          - constants::kHealthKnifeIndention - constants::kKnifeSize,
+      constants::kHealthKnifeIndention);
+  output.picture = knife_;
+  output.width = constants::kKnifeSize;
+  output.height = constants::kKnifeSize;
+  return output;
 }
