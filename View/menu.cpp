@@ -64,11 +64,11 @@ void Menu::LoadPictures() {
 }
 
 void Menu::SetLayout() {
-  layout_->addWidget(continue_game_button_, 1, 2, 1, 2, Qt::AlignBottom);
-  layout_->addWidget(new_game_button_, 2, 2, 1, 2, Qt::AlignTop);
-  layout_->addWidget(settings_button_, 3, 4, 1, 1,
+  layout_->addWidget(continue_game_button_, 1, 3, 1, 2, Qt::AlignBottom);
+  layout_->addWidget(new_game_button_, 2, 3, 1, 2, Qt::AlignTop);
+  layout_->addWidget(settings_button_, 3, 5, 1, 1,
                      Qt::AlignVCenter | Qt::AlignRight);
-  layout_->addWidget(exit_button_, 3, 5, 1, 1, Qt::AlignCenter);
+  layout_->addWidget(exit_button_, 3, 6, 1, 1, Qt::AlignCenter);
 
   layout_->setColumnStretch(0, 1);
   layout_->setColumnStretch(1, 1);
@@ -76,6 +76,7 @@ void Menu::SetLayout() {
   layout_->setColumnStretch(3, 1);
   layout_->setColumnStretch(4, 1);
   layout_->setColumnStretch(5, 1);
+  layout_->setColumnStretch(6, 1);
 
   layout_->setRowStretch(0, 1);
   layout_->setRowStretch(1, 1);
@@ -88,8 +89,15 @@ void Menu::SetLayout() {
 void Menu::SetButtonsStyle() {
   settings_button_->setFixedSize(90, 80);
   exit_button_->setFixedSize(90, 80);
-  continue_game_button_->setMinimumSize(200, 75);
-  new_game_button_->setMinimumSize(200, 75);
+
+  new_game_button_->setFixedSize(parentWidget()->width() / 7, 75);
+  QPixmap img(":Resources/Picture/Menu/button.png");
+  new_game_button_->setIcon(QIcon(img));
+  new_game_button_->setIconSize({parentWidget()->width() / 7, 75});
+
+  continue_game_button_->setFixedSize(parentWidget()->width() / 7, 75);
+  continue_game_button_->setIcon(QIcon(img));
+  continue_game_button_->setIconSize({parentWidget()->width() / 7, 75});
 
   QFont font;
   font.setPixelSize(20);
