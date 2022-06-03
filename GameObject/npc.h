@@ -19,9 +19,9 @@ class Npc : public Creature {
   static void LoadPictures();
 
   void Update(const Point& target_position, const Map& map,
-              std::vector<Npc>& npc_list);
+              const std::vector<Npc>& npc_list);
   bool CanMove(const Point& new_position, const Map& map,
-               std::vector<Npc>& npc_list);
+               const std::vector<Npc>& npc_list);
   void Move(const Vector2D& direction);
 
   Picture GetPicture() const;
@@ -31,13 +31,13 @@ class Npc : public Creature {
 
   Point GetSpawnPos() const;
 
-  bool IsCollidedWithNpc(std::vector<Npc>& npc_list) const;
+  bool IsCollidedWithNpc(const std::vector<Npc>& npc_list) const;
 
  private:
   static void InputPictures(std::string);
 
   void UpdateFieldsIfBorn(const Point& target_position, const Map& map,
-                          std::vector<Npc>& npc_list);
+                          const std::vector<Npc>& npc_list);
 
  private:
   static inline std::vector<QPixmap> pictures_;
@@ -46,7 +46,7 @@ class Npc : public Creature {
   bool is_born_{true};
   std::weak_ptr<StaticObject> native_boiler_;
 
- public:struct Cell {
+  struct Cell {
     int x;
     int y;
     long double weight;

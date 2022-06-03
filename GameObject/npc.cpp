@@ -33,7 +33,7 @@ void Npc::LoadPictures() {
 }
 
 void Npc::Update(const Point& hero_position, const Map& map,
-                 std::vector<Npc>& npc_list) {
+                 const std::vector<Npc>& npc_list) {
   Point target_position = hero_position;
 
   if (is_born_) {
@@ -148,7 +148,7 @@ void Npc::Update(const Point& hero_position, const Map& map,
 }
 
 bool Npc::CanMove(const Point& new_position, const Map& map,
-                  std::vector<Npc>& npc_list) {
+                  const std::vector<Npc>& npc_list) {
   int column = floor(new_position.GetX() / map.GetCellSize().first);
   int row = floor(new_position.GetY() / map.GetCellSize().second);
 
@@ -228,7 +228,7 @@ void Npc::SetCounter(int counter) {
 }
 
 void Npc::UpdateFieldsIfBorn(const Point& target_position, const Map& map,
-                             std::vector<Npc>& npc_list) {
+                             const std::vector<Npc>& npc_list) {
   position_ -= Point(0, constants::kNpcStep);
   if (IsCollidedWithNpc(npc_list)) {
     position_ += Point(0, constants::kNpcStep);
@@ -264,7 +264,7 @@ Point Npc::GetSpawnPos() const {
   return native_boiler_.lock()->GetPosition();
 }
 
-bool Npc::IsCollidedWithNpc(std::vector<Npc>& npc_list) const {
+bool Npc::IsCollidedWithNpc(const std::vector<Npc>& npc_list) const {
   for (const auto& npc : npc_list) {
     if (position_ == npc.position_) {
       continue;
