@@ -13,8 +13,8 @@ void CollisionsController::CheckCollisions(
   CheckFireballsWithWalls(model, window_width, window_height);
   CheckHeroAndStaticObjects(model, old_hero_pos);
   CheckFireballsAndStaticObjects(model);
-  CheckFireballsAndNpcs(model);
   CheckHeroAndNpcs(model, old_hero_pos, old_npcs_pos);
+  CheckFireballsAndNpcs(model);
 }
 
 void CollisionsController::PrepareForDrawing(

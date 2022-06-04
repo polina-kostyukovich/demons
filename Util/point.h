@@ -24,6 +24,7 @@ class Point {
 
   bool operator==(const Point& another_point) const;
   bool operator!=(const Point& another_point) const;
+  bool operator<(const Point& another_point) const;
 
   Point& operator=(const Point& another_point);
   Point& operator=(Point&& another_point);

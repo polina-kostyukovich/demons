@@ -9,7 +9,7 @@
 class NpcController {
  public:
   NpcController() = default;
-  void Update(const Point& hero_position);
+  void Update(const Point& hero_position, const Map& map);
 
   const std::vector<Npc>& GetNpcList() const;
   std::vector<Npc>& GetNpcList();
