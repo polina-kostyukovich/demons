@@ -4,6 +4,7 @@
 #include <cassert>
 #include <utility>
 #include <vector>
+#include <QSettings>
 
 void Controller::SetModel(std::unique_ptr<Model>&& model) {
   assert(model != nullptr);
@@ -15,9 +16,21 @@ void Controller::SetView(std::unique_ptr<View>&& view) {
   view_ = std::move(view);
 }
 
+void Controller::ReadSettings() {
+  QSettings settings("Merciless procrastinators", "Demons");
+  is_sound_on_ = settings.value("IsSoundOn", true).toBool();
+}
+
+void Controller::WriteSettings() {
+  QSettings settings("Merciless procrastinators", "Demons");
+  settings.setValue("IsSoundOn", is_sound_on_);
+}
+
 void Controller::ConnectTimer() {
   timer_->setInterval(constants::kTickTime);
   connect(timer_, &QTimer::timeout, this, &Controller::TimerTick);
+  music_timer_->setInterval(constants::kMusicTickTime);
+  connect(music_timer_, &QTimer::timeout, this, &Controller::MusicTick);
 }
 
 const Model& Controller::GetModel() const {
@@ -25,17 +38,25 @@ const Model& Controller::GetModel() const {
 }
 
 void Controller::Start() {
+  ReadSettings();
   view_->CreateMenus();
   model_->GetMap().SetSize(view_->GetWindowWidth(), view_->GetWindowHeight());
   model_->GetMap().LoadBoilers();
   model_->LoadPictures();
   view_->LoadPictures();
+  model_->LoadSounds();
+  model_->SetMuted(!is_sound_on_);
   view_->show();
+  music_timer_->start();
+  model_->GetSound(Sound::kMenuMusic).play();
 }
 
 void Controller::StartGame() {
   view_->ShowGame();
   timer_->start();
+  model_->GetSound(Sound::kMenuMusic).stop();
+  model_->GetSound(Sound::kBackgroundMusic).play();
+  music_counter_ = 0;
 }
 
 void Controller::NewGame() {
@@ -54,21 +75,35 @@ void Controller::NewGame() {
 void Controller::Pause() {
   view_->ShowMenu();
   timer_->stop();
+
+  StopGameSounds();
+  model_->GetSound(Sound::kMenuMusic).play();
+  music_counter_ = 0;
 }
 
 void Controller::CheckEndOfGame() {
   if (model_->GetHero().GetHealthPoints() < constants::kEpsilon) {
     timer_->stop();
+    StopGameSounds();
+    model_->GetSound(Sound::kDefeatMusic).play();
+    music_counter_ = 0;
     view_->ShowDefeatEnd();
     return;
   }
   if (model_->GetProgress() == constants::kGoalKills) {
     timer_->stop();
+    StopGameSounds();
+    model_->GetSound(Sound::kVictoryMusic).play();
+    music_counter_ = 0;
     view_->ShowVictoryEnd();
   }
 }
 
 void Controller::ShowMenuAfterEndOfGame() {
+  model_->GetSound(Sound::kVictoryMusic).stop();
+  model_->GetSound(Sound::kDefeatMusic).stop();
+  model_->GetSound(Sound::kMenuMusic).play();
+  music_counter_ = 0;
   view_->ShowMenuAfterEndOfGame();
 }
 
@@ -77,10 +112,15 @@ void Controller::ChangeLanguage(Language language) {
 }
 
 void Controller::ChangeSoundOn() {
-  // todo
+  is_sound_on_ = !is_sound_on_;
+  model_->SetMuted(!is_sound_on_);
+  model_->GetSound(Sound::kMenuMusic).stop();
+  model_->GetSound(Sound::kMenuMusic).play();
+  music_counter_ = 0;
 }
 
 void Controller::HandleKeyPressEvent(QKeyEvent* event) {
+  if (!timer_->isActive()) return;
   if (event->key() == Qt::Key_Space) {
     Pause();
   }
@@ -95,6 +135,10 @@ int Controller::GetCounter() const {
   return counter_;
 }
 
+bool Controller::IsSoundOn() const {
+  return is_sound_on_;
+}
+
 void Controller::TimerTick() {
   model_->GetNpcController().IncrementTickCounter();
   if (model_->GetNpcController().NeedToCreateNpc()) {
@@ -102,6 +146,7 @@ void Controller::TimerTick() {
                                          model_->GetMap());
     model_->GetNpcController().CreateNpc(model_->GetHero().GetPosition(),
                                          model_->GetMap());
+    model_->GetSound(Sound::kNpcAppearance).play();
   }
 
   Point old_hero_position = model_->GetHero().GetPosition();
@@ -120,8 +165,12 @@ void Controller::TimerTick() {
                                          view_->GetWindowWidth(),
                                          view_->GetWindowHeight());
 
-
   collisions_controller_.PrepareForDrawing(model_);
+
+  if (collisions_controller_.SomeoneWasKilled()) {
+    model_->GetSound(Sound::kHeroShot).stop();
+    model_->GetSound(Sound::kHeroShot).play();
+  }
 
   ++counter_;
   counter_ %= constants::kHeroSpeedCoefficient * constants::kNumberOfAnimation;
@@ -247,6 +296,60 @@ void Controller::HandleNpcsAttack() {
     if (npc.IsFighting() && npc.GetCounter() ==
         constants::kNpcSpeedCoefficient * constants::kNumberOfRaisingHandNpc) {
       npc.AttackHero(&model_->GetHero());
+      model_->GetSound(Sound::kNpcHit).stop();
+      model_->GetSound(Sound::kNpcHit).play();
     }
   }
+}
+
+void Controller::MusicTick() {
+  ++music_counter_;
+  auto current_music = model_->GetCurrentMusic();
+  switch (current_music) {
+    case Sound::kMenuMusic: {
+      if (constants::kMenuMusicDuration - music_counter_
+            <= constants::kMusicComparisonConstant) {
+        model_->GetSound(current_music).stop();
+        model_->GetSound(current_music).play();
+        music_counter_ = 0;
+      }
+      break;
+    }
+    case Sound::kBackgroundMusic: {
+      if (constants::kBackgroundMusicDuration - music_counter_
+            <= constants::kMusicComparisonConstant) {
+        model_->GetSound(current_music).stop();
+        model_->GetSound(current_music).play();
+        music_counter_ = 0;
+      }
+      break;
+    }
+    case Sound::kVictoryMusic: {
+      if (constants::kVictoryMusicDuration - music_counter_
+            <= constants::kMusicComparisonConstant + 7) {
+        model_->GetSound(current_music).stop();
+        model_->GetSound(current_music).play();
+        music_counter_ = 0;
+      }
+      break;
+    }
+    case Sound::kDefeatMusic: {
+      if (constants::kDefeatMusicDuration - music_counter_
+            <= constants::kMusicComparisonConstant) {
+        model_->GetSound(current_music).stop();
+        model_->GetSound(current_music).play();
+        music_counter_ = 0;
+      }
+      break;
+    }
+    default:
+      return;
+  }
+}
+
+void Controller::StopGameSounds() {
+  model_->GetSound(Sound::kBackgroundMusic).stop();
+  model_->GetSound(Sound::kHeroShot).stop();
+  model_->GetSound(Sound::kNpcHit).stop();
+  model_->GetSound(Sound::kNpcAppearance).stop();
 }

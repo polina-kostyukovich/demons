@@ -32,12 +32,6 @@ class Menu : public QWidget {
   void CreateDropdownMenu();
 
  private:
-  enum class Sound {
-    kOn,
-    kOff,
-  };
-
- private:
   std::shared_ptr<AbstractController> controller_;
 
   QGridLayout* layout_;
@@ -53,7 +47,6 @@ class Menu : public QWidget {
   QPixmap sound_on_picture_;
   QPixmap sound_off_picture_;
   QPixmap language_picture_;
-  Sound sound_state_;
 };
 
 #endif  // VIEW_MENU_H_

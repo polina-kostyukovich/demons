@@ -19,6 +19,9 @@ class Controller : public AbstractController {
   void SetModel(std::unique_ptr<Model>&& model);
   void SetView(std::unique_ptr<View>&& view);
 
+  void ReadSettings();
+  void WriteSettings() override;
+
   void ConnectTimer();
 
   const Model& GetModel() const override;
@@ -40,6 +43,8 @@ class Controller : public AbstractController {
 
   int GetCounter() const override;
 
+  bool IsSoundOn() const override;
+
   void HandleMousePressEvent(QMouseEvent* event) override;
 
   void MoveObjects();
@@ -55,17 +60,22 @@ class Controller : public AbstractController {
 
  public slots:
   void TimerTick();
+  void MusicTick();
 
  private:
   Vector2D GetHeroDirection() const;
+  void StopGameSounds();
 
  private:
   std::unique_ptr<Model> model_;
   std::unique_ptr<View> view_;
   CollisionsController collisions_controller_;
   QTimer* timer_{new QTimer(this)};
+  QTimer* music_timer_{new QTimer(this)};
   std::map<int, bool> keys_;
   int counter_{0};
+  bool is_sound_on_;
+  int music_counter_{0};
 };
 
 #endif  // CONTROLLER_CONTROLLER_H_

@@ -65,5 +65,13 @@
          <file>Resources/Picture/Menu/to_menu_button.png</file>
 
         <file>Resources/Jsons/boilers_data.json</file>
+
+        <file>Resources/Music/appearance.mp3</file>
+        <file>Resources/Music/background.mp3</file>
+        <file>Resources/Music/hit.mp3</file>
+        <file>Resources/Music/menu.mp3</file>
+        <file>Resources/Music/shot.mp3</file>
+        <file>Resources/Music/victory.mp3</file>
+        <file>Resources/Music/defeat.mp3</file>
     </qresource>
 </RCC>
