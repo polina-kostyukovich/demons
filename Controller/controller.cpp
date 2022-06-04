@@ -165,7 +165,6 @@ void Controller::TimerTick() {
                                          view_->GetWindowWidth(),
                                          view_->GetWindowHeight());
 
-
   collisions_controller_.PrepareForDrawing(model_);
 
   if (collisions_controller_.SomeoneWasKilled()) {

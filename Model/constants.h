@@ -5,12 +5,10 @@ namespace constants {
 const long double kEpsilon = 1e-9;
 const long double kCollisionEpsilon = 0.5;
 const long double kClose = 3;
-const long double kMaxDistance = 1e9;
-const long double kDirectionStep = 0.2;
 
 const int kTickTime = 20;
-const long double kHeroStep = 9;
-const long double kNpcStep = 7;
+const long double kHeroStep = 8;
+const long double kNpcStep = 5;
 const long double kFireballSpeed = 20;
 
 const int kHeroSize = 120;
@@ -53,7 +51,7 @@ const long double kHeroHealthPoints = 300;
 const long double kHeroHealthBarHeight = 20;
 const long double kProgressBarHeight = 20;
 
-const int kGoalKills = 10;
+const int kGoalKills = 75;
 const long double kLavaDamage = 0.3;
 const long double kNpcDamage = 5;
 
